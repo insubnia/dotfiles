@@ -27,12 +27,11 @@ ELF			= $(TAR_DIR)$(TAR_NAME).elf
 MAP			= $(BLD_DIR)$(TAR_NAME).map
 
 CFLAGS		= -W -Wall -MMD $(OPT) \
-			  -fdiagnostics-color -std=c99 -fpermissive
+			  -fdiagnostics-color -std=c99
 CXXFLAGS	= -W -Wall -MMD $(OPT) \
 			  -fdiagnostics-color -fpermissive
 #LDFLAGS		= Wl, -Map=$(MAP)
-LDFLAGS		= \
-			  -fdiagnostics-color
+LDFLAGS		+= -fdiagnostics-color
 
 TARS	= $(addprefix $(TAR_DIR)$(TAR_NAME)., $(TAR_EXT))
 CSRCS	= $(wildcard $(SRC_DIR)*.c)
