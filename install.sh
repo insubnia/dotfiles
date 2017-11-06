@@ -17,6 +17,7 @@ do
     sudo apt-get install -y $p > /dev/null
     echo -e "Done!"
 done < <(cat << EOF
+   git
    gnome-terminal
    tree
    make
