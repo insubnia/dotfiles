@@ -38,6 +38,10 @@ nnoremap <F3>    :NERDTreeToggle<CR>
 nnoremap <F4>    :TlistToggle<CR>
 nnoremap <F5>    <C-w>=
 nnoremap Y  y$
+nnoremap n  nzz
+nnoremap N  Nzz
+nnoremap *  *zz
+nnoremap #  #zz
 inoremap <C-h>  <Left>
 inoremap <C-j>  <Down>
 inoremap <C-k>  <Up>
