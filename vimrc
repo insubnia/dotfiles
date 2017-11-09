@@ -20,13 +20,11 @@ set autoindent
 set smartindent
 set cindent
 set vb noeb     " visual bell instead of beep
-set tm=500 ttm=0    " to leave insert mode without delay
+set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
 
 " Autocompletion
 set completeopt=longest,noselect,menuone
-set omnifunc=syntaxcomplete#Complete
-autocmd FileType py set omnifunc=python3complete#Complete
 
 " Cursor shape
 let &t_SI = "\e[5 q"    " Start Insert mode
