@@ -40,12 +40,8 @@ nnoremap n  nzz
 nnoremap N  Nzz
 nnoremap *  *zz
 nnoremap #  #zz
-inoremap <C-h>  <Left>
-inoremap <C-j>  <Down>
-inoremap <C-k>  <Up>
-inoremap <C-l>  <Right>
-inoremap <C-b>  <C-Left>
-inoremap <C-f>  <C-Right>
+inoremap <C-b>  <Left>
+inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
