@@ -1,5 +1,5 @@
 # SIS MAKEFILE
-CROSS	= 
+CROSS	=
 CC		= $(CROSS)gcc
 CXX		= $(CROSS)g++
 LD		= $(CXX)
@@ -8,9 +8,9 @@ LD		= $(CXX)
 SIZE	= $(CROSS)size
 OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
-RM		= rm -f 
+RM		= rm -f
 
-MCU		= 
+MCU		=
 OPT		= -O2
 
 SRC_DIR		= src/
@@ -35,9 +35,9 @@ LDFLAGS		+= -fdiagnostics-color
 
 TARS	= $(addprefix $(TAR_DIR)$(TAR_NAME)., $(TAR_EXT))
 CSRCS	= $(wildcard $(SRC_DIR)*.c)
-COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS)) 
+COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
 CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
-CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS)) 
+CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
 OBJS	= $(COBJS) $(CXXOBJS)
 DEPS	= $(OBJS:.o=*.d)
 
