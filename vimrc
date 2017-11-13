@@ -32,8 +32,8 @@ let &t_EI = "\e[0 q"    " End Insert mode
 
 " Key mapping
 nnoremap <F2>    :!ctags -R -I --languages=C,C++ --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-nnoremap <F3>    :NERDTreeToggle<CR>
-nnoremap <F4>    :TlistToggle<CR>
+nnoremap <F3>    :NERDTreeToggle<CR><C-w>=
+nnoremap <F4>    :TlistToggle<CR><C-w>=
 nnoremap <F5>    <C-w>=
 nnoremap Y  y$
 nnoremap n  nzz
@@ -92,6 +92,7 @@ let g:airline#extensions#branch#enabled=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
+set splitright
 
 " taglist settings
 let Tlist_Use_Right_Window=1
