@@ -18,7 +18,6 @@ do
     echo -e "Done!"
 done < <(cat << EOF
    git
-   gnome-terminal
    tree
    make
    cmake
@@ -52,8 +51,4 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
 fi
 
 echo -e "\n[Installation complete!!]\n"
-
-#export DISPLAY=:0
-#source /usr/share/powerline/bindings/bash/powerline.sh
-#alias python='usr/bin/python3'
 

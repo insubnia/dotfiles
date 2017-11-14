@@ -5,3 +5,4 @@ function job_indicator() {
     fi
 }
 
+alias python='usr/bin/python3'

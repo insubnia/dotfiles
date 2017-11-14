@@ -75,6 +75,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'taglist-plus'
 Plugin 'nanotech/jellybeans.vim'
 
@@ -93,6 +94,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
 set splitright
+
+" NERDCommenter settings
+let g:NERDSpaceDelims=1
+let g:NERDCompactSexyComs=1
+let g:NERDDefaultAlign='left'
+let g:NERDCommentEmptyLines=1
+let g:NERDTrimTrailingWhitespace=1
+"let mapleader=","
 
 " taglist settings
 let Tlist_Use_Right_Window=1
