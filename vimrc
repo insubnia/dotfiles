@@ -35,11 +35,13 @@ nnoremap <F2>   :!ctags -R -I --languages=C,C++ --c++-kinds=+p --fields=+iaS --e
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TlistToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
+nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
 nnoremap Y  y$
 nnoremap n  nzz
 nnoremap N  Nzz
 nnoremap *  *zz
 nnoremap #  #zz
+nnoremap <C-]>  g<C-]>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
