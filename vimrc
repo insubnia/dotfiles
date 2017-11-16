@@ -22,6 +22,7 @@ set cindent
 set vb noeb     " visual bell instead of beep
 set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
+set wildignore=tags,*.so,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst
 
 " Autocompletion
 set completeopt=longest,noselect,menuone
@@ -78,6 +79,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'kien/ctrlp.vim'
 Plugin 'taglist-plus'
 Plugin 'nanotech/jellybeans.vim'
 
@@ -95,6 +97,7 @@ let g:airline#extensions#branch#enabled=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
+" let g:NERDTreeIgnore=['\.pyc$','\.pyo$','\.o$','\.d$','\.elf$','\.bin$','\.hex$','\.swp$','\tags$']
 set splitright
 
 " NERDCommenter settings
@@ -104,6 +107,13 @@ let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
 "let mapleader=","
+
+" CtrlP settings
+" let g:ctrlp_custom_ignore = {
+"             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"             \ 'file': '\v\.(exe|so|dll)$',
+"             \ 'link': 'some_bad_symbolic_links',
+"             \ }
 
 " taglist settings
 let Tlist_Use_Right_Window=1
