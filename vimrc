@@ -22,7 +22,7 @@ set cindent
 set vb noeb     " visual bell instead of beep
 set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
-set wildignore=tags,*.so,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst
+set wildignore=tags,*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst
 
 " Autocompletion
 set completeopt=longest,noselect,menuone
@@ -94,11 +94,12 @@ let g:airline_theme='murmur'
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 
-" NERDTree settings 
+" NERDTree settings
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
-" let g:NERDTreeIgnore=['\.pyc$','\.pyo$','\.o$','\.d$','\.elf$','\.bin$','\.hex$','\.swp$','\tags$']
+let g:NERDTreeRespectWildIgnore=1
+let g:NERDTreeShowHidden=1
 set splitright
 
 " NERDCommenter settings
@@ -107,14 +108,11 @@ let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
-"let mapleader=","
 
 " CtrlP settings
-" let g:ctrlp_custom_ignore = {
-"             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"             \ 'file': '\v\.(exe|so|dll)$',
-"             \ 'link': 'some_bad_symbolic_links',
-"             \ }
+let g:ctrlp_by_filename=0
+let g:ctrlp_show_hidden=1
+" let g:ctrlp_wildignore=1
 
 " taglist settings
 let Tlist_Use_Right_Window=1
