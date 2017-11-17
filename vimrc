@@ -32,6 +32,7 @@ let &t_SI = "\e[5 q"    " Start Insert mode
 let &t_EI = "\e[0 q"    " End Insert mode
 
 " Key mapping
+noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :!ctags -R -I --languages=C,C++ --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TlistToggle<CR><C-w>=
