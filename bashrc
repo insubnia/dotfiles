@@ -6,3 +6,4 @@ function job_indicator() {
 }
 
 alias python='usr/bin/python3'
+alias grep='grep --color=auto --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn}'
