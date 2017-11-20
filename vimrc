@@ -22,7 +22,7 @@ set cindent
 set vb noeb     " visual bell instead of beep
 set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
-set wildignore=tags,*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst
+set wildignore=tags,*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn
 
 " Autocompletion
 set completeopt=longest,noselect,menuone
@@ -35,7 +35,7 @@ let &t_EI = "\e[0 q"    " End Insert mode
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :!ctags -R -I --languages=C,C++ --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
-nnoremap <F4>   :TlistToggle<CR><C-w>=
+nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
 nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
 nnoremap Y  y$
@@ -68,6 +68,7 @@ function! s:py_init()
 endfunction
 autocmd BufNewFile *.py call <SID>py_init()
 
+autocmd FileType help wincmd L
 
 " Plugin settings using Vundle
 filetype off
@@ -81,7 +82,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
-Plugin 'taglist-plus'
+Plugin 'majutsushi/tagbar'
 Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()
@@ -114,8 +115,9 @@ let g:ctrlp_by_filename=0
 let g:ctrlp_show_hidden=1
 " let g:ctrlp_wildignore=1
 
-" taglist settings
-let Tlist_Use_Right_Window=1
+" tagbar settings
+let g:tagbar_autofocus=1
+let g:tagbar_sort=1
 
 " Color settings with bundle theme (type help highlight in order to see color list)
 if has("gui_running")
