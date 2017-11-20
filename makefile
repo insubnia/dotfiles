@@ -1,14 +1,20 @@
 # SIS MAKEFILE
-CROSS	=
+TARGET	= $(notdir $(CURDIR))
+
+CROSS	= # i686-w64-mingw32-
 CC		= $(CROSS)gcc
 CXX		= $(CROSS)g++
 LD		= $(CXX)
 #LD		= $(CROSS)ld
-
 SIZE	= $(CROSS)size
 OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
+
+ELF		= $(TAR_DIR)$(TARGET).elf
+BIN		= $(TAR_DIR)$(TARGET).bin
+HEX		= $(TAR_DIR)$(TARGET).hex
+MAP		= $(BLD_DIR)$(TARGET).map
 
 MCU		=
 OPT		= -O2
@@ -21,19 +27,13 @@ TAR_DIR		= ./
 INC_DIR		:= $(addprefix -I, $(INC_DIR))
 LIB_DIR		:= $(addprefix -L, $(LIB_DIR))
 
-TAR_NAME	= $(notdir $(CURDIR))
-TAR_EXT		= #bin exe
-ELF			= $(TAR_DIR)$(TAR_NAME).elf
-MAP			= $(BLD_DIR)$(TAR_NAME).map
-
 CFLAGS		= -W -Wall -MMD $(OPT) \
 			  -fdiagnostics-color -std=c99
 CXXFLAGS	= -W -Wall -MMD $(OPT) \
 			  -fdiagnostics-color -fpermissive
-#LDFLAGS		= Wl, -Map=$(MAP)
+# LDFLAGS		= Wl, -Map=$(MAP)
 LDFLAGS		+= -fdiagnostics-color
 
-TARS	= $(addprefix $(TAR_DIR)$(TAR_NAME)., $(TAR_EXT))
 CSRCS	= $(wildcard $(SRC_DIR)*.c)
 COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
 CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
@@ -49,19 +49,24 @@ test:
 	@echo $(CXXFLAGS)
 	@echo $(LDFLAGS)
 
-all: $(ELF) #$(TARS)
+all: $(ELF) $(BIN) $(HEX)
+	@echo Size of image
+	@$(SIZE) $<
 	@echo MAKE COMPLETE!!
 
-$(TARS): $(ELF)
-	@echo Making target
+$(BIN): $(ELF)
+	@echo Making Binary from $(<F)
 	@$(OBJCOPY) -O binary $< $@
+
+$(HEX): $(ELF)
+	@echo Making Intel hex from $(<F)
+	@$(OBJCOPY) -O ihex $< $@
 
 $(ELF): $(OBJS)
 	@mkdir -p $(TAR_DIR)
 	@echo Linking $(@F)
 	@$(LD) -o $@ $^ $(LDFLAGS) $(LIB_DIR)
-	@echo Size of $(@F)
-	@$(SIZE) $@
+	@$(LD) -o $(TARGET).exe $^ $(LDFLAGS) $(LIB_DIR)
 
 $(COBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(BLD_DIR)
@@ -75,5 +80,5 @@ $(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
 
 clean:
 	@echo Removing files
-	@$(RM) $(ELF) $(OBJS) $(DEPS) $(TARS) $(MAP)
+	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP) $(TARGET).exe
 
