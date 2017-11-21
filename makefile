@@ -7,13 +7,13 @@ CXX		= $(CROSS)g++
 LD		= $(CXX)
 #LD		= $(CROSS)ld
 SIZE	= $(CROSS)size
-OBJCOPY	= $(CROSS)objcopy
+OBJCOPY	= $(CROSS)objcopy		# Find target architecture, typing objcopy --help
 OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
 
 ELF		= $(TAR_DIR)$(TARGET).elf
-BIN		= $(TAR_DIR)$(TARGET).bin
-HEX		= $(TAR_DIR)$(TARGET).hex
+BIN		= $(BLD_DIR)$(TARGET).bin
+HEX		= $(BLD_DIR)$(TARGET).hex
 MAP		= $(BLD_DIR)$(TARGET).map
 
 MCU		=
@@ -66,7 +66,6 @@ $(ELF): $(OBJS)
 	@mkdir -p $(TAR_DIR)
 	@echo Linking $(@F)
 	@$(LD) -o $@ $^ $(LDFLAGS) $(LIB_DIR)
-	@$(LD) -o $(TARGET).exe $^ $(LDFLAGS) $(LIB_DIR)
 
 $(COBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(BLD_DIR)
