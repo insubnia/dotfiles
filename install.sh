@@ -25,14 +25,14 @@ done < <(cat << EOF
    exuberant-ctags
    fonts-nanum-coding
    python3
+   python3-tk
 EOF
 )
 
 # Python package install
 while read -r p
 do
-    echo -e "Installing python package $p"
-    sudo apt-get install -y python3-$p > /dev/null
+    echo -e "Installing python package - $p"
     sudo -H python3 -mpip install -U $p > /dev/null
     echo -e "Done!"
 done < <(cat << EOF
@@ -40,9 +40,9 @@ done < <(cat << EOF
     numpy
     scipy
     matplotlib
+    python-config
 EOF
 )
-sudo -H python3 -mpip install -U python-config
 
 # Vundle install
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
