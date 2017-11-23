@@ -22,10 +22,10 @@ set cindent
 set vb noeb     " visual bell instead of beep
 set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
-set wildignore=tags,*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn
+set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn
 
 " Autocompletion
-set completeopt=longest,noselect,menuone
+set completeopt=menuone,noselect
 
 " Cursor shape
 let &t_SI = "\e[5 q"    " Start Insert mode
@@ -33,7 +33,7 @@ let &t_EI = "\e[0 q"    " End Insert mode
 
 " Key mapping
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-nnoremap <F2>   :!ctags -R -I --languages=C,C++ --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <F2>   :UpdateTags<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
@@ -83,6 +83,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()
@@ -118,6 +120,13 @@ let g:ctrlp_show_hidden=1
 " tagbar settings
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
+
+" easytags settings
+set cpoptions+=d
+set tags=./tags
+let g:easytags_autorecurse=1
+let g:easytags_dynamic_files=2
+let g:easytags_events=['BufWinEnter']
 
 " Color settings with bundle theme (type help highlight in order to see color list)
 if has("gui_running")
