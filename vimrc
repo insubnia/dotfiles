@@ -23,6 +23,8 @@ set vb noeb     " visual bell instead of beep
 set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn
+set noswapfile
+set nobackup
 
 " Autocompletion
 set completeopt=menuone,noselect
@@ -38,6 +40,9 @@ nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
 nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
+nnoremap Q  <nop>
+nnoremap J  <nop>
+nnoremap K  <nop>
 nnoremap Y  y$
 nnoremap n  nzz
 nnoremap N  Nzz
