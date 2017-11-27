@@ -8,19 +8,19 @@ set ic          " case insensitive search
 set smartcase   " don't use ic when there is Capital letter
 set hlsearch    " hilight search
 set incsearch   " show search matches as type
-set mouse=a		" enalbe cursor move with mouse
+set mouse=a     " enalbe cursor move with mouse
 set ts=4        " size of \t character (tab stop)
-set sw=4		" tab size, when use <<, >>
-set sts=4		" how many spaces, when type tab (soft tab stop)
-set ls=2		" last window's status line option
-set expandtab smarttab
-set autowrite	" Automatically :write before running commands
+set sw=4        " tab size, when use <<, >>
+set sts=4       " how many spaces, when type tab (soft tab stop)
+set et sta      " set expandtab, smarttab
+" set list listchars=tab:\|\ ,
+set list listchars=tab:>-,
+set ai si cindent   " set autoindent, smartindent, cindent
+set tm=1000 ttm=0   " to leave insert mode without delay
+set ls=2        " last window's status line option
+set autowrite   " Automatically :write before running commands
 set autoread    " Auto read when a file is changed on disk
-set autoindent
-set smartindent
-set cindent
 set vb noeb     " visual bell instead of beep
-set tm=1000 ttm=0    " to leave insert mode without delay
 set encoding=utf8
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn
 
@@ -38,6 +38,8 @@ nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
 nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
+nnoremap j  gj
+nnoremap k  gk
 nnoremap Y  y$
 nnoremap n  nzz
 nnoremap N  Nzz
@@ -49,7 +51,7 @@ inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
-autocmd FileType c,h,cpp,hpp inoremap {<ENTER>		{}<Left><ENTER><ENTER><UP><TAB>
+autocmd FileType c,h,cpp,hpp inoremap {<ENTER>      {}<Left><ENTER><ENTER><UP><TAB>
 
 " Save and load former states
 autocmd BufWinLeave ?* mkview
@@ -57,8 +59,8 @@ autocmd BufWinEnter ?* silent loadview
 
 " C/C++ header
 function! s:header()
-	let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
-	exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
+    let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
+    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>header()
 
@@ -130,9 +132,9 @@ let g:easytags_events=['BufWinEnter']
 
 " Color settings with bundle theme (type help highlight in order to see color list)
 if has("gui_running")
-	colo industry   " industry, torte, koehler
+    colo industry   " industry, torte, koehler
 else
-	colo slate      " slate, koehler, ron, elflord, pablo
+    colo slate      " slate, koehler, ron, elflord, pablo
 endif
 colo jellybeans
 highlight linenr        ctermfg=brown ctermbg=NONE
