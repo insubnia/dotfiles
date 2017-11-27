@@ -79,5 +79,5 @@ $(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
 
 clean:
 	@echo Removing files
-	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP) $(TARGET).exe
+	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP)
 

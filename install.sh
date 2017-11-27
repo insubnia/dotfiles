@@ -15,12 +15,13 @@ while read -r p
 do
     echo -e "Installing $p"
     sudo apt-get install -y $p > /dev/null
-    echo -e "Done!"
 done < <(cat << EOF
    git
    tree
    make
    cmake
+   ctags
+   cscope
    powerline
    exuberant-ctags
    fonts-nanum-coding
@@ -34,7 +35,6 @@ while read -r p
 do
     echo -e "Installing python package - $p"
     sudo -H python3 -mpip install -U $p > /dev/null
-    echo -e "Done!"
 done < <(cat << EOF
     pip
     numpy
