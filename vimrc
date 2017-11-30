@@ -90,9 +90,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'nanotech/jellybeans.vim'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
-Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -129,13 +129,6 @@ let g:ctrlp_show_hidden=1
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
 
-" easytags settings
-set cpoptions+=d
-set tags=./tags
-let g:easytags_autorecurse=1
-let g:easytags_dynamic_files=2
-let g:easytags_events=['BufWinEnter']
-
 " Color settings with bundle theme (type help highlight in order to see color list)
 if has("gui_running")
     colo industry   " industry, torte, koehler
@@ -143,7 +136,20 @@ else
     colo slate      " slate, koehler, ron, elflord, pablo
 endif
 colo jellybeans
-highlight linenr        ctermfg=brown ctermbg=NONE
-highlight cursorlinenr  ctermfg=green ctermbg=NONE
-highlight cursorline    cterm=underline
+hi linenr       ctermfg=brown ctermbg=NONE
+hi cursorlinenr ctermfg=green ctermbg=NONE
+hi cursorline   cterm=underline
+
+" easytags settings
+set cpoptions+=d
+set tags=./tags
+let g:easytags_autorecurse=1
+let g:easytags_dynamic_files=2
+let g:easytags_auto_highlight=1
+let g:easytags_python_enabled=1
+let g:easytags_include_members=1
+let g:easytags_events=['BufWinEnter']
+let g:easytags_opt=['-R --extra=+q --fields=+l']
+
+hi cMemberTag   ctermfg=darkcyan
 
