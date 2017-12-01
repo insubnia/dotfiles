@@ -75,12 +75,14 @@ function! s:py_init()
 endfunction
 autocmd BufNewFile *.py call <SID>py_init()
 
-" Highlight function
+" Highlight function (type :help highlight to see color list)
 function! s:myhighlight()
     hi linenr       ctermfg=brown ctermbg=NONE
     hi cursorlinenr ctermfg=green ctermbg=NONE
     hi cursorline   cterm=underline
-    hi cMemberTag   ctermfg=darkcyan
+    if (g:easytags_include_members == 1)
+        hi cMemberTag   ctermfg=darkcyan
+    endif
 endfunction
 autocmd ColorScheme * call <SID>myhighlight()
 
@@ -102,6 +104,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
+Plugin 'dracula/vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -144,15 +148,15 @@ set tags=./tags
 let g:easytags_autorecurse=1
 let g:easytags_dynamic_files=2
 let g:easytags_auto_highlight=1
-let g:easytags_python_enabled=1
-let g:easytags_include_members=1
+let g:easytags_include_members=0
 let g:easytags_events=['BufWinEnter']
 let g:easytags_opt=['-R --extra=+q --fields=+l']
 
-" Color settings with bundle theme (type help highlight in order to see color list)
-if has("gui_running")
-    colo industry   " industry, torte, koehler
-else
-    colo slate      " slate, koehler, ron, elflord, pablo
-endif
-colo jellybeans
+" Color settings with bundle theme 
+" if has("gui_running")
+"     colo industry   " industry, torte, koehler
+" else
+"     colo slate      " slate, koehler, ron, elflord, pablo
+" endif
+colo molokai
+
