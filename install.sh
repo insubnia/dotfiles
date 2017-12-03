@@ -27,6 +27,7 @@ done < <(cat << EOF
    fonts-nanum-coding
    python3
    python3-tk
+   # libboost-all-dev
 EOF
 )
 
