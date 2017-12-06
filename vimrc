@@ -22,7 +22,7 @@ set autowrite   " Automatically :write before running commands
 set autoread    " Auto read when a file is changed on disk
 set vb noeb     " visual bell instead of beep
 set encoding=utf8
-set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn
+set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg
 set noswapfile
 set nobackup
 
@@ -150,7 +150,7 @@ let g:easytags_dynamic_files=2
 let g:easytags_auto_highlight=1
 let g:easytags_include_members=0
 let g:easytags_opt=['-R --extra=+q --fields=+l']
-" let g:easytags_events=['BufWinEnter']
+let g:easytags_events=[]
 au BufWinEnter ?* call xolox#easytags#highlight()
 
 " Color settings with bundle theme 
