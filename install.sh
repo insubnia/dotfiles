@@ -22,6 +22,7 @@ done < <(cat << EOF
    cmake
    ctags
    cscope
+   xclip
    powerline
    exuberant-ctags
    fonts-nanum-coding
