@@ -56,6 +56,7 @@ inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
+vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
