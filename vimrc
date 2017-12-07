@@ -56,20 +56,22 @@ inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
-autocmd FileType c,h,cpp,hpp inoremap {<ENTER>      {}<Left><ENTER><ENTER><UP><TAB>
+vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
 " Save and load former states
 autocmd BufWinLeave ?* mkview
 autocmd BufWinEnter ?* silent loadview
 
-" C/C++ header
+" C/C++ formatting
 function! s:header()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>header()
+autocmd FileType c,h,cpp,hpp inoremap {<ENTER>      {}<Left><ENTER><ENTER><UP><TAB>
 
-" Python header
+" Python formatting
 function! s:py_init()
     exe "norm! i\n\n\ndef main():\npass\n\n\eIif __name__ == \"__main__\":\n\tmain()\n\egg"
 endfunction
