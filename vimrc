@@ -13,18 +13,18 @@ set ts=4        " size of \t character (tab stop)
 set sw=4        " tab size, when use <<, >>
 set sts=4       " how many spaces, when type tab (soft tab stop)
 set et sta      " set expandtab, smarttab
-" set list listchars=tab:\|\ ,
-set list listchars=tab:>-,
 set ai si cindent   " set autoindent, smartindent, cindent
 set tm=1000 ttm=0   " to leave insert mode without delay
 set ls=2        " last window's status line option
 set autowrite   " Automatically :write before running commands
 set autoread    " Auto read when a file is changed on disk
 set vb noeb     " visual bell instead of beep
+set wildmenu    " enhanced command-line completion
+" set list listchars=tab:\|\ ,
+set list listchars=tab:>-,
 set encoding=utf8
+set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg
-set noswapfile
-set nobackup
 
 " Autocompletion
 set completeopt=menuone,noselect
