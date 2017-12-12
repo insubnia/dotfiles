@@ -39,7 +39,8 @@ nnoremap <F2>   :UpdateTags<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
-nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
+nnoremap <F8>   :ts /
+nnoremap <F9>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
 nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
