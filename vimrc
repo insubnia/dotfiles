@@ -34,7 +34,7 @@ let &t_SI = "\e[5 q"    " Start Insert mode
 let &t_EI = "\e[0 q"    " End Insert mode
 
 " Key mapping
-noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
+nnoremap <C-_>  :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :UpdateTags<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
@@ -61,10 +61,6 @@ vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))
 vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
-" Save and load former states
-" autocmd BufWinLeave ?* mkview
-" autocmd BufWinEnter ?* silent loadview
-
 " C/C++ formatting
 function! s:header()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
@@ -89,6 +85,9 @@ function! s:myhighlight()
     endif
 endfunction
 autocmd ColorScheme * call <SID>myhighlight()
+
+" Jump to the last position when reopening a file
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 autocmd FileType help wincmd L
 
@@ -155,7 +154,7 @@ let g:easytags_auto_highlight=1
 let g:easytags_include_members=0
 let g:easytags_opt=['-R --extra=+q --fields=+l']
 let g:easytags_events=[]
-au BufWinEnter ?* call xolox#easytags#highlight()
+au BufWinEnter * call xolox#easytags#highlight()
 
 " Color settings with bundle theme 
 " if has("gui_running")
