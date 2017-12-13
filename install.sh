@@ -46,11 +46,5 @@ done < <(cat << EOF
 EOF
 )
 
-# Vundle install
-if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-    echo -e cloning Vundle\n
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null
-fi
-
 echo -e "\n[Installation complete!!]\n"
 
