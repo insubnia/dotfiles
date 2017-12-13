@@ -62,8 +62,8 @@ vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))
 nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
 " Save and load former states
-autocmd BufWinLeave ?* mkview
-autocmd BufWinEnter ?* silent loadview
+" autocmd BufWinLeave ?* mkview
+" autocmd BufWinEnter ?* silent loadview
 
 " C/C++ formatting
 function! s:header()
@@ -71,7 +71,7 @@ function! s:header()
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>header()
-autocmd FileType c,h,cpp,hpp inoremap {<ENTER>      {}<Left><ENTER><ENTER><UP><TAB>
+autocmd FileType c,cpp inoremap {<ENTER>      {<ENTER>}<UP><END><ENTER>
 
 " Python formatting
 function! s:py_init()
