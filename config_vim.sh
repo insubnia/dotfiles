@@ -4,14 +4,14 @@
 if [ ! -e ~/.vimrc ]; then
     cd ~
     ln -s ~/workspace/dotfiles/vimrc .vimrc
-    cd - > dev/null
+    cd - > /dev/null
 fi
 
 # Making symbolic link
 if [ ! -d ~/.vim/after ]; then
     cd ~/.vim/
     ln -s ~/workspace/dotfiles/after/ after
-    cd - > dev/null
+    cd - > /dev/null
 fi
 
 # Vundle install
