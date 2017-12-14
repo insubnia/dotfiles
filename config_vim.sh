@@ -1,16 +1,20 @@
 # configuration for VIM
 
-# Making symbolic link of .vimrc
+DIR=$PWD
+
+# Making symbolic link of vimrc
 if [ ! -e ~/.vimrc ]; then
+    echo -e making vimrc symlink\n
     cd ~
-    ln -s ~/workspace/dotfiles/vimrc .vimrc
+    ln -s $DIR/vimrc .vimrc
     cd - > /dev/null
 fi
 
-# Making symbolic link
+# Making symbolic link of after directory
 if [ ! -d ~/.vim/after ]; then
+    echo -e making after symlink\n
     cd ~/.vim/
-    ln -s ~/workspace/dotfiles/after/ after
+    ln -s $DIR/after/ after
     cd - > /dev/null
 fi
 
