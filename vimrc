@@ -49,12 +49,17 @@ nnoremap n  nzz
 nnoremap N  Nzz
 nnoremap *  *zz
 nnoremap #  #zz
+nnoremap dw diw
+nnoremap yw yiw
 nnoremap <C-]>  g<C-]>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
+cnoremap <C-g>  s///g<Left><Left><Left>
+cnoremap <C-b>  <Left>
+cnoremap <C-f>  <Right>
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
@@ -77,14 +82,14 @@ autocmd BufNewFile *.py call <SID>py_init()
 
 " Highlight function (type :help highlight to see color list)
 function! s:myhighlight()
-    hi linenr       ctermfg=brown ctermbg=NONE
-    hi cursorlinenr ctermfg=green ctermbg=NONE
+    " hi linenr       ctermfg=brown ctermbg=NONE
+    " hi cursorlinenr ctermfg=green ctermbg=NONE
     hi cursorline   cterm=underline
     if (g:easytags_include_members == 1)
         hi cMemberTag   ctermfg=darkcyan
     endif
 endfunction
-" autocmd ColorScheme * call <SID>myhighlight()
+autocmd ColorScheme * call <SID>myhighlight()
 
 " Initial settings
 function! s:myinit()
