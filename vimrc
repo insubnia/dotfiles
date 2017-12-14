@@ -86,8 +86,13 @@ function! s:myhighlight()
 endfunction
 autocmd ColorScheme * call <SID>myhighlight()
 
-" Jump to the last position when reopening a file
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" Initial settings
+function! s:myinit()
+    " Jump to the last position
+    if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    :retab
+endfunction
+autocmd BufReadPost * call <SID>myinit()
 
 autocmd FileType help wincmd L
 
