@@ -84,7 +84,7 @@ function! s:myhighlight()
         hi cMemberTag   ctermfg=darkcyan
     endif
 endfunction
-autocmd ColorScheme * call <SID>myhighlight()
+" autocmd ColorScheme * call <SID>myhighlight()
 
 " Initial settings
 function! s:myinit()
@@ -121,7 +121,7 @@ filetype plugin indent on
 " airline settings
 set laststatus=2
 let g:airline#extensions#tabline#enabled=1    " turn on buffer list
-let g:airline_theme='murmur'
+let g:airline_theme='dracula'
 let g:airline_powerline_fonts=1
 let g:airline#extensions#branch#enabled=1
 
@@ -161,11 +161,5 @@ let g:easytags_opt=['-R --extra=+q --fields=+l']
 let g:easytags_events=[]
 au BufWinEnter * call xolox#easytags#highlight()
 
-" Color settings with bundle theme 
-" if has("gui_running")
-"     colo industry   " industry, torte, koehler
-" else
-"     colo slate      " slate, koehler, ron, elflord, pablo
-" endif
-colo molokai
+colo dracula
 
