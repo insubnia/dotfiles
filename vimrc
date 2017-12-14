@@ -25,8 +25,6 @@ set list listchars=tab:>-,
 set encoding=utf8
 set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg
-
-" Autocompletion
 set completeopt=menuone,noselect
 
 " Cursor shape
@@ -34,7 +32,7 @@ let &t_SI = "\e[5 q"    " Start Insert mode
 let &t_EI = "\e[0 q"    " End Insert mode
 
 " Key mapping
-nnoremap <C-_>  :call NERDComment(0, "toggle")<CR>
+noremap <C-_>   :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :UpdateTags<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
@@ -57,9 +55,11 @@ inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
+nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 
 " C/C++ formatting
 function! s:header()
