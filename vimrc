@@ -95,7 +95,7 @@ autocmd ColorScheme * call <SID>myhighlight()
 function! s:myinit()
     " Jump to the last position
     if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-    if &modifiable | :retab | endif
+    " if &modifiable | :retab | endif
 endfunction
 autocmd BufReadPost * call <SID>myinit()
 
