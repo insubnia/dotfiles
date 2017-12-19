@@ -144,7 +144,10 @@ let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
-let g:NERDAltDelims_c=1
+" let g:NERDAltDelims_c=0
+let g:NERDCustomDelimiters = {
+            \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \}
 
 " CtrlP settings
 let g:ctrlp_by_filename=0
