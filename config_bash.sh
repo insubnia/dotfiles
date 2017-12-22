@@ -2,7 +2,6 @@
 
 BASHRC=~/.bashrc
 MY_TAG="# sis bashrc"
-TAG_FLAG=0
 
 chmod a+rwx $BASHRC
 
@@ -29,18 +28,17 @@ EOF
 
 function clear_config() {
     line_num="$(grep -nh "$MY_TAG" $BASHRC | cut -d: -f1)"
-
     if [ -n "$line_num" ]; then
-        sed -ie ''${line_num}',$d' $BASHRC > /dev/null
+        sed -ie ''${line_num}',$d' $BASHRC
     fi
-
     source $BASHRC
 }
 
-function set_config() {
-    if [ $TAG_FLAG -ne 1 ]; then
+function append_config() {
+    if ! grep -q "$MY_TAG" $BASHRC; then
         echo "$my_config" >> $BASHRC
     fi
+    source $BASHRC
 }
 
 echo MODE
@@ -50,12 +48,10 @@ echo 3. Do nothing
 read -p "Select mode: " mode
 echo
 
-if (grep -q "$MY_TAG" $BASHRC); then TAG_FLAG=1; fi
-
 case "$mode" in
     1)
         $(clear_config)
-        $(set_config)
+        $(append_config)
         ;;
     2)
         $(clear_config)
