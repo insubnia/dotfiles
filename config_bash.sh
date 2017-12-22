@@ -28,7 +28,12 @@ EOF
 )
 
 function clear_config() {
-    # Delete below $MYTAG
+    line_num="$(grep -nh "$MY_TAG" $BASHRC | cut -d: -f1)"
+
+    if [ -n "$line_num" ]; then
+        sed -ie ''${line_num}',$d' $BASHRC > /dev/null
+    fi
+
     source $BASHRC
 }
 
