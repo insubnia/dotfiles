@@ -16,19 +16,21 @@ do
     echo -e "Installing $p"
     sudo apt-get install -y $p > /dev/null
 done < <(cat << EOF
-   git
-   tree
-   make
-   cmake
-   ctags
-   cscope
-   xclip
-   powerline
-   exuberant-ctags
-   fonts-nanum-coding
-   python3
-   python3-tk
-   libboost-all-dev
+    gcc
+    git
+    tree
+    make
+    cmake
+    ctags
+    cscope
+    xclip
+    powerline
+    exuberant-ctags
+    fonts-nanum-coding
+    python3
+    python3-tk
+    python3-pip
+    libboost-all-dev
 EOF
 )
 
@@ -38,7 +40,6 @@ do
     echo -e "Installing python package - $p"
     sudo -H python3 -mpip install -U $p > /dev/null
 done < <(cat << EOF
-    pip
     numpy
     scipy
     matplotlib
