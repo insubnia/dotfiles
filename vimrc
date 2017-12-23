@@ -9,19 +9,18 @@ set smartcase   " don't use ic when there is Capital letter
 set hlsearch    " hilight search
 set incsearch   " show search matches as type
 set mouse=a     " enalbe cursor move with mouse
-set ts=4        " size of \t character (tab stop)
-set sw=4        " tab size, when use <<, >>
-set sts=4       " how many spaces, when type tab (soft tab stop)
-set et sta      " set expandtab, smarttab
-set ai si cindent   " set autoindent, smartindent, cindent
+set smarttab    " insert tabs on the start of a line according to shiftwidth, not tabstop
+set expandtab   " replace tab to space
+set ai si cin   " set autoindent, smartindent, cindent
+set ls=2        " statusline option
+set ts=4 sw=4 sts=4 " tab size
 set tm=1000 ttm=0   " to leave insert mode without delay
-set ls=2        " last window's status line option
 set autowrite   " Automatically :write before running commands
 set autoread    " Auto read when a file is changed on disk
 set vb noeb     " visual bell instead of beep
 set wildmenu    " enhanced command-line completion
-" set list listchars=tab:\|\ ,
-set list listchars=tab:>-,
+set list        " display characters
+set listchars=tab:\|\ ,
 set encoding=utf8
 set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg
