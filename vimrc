@@ -100,6 +100,16 @@ autocmd BufReadPost * call MyInit()
 
 autocmd FileType help wincmd L
 
+function! TS()      " Tab to space
+    set expandtab
+    %retab
+endfunction
+
+function! ST()      " Space to tab
+    set noexpandtab
+    %retab!
+endfunction
+
 " Plugin settings using Vundle
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
