@@ -23,7 +23,7 @@ set list        " display characters
 set listchars=tab:\|\ ,
 set encoding=utf8
 set noswapfile nobackup
-set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg
+set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__
 set completeopt=menuone,noselect
 
 " Cursor shape
