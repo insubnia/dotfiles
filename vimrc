@@ -66,21 +66,21 @@ vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))
 nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 
 " C/C++ formatting
-function! s:header()
+function! MyC()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
-autocmd BufNewFile *.{h,hpp} call <SID>header()
+autocmd BufNewFile *.{h,hpp} call MyC()
 autocmd FileType c,cpp inoremap {<ENTER>      {<ENTER>}<UP><END><ENTER>
 
 " Python formatting
-function! s:py_init()
+function! MyPy()
     exe "norm! i\n\n\ndef main():\npass\n\n\eIif __name__ == \"__main__\":\n\tmain()\n\egg"
 endfunction
-autocmd BufNewFile *.py call <SID>py_init()
+autocmd BufNewFile *.py call MyPy()
 
 " Highlight function (type :help highlight to see color list)
-function! s:myhighlight()
+function! MyHighlight()
     " hi linenr       ctermfg=brown ctermbg=NONE
     " hi cursorlinenr ctermfg=green ctermbg=NONE
     hi cursorline   cterm=underline
@@ -88,15 +88,15 @@ function! s:myhighlight()
         hi cMemberTag   ctermfg=darkcyan
     endif
 endfunction
-autocmd ColorScheme * call <SID>myhighlight()
+autocmd ColorScheme * call MyHighlight()
 
 " Initial settings
-function! s:myinit()
+function! MyInit()
     " Jump to the last position
     if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
     " if &modifiable | :retab | endif
 endfunction
-autocmd BufReadPost * call <SID>myinit()
+autocmd BufReadPost * call MyInit()
 
 autocmd FileType help wincmd L
 
