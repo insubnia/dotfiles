@@ -19,8 +19,7 @@ set autowrite   " Automatically :write before running commands
 set autoread    " Auto read when a file is changed on disk
 set vb noeb     " visual bell instead of beep
 set wildmenu    " enhanced command-line completion
-set list        " display characters
-set listchars=tab:\|\ ,
+" set list listchars=tab:\|\ ,
 set encoding=utf8
 set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__
@@ -125,6 +124,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
+Plugin 'Yggdroot/indentLine'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'tomasr/molokai'
 Plugin 'dracula/vim'
@@ -177,6 +177,13 @@ let g:easytags_include_members=0
 let g:easytags_opt=['-R --extra=+q --fields=+l']
 let g:easytags_events=[]
 au BufWinEnter * call xolox#easytags#highlight()
+
+" indentLine
+let g:indentLine_char='│'
+let g:indentLine_first_char='│'
+let g:indentLine_showFirstIndentLevel=1
+let g:indentLine_leadingSpaceEnabled=0
+let g:indentLine_leadingSpaceChar='.'
 
 colo dracula
 
