@@ -174,7 +174,11 @@ let g:easytags_autorecurse=1
 let g:easytags_dynamic_files=2
 let g:easytags_auto_highlight=1
 let g:easytags_include_members=0
-let g:easytags_opt=['-R --extra=+q --fields=+l']
+let g:easytags_opts=[
+            \'-R', '--sort=yes',
+            \'--fields=+iaS', '--extra=+q',
+            \'--c-kinds=+p',
+            \]
 let g:easytags_events=[]
 au BufWinEnter * call xolox#easytags#highlight()
 
