@@ -1,5 +1,6 @@
 # SIS MAKEFILE
 TARGET	= $(notdir $(CURDIR))
+PHONY	= 
 
 CROSS	= # i686-w64-mingw32-
 CC		= $(CROSS)gcc
@@ -43,16 +44,28 @@ DEPS	= $(OBJS:.o=*.d)
 
 include $(wildcard *.mk)
 
-.PHONY: all clean test
-
-test:
-	@echo $(CXXFLAGS)
-	@echo $(LDFLAGS)
-
+PHONY += all
 all: $(ELF) $(BIN) $(HEX)
 	@echo Size of image
 	@$(SIZE) $<
-	@echo MAKE COMPLETE!!
+	@echo MAKE COMPLETE!!; echo
+
+PHONY += clean
+clean:
+	@echo Removing files
+	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP)
+
+PHONY += run
+run:
+	@make -s all
+	@echo Run $(notdir $(ELF)); echo
+	@$(ELF)
+
+PHONY += test
+test:
+	@echo $(PHONY)
+	@echo $(CXXFLAGS)
+	@echo $(LDFLAGS)
 
 $(BIN): $(ELF)
 	@echo Making Binary from $(<F)
@@ -77,7 +90,5 @@ $(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
 	@echo Compiling $(<F)
 	@$(CXX) -o $@ -c $< $(CXXFLAGS) $(INC_DIR)
 
-clean:
-	@echo Removing files
-	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP)
+.PHONY: $(PHONY)
 
