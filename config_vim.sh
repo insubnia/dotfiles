@@ -20,12 +20,15 @@ if [ ! -d ~/.vim/after ]; then
     ln -s $DIR/after/ after
     cd - > /dev/null
 else
-    echo ftplugin already exist!
+    echo after dir already exist!
 fi
 
-# Vundle install
+# Vundle & Plugin install
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     echo -e "cloning Vundle\n"
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null
+    vim -c PluginInstall -c qa
+else
+    echo Vundle already exist!
 fi
 
