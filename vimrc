@@ -12,7 +12,7 @@ set mouse=a     " enalbe cursor move with mouse
 set smarttab    " insert tabs on the start of a line according to shiftwidth, not tabstop
 set expandtab   " replace tab to space
 set ai si cin   " set autoindent, smartindent, cindent
-set ls=2        " statusline option
+set ls=2        " statusline option (set to 2 for using airline)
 set ts=4 sw=4 sts=4 " tab size
 set tm=1000 ttm=0   " to leave insert mode without delay
 set autowrite   " Automatically :write before running commands
@@ -134,11 +134,10 @@ call vundle#end()
 filetype plugin indent on
 
 " airline settings
-set laststatus=2
-let g:airline#extensions#tabline#enabled=1    " turn on buffer list
-let g:airline_theme='dracula'
 let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#tagbar#enabled=1
 
 " NERDTree settings
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -191,5 +190,6 @@ let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 
-colo dracula
+let g:airline_theme='jellybeans'
+colo jellybeans
 
