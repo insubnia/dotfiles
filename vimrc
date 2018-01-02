@@ -31,7 +31,6 @@ let &t_EI = "\e[0 q"    " End Insert mode
 
 " Key mapping
 noremap <C-_>   :call NERDComment(0, "toggle")<CR>
-noremap <C-?>   :call NERDComment(0, "sexy")<CR>
 nnoremap <F2>   :UpdateTags<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
