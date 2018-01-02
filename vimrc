@@ -1,5 +1,5 @@
 " SIS vim runtime configuration
-syntax on 
+syntax on
 set nocp        " no compatibility with VI
 set nu          " line number
 set cursorline  " highlight current cursorline
@@ -56,9 +56,10 @@ inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
-cnoremap <C-g>  s///g<Left><Left><Left>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
+cnoremap <C-g>  s///g<Left><Left><Left>
+cnoremap <C-t>  Tabularize /
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
@@ -126,6 +127,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'Yggdroot/indentLine'
+Plugin 'godlygeek/tabular'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'tomasr/molokai'
 Plugin 'dracula/vim'
