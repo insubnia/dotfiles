@@ -12,6 +12,8 @@ function get_ps1() {
     echo "PS1='$RESULT'"
 }
 
+# Script to be appended.
+# $ should be repaced with \$
 my_config=$(cat << EOF
 $MY_TAG
 export DISPLAY=:0
@@ -20,7 +22,13 @@ alias python='python3'
 alias grep='grep --color=auto --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn}'
 alias ssh='ssh -X'
 
-function job_indicator() { if [ -n "\$(jobs)" ]; then echo "\$(tput setaf 1)"; fi }
+# function job_indicator() { if [ -n "\$(jobs)" ]; then echo "\$(tput setaf 1)"; fi }
+function job_indicator() {
+    if [ -n "\$(jobs)" ]; then
+        num=\$(echo "\$(jobs)" | tail -n 1 | grep -oP "\[\d+\]" | grep -oP "\d+")
+        echo "\$(tput setaf \$num)"
+    fi
+}
 
 $(get_ps1)
 EOF
