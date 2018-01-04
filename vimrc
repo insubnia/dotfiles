@@ -1,25 +1,25 @@
 " SIS vim runtime configuration
 syntax on
-set nocp        " no compatibility with VI
-set nu          " line number
-set cursorline  " highlight current cursorline
-set ruler       " display cursor position information at status line
-set ic          " case insensitive search
-set smartcase   " don't use ic when there is Capital letter
-set hlsearch    " hilight search
-set incsearch   " show search matches as type
-set mouse=a     " enalbe cursor move with mouse
-set smarttab    " insert tabs on the start of a line according to shiftwidth, not tabstop
-set expandtab   " replace tab to space
-set ai si cin   " set autoindent, smartindent, cindent
-set ls=2        " statusline option (set to 2 for using airline)
+set nocp            " no compatibility with VI
+set nu              " line number
+set cursorline      " highlight current cursorline
+set ruler           " display cursor position information at status line
+set ic              " case insensitive search
+set smartcase       " don't use ic when there is Capital letter
+set hlsearch        " hilight search
+set incsearch       " show search matches as type
+set mouse=a         " enalbe cursor move with mouse
+set smarttab        " insert tabs on the start of a line according to shiftwidth, not tabstop
+set expandtab       " replace tab to space
+set ai si cin       " set autoindent, smartindent, cindent
+set ls=2            " statusline option (set to 2 for using airline)
 set ts=4 sw=4 sts=4 " tab size
 set tm=1000 ttm=0   " to leave insert mode without delay
-set autowrite   " Automatically :write before running commands
-set autoread    " Auto read when a file is changed on disk
-set vb noeb     " visual bell instead of beep
-set wildmenu    " enhanced command-line completion
-" set list listchars=tab:\|\ ,
+set autowrite       " Automatically :write before running commands
+set autoread        " Auto read when a file is changed on disk
+set vb noeb         " visual bell instead of beep
+set wildmenu        " enhanced command-line completion
+set diffopt+=iwhite " ignore white spaces in diff mode
 set encoding=utf8
 set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__
@@ -64,6 +64,13 @@ nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\"")
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+if &diff
+    noremap <leader>1   :diffget LOCAL<CR>
+    noremap <leader>2   :diffget BASE<CR>
+    noremap <leader>3   :diffget REMOTE<CR>
+    nnoremap <C-k>  [czz
+    nnoremap <C-j>  ]czz
+endif
 
 " C/C++ formatting
 function! MyC()
