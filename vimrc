@@ -14,7 +14,7 @@ set expandtab       " replace tab to space
 set ai si cin       " set autoindent, smartindent, cindent
 set ls=2            " statusline option (set to 2 for using airline)
 set ts=4 sw=4 sts=4 " tab size
-set tm=1000 ttm=0   " to leave insert mode without delay
+set tm=500 ttm=0    " to leave insert mode without delay
 set autowrite       " Automatically :write before running commands
 set autoread        " Auto read when a file is changed on disk
 set vb noeb         " visual bell instead of beep
@@ -35,8 +35,7 @@ nnoremap <F2>   :UpdateTags<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
-nnoremap <F8>   :ts /
-nnoremap <F9>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
+nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
 nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
@@ -49,6 +48,7 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
+nnoremap // :ts /
 nnoremap <C-]>  g<C-]>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -57,8 +57,9 @@ inoremap <C-e>  <End>
 inoremap <C-@>  <C-x><C-o>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
-cnoremap <C-g>  s///g<Left><Left><Left>
 cnoremap <C-t>  Tabularize /
+cnoremap %s/    s///g<Left><Left><Left>
+vnoremap :s/    :s///g<Left><Left><Left>
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
