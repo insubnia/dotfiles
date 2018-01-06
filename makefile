@@ -57,7 +57,6 @@ clean:
 
 PHONY += run
 run:
-	@make -s all
 	@echo Run $(notdir $(ELF)); echo
 	@$(ELF)
 
