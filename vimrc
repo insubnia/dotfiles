@@ -58,7 +58,7 @@ inoremap <C-@>  <C-x><C-o>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
-cnoremap %s/    s///g<Left><Left><Left>
+cnoremap %s/    %s///g<Left><Left><Left>
 vnoremap :s/    :s///g<Left><Left><Left>
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
