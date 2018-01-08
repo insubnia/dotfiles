@@ -27,8 +27,9 @@ set completeopt=menuone,noselect
 
 " Cursor settings
 if &term=~'xterm'
-    let &t_SI = "\e[5 q"    " Start Insert mode
-    let &t_EI = "\e[0 q"    " End Insert mode
+    let &t_SI = "\e[5 q"    " Start insert mode
+    let &t_SR = "\e[3 q"    " Start replace mode
+    let &t_EI = "\e[0 q"    " End insert & replace mode
 endif
 
 " Key mapping
@@ -93,7 +94,7 @@ autocmd BufNewFile *.py call MyPy()
 function! MyHighlight()
     " hi linenr       ctermfg=brown ctermbg=NONE
     " hi cursorlinenr ctermfg=green ctermbg=NONE
-    hi cursorline   cterm=underline
+    " hi cursorline   cterm=underline
     if (g:easytags_include_members == 1)
         hi cMemberTag   ctermfg=darkcyan
     endif
