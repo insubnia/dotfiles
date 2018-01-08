@@ -25,9 +25,11 @@ set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__
 set completeopt=menuone,noselect
 
-" Cursor shape
-let &t_SI = "\e[5 q"    " Start Insert mode
-let &t_EI = "\e[0 q"    " End Insert mode
+" Cursor settings
+if &term=~'xterm'
+    let &t_SI = "\e[5 q"    " Start Insert mode
+    let &t_EI = "\e[0 q"    " End Insert mode
+endif
 
 " Key mapping
 noremap <C-_>   :call NERDComment(0, "toggle")<CR>
@@ -129,6 +131,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
@@ -162,11 +165,19 @@ let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
-" let g:NERDAltDelims_c=0
 let g:NERDCustomDelimiters = {
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'python': {'left': '#'},
             \}
+
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " CtrlP settings
 let g:ctrlp_by_filename=0
