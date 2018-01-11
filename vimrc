@@ -188,6 +188,12 @@ let g:syntastic_cpp_compiler_options='-fpermissive'
 let g:syntastic_cpp_include_dirs=inc_dir
 let g:syntastic_python_checkers=['pyflakes']
 let g:syntastic_python_pyflakes_args=''
+let g:syntastic_quiet_messages={
+            \'regex' : ['built-in function',
+            \'previous implicit declaration',
+            \'offset of packed bit-field',
+            \'in expansion of macro']
+            \}
 
 " CtrlP settings
 let g:ctrlp_by_filename=0
@@ -206,8 +212,7 @@ let g:easytags_dynamic_files=2
 let g:easytags_auto_highlight=1
 let g:easytags_include_members=0
 let g:easytags_opts=[
-            \'-R', '--sort=yes',
-            \'--fields=+iaS', '--extra=+q',
+            \'-R', '--sort=yes', '--fields=+iaS',
             \'--c-kinds=+p',
             \]
 let g:easytags_events=[]
