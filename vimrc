@@ -20,6 +20,7 @@ set autoread        " Auto read when a file is changed on disk
 set vb noeb         " visual bell instead of beep
 set wildmenu        " enhanced command-line completion
 set diffopt+=iwhite " ignore white spaces in diff mode
+set path+=**        " add subdirectories in working path
 set encoding=utf8
 set noswapfile nobackup
 set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__
@@ -52,6 +53,8 @@ nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
 nnoremap // :ts /
+vnoremap <  <gv
+vnoremap >  >gv
 nnoremap <C-]>  g<C-]>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -86,7 +89,7 @@ autocmd FileType c,cpp inoremap {<ENTER>      {<ENTER>}<UP><END><ENTER>
 
 " Python formatting
 function! MyPy()
-    exe "norm! i\n\n\ndef main():\npass\n\n\eIif __name__ == \"__main__\":\n\tmain()\n\egg"
+    exe "norm! i\n\nif __name__ == \"__main__\":\n\tpass\n\egg"
 endfunction
 autocmd BufNewFile *.py call MyPy()
 
@@ -158,6 +161,7 @@ let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
+let g:NERDTreeQuitOnOpen=1
 set splitright
 
 " NERDCommenter settings
@@ -166,7 +170,7 @@ let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
-let g:NERDCustomDelimiters = {
+let g:NERDCustomDelimiters={
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'python': {'left': '#'},
             \}
@@ -186,9 +190,10 @@ let g:syntastic_c_compiler_options='-std=c99'
 let g:syntastic_c_include_dirs=inc_dir
 let g:syntastic_cpp_compiler_options='-fpermissive'
 let g:syntastic_cpp_include_dirs=inc_dir
-let g:syntastic_python_checkers=['pyflakes']
-let g:syntastic_python_pyflakes_args=''
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args='--ignore=F403'
 let g:syntastic_quiet_messages={
+            \'type'  : 'style',
             \'regex' : ['built-in function',
             \'previous implicit declaration',
             \'offset of packed bit-field',
@@ -211,10 +216,8 @@ let g:easytags_autorecurse=1
 let g:easytags_dynamic_files=2
 let g:easytags_auto_highlight=1
 let g:easytags_include_members=0
-let g:easytags_opts=[
-            \'-R', '--sort=yes', '--fields=+iaS',
-            \'--c-kinds=+p',
-            \]
+let g:easytags_opts=['-R', '--fields=+iaS',
+            \'--sort=yes', '--c-kinds=+p']
 let g:easytags_events=[]
 au BufWinEnter * call xolox#easytags#highlight()
 
