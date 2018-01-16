@@ -191,13 +191,12 @@ let g:syntastic_c_include_dirs=inc_dir
 let g:syntastic_cpp_compiler_options='-fpermissive'
 let g:syntastic_cpp_include_dirs=inc_dir
 let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=F403'
+let g:syntastic_python_flake8_args='--ignore=F401,F403'
 let g:syntastic_quiet_messages={
             \'type'  : 'style',
             \'regex' : ['built-in function',
-            \'previous implicit declaration',
-            \'offset of packed bit-field',
-            \'in expansion of macro']
+            \'implicit declaration',
+            \'note:','cast ',' cast']
             \}
 
 " CtrlP settings
