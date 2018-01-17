@@ -56,6 +56,7 @@ nnoremap // :ts /
 vnoremap <  <gv
 vnoremap >  >gv
 nnoremap <C-]>  g<C-]>
+nnoremap <C-t>  <C-t>zz
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
@@ -180,11 +181,11 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height=5
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
-let g:syntastic_loc_list_height=5
-let g:syntastic_auto_jump=3
+let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_jump=0
 let g:inc_dir=['src/include', 'src/include/cmsis']
 let g:syntastic_c_compiler_options='-std=c99'
 let g:syntastic_c_include_dirs=inc_dir
@@ -193,6 +194,7 @@ let g:syntastic_cpp_include_dirs=inc_dir
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_python_flake8_args='--ignore=F401,F403'
 let g:syntastic_quiet_messages={
+            \'level' : 'warnings',
             \'type'  : 'style',
             \'regex' : ['built-in function',
             \'implicit declaration',
