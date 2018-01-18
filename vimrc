@@ -23,7 +23,7 @@ set diffopt+=iwhite " ignore white spaces in diff mode
 set path+=**        " add subdirectories in working path
 set encoding=utf8
 set noswapfile nobackup
-set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__
+set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__,*.taghl
 set completeopt=menuone,noselect
 
 " Cursor settings
@@ -35,7 +35,7 @@ endif
 
 " Key mapping
 noremap <C-_>   :call NERDComment(0, "toggle")<CR>
-nnoremap <F2>   :UpdateTags<CR>
+nnoremap <F2>   :UpdateTypesFile<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
@@ -96,12 +96,14 @@ autocmd BufNewFile *.py call MyPy()
 
 " Highlight function (type :help highlight to see color list)
 function! MyHighlight()
-    " hi linenr       ctermfg=brown ctermbg=NONE
-    " hi cursorlinenr ctermfg=green ctermbg=NONE
-    " hi cursorline   cterm=underline
-    if (g:easytags_include_members == 1)
-        hi cMemberTag   ctermfg=darkcyan
-    endif
+    " hi linenr           ctermfg=brown     ctermbg=NONE
+    " hi cursorlinenr     ctermfg=green     ctermbg=NONE
+    " hi cursorline       cterm=underline
+    hi DefinedName      ctermfg=darkcyan
+    hi EnumerationValue ctermfg=lightmagenta
+    hi GlobalVariable   ctermfg=lightgreen
+    hi CTagsConstant    ctermfg=cyan
+    hi Member           ctermfg=lightyellow
 endfunction
 autocmd ColorScheme * call MyHighlight()
 
@@ -139,8 +141,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+Plugin 'TagHighlight'
 Plugin 'Yggdroot/indentLine'
 Plugin 'godlygeek/tabular'
 Plugin 'nanotech/jellybeans.vim'
@@ -160,9 +161,10 @@ let g:airline#extensions#tagbar#enabled=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
-let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
 let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeRespectWildIgnore=1
+let g:NERDTreeIgnore=['tags']
 set splitright
 
 " NERDCommenter settings
@@ -209,18 +211,6 @@ let g:ctrlp_show_hidden=1
 " tagbar settings
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
-
-" easytags settings
-set cpoptions+=d
-set tags=./tags
-let g:easytags_autorecurse=1
-let g:easytags_dynamic_files=2
-let g:easytags_auto_highlight=1
-let g:easytags_include_members=0
-let g:easytags_opts=['-R', '--fields=+iaS',
-            \'--sort=yes', '--c-kinds=+p']
-let g:easytags_events=[]
-au BufWinEnter * call xolox#easytags#highlight()
 
 " indentLine
 let g:indentLine_char='│'
