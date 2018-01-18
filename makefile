@@ -8,7 +8,7 @@ CXX		= $(CROSS)g++
 LD		= $(CXX)
 #LD		= $(CROSS)ld
 SIZE	= $(CROSS)size
-OBJCOPY	= $(CROSS)objcopy		# Find target architecture, typing objcopy --help
+OBJCOPY	= $(CROSS)objcopy		# Type "objcopy --help | tail", to find target architecture
 OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
 
@@ -18,7 +18,7 @@ HEX		= $(BLD_DIR)$(TARGET).hex
 MAP		= $(BLD_DIR)$(TARGET).map
 
 MCU		=
-OPT		= -O2
+OPT		= -O2 -g3
 
 SRC_DIR		= src/
 INC_DIR		= src/include/
