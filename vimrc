@@ -102,8 +102,13 @@ function! MyHighlight()
     hi DefinedName      ctermfg=darkcyan
     hi EnumerationValue ctermfg=lightmagenta
     hi GlobalVariable   ctermfg=lightgreen
-    hi CTagsConstant    ctermfg=cyan
+    hi CTagsConstant    ctermfg=lightblue
     hi Member           ctermfg=lightyellow
+    hi ProtoType        ctermfg=cyan
+    hi link CTagsStructure  ProtoType
+    hi link CTagsClass      ProtoType
+    hi link CTagsUnion      ProtoType
+    hi link EnumeratorName  ProtoType
 endfunction
 autocmd ColorScheme * call MyHighlight()
 
