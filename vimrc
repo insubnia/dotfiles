@@ -1,4 +1,5 @@
-" SIS vim runtime configuration
+" sis vim runtime configuration
+
 syntax on
 set nocp            " no compatibility with VI
 set nu              " line number
@@ -170,7 +171,6 @@ let g:NERDTreeShowHidden=1
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeIgnore=['tags']
-set splitright
 
 " NERDCommenter settings
 let g:NERDSpaceDelims=1
@@ -211,7 +211,7 @@ let g:syntastic_quiet_messages={
 " CtrlP settings
 let g:ctrlp_by_filename=0
 let g:ctrlp_show_hidden=1
-" let g:ctrlp_wildignore=1
+let g:ctrlp_wildignore=1
 
 " tagbar settings
 let g:tagbar_autofocus=1

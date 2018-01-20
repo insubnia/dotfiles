@@ -1,4 +1,6 @@
-# SIS MAKEFILE
+# Author: sis
+# Common makefile
+
 TARGET	= $(notdir $(CURDIR))
 PHONY	= 
 

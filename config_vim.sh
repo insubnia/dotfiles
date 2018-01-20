@@ -1,5 +1,4 @@
 #!/bin/bash
-# configuration for VIM
 
 DIR=$PWD
 
