@@ -1,5 +1,28 @@
 " sis vim runtime configuration
 
+" Plugin list
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'TagHighlight'
+Plugin 'Yggdroot/indentLine'
+Plugin 'godlygeek/tabular'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
+Plugin 'dracula/vim'
+call vundle#end()
+filetype plugin indent on
+
+" Basic options
 syntax on
 set nocp            " no compatibility with VI
 set nu              " line number
@@ -18,13 +41,16 @@ set ts=4 sw=4 sts=4 " tab size
 set tm=500 ttm=0    " to leave insert mode without delay
 set autowrite       " Automatically :write before running commands
 set autoread        " Auto read when a file is changed on disk
+set hidden          " Keep current buffer as hidden, when opening a new file
 set vb noeb         " visual bell instead of beep
 set wildmenu        " enhanced command-line completion
 set diffopt+=iwhite " ignore white spaces in diff mode
 set path+=**        " add subdirectories in working path
+set spr sb          " split right & below
+set title           " set window's title, reflecting the file currently being edited
 set encoding=utf8
 set noswapfile nobackup
-set wildignore=*.exe,*.swp,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__,*.taghl
+set wildignore=*.exe,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__,*.taghl,*.log
 set completeopt=menuone,noselect
 
 " Cursor settings
@@ -34,13 +60,13 @@ if &term=~'xterm'
     let &t_EI = "\e[0 q"    " End insert & replace mode
 endif
 
-" Key mapping
+" Key mappings
 noremap <C-_>   :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :UpdateTypesFile<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
-nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn} 
+nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d,*.taghl} --exclude-dir={.git,.svn} 
 nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
@@ -54,10 +80,13 @@ nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
 nnoremap // :ts /
+nnoremap ZA :wqa<CR>
 vnoremap <  <gv
 vnoremap >  >gv
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
+nnoremap <C-o>  <C-o>zz
+nnoremap <C-i>  <C-i>zz
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
@@ -132,30 +161,6 @@ function! ST()      " Space to tab
     set noexpandtab
     %retab!
 endfunction
-
-" Plugin settings using Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'TagHighlight'
-Plugin 'Yggdroot/indentLine'
-Plugin 'godlygeek/tabular'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'tomasr/molokai'
-Plugin 'dracula/vim'
-
-call vundle#end()
-filetype plugin indent on
 
 " airline settings
 let g:airline_powerline_fonts=1
