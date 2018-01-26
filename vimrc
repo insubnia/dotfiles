@@ -1,6 +1,6 @@
 " sis vim runtime configuration
 
-" Plugin list
+" Plugin
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -129,12 +129,13 @@ function! MyHighlight()
     " hi linenr           ctermfg=brown     ctermbg=NONE
     " hi cursorlinenr     ctermfg=green     ctermbg=NONE
     " hi cursorline       cterm=underline
+    hi Function         ctermfg=lightgreen
     hi DefinedName      ctermfg=darkcyan
     hi EnumerationValue ctermfg=lightmagenta
-    hi GlobalVariable   ctermfg=lightgreen
-    hi CTagsConstant    ctermfg=lightblue
-    hi Member           ctermfg=lightyellow
-    hi ProtoType        ctermfg=cyan
+    hi GlobalVariable   ctermfg=177 "violet
+    hi link CTagsConstant   GlobalVariable
+    hi Member           ctermfg=229 "wheat1
+    hi ProtoType        ctermfg=210 "lightcoral
     hi link CTagsStructure  ProtoType
     hi link CTagsClass      ProtoType
     hi link CTagsUnion      ProtoType
