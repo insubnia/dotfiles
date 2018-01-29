@@ -48,10 +48,12 @@ set diffopt+=iwhite " ignore white spaces in diff mode
 set path+=**        " add subdirectories in working path
 set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
+set noswf nobk      " noswapfile & nobackupfile
 set encoding=utf8
-set noswapfile nobackup
-set wildignore=*.exe,*.zip,*.pyc,*.pyo,*.bin,*.hex,*.o,*.d,*.elf,*.lst,.git,.svn,*.png,*.jpg,__pycache__,*.taghl,*.log
 set completeopt=menuone,noselect
+set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
+            \*.lst,*.map,.git,.svn,tags,*.taghl,*.png,*.jpg,*.log
+set grepprg=grep\ -Irin\ $*\ .
 
 " Cursor settings
 if &term=~'xterm'
@@ -66,9 +68,10 @@ nnoremap <F2>   :UpdateTypesFile<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
-nnoremap <F8>   :!grep --color=auto -Irin --exclude={tags,*.lst,*.map,*.d,*.taghl} --exclude-dir={.git,.svn} 
+nnoremap <F8>   :vimgrep //j ** \| vert copen \| winc =<Home><C-Right><Right><Right>
 nnoremap Q  <nop>
 nnoremap J  <nop>
+vnoremap J  <nop>
 nnoremap K  <nop>
 nnoremap Y  y$
 nnoremap j  gj
@@ -120,7 +123,7 @@ autocmd FileType c,cpp inoremap {<ENTER>      {<ENTER>}<UP><END><ENTER>
 
 " Python formatting
 function! MyPy()
-    exe "norm! i\n\nif __name__ == \"__main__\":\n\tpass\n\egg"
+    exe "norm! i\n\nif __name__ == \"__main__\":\npass\n\egg"
 endfunction
 autocmd BufNewFile *.py call MyPy()
 
