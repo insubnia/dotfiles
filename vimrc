@@ -53,7 +53,7 @@ set encoding=utf8
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
             \*.lst,*.map,.git,.svn,tags,*.taghl,*.png,*.jpg,*.log
-set grepprg=grep\ -Irin\ $*\ .
+let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
 
 " Cursor settings
 if &term=~'xterm'
@@ -68,7 +68,7 @@ nnoremap <F2>   :UpdateTypesFile<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
-nnoremap <F8>   :vimgrep //j ** \| vert copen \| winc =<Home><C-Right><Right><Right>
+nnoremap <F8>   :silent grep!   \|vert copen \|winc=<Home><C-Right><C-Right><Right>
 nnoremap Q  <nop>
 nnoremap J  <nop>
 vnoremap J  <nop>
