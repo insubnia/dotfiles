@@ -30,7 +30,7 @@ set cursorline      " highlight current cursorline
 set ruler           " display cursor position information at status line
 set ic              " case insensitive search
 set smartcase       " don't use ic when there is Capital letter
-set hlsearch        " hilight search
+set hlsearch        " highlight search
 set incsearch       " show search matches as type
 set mouse=a         " enalbe cursor move with mouse
 set smarttab        " insert tabs on the start of a line according to shiftwidth, not tabstop
@@ -53,7 +53,6 @@ set encoding=utf8
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
             \*.lst,*.map,.git,.svn,tags,*.taghl,*.png,*.jpg,*.log
-let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
 
 " Cursor settings
 if &term=~'xterm'
@@ -68,7 +67,6 @@ nnoremap <F2>   :UpdateTypesFile<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   <C-w>=
-nnoremap <F8>   :silent grep!   \|vert copen \|winc=<Home><C-Right><C-Right><Right>
 nnoremap Q  <nop>
 nnoremap J  <nop>
 vnoremap J  <nop>
@@ -98,6 +96,7 @@ inoremap <C-@>  <C-x><C-o>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
+nnoremap :grep  :silent grep!
 cnoremap %s/    %s///g<Left><Left><Left>
 vnoremap :s/    :s///g<Left><Left><Left>
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
@@ -112,6 +111,20 @@ if &diff
     nnoremap <C-k>  [czz
     nnoremap <C-j>  ]czz
 endif
+
+" External program settings
+autocmd QuickFixCmdPost grep copen | wincmd L | redraw!
+let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
+
+function! TEST()
+    if &buftype == "quickfix"
+        echo "test"
+        cclose
+    else
+        echo "no qfix"
+    endif
+endfunction
+" nnoremap <SPACE>    :call TEST()<CR>
 
 " C/C++ formatting
 function! MyC()
