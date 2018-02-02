@@ -96,9 +96,8 @@ inoremap <C-@>  <C-x><C-o>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
-nnoremap :grep  :silent grep!
-cnoremap %s/    %s///g<Left><Left><Left>
-vnoremap :s/    :s///g<Left><Left><Left>
+cnoremap <C-k>  silent grep! 
+cnoremap <C-g>  s//g<Left><Left>
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
@@ -113,18 +112,16 @@ if &diff
 endif
 
 " External program settings
-autocmd QuickFixCmdPost grep copen | wincmd L | redraw!
+autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
 let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
-
-function! TEST()
+let &makeprg='make $*'
+set grepformat=%f:%l:%m
+set errorformat=%f:%l:%m
+function! Jump2Err()
     if &buftype == "quickfix"
-        echo "test"
         cclose
-    else
-        echo "no qfix"
     endif
 endfunction
-" nnoremap <SPACE>    :call TEST()<CR>
 
 " C/C++ formatting
 function! MyC()
