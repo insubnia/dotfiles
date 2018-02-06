@@ -10,7 +10,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
@@ -98,6 +97,8 @@ cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
 cnoremap <C-k>  silent grep! 
 cnoremap <C-g>  s//g<Left><Left>
+nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
+nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
 nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
@@ -200,31 +201,6 @@ let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'python': {'left': '#'},
-            \}
-
-" Syntastic settings (type :SyntasticInfo to see checker)
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_loc_list_height=5
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_auto_loc_list=1
-let g:syntastic_auto_jump=0
-let g:inc_dir=['src/include', 'src/include/cmsis']
-let g:syntastic_c_compiler_options='-std=c99'
-let g:syntastic_c_include_dirs=inc_dir
-let g:syntastic_cpp_compiler_options='-fpermissive'
-let g:syntastic_cpp_include_dirs=inc_dir
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=F401,F403'
-let g:syntastic_quiet_messages={
-            \'level' : 'warnings',
-            \'type'  : 'style',
-            \'regex' : ['built-in function',
-            \'implicit declaration',
-            \'note:','cast ',' cast']
             \}
 
 " CtrlP settings
