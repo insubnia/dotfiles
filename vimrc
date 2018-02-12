@@ -95,7 +95,6 @@ inoremap <C-@>  <C-x><C-o>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
-cnoremap <C-k>  silent grep! 
 cnoremap <C-g>  s//g<Left><Left>
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
@@ -111,6 +110,10 @@ if &diff
     nnoremap <C-k>  [czz
     nnoremap <C-j>  ]czz
 endif
+
+" Abbreviations
+cabbrev grep silent<space>grep!
+cabbrev make silent<space>make!
 
 " External program settings
 autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
@@ -190,7 +193,6 @@ let g:NERDTreeDirArrowCollapsible='~'
 let g:NERDTreeShowHidden=1
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
-let g:NERDTreeIgnore=['tags']
 
 " NERDCommenter settings
 let g:NERDSpaceDelims=1
