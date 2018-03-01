@@ -49,6 +49,7 @@ set path+=**        " add subdirectories in working path
 set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
 set noswf nobk      " noswapfile & nobackupfile
+set termguicolors   " use hi-guifg and hi-guibg in the terminal
 set encoding=utf8
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
@@ -116,7 +117,7 @@ endif
 cabbrev grep    silent<space>grep!
 cabbrev make    silent<space>make!
 cabbrev python  !python3
-cabbrev celan   clean 
+cabbrev celan   clean
 
 " External program settings
 autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
@@ -144,18 +145,15 @@ function! MyPy()
 endfunction
 autocmd BufNewFile *.py call MyPy()
 
-" Highlight function (type :help highlight to see color list)
+" Highlight function
 function! MyHighlight()
-    " hi linenr           ctermfg=brown     ctermbg=NONE
-    " hi cursorlinenr     ctermfg=green     ctermbg=NONE
-    " hi cursorline       cterm=underline
-    hi Function         ctermfg=lightgreen
-    hi DefinedName      ctermfg=darkcyan
-    hi EnumerationValue ctermfg=lightmagenta
-    hi GlobalVariable   ctermfg=177 "violet
+    hi Function         guifg=lightgreen
+    hi DefinedName      guifg=darkcyan
+    hi EnumerationValue guifg=orange
+    hi GlobalVariable   guifg=seagreen
+    hi Member           guifg=wheat1
+    hi ProtoType        guifg=lightcoral
     hi link CTagsConstant   GlobalVariable
-    hi Member           ctermfg=229 "wheat1
-    hi ProtoType        ctermfg=210 "lightcoral
     hi link CTagsStructure  ProtoType
     hi link CTagsClass      ProtoType
     hi link CTagsUnion      ProtoType
@@ -227,7 +225,6 @@ let g:indentLine_leadingSpaceChar='.'
 " let g:airline_theme='jellybeans'
 " colo jellybeans
 let g:airline_theme='solarized'
-let g:solarized_termcolors=256
-set background=light
+set background=dark
 colo solarized
 
