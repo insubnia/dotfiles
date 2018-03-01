@@ -44,7 +44,6 @@ done < <(cat << EOF
     scipy
     matplotlib
     python-config
-    flake8
 EOF
 )
 

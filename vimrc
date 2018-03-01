@@ -18,6 +18,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'tomasr/molokai'
 Plugin 'dracula/vim'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 filetype plugin indent on
 
@@ -112,8 +113,10 @@ if &diff
 endif
 
 " Abbreviations
-cabbrev grep silent<space>grep!
-cabbrev make silent<space>make!
+cabbrev grep    silent<space>grep!
+cabbrev make    silent<space>make!
+cabbrev python  !python3
+cabbrev celan   clean 
 
 " External program settings
 autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
@@ -221,6 +224,10 @@ let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 
-let g:airline_theme='jellybeans'
-colo jellybeans
+" let g:airline_theme='jellybeans'
+" colo jellybeans
+let g:airline_theme='solarized'
+let g:solarized_termcolors=256
+set background=light
+colo solarized
 
