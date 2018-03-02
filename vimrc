@@ -115,7 +115,7 @@ endif
 
 " Abbreviations
 cabbrev grep    silent<space>grep!
-cabbrev make    silent<space>make!
+cabbrev make    make!
 cabbrev python  !python3
 cabbrev celan   clean
 
