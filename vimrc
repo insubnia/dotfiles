@@ -222,9 +222,7 @@ let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 
-" let g:airline_theme='jellybeans'
-" colo jellybeans
-let g:airline_theme='solarized'
 set background=dark
-colo solarized
+let g:airline_theme='dracula'
+colo dracula
 
