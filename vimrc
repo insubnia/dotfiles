@@ -92,6 +92,8 @@ nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-i>  <C-i>zz
+nnoremap <C-j>  :cn<CR>
+nnoremap <C-k>  :cp<CR>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
@@ -112,8 +114,8 @@ if &diff
     noremap <leader>1   :diffget LOCAL<CR>
     noremap <leader>2   :diffget BASE<CR>
     noremap <leader>3   :diffget REMOTE<CR>
-    nnoremap <C-k>  [czz
     nnoremap <C-j>  ]czz
+    nnoremap <C-k>  [czz
 endif
 
 " Abbreviations
@@ -125,9 +127,8 @@ cabbrev celan   clean
 " External program settings
 autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
 let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
-let &makeprg='make $*'
-set grepformat=%f:%l:%m
-set errorformat=%f:%l:%m
+let &makeprg='make -j4 $*'
+set errorformat=%f:%l:%c:%serror:%m
 function! Jump2Err()
     if &buftype == "quickfix"
         cclose
@@ -158,8 +159,10 @@ function! MyHighlight()
         hi Member           guifg=lightcoral
         hi ProtoType        guifg=steelblue
     else
-
+        hi Function         guifg=lightseagreen
+        hi Member           guifg=peru
     endif
+
     hi link CTagsConstant   GlobalVariable
     hi link CTagsStructure  ProtoType
     hi link CTagsClass      ProtoType
