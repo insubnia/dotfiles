@@ -15,10 +15,13 @@ Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
 Plugin 'Yggdroot/indentLine'
 Plugin 'godlygeek/tabular'
+" ---------- colorschemes ----------
+Plugin 'dracula/vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'tomasr/molokai'
-Plugin 'dracula/vim'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'junegunn/seoul256.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -147,12 +150,16 @@ autocmd BufNewFile *.py call MyPy()
 
 " Highlight function
 function! MyHighlight()
-    hi Function         guifg=lightgreen
-    hi DefinedName      guifg=darkcyan
-    hi EnumerationValue guifg=orange
-    hi GlobalVariable   guifg=seagreen
-    hi Member           guifg=wheat1
-    hi ProtoType        guifg=lightcoral
+    if &background == "dark"
+        hi Function         guifg=lightgreen
+        hi DefinedName      guifg=darkcyan
+        hi EnumerationValue guifg=maroon
+        hi GlobalVariable   guifg=seagreen
+        hi Member           guifg=lightcoral
+        hi ProtoType        guifg=steelblue
+    else
+
+    endif
     hi link CTagsConstant   GlobalVariable
     hi link CTagsStructure  ProtoType
     hi link CTagsClass      ProtoType
