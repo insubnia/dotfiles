@@ -153,14 +153,18 @@ autocmd BufNewFile *.py call MyPy()
 function! MyHighlight()
     if &background == "dark"
         hi Function         guifg=lightgreen
+        hi GlobalVariable   guifg=seagreen
         hi DefinedName      guifg=darkcyan
         hi EnumerationValue guifg=maroon
-        hi GlobalVariable   guifg=seagreen
-        hi Member           guifg=lightcoral
         hi ProtoType        guifg=steelblue
+        hi Member           guifg=lightcoral
     else
-        hi Function         guifg=lightseagreen
-        hi Member           guifg=peru
+        hi Function         guifg=olivedrab
+        hi GlobalVariable   guifg=forestgreen
+        hi DefinedName      guifg=darkcyan
+        hi EnumerationValue guifg=maroon
+        hi ProtoType        guifg=navy
+        hi Member           guifg=brown
     endif
 
     hi link CTagsConstant   GlobalVariable
