@@ -19,6 +19,11 @@ ELF	= $(TAR_DIR)$(TARGET).elf
 BIN	= $(BLD_DIR)$(TARGET).bin
 HEX	= $(BLD_DIR)$(TARGET).hex
 MAP	= $(BLD_DIR)$(TARGET).map
+ifeq ($(OS),Windows_NT)
+	SO = $(TAR_DIR)$(TARGET).dll
+else
+	SO = $(TAR_DIR)$(TARGET).so
+endif
 
 OPT	= -O2 -g3
 
@@ -33,6 +38,8 @@ TAR_DIR	= ./
 LIB_DIR	= ./
 LIBS	=
 
+include $(wildcard *.mk)
+
 CSRCS	= $(wildcard $(SRC_DIR)*.c)
 COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
 CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
@@ -40,10 +47,8 @@ CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
 OBJS	= $(COBJS) $(CXXOBJS)
 DEPS	= $(OBJS:.o=*.d)
 
-include $(wildcard *.mk)
-
-LIB_DIR	:= $(addprefix -L, $(LIB_DIR))
 INC_DIR	:= $(addprefix -I, $(INC_DIR))
+LIB_DIR	:= $(addprefix -L, $(LIB_DIR))
 LIBS	:= $(addprefix -l, $(LIBS))
 
 PHONY += all
@@ -55,18 +60,21 @@ all: $(ELF) $(BIN) $(HEX)
 PHONY += clean
 clean:
 	@echo Removing files
-	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP)
+	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP) $(SO)
 
 PHONY += run
 run:
 	@echo Run $(notdir $(ELF)); echo
 	@$(ELF)
 
+PHONY += so
+so: $(SO)
+	@echo COMPLETE!!
+
 PHONY += test
 test:
 	@echo $(PHONY)
-	@echo $(LDFLAGS)
-	@echo $(LIBS)
+
 
 $(BIN): $(ELF)
 	@echo Making Binary from $(<F)
@@ -79,17 +87,22 @@ $(HEX): $(ELF)
 $(ELF): $(OBJS)
 	@mkdir -p $(TAR_DIR)
 	@echo Linking $(@F)
-	@$(LD) -o $@ $^ $(LDFLAGS) $(LIB_DIR) $(LIBS)
+	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS)
+
+$(SO): $(OBJS)
+	@mkdir -p $(TAR_DIR)
+	@echo Making dynamic library
+	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(BLD_DIR)
 	@echo Compiling $(<F)
-	@$(CC) -o $@ -c $< $(CFLAGS) $(INC_DIR)
+	@$(CC) -o $@ -c $< $(INC_DIR) $(CFLAGS)
 
 $(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
 	@mkdir -p $(BLD_DIR)
 	@echo Compiling $(<F)
-	@$(CXX) -o $@ -c $< $(CXXFLAGS) $(INC_DIR)
+	@$(CXX) -o $@ -c $< $(INC_DIR) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
 
