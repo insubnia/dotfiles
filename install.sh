@@ -3,18 +3,18 @@
 echo -e "\nsis shell install script\n"
 
 echo -e "Update & upgrade apt packages"
-sudo apt-get -y update > /dev/null
-sudo apt-get -y upgrade > /dev/null
-sudo apt-get -y autoremove > /dev/null
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y autoremove
 
 # -e option enables escape letter
 echo -e "\n[Installing packages]\n"
 
 # Ubuntu package install
-while read -r p
+while read line
 do
-    echo -e "Installing $p"
-    sudo apt-get install -y $p > /dev/null
+    echo -e "\nInstalling $line"
+    sudo apt-get install -y $line
 done < <(cat << EOF
     gcc
     git
@@ -35,10 +35,10 @@ EOF
 )
 
 # Python package install
-while read -r p
+while read line
 do
-    echo -e "Installing python package - $p"
-    sudo -H python3 -mpip install -U $p > /dev/null
+    echo -e "\nInstalling python package - $line"
+    sudo -H python3 -mpip install -U $line
 done < <(cat << EOF
     numpy
     scipy
