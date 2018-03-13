@@ -94,6 +94,7 @@ nnoremap <C-o>  <C-o>zz
 nnoremap <C-i>  <C-i>zz
 nnoremap <C-j>  :cn<CR>
 nnoremap <C-k>  :cp<CR>
+inoremap <C-_>  <nop>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
@@ -119,15 +120,16 @@ if &diff
 endif
 
 " Abbreviations
-cabbrev grep    silent<space>grep!
+cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev python  !python3
+cabbrev pyrun   !python3 %
 cabbrev celan   clean
 
 " External program settings
 autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
 let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
-let &makeprg='make -j4 $*'
+let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
 function! Jump2Err()
     if &buftype == "quickfix"
