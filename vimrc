@@ -70,7 +70,7 @@ noremap <C-_>   :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :UpdateTypesFile<CR>
 nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
-nnoremap <F5>   <C-w>=
+nnoremap <F5>   :e<CR><C-w>=
 nnoremap Q  <nop>
 nnoremap J  <nop>
 vnoremap J  <nop>
@@ -132,10 +132,8 @@ let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
 function! QuickfixOpen()
     cwindow
-    if &buftype == "quickfix"
-        wincmd L
-        redraw!
-    endif
+    if &buftype == "quickfix" | wincmd L | endif
+    redraw!
 endfunction
 autocmd QuickFixCmdPost grep,make call QuickfixOpen()
 
