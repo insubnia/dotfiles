@@ -127,15 +127,17 @@ cabbrev pyrun   !python3 %
 cabbrev celan   clean
 
 " External program settings
-autocmd QuickFixCmdPost grep,make cwindow | wincmd L | redraw!
 let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-function! Jump2Err()
+function! QuickfixOpen()
+    cwindow
     if &buftype == "quickfix"
-        cclose
+        wincmd L
+        redraw!
     endif
 endfunction
+autocmd QuickFixCmdPost grep,make call QuickfixOpen()
 
 " C/C++ formatting
 function! MyC()
