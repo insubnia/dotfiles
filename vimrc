@@ -15,6 +15,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
 Plugin 'Yggdroot/indentLine'
 Plugin 'godlygeek/tabular'
+Plugin 'jiangmiao/auto-pairs'
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
 Plugin 'nanotech/jellybeans.vim'
@@ -143,7 +144,6 @@ function! MyC()
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
 autocmd BufNewFile *.{h,hpp} call MyC()
-autocmd FileType c,cpp inoremap {<ENTER>      {<ENTER>}<UP><END><ENTER>
 
 " Python formatting
 function! MyPy()
