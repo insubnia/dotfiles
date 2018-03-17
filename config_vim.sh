@@ -19,7 +19,17 @@ if [ ! -d ~/.vim/after ]; then
     ln -s $DIR/after/ after
     cd - > /dev/null
 else
-    echo after dir already exist!
+    echo after directory already exist!
+fi
+
+# Configure ycm_extra_config file
+if [ ! -e ~/workspace/.ycm_extra_conf.py ]; then
+    echo -e "making ycm_extra_conf symlink"
+    cd ~/workspace/
+    ln -s $DIR/ycm_extra_conf.py .ycm_extra_conf.py
+    cd - > /dev/null
+else
+    echo ycm_extra_conf already exist!
 fi
 
 # Vundle & Plugin install

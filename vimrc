@@ -5,6 +5,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'valloric/youcompleteme'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
@@ -100,7 +101,6 @@ inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
-inoremap <C-@>  <C-x><C-o>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
@@ -196,6 +196,9 @@ function! ST()      " Space to tab
     set noexpandtab
     %retab!
 endfunction
+
+" youcompleteme
+let g:ycm_confirm_extra_conf=0
 
 " airline settings
 let g:airline_powerline_fonts=1
