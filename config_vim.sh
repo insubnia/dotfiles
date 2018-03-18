@@ -23,9 +23,9 @@ else
 fi
 
 # Configure ycm_extra_config file
-if [ ! -e ~/workspace/.ycm_extra_conf.py ]; then
+if [ ! -e ~/.vim/.ycm_extra_conf.py ]; then
     echo -e "making ycm_extra_conf symlink"
-    cd ~/workspace/
+    cd ~/.vim/
     ln -s $DIR/ycm_extra_conf.py .ycm_extra_conf.py
     cd - > /dev/null
 else

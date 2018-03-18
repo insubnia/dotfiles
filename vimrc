@@ -154,14 +154,12 @@ autocmd BufNewFile *.py call MyPy()
 " Highlight function
 function! MyHighlight()
     if &background == "dark"
-        hi Function         guifg=lightgreen
         hi GlobalVariable   guifg=seagreen
         hi DefinedName      guifg=darkcyan
         hi EnumerationValue guifg=maroon
         hi ProtoType        guifg=steelblue
         hi Member           guifg=lightcoral
     else
-        hi Function         guifg=olivedrab
         hi GlobalVariable   guifg=forestgreen
         hi DefinedName      guifg=darkcyan
         hi EnumerationValue guifg=maroon
@@ -199,6 +197,8 @@ endfunction
 
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_python_binary_path='/usr/bin/python3'
 
 " airline settings
 let g:airline_powerline_fonts=1
