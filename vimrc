@@ -9,6 +9,7 @@ Plugin 'valloric/youcompleteme'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
@@ -55,6 +56,7 @@ set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
 set noswf nobk      " noswapfile & nobackupfile
 set termguicolors   " use hi-guifg and hi-guibg in the terminal
+set updatetime=100
 set encoding=utf8
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
@@ -94,8 +96,6 @@ nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-i>  <C-i>zz
-nnoremap <C-j>  :cn<CR>
-nnoremap <C-k>  :cp<CR>
 inoremap <C-_>  <nop>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -116,9 +116,9 @@ if &diff
     noremap <leader>1   :diffget LOCAL<CR>
     noremap <leader>2   :diffget BASE<CR>
     noremap <leader>3   :diffget REMOTE<CR>
-    nnoremap <C-j>  ]czz
-    nnoremap <C-k>  [czz
 endif
+nmap <C-j>  ]czz
+nmap <C-k>  [czz
 
 " Abbreviations
 cabbrev grep    silent grep!
