@@ -153,25 +153,19 @@ autocmd BufNewFile *.py call MyPy()
 
 " Highlight function
 function! MyHighlight()
-    if &background == "dark"
-        hi GlobalVariable   guifg=seagreen
-        hi DefinedName      guifg=darkcyan
-        hi EnumerationValue guifg=maroon
-        hi ProtoType        guifg=steelblue
-        hi Member           guifg=lightcoral
-    else
-        hi GlobalVariable   guifg=forestgreen
-        hi DefinedName      guifg=darkcyan
-        hi EnumerationValue guifg=maroon
-        hi ProtoType        guifg=navy
-        hi Member           guifg=brown
-    endif
+    hi DefinedName      guifg=darkcyan
+    hi EnumerationValue guifg=maroon
 
-    hi link CTagsConstant   GlobalVariable
-    hi link CTagsStructure  ProtoType
-    hi link CTagsClass      ProtoType
-    hi link CTagsUnion      ProtoType
-    hi link EnumeratorName  ProtoType
+    hi link Global  Tag
+    hi link Member  String
+    hi link Proto   Number
+
+    hi link GlobalVariable  Global
+    hi link CTagsConstant   Global
+    hi link CTagsStructure  Proto
+    hi link CTagsClass      Proto
+    hi link CTagsUnion      Proto
+    hi link EnumeratorName  Proto
 endfunction
 autocmd ColorScheme * call MyHighlight()
 
@@ -205,6 +199,9 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tagbar#enabled=1
+
+" gitgutter
+let g:gitgutter_max_signs=1000
 
 " NERDTree settings
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
