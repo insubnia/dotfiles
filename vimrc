@@ -138,18 +138,30 @@ function! QuickfixOpen()
 endfunction
 autocmd QuickFixCmdPost grep,make call QuickfixOpen()
 
+autocmd FileType help wincmd L
+
 " C/C++ formatting
 function! MyC()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
-autocmd BufNewFile *.{h,hpp} call MyC()
 
 " Python formatting
 function! MyPy()
     exe "norm! i\n\nif __name__ == \"__main__\":\npass\n\egg"
 endfunction
-autocmd BufNewFile *.py call MyPy()
+
+augroup NewFileFormat
+    autocmd!
+    autocmd BufNewFile *.{h,hpp} call MyC()
+    autocmd BufNewFile *.py call MyPy()
+augroup END
+
+augroup RememberLast
+    autocmd!
+    autocmd BufWinLeave * silent! mkview
+    autocmd BufWinEnter * silent! loadview
+augroup END
 
 " Highlight function
 function! MyHighlight()
@@ -168,16 +180,6 @@ function! MyHighlight()
     hi link EnumeratorName  Proto
 endfunction
 autocmd ColorScheme * call MyHighlight()
-
-" Initial settings
-function! MyInit()
-    " Jump to the last position
-    if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-    " if &modifiable | :retab | endif
-endfunction
-autocmd BufReadPost * call MyInit()
-
-autocmd FileType help wincmd L
 
 function! TS()      " Tab to space
     set expandtab
@@ -201,7 +203,7 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tagbar#enabled=1
 
 " gitgutter
-let g:gitgutter_max_signs=1000
+let g:gitgutter_max_signs=999
 
 " NERDTree settings
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
