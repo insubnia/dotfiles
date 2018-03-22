@@ -21,6 +21,7 @@ Plugin 'jiangmiao/auto-pairs'
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'chriskempson/base16-vim'
 Plugin 'tomasr/molokai'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'altercation/vim-colors-solarized'
@@ -55,12 +56,14 @@ set path+=**        " add subdirectories in working path
 set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
 set noswf nobk      " noswapfile & nobackupfile
-set termguicolors   " use hi-guifg and hi-guibg in the terminal
 set updatetime=100
 set encoding=utf8
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
             \*.lst,*.map,.git,.svn,tags,*.taghl,*.png,*.jpg,*.log
+if has("termguicolors")
+    set termguicolors
+endif
 
 " Cursor settings
 if &term=~'xterm'
@@ -117,8 +120,8 @@ if &diff
     noremap <leader>2   :diffget BASE<CR>
     noremap <leader>3   :diffget REMOTE<CR>
 endif
-nmap <C-j>  ]czz
-nmap <C-k>  [czz
+nmap <C-j>  ]c
+nmap <C-k>  [c
 
 " Abbreviations
 cabbrev grep    silent grep!
@@ -165,19 +168,19 @@ augroup END
 
 " Highlight function
 function! MyHighlight()
-    hi DefinedName      guifg=darkcyan
-    hi EnumerationValue guifg=maroon
-
-    hi link Global  Tag
+    hi link Global  Function
+    hi link Defined Tag
     hi link Member  String
     hi link Proto   Number
 
-    hi link GlobalVariable  Global
-    hi link CTagsConstant   Global
-    hi link CTagsStructure  Proto
-    hi link CTagsClass      Proto
-    hi link CTagsUnion      Proto
-    hi link EnumeratorName  Proto
+    hi link DefinedName         Defined
+    hi link EnumerationValue    Defined
+    hi link GlobalVariable      Global
+    hi link CTagsConstant       Global
+    hi link CTagsStructure      Proto
+    hi link CTagsClass          Proto
+    hi link CTagsUnion          Proto
+    hi link EnumeratorName      Proto
 endfunction
 autocmd ColorScheme * call MyHighlight()
 
