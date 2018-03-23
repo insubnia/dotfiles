@@ -1,5 +1,5 @@
 # Author: sis
-# Common makefile
+# general makefile
 
 TARGET	= $(notdir $(CURDIR))
 
