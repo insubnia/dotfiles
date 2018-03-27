@@ -25,11 +25,14 @@ done < <(cat << EOF
     cscope
     xclip
     powerline
+    dconf-cli
     exuberant-ctags
     fonts-nanum-coding
     python3
     python3-tk
     python3-pip
+    python-dev
+    python3-dev
     libboost-all-dev
 EOF
 )

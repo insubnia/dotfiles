@@ -59,11 +59,11 @@ set noswf nobk      " noswapfile & nobackupfile
 set updatetime=100
 set encoding=utf8
 set completeopt=menuone,noselect
-set wildignore=*.exe,*.zip,*.bin,*.hex,*.o,*.d,*.elf,*.pyc,*.pyo,__pycache__,
-            \*.lst,*.map,.git,.svn,tags,*.taghl,*.png,*.jpg,*.log
-if has("termguicolors")
-    set termguicolors
-endif
+set wildignore=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
+            \*.d,*.map,*.lst,
+            \*.pyc,*.pyo,__pycache__,
+            \*.zip,*.tar,*.gz,*.png,*.jpg,
+            \.git,.svn,tags,*.log,*.taghl,
 
 " Cursor settings
 if &term=~'xterm'
@@ -243,6 +243,9 @@ let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 
+if has("termguicolors")
+    set termguicolors
+endif
 set background=dark
 let g:airline_theme='dracula'
 colo dracula
