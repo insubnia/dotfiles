@@ -56,6 +56,7 @@ set path+=**        " add subdirectories in working path
 set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
 set noswf nobk      " noswapfile & nobackupfile
+set backspace=2     " make backspace work like most other programs
 set updatetime=100
 set encoding=utf8
 set completeopt=menuone,noselect
@@ -128,7 +129,8 @@ cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev python  !python3
 cabbrev pyrun   !python3 %
-cabbrev celan   clean
+abbrev  celan   clean
+abbrev  slef    self
 
 " External program settings
 let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
@@ -162,8 +164,8 @@ augroup END
 
 augroup RememberLast
     autocmd!
-    autocmd BufWinLeave * silent! mkview
-    autocmd BufWinEnter * silent! loadview
+    autocmd BufWinLeave *.* silent! mkview
+    autocmd BufWinEnter *.* silent! loadview
 augroup END
 
 " Highlight function
@@ -198,6 +200,12 @@ endfunction
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_python_binary_path='/usr/bin/python3'
+let g:ycm_collect_identifiers_from_tags_files=1
+autocmd FileType c,cpp,python call YCMKeyMap()
+function! YCMKeyMap()
+    nnoremap <C-]>  :YcmCompleter GoTo<CR>
+    nnoremap <C-t>  <C-o>
+endfunction
 
 " airline settings
 let g:airline_powerline_fonts=1
@@ -209,7 +217,7 @@ let g:airline#extensions#tagbar#enabled=1
 let g:gitgutter_max_signs=999
 
 " NERDTree settings
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
 let g:NERDTreeShowHidden=1
