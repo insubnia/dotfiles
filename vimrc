@@ -133,7 +133,7 @@ abbrev  celan   clean
 abbrev  slef    self
 
 " External program settings
-let &grepprg='grep -Irin --exclude={*.lst,*.map,*.d,tags,*.taghl} --exclude-dir={.git,.svn} $*'
+let &grepprg='grep -Irin --exclude={*.bak,*.lst,*.map,*.d,tags,*.taghl,*.log} --exclude-dir={.git,.svn} $*'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
 function! QuickfixOpen()
