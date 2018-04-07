@@ -19,7 +19,7 @@ $MY_TAG
 export DISPLAY=:0
 
 alias python='python3'
-alias grep='grep --color=auto --exclude={tags,*.lst,*.map,*.d} --exclude-dir={.git,.svn}'
+alias grep='grep --color=auto --exclude={tags,*.log,*.bak} --exclude-dir={.git,.svn}'
 alias ssh='ssh -X'
 
 git config --global diff.tool vimdiff
