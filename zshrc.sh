@@ -3,6 +3,7 @@ plugins=(
     colored-man-pages
     autojump
 
+    # custom
     zsh-autosuggestions
     zsh-syntax-highlighting
 )

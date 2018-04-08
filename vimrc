@@ -105,6 +105,8 @@ inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
+inoremap      <End><CR>
+inoremap      <C-w>
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
@@ -234,6 +236,9 @@ let g:NERDCustomDelimiters={
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'python': {'left': '#'},
             \}
+
+" AutoPairs settings
+let g:AutoPairs = {'(':')','[':']','{':'}','<':'>',"'":"'",'"':'"'}
 
 " CtrlP settings
 let g:ctrlp_by_filename=0
