@@ -16,24 +16,22 @@ do
     echo -e "\nInstalling $line"
     sudo apt-get install -y $line
 done < <(cat << EOF
+    zsh
     gcc
     git
     tree
     make
     cmake
-    ctags
     cscope
     xclip
     powerline
     dconf-cli
     exuberant-ctags
-    fonts-nanum-coding
     python3
     python3-tk
     python3-pip
     python-dev
     python3-dev
-    libboost-all-dev
 EOF
 )
 

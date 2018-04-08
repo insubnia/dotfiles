@@ -41,6 +41,7 @@ Thumbs.db
 *.tar
 *.tgz
 
+__pycache__/
 *.pyc
 *.pyo
 tags
