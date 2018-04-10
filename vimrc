@@ -146,6 +146,7 @@ endfunction
 autocmd QuickFixCmdPost grep,make call QuickfixOpen()
 
 autocmd FileType help wincmd L
+autocmd VimResized * wincmd =
 
 " C/C++ formatting
 function! MyC()
@@ -236,9 +237,6 @@ let g:NERDCustomDelimiters={
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'python': {'left': '#'},
             \}
-
-" AutoPairs settings
-let g:AutoPairs = {'(':')','[':']','{':'}','<':'>',"'":"'",'"':'"'}
 
 " CtrlP settings
 let g:ctrlp_by_filename=0

@@ -24,6 +24,7 @@ done < <(cat << EOF
     cmake
     cscope
     xclip
+    autojump
     powerline
     dconf-cli
     exuberant-ctags
