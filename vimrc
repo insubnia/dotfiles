@@ -105,6 +105,7 @@ inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
 inoremap <C-e>  <End>
+inoremap <C-k>  <C-o>D
 inoremap      <End><CR>
 inoremap      <C-w>
 cnoremap <C-b>  <Left>
