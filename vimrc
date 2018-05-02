@@ -24,7 +24,6 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'tomasr/molokai'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/seoul256.vim'
 call vundle#end()
 filetype plugin indent on
@@ -205,11 +204,6 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_python_binary_path='/usr/bin/python3'
 let g:ycm_collect_identifiers_from_tags_files=1
-autocmd FileType c,cpp,python call YCMKeyMap()
-function! YCMKeyMap()
-    nnoremap <C-]>  :YcmCompleter GoTo<CR>
-    nnoremap <C-t>  <C-o>
-endfunction
 
 " airline settings
 let g:airline_powerline_fonts=1
