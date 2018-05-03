@@ -2,6 +2,7 @@
 plugins=(
     colored-man-pages
     autojump
+    extract
 
     # custom
     zsh-autosuggestions
