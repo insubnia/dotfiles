@@ -19,6 +19,7 @@ done < <(cat << EOF
     zsh
     gcc
     git
+    wget
     tree
     make
     cmake

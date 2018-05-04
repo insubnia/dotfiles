@@ -1,4 +1,5 @@
 # sis zshrc
+ZSH_THEME="agnoster"
 plugins=(
     colored-man-pages
     autojump
