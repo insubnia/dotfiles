@@ -1,20 +1,24 @@
 #!/bin/bash
 
+case "$OSTYPE" in
+    darwin*) pm="brew" ;;
+    linux*) pm="sudo apt-get" ;;
+esac
+
 echo -e "\nsis shell install script\n"
 
-echo -e "Update & upgrade apt packages"
-sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y autoremove
+echo -e "Update & upgrade packages"
+$pm update
+$pm upgrade
 
-# -e option enables escape letter
+# # -e option enables escape letter
 echo -e "\n[Installing packages]\n"
 
-# Ubuntu package install
+# Install packages using package manager
 while read line
 do
     echo -e "\nInstalling $line"
-    sudo apt-get install -y $line
+    $pm install -y $line
 done < <(cat << EOF
     zsh
     gcc
@@ -23,17 +27,8 @@ done < <(cat << EOF
     tree
     make
     cmake
-    cscope
-    xclip
     autojump
-    powerline
-    dconf-cli
-    exuberant-ctags
     python3
-    python3-tk
-    python3-pip
-    python-dev
-    python3-dev
 EOF
 )
 
