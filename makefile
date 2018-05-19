@@ -52,7 +52,7 @@ LIB_DIR	:= $(addprefix -L, $(LIB_DIR))
 LIBS	:= $(addprefix -l, $(LIBS))
 
 PHONY += all
-all: $(ELF) $(BIN) $(HEX)
+all: $(ELF) #$(BIN) $(HEX)
 	@echo Size of image
 	@$(SIZE) $<
 	@echo MAKE COMPLETE!!; echo
