@@ -27,6 +27,7 @@ done < <(cat << EOF
     tree
     make
     cmake
+    ctags
     autojump
     python3
 EOF
