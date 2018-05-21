@@ -28,6 +28,9 @@ Plugin 'junegunn/seoul256.vim'
 call vundle#end()
 filetype plugin indent on
 
+" Get OS informaion
+let os = substitute(system('uname'), "\n", "", "")
+
 " Basic options
 syntax on
 set nocp            " no compatibility with VI
@@ -111,11 +114,6 @@ cnoremap <C-t>  Tabularize /
 cnoremap <C-g>  s//g<Left><Left>
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
-nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 if &diff
     noremap <leader>1   :diffget LOCAL<CR>
     noremap <leader>2   :diffget BASE<CR>
@@ -123,6 +121,20 @@ if &diff
 endif
 nmap <C-j>  ]c
 nmap <C-k>  [c
+
+" Clipboard
+if os == "Darwin"
+    nnoremap <leader>d  <S-v> !pbcopy<CR>
+    nnoremap <leader>y  <S-v> :w !pbcopy<CR><CR>
+    vnoremap <leader>d  !pbcopy<CR>
+    vnoremap <leader>y  :w !pbcopy<CR><CR>
+elseif os == "Linux"
+    nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+endif
 
 " Abbreviations
 cabbrev grep    silent grep!
