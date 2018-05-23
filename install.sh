@@ -28,8 +28,9 @@ done < <(cat << EOF
     make
     cmake
     ctags
-    autojump
     python3
+    autojump
+    fzf
 EOF
 )
 
