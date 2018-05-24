@@ -71,6 +71,11 @@ PHONY += so
 so: $(SO)
 	@echo COMPLETE!!
 
+PHONY += dump
+dump: $(ELF)
+	@echo Information from $<
+	@$(OBJDUMP) -S -D $<
+
 PHONY += test
 test:
 	@echo $(PHONY)
