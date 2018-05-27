@@ -141,6 +141,7 @@ cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev python  !python3
 cabbrev pyrun   !python3 %
+cabbrev ctags   silent !ctags -R . <CR><C-l>
 abbrev  celan   clean
 abbrev  slef    self
 
