@@ -139,7 +139,6 @@ endif
 " Abbreviations
 cabbrev grep    silent grep!
 cabbrev make    make!
-cabbrev python  !python3
 cabbrev pyrun   !python3 %
 cabbrev ctags   silent !ctags -R . <CR><C-l>
 abbrev  celan   clean
@@ -213,7 +212,7 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-let g:ycm_python_binary_path='/usr/bin/python3'
+let g:ycm_python_binary_path=system("which python3")
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " airline settings
