@@ -59,6 +59,7 @@ set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
 set noswf nobk      " noswapfile & nobackupfile
 set backspace=2     " make backspace work like most other programs
+set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
 set encoding=utf8
 set completeopt=menuone,noselect
