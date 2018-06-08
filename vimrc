@@ -176,11 +176,11 @@ augroup NewFileFormat
     autocmd BufNewFile *.py call MyPy()
 augroup END
 
-augroup RememberLast
-    autocmd!
-    autocmd BufWinLeave *.* silent! mkview
-    autocmd BufWinEnter *.* silent! loadview
-augroup END
+" Remember last position
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"zz" |
+     \ endif
 
 " Highlight function
 function! MyHighlight()
