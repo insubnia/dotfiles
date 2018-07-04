@@ -61,7 +61,6 @@ set noswf nobk      " noswapfile & nobackupfile
 set backspace=2     " make backspace work like most other programs
 set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
-set encoding=utf8
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
             \*.d,*.map,*.lst,
@@ -135,6 +134,10 @@ elseif os == "Linux"
     vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+else    " Windows
+    noremap <leader>d   "+d
+    noremap <leader>y   "+y
+    noremap <leader>p   "+p
 endif
 
 " Abbreviations
@@ -252,8 +255,6 @@ let g:tagbar_autofocus=1
 let g:tagbar_sort=1
 
 " indentLine
-let g:indentLine_char='│'
-let g:indentLine_first_char='│'
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
