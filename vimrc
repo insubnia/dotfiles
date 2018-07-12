@@ -1,11 +1,17 @@
 " sis vim runtime configuration
 
+" Get OS informaion
+if has("win32") || has("win32unix")
+    let os = "Windows"
+else
+    let os = substitute(system('uname'), '\n', '', '')
+endif
+
 " Plugin
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'valloric/youcompleteme'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
@@ -18,6 +24,10 @@ Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'TagHighlight'
 Plugin 'godlygeek/tabular'
+" Exception
+if os != "Windows"
+    Plugin 'valloric/youcompleteme'
+endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
 Plugin 'nanotech/jellybeans.vim'
@@ -27,13 +37,6 @@ Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'junegunn/seoul256.vim'
 call vundle#end()
 filetype plugin indent on
-
-" Get OS informaion
-if has("win32")
-    let os = "Windows"
-else
-    let os = substitute(system('uname'), '\n', '', '')
-endif
 
 " Basic options
 syntax on
