@@ -21,6 +21,9 @@ alias python='python3'
 alias grep='grep --color=auto --exclude={tags} --exclude-dir={.git,.svn}'
 alias ssh='ssh -X'
 
+alias gdf="git difftool -t vimdiff"
+alias gdn="git diff --name-only"
+
 git config --global core.excludesfile '~/workspace/dotfiles/gitignore'
 git config --global diff.tool vimdiff
 git config --global difftool.prompt true
