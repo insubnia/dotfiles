@@ -14,19 +14,21 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
-Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
-Plugin 'TagHighlight'
 Plugin 'godlygeek/tabular'
-" Exception
-if os != "Windows"
+if os == "Darwin" || os == "Linux"
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'airblade/vim-gitgutter'
     Plugin 'valloric/youcompleteme'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'TagHighlight'
+elseif has("win32")
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'airblade/vim-gitgutter'
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
