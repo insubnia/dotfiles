@@ -5,19 +5,17 @@ case "$OSTYPE" in
     linux*) pm="sudo apt-get" ;;
 esac
 
-echo -e "\nsis shell install script\n"
+# # -e option enables escape letter
+echo -e "\nsis shell install script"
 
-echo -e "Update & upgrade packages"
+echo -e "\n[Update & upgrade packages]"
 $pm update
 $pm upgrade
-
-# # -e option enables escape letter
-echo -e "\n[Installing packages]\n"
 
 # Install packages using package manager
 while read line
 do
-    echo -e "\nInstalling $line"
+    echo -e "\n[Installing $line]"
     $pm install -y $line
 done < <(cat << EOF
     zsh
@@ -37,15 +35,14 @@ EOF
 # Python package install
 while read line
 do
-    echo -e "\nInstalling python package - $line"
-    sudo -H python3 -mpip install -U $line
+    echo -e "\n[Installing $line]"
+    sudo -H pip3 install -U $line
 done < <(cat << EOF
     numpy
     scipy
     matplotlib
-    python-config
+    pyqt5
 EOF
 )
 
-echo -e "\n[Installation complete!!]\n"
-
+echo -e "\n\nInstallation complete!!\n"
