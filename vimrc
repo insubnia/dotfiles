@@ -62,7 +62,6 @@ set autoread        " Auto read when a file is changed on disk
 set hidden          " Keep current buffer as hidden, when opening a new file
 set vb noeb         " visual bell instead of beep
 set wildmenu        " enhanced command-line completion
-set diffopt+=iwhite " ignore white spaces in diff mode
 set path+=**        " add subdirectories in working path
 set spr sb          " split right & below
 set title           " set window's title, reflecting the file currently being edited
@@ -70,6 +69,7 @@ set noswf nobk      " noswapfile & nobackupfile
 set backspace=2     " make backspace work like most other programs
 set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
+set diffopt+=vertical,iwhite
 set completeopt=menuone,noselect
 set wildignore=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
             \*.d,*.map,*.lst,
