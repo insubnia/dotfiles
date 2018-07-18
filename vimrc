@@ -87,7 +87,6 @@ endif
 " Key mappings
 noremap <C-_>   :call NERDComment(0, "toggle")<CR>
 nnoremap <F2>   :UpdateTypesFile<CR>
-nnoremap <F3>   :NERDTreeToggle<CR><C-w>=
 nnoremap <F4>   :TagbarToggle<CR><C-w>=
 nnoremap <F5>   :e<CR><C-w>=
 nnoremap Q  <nop>
@@ -121,6 +120,7 @@ cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-t>  Tabularize /
 cnoremap <C-g>  s//g<Left><Left>
+nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
 if &diff
