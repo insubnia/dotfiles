@@ -71,11 +71,12 @@ set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
 set diffopt+=vertical,iwhite
 set completeopt=menuone,noselect
-set wildignore=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
-            \*.d,*.map,*.lst,
-            \*.pyc,*.pyo,__pycache__,
-            \*.zip,*.tar,*.gz,*.png,*.jpg,
-            \.git,.svn,tags,*.log,*.taghl,
+
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
+set wildignore+=*.d,*.map,*.lst
+set wildignore+=*.pyc,*.pyo,__pycache__
+set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg
+set wildignore+=.git,.svn,tags,*.log,*.bak,*.taghl
 
 " Cursor settings
 if &term=~'xterm'
@@ -85,10 +86,6 @@ if &term=~'xterm'
 endif
 
 " Key mappings
-noremap <C-_>   :call NERDComment(0, "toggle")<CR>
-nnoremap <F2>   :UpdateTypesFile<CR>
-nnoremap <F4>   :TagbarToggle<CR><C-w>=
-nnoremap <F5>   :e<CR><C-w>=
 nnoremap Q  <nop>
 nnoremap J  <nop>
 vnoremap J  <nop>
@@ -104,6 +101,8 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap // :ts /
 nnoremap ZA :wqa<CR>
+nnoremap R  :e<CR><C-w>=
+nnoremap T  :TagbarToggle<CR><C-w>=
 vnoremap <  <gv
 vnoremap >  >gv
 nnoremap <C-]>  g<C-]>
@@ -123,6 +122,7 @@ cnoremap <C-g>  s//g<Left><Left>
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
 if &diff
     noremap <leader>1   :diffget LOCAL<CR>
     noremap <leader>2   :diffget BASE<CR>
@@ -148,12 +148,13 @@ endif
 cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev pyrun   !python3 %
-cabbrev ctags   silent !ctags -R . <CR><C-l>
+" cabbrev ctags   call system("ctags -R .")
+cabbrev ctags   UpdateTypesFile<CR>
 abbrev  celan   clean
 abbrev  slef    self
 
 " External program settings
-let &grepprg='grep -Irin --exclude={*.bak,*.lst,*.map,*.d,tags,*.taghl,*.log} --exclude-dir={.git,.svn} $*'
+let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
 function! QuickfixOpen()
@@ -269,4 +270,3 @@ endif
 set background=dark
 let g:airline_theme='dracula'
 colo dracula
-
