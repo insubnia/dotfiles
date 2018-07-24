@@ -88,7 +88,6 @@ endif
 " Key mappings
 nnoremap Q  <nop>
 nnoremap J  <nop>
-vnoremap J  <nop>
 nnoremap K  <nop>
 nnoremap Y  y$
 nnoremap j  gj
@@ -101,15 +100,21 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap // :ts /
 nnoremap ZA :wqa<CR>
-nnoremap R  :e<CR><C-w>=
+nnoremap R  :reg<CR>
 nnoremap T  :TagbarToggle<CR><C-w>=
-vnoremap <  <gv
-vnoremap >  >gv
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-i>  <C-i>zz
-inoremap <C-_>  <nop>
+nnoremap <C-l>  :e<CR><C-l><C-w>=
+nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
+nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
+nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <leader>1  :diffget LOCAL<CR>
+nnoremap <leader>2  :diffget BASE<CR>
+nnoremap <leader>3  :diffget REMOTE<CR>
+vnoremap <  <gv
+vnoremap >  >gv
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
@@ -117,19 +122,10 @@ inoremap <C-e>  <End>
 inoremap <C-k>  <C-o>D
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
-cnoremap <C-t>  Tabularize /
 cnoremap <C-g>  s//g<Left><Left>
-nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
-nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
-nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nmap     <C-j>  ]c
+nmap     <C-k>  [c
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-if &diff
-    noremap <leader>1   :diffget LOCAL<CR>
-    noremap <leader>2   :diffget BASE<CR>
-    noremap <leader>3   :diffget REMOTE<CR>
-endif
-nmap <C-j>  ]c
-nmap <C-k>  [c
 
 " Clipboard
 if os == "Linux"
