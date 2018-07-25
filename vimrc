@@ -19,6 +19,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
 Plugin 'kien/ctrlp.vim'
+Plugin 'junegunn/vim-peekaboo'
 Plugin 'godlygeek/tabular'
 if os == "Darwin" || os == "Linux"
     Plugin 'tpope/vim-fugitive'
