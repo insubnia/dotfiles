@@ -32,11 +32,12 @@ if os == "Darwin" || os == "Linux"
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
+Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'tomasr/molokai'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'junegunn/seoul256.vim'
+Plugin 'tomasr/molokai'
+Plugin 'morhetz/gruvbox'
+Plugin 'chriskempson/base16-vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -79,7 +80,7 @@ set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg
 set wildignore+=.git,.svn,tags,*.log,*.bak,*.taghl
 
 " Cursor settings
-if &term=~'xterm'
+if &term =~ "xterm"
     let &t_SI = "\e[5 q"    " Start insert mode
     let &t_SR = "\e[3 q"    " Start replace mode
     let &t_EI = "\e[0 q"    " End insert & replace mode
@@ -265,9 +266,21 @@ if has("gui_running")
     set guioptions-=T
     set guioptions-=m
 endif
+
 if has("termguicolors")
     set termguicolors
 endif
-set background=dark
-let g:airline_theme='dracula'
-colo dracula
+
+if os == "Darwin"
+    let g:airline_theme='dracula'
+    colo dracula
+elseif os == "Linux"
+    let g:airline_theme='jellybeans'
+    colo jellybeans
+elseif has("win32")
+    let g:airline_theme='base16_google'
+    colo base16-google-dark
+elseif has("win32unix")
+    let g:airline_theme='onedark'
+    colo onedark
+endif
