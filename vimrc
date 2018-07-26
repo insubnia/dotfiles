@@ -259,6 +259,12 @@ let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 
+if has("gui_running")
+    set guioptions+=k
+    set guioptions-=L
+    set guioptions-=T
+    set guioptions-=m
+endif
 if has("termguicolors")
     set termguicolors
 endif
