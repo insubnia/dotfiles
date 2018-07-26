@@ -4,7 +4,7 @@
 if has("win32") || has("win32unix")
     let os = "Windows"
 else
-    let os = substitute(system('uname'), '\n', '', '')
+    let os = trim(system("uname"))
 endif
 
 " Plugin
@@ -217,7 +217,7 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-let g:ycm_python_binary_path=system("which python3")
+let g:ycm_python_binary_path=trim(system("which python3"))
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " airline settings
