@@ -20,16 +20,15 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
 Plugin 'kien/ctrlp.vim'
 Plugin 'junegunn/vim-peekaboo'
+Plugin 'majutsushi/tagbar'
+Plugin 'TagHighlight'
 Plugin 'godlygeek/tabular'
-if os == "Darwin" || os == "Linux"
+if !has("win32unix")
     Plugin 'tpope/vim-fugitive'
+endif
+if os == "Darwin" || os == "Linux"
     Plugin 'airblade/vim-gitgutter'
     Plugin 'valloric/youcompleteme'
-    Plugin 'majutsushi/tagbar'
-    Plugin 'TagHighlight'
-elseif has("win32")
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'airblade/vim-gitgutter'
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
@@ -145,8 +144,7 @@ endif
 cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev pyrun   !python3 %
-" cabbrev ctags   call system("ctags -R .")
-cabbrev ctags   UpdateTypesFile<CR>
+cabbrev ctags   call system("ctags -R .")
 abbrev  celan   clean
 abbrev  slef    self
 
