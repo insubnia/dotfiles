@@ -44,29 +44,30 @@ filetype plugin indent on
 " Basic options
 syntax on
 set nocp            " no compatibility with VI
-set nu              " line number
+set autowrite       " Automatically :write before running commands
+set autoread        " Auto read when a file is changed on disk
+set noswf nobk      " noswapfile & nobackupfile
+set hidden          " Keep current buffer as hidden, when opening a new file
+set path+=**        " add subdirectories in working path
+set title           " set window's title, reflecting the file currently being edited
+set vb noeb         " visual bell instead of beep
+set mouse=a         " enalbe cursor move with mouse
+set number          " line number
 set cursorline      " highlight current cursorline
 set ruler           " display cursor position information at status line
-set ic              " case insensitive search
+set termguicolors   " use gui colors instead of terminal colors
+set ignorecase      " case insensitive search
 set smartcase       " don't use ic when there is Capital letter
 set hlsearch        " highlight search
 set incsearch       " show search matches as type
-set mouse=a         " enalbe cursor move with mouse
 set smarttab        " insert tabs on the start of a line according to shiftwidth, not tabstop
 set expandtab       " replace tab to space
 set ai si cin       " set autoindent, smartindent, cindent
 set ls=2            " statusline option (set to 2 for using airline)
 set ts=4 sw=4 sts=4 " tab size
 set tm=500 ttm=0    " to leave insert mode without delay
-set autowrite       " Automatically :write before running commands
-set autoread        " Auto read when a file is changed on disk
-set hidden          " Keep current buffer as hidden, when opening a new file
-set vb noeb         " visual bell instead of beep
 set wildmenu        " enhanced command-line completion
-set path+=**        " add subdirectories in working path
 set spr sb          " split right & below
-set title           " set window's title, reflecting the file currently being edited
-set noswf nobk      " noswapfile & nobackupfile
 set backspace=2     " make backspace work like most other programs
 set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
@@ -265,10 +266,6 @@ if has("gui_running")
     set guioptions-=L
     set guioptions-=T
     set guioptions-=m
-endif
-
-if has("termguicolors")
-    set termguicolors
 endif
 
 if os == "Darwin"
