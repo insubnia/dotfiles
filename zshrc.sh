@@ -20,10 +20,8 @@ unsetopt BG_NICE
 
 alias python='python3'
 alias grep='grep --color=auto --exclude={tags} --exclude-dir={.git,.svn}'
-alias ssh='ssh -X'
-
-alias gdf="git difftool -t vimdiff"
-alias gdn="git diff --name-only"
+alias ff='find . -type f -iname'
+alias gdf='git difftool -t vimdiff'
 
 git config --global core.excludesfile '~/workspace/dotfiles/gitignore'
 git config --global diff.tool vimdiff
