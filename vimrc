@@ -35,6 +35,8 @@ Plugin 'dracula/vim'
 Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'cocopon/iceberg.vim'
+Plugin 'w0ng/vim-hybrid'
 Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
 Plugin 'chriskempson/base16-vim'
@@ -269,8 +271,8 @@ if has("gui_running")
 endif
 
 if os == "Darwin"
-    let g:airline_theme='dracula'
-    colo dracula
+    let g:airline_theme='iceberg'
+    colo iceberg
 elseif os == "Linux"
     let g:airline_theme='jellybeans'
     colo jellybeans
