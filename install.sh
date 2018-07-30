@@ -2,7 +2,7 @@
 
 case "$OSTYPE" in
     darwin*) pm="brew" ;;
-    linux*) pm="sudo apt-get" ;;
+    linux*) pm="apt-get" ;;
 esac
 
 # # -e option enables escape letter
@@ -27,6 +27,7 @@ done < <(cat << EOF
     cmake
     ctags
     python3
+    python3-pip
     autojump
     fzf
 EOF
