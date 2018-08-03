@@ -271,8 +271,8 @@ if has("gui_running")
 endif
 
 if os == "Darwin"
-    let g:airline_theme='iceberg'
-    colo iceberg
+    let g:airline_theme='dracula'
+    colo dracula
 elseif os == "Linux"
     let g:airline_theme='jellybeans'
     colo jellybeans

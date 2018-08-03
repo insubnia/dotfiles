@@ -39,6 +39,7 @@ do
     echo -e "\n[Installing $line]"
     sudo -H pip3 install -U $line
 done < <(cat << EOF
+    pip 
     numpy
     scipy
     matplotlib
