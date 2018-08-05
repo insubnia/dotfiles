@@ -76,11 +76,11 @@ set updatetime=100
 set diffopt+=vertical,iwhite
 set completeopt=menuone,noselect
 
-set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
-set wildignore+=*.d,*.map,*.lst
+set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
+set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg
-set wildignore+=.git,.svn,tags,*.log,*.bak,*.taghl
+set wildignore+=.git,.gitmodules,.svn
 
 " Cursor settings
 if &term =~ "xterm"

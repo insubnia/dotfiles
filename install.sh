@@ -30,6 +30,7 @@ done < <(cat << EOF
     python3-pip
     autojump
     fzf
+    unrar
 EOF
 )
 
