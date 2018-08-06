@@ -73,7 +73,7 @@ set spr sb          " split right & below
 set backspace=2     " make backspace work like most other programs
 set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
-set diffopt+=vertical,iwhite
+set diffopt+=vertical
 set completeopt=menuone,noselect
 
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
