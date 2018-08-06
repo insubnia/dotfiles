@@ -22,10 +22,3 @@ alias python='python3'
 alias grep='grep --color=auto --exclude={tags} --exclude-dir={.git,.svn}'
 alias ff='find . -type f -iname'
 alias gdf='git difftool -t vimdiff'
-
-git config --global core.excludesfile '~/workspace/dotfiles/gitignore'
-git config --global diff.tool vimdiff
-git config --global difftool.prompt true
-git config --global merge.tool vimdiff2     # tool: vimdiff, vimdiff2, vimdiff3
-git config --global mergetool.prompt true
-git config --global merge.conflictstyle diff3   # confilctstyle: merge, diff3
