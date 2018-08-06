@@ -75,6 +75,7 @@ set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
 set diffopt+=vertical
 set completeopt=menuone,noselect
+set clipboard=unnamed,unnamedplus
 
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
@@ -150,6 +151,8 @@ cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev pyrun   !python3 %
 cabbrev ctags   call system("ctags -R .")
+cabbrev copen   copen \| wincmd L
+cabbrev Gdiff   Gdiff \| norm! gg
 abbrev  celan   clean
 abbrev  slef    self
 
