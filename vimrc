@@ -126,6 +126,7 @@ inoremap <C-e>  <End>
 inoremap <C-k>  <C-o>D
 cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
+cnoremap <C-v>  <C-r>"
 cnoremap <C-g>  s//g<Left><Left>
 nmap     <C-j>  ]c
 nmap     <C-k>  [c
@@ -246,8 +247,8 @@ let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
-let g:NERDAltDelims_c=1
-let g:NERDCustomDelimiters={'python': {'left': '#'}}
+let g:NERDCustomDelimiters={'python': {'left': '#'},
+            \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " CtrlP settings
 let g:ctrlp_by_filename=0
