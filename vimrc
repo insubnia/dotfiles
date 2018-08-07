@@ -118,6 +118,7 @@ nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
 nnoremap <leader>1  :diffget LOCAL<CR>
 nnoremap <leader>2  :diffget BASE<CR>
 nnoremap <leader>3  :diffget REMOTE<CR>
+" nnoremap <expr> <C-j> &diff ? ']c' : '<C-W>j'
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-b>  <Left>
@@ -129,8 +130,8 @@ cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-v>  <C-r>"
 cnoremap <C-g>  s//g<Left><Left>
-nmap     <C-j>  ]c
-nmap     <C-k>  [c
+nmap     <C-j>  ]czz
+nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
 
 " Clipboard
@@ -152,7 +153,6 @@ cabbrev make    make!
 cabbrev pyrun   !python3 %
 cabbrev ctags   call system("ctags -R .")
 cabbrev copen   copen \| wincmd L
-cabbrev Gdiff   Gdiff \| norm! gg
 abbrev  celan   clean
 abbrev  slef    self
 
@@ -190,8 +190,11 @@ augroup END
 " Remember last position
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"zz" |
+     \   exe "norm! g`\"zz" |
      \ endif
+
+" Move cursor to first line in diff mode
+autocmd FilterWritePre * if &diff | 1 | redraw! | endif
 
 " Highlight function
 function! MyHighlight()
@@ -241,7 +244,6 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
 let g:NERDTreeShowHidden=1
-let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 
 " NERDCommenter settings
