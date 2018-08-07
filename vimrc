@@ -160,12 +160,10 @@ abbrev  slef    self
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-function! QuickfixOpen()
-    cwindow
-    if &buftype == "quickfix" | wincmd L | endif
-    redraw!
-endfunction
-autocmd QuickFixCmdPost grep,make call QuickfixOpen()
+autocmd QuickFixCmdPost grep,make 
+            \ cwindow |
+            \ if &buftype == "quickfix" | wincmd L | endif |
+            \ redraw!
 
 autocmd FileType help wincmd L
 autocmd VimResized * wincmd =
