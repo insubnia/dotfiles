@@ -160,7 +160,7 @@ abbrev  slef    self
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-autocmd QuickFixCmdPost grep,make 
+autocmd QuickFixCmdPost grep,make
             \ cwindow |
             \ if &buftype == "quickfix" | wincmd L | endif |
             \ redraw!
@@ -187,9 +187,9 @@ augroup END
 
 " Remember last position
 autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "norm! g`\"zz" |
-     \ endif
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \ exe "norm! g`\"zz" |
+            \ endif
 
 " Move cursor to first line in diff mode
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
@@ -251,7 +251,7 @@ let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
-            \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
+            \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " CtrlP settings
 let g:ctrlp_by_filename=0
