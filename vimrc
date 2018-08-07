@@ -4,7 +4,7 @@
 if has("win32") || has("win32unix")
     let os = "Windows"
 else
-    let os = trim(system("uname"))
+    let os = substitute(system("uname"), "\n", "", "")
 endif
 
 " Plugin
@@ -12,22 +12,21 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
-Plugin 'kien/ctrlp.vim'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
+Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
-if !has("win32unix")
-    Plugin 'tpope/vim-fugitive'
-endif
-if os == "Darwin" || os == "Linux"
-    Plugin 'airblade/vim-gitgutter'
+if os != "Windows"
     Plugin 'valloric/youcompleteme'
 endif
 " ---------- colorschemes ----------
@@ -45,10 +44,9 @@ filetype plugin indent on
 
 " Basic options
 syntax on
-set nocp            " no compatibility with VI
-set autowrite       " Automatically :write before running commands
-set autoread        " Auto read when a file is changed on disk
-set noswf nobk      " noswapfile & nobackupfile
+set nocp
+set noswf nobk noudf
+set autoread autowrite
 set hidden          " Keep current buffer as hidden, when opening a new file
 set path+=**        " add subdirectories in working path
 set title           " set window's title, reflecting the file currently being edited
@@ -62,6 +60,7 @@ set ignorecase      " case insensitive search
 set smartcase       " don't use ic when there is Capital letter
 set hlsearch        " highlight search
 set incsearch       " show search matches as type
+set signcolumn=yes  " always show signcolumn
 set smarttab        " insert tabs on the start of a line according to shiftwidth, not tabstop
 set expandtab       " replace tab to space
 set ai si cin       " set autoindent, smartindent, cindent
@@ -75,10 +74,11 @@ set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
 set diffopt+=vertical
 set completeopt=menuone,noselect
-set clipboard=unnamed,unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
-set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
+set wildignore+=*.doc*,*.xls*,*.ppt*
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
@@ -91,6 +91,7 @@ if &term =~ "xterm"
 endif
 
 " Key mappings
+let mapleader=" "
 nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
@@ -103,7 +104,7 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap // :ts /
+nnoremap ?  :ts /
 nnoremap ZA :wqa<CR>
 nnoremap R  :reg<CR>
 nnoremap T  :TagbarToggle<CR><C-w>=
@@ -115,9 +116,6 @@ nnoremap <C-l>  :e<CR><C-l><C-w>=
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
-nnoremap <leader>1  :diffget LOCAL<CR>
-nnoremap <leader>2  :diffget BASE<CR>
-nnoremap <leader>3  :diffget REMOTE<CR>
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-b>  <Left>
@@ -129,30 +127,30 @@ cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-v>  <C-r>"
 cnoremap <C-g>  s//g<Left><Left>
-nmap     <C-j>  ]c
-nmap     <C-k>  [c
+nmap     <C-j>  ]czz
+nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
+noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ""
+noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
+noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
+noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
+noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 
 " Clipboard
-if os == "Linux"
-    nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
-else
-    noremap <leader>d   "+d
-    noremap <leader>y   "+y
-    noremap <leader>p   "+p
+if !has("clipboard")
+    nnoremap \d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    nnoremap \y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    vnoremap \d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    vnoremap \y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    nnoremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 endif
 
 " Abbreviations
 cabbrev grep    silent grep!
 cabbrev make    make!
-cabbrev pyrun   !python3 %
-cabbrev ctags   call system("ctags -R .")
-cabbrev copen   copen \| wincmd L
-cabbrev Gdiff   Gdiff \| norm! gg
+cabbrev <silent> pyrun   !python3 %
+cabbrev <silent> ctags  call system("ctags -R .")
+cabbrev <silent> copen  copen \| wincmd L
 abbrev  celan   clean
 abbrev  slef    self
 
@@ -160,15 +158,20 @@ abbrev  slef    self
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-function! QuickfixOpen()
-    cwindow
-    if &buftype == "quickfix" | wincmd L | endif
-    redraw!
-endfunction
-autocmd QuickFixCmdPost grep,make call QuickfixOpen()
+autocmd QuickFixCmdPost grep,make
+            \ cwindow |
+            \ if &buftype == "quickfix" | wincmd L | endif |
+            \ redraw!
 
 autocmd FileType help wincmd L
 autocmd VimResized * wincmd =
+autocmd FilterWritePre * if &diff | 1 | redraw! | endif
+
+" Remember last position
+autocmd BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \ exe "norm! g`\"zz" |
+            \ endif
 
 " C/C++ formatting
 function! MyC()
@@ -186,12 +189,6 @@ augroup NewFileFormat
     autocmd BufNewFile *.{h,hpp} call MyC()
     autocmd BufNewFile *.py call MyPy()
 augroup END
-
-" Remember last position
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"zz" |
-     \ endif
 
 " Highlight function
 function! MyHighlight()
@@ -224,7 +221,7 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-let g:ycm_python_binary_path=trim(system("which python3"))
+let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " airline settings
@@ -234,14 +231,13 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tagbar#enabled=1
 
 " gitgutter
-let g:gitgutter_max_signs=999
+let g:gitgutter_max_signs=1024
 
 " NERDTree settings
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
 let g:NERDTreeShowHidden=1
-let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 
 " NERDCommenter settings
@@ -251,10 +247,10 @@ let g:NERDDefaultAlign='left'
 let g:NERDCommentEmptyLines=1
 let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
-            \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
+            \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " CtrlP settings
-let g:ctrlp_by_filename=0
+let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
 let g:ctrlp_wildignore=1
 
