@@ -167,6 +167,13 @@ autocmd QuickFixCmdPost grep,make
 
 autocmd FileType help wincmd L
 autocmd VimResized * wincmd =
+autocmd FilterWritePre * if &diff | 1 | redraw! | endif
+
+" Remember last position
+autocmd BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \ exe "norm! g`\"zz" |
+            \ endif
 
 " C/C++ formatting
 function! MyC()
@@ -184,15 +191,6 @@ augroup NewFileFormat
     autocmd BufNewFile *.{h,hpp} call MyC()
     autocmd BufNewFile *.py call MyPy()
 augroup END
-
-" Remember last position
-autocmd BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \ exe "norm! g`\"zz" |
-            \ endif
-
-" Move cursor to first line in diff mode
-autocmd FilterWritePre * if &diff | 1 | redraw! | endif
 
 " Highlight function
 function! MyHighlight()
