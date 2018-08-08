@@ -4,7 +4,8 @@
 if has("win32") || has("win32unix")
     let os = "Windows"
 else
-    let os = trim(system("uname"))
+    " let os = trim(system("uname"))
+    let os = substitute(system("uname"), "\n", "", "")
 endif
 
 " Plugin
@@ -12,6 +13,8 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
@@ -23,11 +26,7 @@ Plugin 'junegunn/vim-peekaboo'
 Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
 Plugin 'godlygeek/tabular'
-if !has("win32unix")
-    Plugin 'tpope/vim-fugitive'
-endif
-if os == "Darwin" || os == "Linux"
-    Plugin 'airblade/vim-gitgutter'
+if os != "Windows"
     Plugin 'valloric/youcompleteme'
 endif
 " ---------- colorschemes ----------
@@ -223,7 +222,8 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-let g:ycm_python_binary_path=trim(system("which python3"))
+" let g:ycm_python_binary_path=trim(system("which python3"))
+let g:ycm_python_binary_path=system("which python3")
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " airline settings
