@@ -250,7 +250,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " CtrlP settings
-let g:ctrlp_by_filename=0
+let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
 let g:ctrlp_wildignore=1
 
