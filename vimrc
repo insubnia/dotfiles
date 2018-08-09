@@ -60,6 +60,7 @@ set ignorecase      " case insensitive search
 set smartcase       " don't use ic when there is Capital letter
 set hlsearch        " highlight search
 set incsearch       " show search matches as type
+set signcolumn=yes  " always show signcolumn
 set smarttab        " insert tabs on the start of a line according to shiftwidth, not tabstop
 set expandtab       " replace tab to space
 set ai si cin       " set autoindent, smartindent, cindent
@@ -76,7 +77,8 @@ set completeopt=menuone,noselect
 set clipboard=unnamed,unnamedplus
 
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
-set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib,
+set wildignore+=*.doc*,*.xls*,*.ppt*
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
@@ -231,7 +233,7 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tagbar#enabled=1
 
 " gitgutter
-let g:gitgutter_max_signs=999
+let g:gitgutter_max_signs=1024
 
 " NERDTree settings
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
