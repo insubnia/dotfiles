@@ -4,7 +4,6 @@
 if has("win32") || has("win32unix")
     let os = "Windows"
 else
-    " let os = trim(system("uname"))
     let os = substitute(system("uname"), "\n", "", "")
 endif
 
@@ -45,10 +44,9 @@ filetype plugin indent on
 
 " Basic options
 syntax on
-set nocp            " no compatibility with VI
-set autowrite       " Automatically :write before running commands
-set autoread        " Auto read when a file is changed on disk
-set noswf nobk      " noswapfile & nobackupfile
+set nocp
+set noswf nobk noudf
+set autoread autowrite
 set hidden          " Keep current buffer as hidden, when opening a new file
 set path+=**        " add subdirectories in working path
 set title           " set window's title, reflecting the file currently being edited
@@ -223,8 +221,7 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-" let g:ycm_python_binary_path=trim(system("which python3"))
-let g:ycm_python_binary_path=system("which python3")
+let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " airline settings
