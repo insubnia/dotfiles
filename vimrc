@@ -115,10 +115,6 @@ nnoremap <C-l>  :e<CR><C-l><C-w>=
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
-nnoremap <leader>1  :diffget LOCAL<CR>
-nnoremap <leader>2  :diffget BASE<CR>
-nnoremap <leader>3  :diffget REMOTE<CR>
-" nnoremap <expr> <C-j> &diff ? ']c' : '<C-W>j'
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-b>  <Left>
@@ -133,6 +129,9 @@ cnoremap <C-g>  s//g<Left><Left>
 nmap     <C-j>  ]czz
 nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
+noremap  <leader>1  :diffget LO<CR>
+noremap  <leader>2  :diffget BA<CR>
+noremap  <leader>3  :diffget RE<CR>
 
 " Clipboard
 if !has("clipboard")
@@ -146,9 +145,11 @@ endif
 " Abbreviations
 cabbrev grep    silent grep!
 cabbrev make    make!
-cabbrev pyrun   !python3 %
-cabbrev ctags   call system("ctags -R .")
-cabbrev copen   copen \| wincmd L
+cabbrev <silent> pyrun   !python3 %
+cabbrev <silent> ctags  call system("ctags -R .")
+cabbrev <silent> copen  copen \| wincmd L
+cabbrev <expr> dp  &diff ? 'diffput' : 'dp'
+cabbrev <expr> dg  &diff ? 'diffget' : 'dg'
 abbrev  celan   clean
 abbrev  slef    self
 
