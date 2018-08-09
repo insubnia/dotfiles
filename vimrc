@@ -101,7 +101,7 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap // :ts /
+nnoremap ?  :ts /
 nnoremap ZA :wqa<CR>
 nnoremap R  :reg<CR>
 nnoremap T  :TagbarToggle<CR><C-w>=
