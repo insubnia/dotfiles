@@ -48,3 +48,8 @@ tags
 
 # Mac
 .DS_Store
+
+# MS Office
+*.doc*
+*.xls*
+*.ppt*
