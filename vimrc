@@ -74,7 +74,7 @@ set tags=tags       " echo tagfiles() to check tag files
 set updatetime=100
 set diffopt+=vertical
 set completeopt=menuone,noselect
-set clipboard=unnamed,unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
 set wildignore+=*.doc*,*.xls*,*.ppt*
@@ -135,16 +135,12 @@ nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
 
 " Clipboard
-if os == "Linux"
+if !has("clipboard")
     nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
-else
-    noremap <leader>d   "+d
-    noremap <leader>y   "+y
-    noremap <leader>p   "+p
 endif
 
 " Abbreviations
