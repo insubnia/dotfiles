@@ -56,16 +56,13 @@ set number          " line number
 set cursorline      " highlight current cursorline
 set ruler           " display cursor position information at status line
 set termguicolors   " use gui colors instead of terminal colors
-set ignorecase      " case insensitive search
-set smartcase       " don't use ic when there is Capital letter
-set hlsearch        " highlight search
-set incsearch       " show search matches as type
 set signcolumn=yes  " always show signcolumn
-set smarttab        " insert tabs on the start of a line according to shiftwidth, not tabstop
-set expandtab       " replace tab to space
-set ai si cin       " set autoindent, smartindent, cindent
-set ls=2            " statusline option (set to 2 for using airline)
+set hlsearch incsearch
+set ignorecase smartcase
+set autoindent smartindent cindent
+set smarttab expandtab
 set ts=4 sw=4 sts=4 " tab size
+set ls=2            " statusline option (set to 2 for using airline)
 set tm=500 ttm=0    " to leave insert mode without delay
 set wildmenu        " enhanced command-line completion
 set spr sb          " split right & below
@@ -148,7 +145,7 @@ endif
 " Abbreviations
 cabbrev grep    silent grep!
 cabbrev make    make!
-cabbrev <silent> pyrun   !python3 %
+cabbrev <silent> pyrun  !python3 %
 cabbrev <silent> ctags  call system("ctags -R .")
 cabbrev <silent> copen  copen \| wincmd L
 abbrev  celan   clean
