@@ -91,6 +91,7 @@ if &term =~ "xterm"
 endif
 
 " Key mappings
+let mapleader=" "
 nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
@@ -129,9 +130,11 @@ cnoremap <C-g>  s//g<Left><Left>
 nmap     <C-j>  ]czz
 nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-noremap  <leader>1  :diffget LO<CR>
-noremap  <leader>2  :diffget BA<CR>
-noremap  <leader>3  :diffget RE<CR>
+noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ""
+noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
+noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
+noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
+noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 
 " Clipboard
 if !has("clipboard")
@@ -148,8 +151,6 @@ cabbrev make    make!
 cabbrev <silent> pyrun   !python3 %
 cabbrev <silent> ctags  call system("ctags -R .")
 cabbrev <silent> copen  copen \| wincmd L
-cabbrev <expr> dp  &diff ? 'diffput' : 'dp'
-cabbrev <expr> dg  &diff ? 'diffget' : 'dg'
 abbrev  celan   clean
 abbrev  slef    self
 
