@@ -138,11 +138,11 @@ noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 
 " Clipboard
 if !has("clipboard")
-    nnoremap <leader>d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap <leader>y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap <leader>d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap <leader>y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap <leader>p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+    nnoremap \d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    nnoremap \y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    vnoremap \d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    vnoremap \y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    nnoremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 endif
 
 " Abbreviations
