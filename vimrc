@@ -50,25 +50,20 @@ set autoread autowrite
 set hidden          " Keep current buffer as hidden, when opening a new file
 set path+=**        " add subdirectories in working path
 set title           " set window's title, reflecting the file currently being edited
-set vb noeb         " visual bell instead of beep
+set visualbell noerrorbells
+set number cursorline ruler
+set splitright splitbelow
 set mouse=a         " enalbe cursor move with mouse
-set number          " line number
-set cursorline      " highlight current cursorline
-set ruler           " display cursor position information at status line
 set termguicolors   " use gui colors instead of terminal colors
-set signcolumn=yes  " always show signcolumn
 set hlsearch incsearch
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
-set ts=4 sw=4 sts=4 " tab size
-set ls=2            " statusline option (set to 2 for using airline)
-set tm=500 ttm=0    " to leave insert mode without delay
+set tabstop=4 softtabstop=4 shiftwidth=4
+set timeoutlen=500 ttimeoutlen=0
 set wildmenu        " enhanced command-line completion
-set spr sb          " split right & below
 set backspace=2     " make backspace work like most other programs
 set tags=tags       " echo tagfiles() to check tag files
-set updatetime=100
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
@@ -222,12 +217,15 @@ let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " airline settings
+set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tagbar#enabled=1
 
 " gitgutter
+set updatetime=100
+set signcolumn=yes
 let g:gitgutter_max_signs=1024
 
 " NERDTree settings
