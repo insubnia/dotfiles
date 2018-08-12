@@ -253,6 +253,7 @@ let g:indentLine_leadingSpaceChar='.'
 " ack
 nnoremap <leader>a :Ack!<space>
 let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
+let g:ack_default_options.=" --ignore-file=is:tags"
 let g:ack_qhandler="botright cwindow"
 let g:ack_apply_qmappings=1
 let g:ackhighlight=1
