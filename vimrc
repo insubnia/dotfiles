@@ -20,6 +20,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
+Plugin 'tpope/vim-dispatch'
 Plugin 'mileszs/ack.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
@@ -109,6 +110,7 @@ nnoremap <C-l>  :e<CR><C-l><C-w>=
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-b>  <Left>
@@ -142,7 +144,6 @@ endif
 cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev <silent> pyrun  !python3 %
-cabbrev <silent> ctags  call system("ctags -R .")
 abbrev  celan   clean
 abbrev  slef    self
 
