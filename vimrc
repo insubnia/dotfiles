@@ -143,7 +143,6 @@ cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev <silent> pyrun  !python3 %
 cabbrev <silent> ctags  call system("ctags -R .")
-cabbrev <silent> copen  copen \| wincmd L
 abbrev  celan   clean
 abbrev  slef    self
 
@@ -254,6 +253,7 @@ let g:indentLine_leadingSpaceChar='.'
 nnoremap <leader>a :Ack!<space>
 let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
 let g:ack_qhandler="botright cwindow"
+let g:ack_apply_qmappings=1
 let g:ackhighlight=1
 
 " CtrlP
