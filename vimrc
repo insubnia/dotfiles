@@ -2,9 +2,9 @@
 
 " Get OS informaion
 if has("win32") || has("win32unix")
-    let os = "Windows"
+    let os="Windows"
 else
-    let os = substitute(system("uname"), "\n", "", "")
+    let os=substitute(system("uname"), "\n", "", "")
 endif
 
 " Plugin
@@ -20,6 +20,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
+Plugin 'tpope/vim-dispatch'
+Plugin 'mileszs/ack.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'majutsushi/tagbar'
@@ -50,25 +52,20 @@ set autoread autowrite
 set hidden          " Keep current buffer as hidden, when opening a new file
 set path+=**        " add subdirectories in working path
 set title           " set window's title, reflecting the file currently being edited
-set vb noeb         " visual bell instead of beep
+set visualbell noerrorbells
+set number cursorline ruler
+set splitright splitbelow
 set mouse=a         " enalbe cursor move with mouse
-set number          " line number
-set cursorline      " highlight current cursorline
-set ruler           " display cursor position information at status line
 set termguicolors   " use gui colors instead of terminal colors
-set signcolumn=yes  " always show signcolumn
 set hlsearch incsearch
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
-set ts=4 sw=4 sts=4 " tab size
-set ls=2            " statusline option (set to 2 for using airline)
-set tm=500 ttm=0    " to leave insert mode without delay
+set tabstop=4 softtabstop=4 shiftwidth=4
+set timeoutlen=500 ttimeoutlen=0
 set wildmenu        " enhanced command-line completion
-set spr sb          " split right & below
 set backspace=2     " make backspace work like most other programs
 set tags=tags       " echo tagfiles() to check tag files
-set updatetime=100
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
@@ -113,6 +110,7 @@ nnoremap <C-l>  :e<CR><C-l><C-w>=
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-b>  <Left>
@@ -146,8 +144,6 @@ endif
 cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev <silent> pyrun  !python3 %
-cabbrev <silent> ctags  call system("ctags -R .")
-cabbrev <silent> copen  copen \| wincmd L
 abbrev  celan   clean
 abbrev  slef    self
 
@@ -155,10 +151,10 @@ abbrev  slef    self
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-autocmd QuickFixCmdPost grep,make
-            \ cwindow |
-            \ if &buftype == "quickfix" | wincmd L | endif |
-            \ redraw!
+" autocmd QuickFixCmdPost grep,make
+"             \ cwindow |
+"             \ if &buftype == "quickfix" | wincmd L | endif |
+"             \ redraw!
 
 autocmd FileType help wincmd L
 autocmd VimResized * wincmd =
@@ -221,23 +217,26 @@ let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 
-" airline settings
+" gitgutter
+set updatetime=100
+set signcolumn=yes
+let g:gitgutter_max_signs=1024
+
+" airline
+set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#tagbar#enabled=1
 
-" gitgutter
-let g:gitgutter_max_signs=1024
-
-" NERDTree settings
+" NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
 let g:NERDTreeShowHidden=1
 let g:NERDTreeRespectWildIgnore=1
 
-" NERDCommenter settings
+" NERDCommenter
 let g:NERDSpaceDelims=1
 let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
@@ -246,19 +245,26 @@ let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
-" CtrlP settings
-let g:ctrlp_by_filename=1
-let g:ctrlp_show_hidden=1
-let g:ctrlp_wildignore=1
-
-" tagbar settings
-let g:tagbar_autofocus=1
-let g:tagbar_sort=1
-
 " indentLine
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
+
+" ack
+nnoremap <leader>a :Ack!<space>
+let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
+let g:ack_qhandler="botright cwindow"
+let g:ack_apply_qmappings=1
+let g:ackhighlight=1
+
+" CtrlP
+let g:ctrlp_by_filename=1
+let g:ctrlp_show_hidden=1
+let g:ctrlp_wildignore=1
+
+" tagbar
+let g:tagbar_autofocus=1
+let g:tagbar_sort=1
 
 if has("gui_running")
     set guioptions+=k

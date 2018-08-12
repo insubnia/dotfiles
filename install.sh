@@ -28,6 +28,7 @@ done < <(cat << EOF
     ctags
     python3
     python3-pip
+    ack
     autojump
     fzf
     unrar
