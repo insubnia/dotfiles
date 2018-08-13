@@ -154,6 +154,7 @@ autocmd VimResized * wincmd =
 autocmd FileType help wincmd L
 autocmd QuickFixCmdPost grep,make cwindow | redraw!
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
+autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 
 " Remember last position
 autocmd BufReadPost *
@@ -244,6 +245,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
+let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar']
 
 " ack
 nnoremap <leader>a :Ack!<space>
