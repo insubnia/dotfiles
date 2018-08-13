@@ -129,6 +129,11 @@ noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
 noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
+nnoremap <expr> o   &buftype!="quickfix" ? "o" : "<CR>"
+nnoremap <expr> q   &buftype!="quickfix" ? "q" : ":ccl<CR>"
+nnoremap <expr> t   &buftype!="quickfix" ? "t" : "<C-W><CR><C-W>T"
+nnoremap <expr> v   &buftype!="quickfix" ? "v" : "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t"
+" nnoremap <leader>q quickfix toggle
 
 " Clipboard
 if !has("clipboard")
@@ -229,6 +234,7 @@ let g:airline#extensions#tagbar#enabled=1
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
+let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeShowHidden=1
 let g:NERDTreeRespectWildIgnore=1
 
@@ -252,7 +258,6 @@ nnoremap <leader>a :Ack!<space>
 let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
 let g:ack_default_options.=" --ignore-file=is:tags"
 let g:ack_qhandler="botright cwindow"
-let g:ack_apply_qmappings=1
 let g:ackhighlight=1
 
 " CtrlP
