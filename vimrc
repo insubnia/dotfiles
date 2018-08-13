@@ -262,6 +262,9 @@ let g:ctrlp_wildignore=1
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
 
+" peekaboo
+let g:peekaboo_window="vert botright 40new"
+
 if has("gui_running")
     set guioptions+=k
     set guioptions-=L
