@@ -125,7 +125,7 @@ cnoremap <C-g>  s//g<Left><Left>
 nmap     <C-j>  ]czz
 nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ""
+noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
 noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
@@ -141,7 +141,6 @@ if !has("clipboard")
 endif
 
 " Abbreviations
-cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev <silent> pyrun  !python3 %
 abbrev  celan   clean
@@ -151,13 +150,10 @@ abbrev  slef    self
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-" autocmd QuickFixCmdPost grep,make
-"             \ cwindow |
-"             \ if &buftype == "quickfix" | wincmd L | endif |
-"             \ redraw!
 
-autocmd FileType help wincmd L
 autocmd VimResized * wincmd =
+autocmd FileType help wincmd L
+autocmd QuickFixCmdPost grep,make cwindow | redraw!
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
 
 " Remember last position
