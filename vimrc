@@ -22,6 +22,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-dispatch'
 Plugin 'mileszs/ack.vim'
+Plugin 'romainl/vim-qf'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'majutsushi/tagbar'
@@ -86,7 +87,6 @@ endif
 
 " Key mappings
 let mapleader=" "
-nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
 nnoremap Y  y$
@@ -100,16 +100,16 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ?  :ts /
 nnoremap ZA :wqa<CR>
-nnoremap R  :reg<CR>
+nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-i>  <C-i>zz
-nnoremap <C-l>  :e<CR><C-l><C-w>=
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <leader>a  :Ack!<space>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
@@ -122,14 +122,15 @@ cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-v>  <C-r>"
 cnoremap <C-g>  s//g<Left><Left>
-nmap     <C-j>  ]czz
-nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ""
+noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
 noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
+nmap Q      <Plug>(qf_qf_toggle)
+nmap <C-j>  ]czz
+nmap <C-k>  [czz
 
 " Clipboard
 if !has("clipboard")
@@ -141,7 +142,6 @@ if !has("clipboard")
 endif
 
 " Abbreviations
-cabbrev grep    silent grep!
 cabbrev make    make!
 cabbrev <silent> pyrun  !python3 %
 abbrev  celan   clean
@@ -151,13 +151,10 @@ abbrev  slef    self
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set errorformat=%f:%l:%c:%serror:%m
-" autocmd QuickFixCmdPost grep,make
-"             \ cwindow |
-"             \ if &buftype == "quickfix" | wincmd L | endif |
-"             \ redraw!
 
-autocmd FileType help wincmd L
 autocmd VimResized * wincmd =
+autocmd FileType help wincmd L
+autocmd QuickFixCmdPost grep,make cwindow | redraw!
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
 
 " Remember last position
@@ -233,6 +230,7 @@ let g:airline#extensions#tagbar#enabled=1
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
+let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeShowHidden=1
 let g:NERDTreeRespectWildIgnore=1
 
@@ -249,13 +247,18 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
+let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar']
 
 " ack
-nnoremap <leader>a :Ack!<space>
 let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
+let g:ack_default_options.=" --ignore-file=is:tags"
 let g:ack_qhandler="botright cwindow"
-let g:ack_apply_qmappings=1
+let g:ack_apply_qmappings=0
 let g:ackhighlight=1
+
+" qf
+let g:qf_mapping_ack_style=1
+let g:qf_auto_resize=0
 
 " CtrlP
 let g:ctrlp_by_filename=1
@@ -265,6 +268,9 @@ let g:ctrlp_wildignore=1
 " tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
+
+" peekaboo
+let g:peekaboo_window="vert botright 40new"
 
 if has("gui_running")
     set guioptions+=k
