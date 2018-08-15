@@ -110,7 +110,6 @@ nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
 nnoremap <leader>a  :Ack!<space>
-nnoremap <leader>g  :silent grep!<space>
 nnoremap <leader>r  :Run<CR>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
@@ -130,16 +129,14 @@ noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
 noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
-nmap Q      <Plug>(qf_qf_toggle)
+nmap Q  <Plug>(qf_qf_toggle)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
 if !has("clipboard")
-    nnoremap \d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap \y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap \d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap \y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 endif
 
 " Abbreviations
@@ -195,7 +192,7 @@ if !exists("*Run")
 endif
 
 " Highlight function
-function! MyHighlight()
+function! Highlight()
     hi link Global  Function
     hi link Defined Tag
     hi link Member  String
@@ -210,14 +207,16 @@ function! MyHighlight()
     hi link CTagsUnion          Proto
     hi link EnumeratorName      Proto
 endfunction
-autocmd ColorScheme * call MyHighlight()
+autocmd ColorScheme * call Highlight()
 
-function! TS()      " Tab to space
+command! TS call TabToSpace()
+function! TabToSpace()
     set expandtab
     %retab
 endfunction
 
-function! ST()      " Space to tab
+command! ST call SpaceToTab()
+function! SpaceToTab()
     set noexpandtab
     %retab!
 endfunction
