@@ -1,0 +1,16 @@
+noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
+
+function! DiffKeymap(mode)
+    if a:mode
+        noremap <leader>g :diffget<CR>
+        noremap <leader>p :diffput<CR>
+        noremap <leader>1 :diffget LO<CR>
+        noremap <leader>2 :diffget BA<CR>
+        noremap <leader>3 :diffget RE<CR>
+    else
+        nnoremap <leader>g  :silent grep!<space>
+    endif
+endfunction
+
+autocmd BufEnter * if &diff | call DiffKeymap(1) | endif
+autocmd BufWinLeave * if &diff | call DiffKeymap(0) | endif
