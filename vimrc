@@ -22,6 +22,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-dispatch'
 Plugin 'mileszs/ack.vim'
+Plugin 'romainl/vim-qf'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'majutsushi/tagbar'
@@ -86,7 +87,6 @@ endif
 
 " Key mappings
 let mapleader=" "
-nnoremap Q  <nop>
 nnoremap J  <nop>
 nnoremap K  <nop>
 nnoremap Y  y$
@@ -109,6 +109,7 @@ nnoremap <C-i>  <C-i>zz
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <leader>a  :Ack!<space>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
@@ -121,19 +122,15 @@ cnoremap <C-b>  <Left>
 cnoremap <C-f>  <Right>
 cnoremap <C-v>  <C-r>"
 cnoremap <C-g>  s//g<Left><Left>
-nmap     <C-j>  ]czz
-nmap     <C-k>  [czz
 noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
 noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
 noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
-nnoremap <expr> o   &buftype!="quickfix" ? "o" : "<CR>"
-nnoremap <expr> q   &buftype!="quickfix" ? "q" : ":ccl<CR>"
-nnoremap <expr> t   &buftype!="quickfix" ? "t" : "<C-W><CR><C-W>T"
-nnoremap <expr> v   &buftype!="quickfix" ? "v" : "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t"
-" nnoremap <leader>q quickfix toggle
+nmap Q      <Plug>(qf_qf_toggle)
+nmap <C-j>  ]czz
+nmap <C-k>  [czz
 
 " Clipboard
 if !has("clipboard")
@@ -159,7 +156,6 @@ autocmd VimResized * wincmd =
 autocmd FileType help wincmd L
 autocmd QuickFixCmdPost grep,make cwindow | redraw!
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
-autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 
 " Remember last position
 autocmd BufReadPost *
@@ -254,11 +250,15 @@ let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar']
 
 " ack
-nnoremap <leader>a :Ack!<space>
 let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
 let g:ack_default_options.=" --ignore-file=is:tags"
 let g:ack_qhandler="botright cwindow"
+let g:ack_apply_qmappings=0
 let g:ackhighlight=1
+
+" qf
+let g:qf_mapping_ack_style=1
+let g:qf_auto_resize=0
 
 " CtrlP
 let g:ctrlp_by_filename=1
