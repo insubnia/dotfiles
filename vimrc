@@ -110,6 +110,8 @@ nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
 nnoremap <leader>a  :Ack!<space>
+nnoremap <leader>g  :silent grep!<space>
+nnoremap <leader>r  :Run<CR>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
@@ -132,7 +134,6 @@ nmap Q      <Plug>(qf_qf_toggle)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
-" Clipboard
 if !has("clipboard")
     nnoremap \d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     nnoremap \y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
@@ -142,8 +143,6 @@ if !has("clipboard")
 endif
 
 " Abbreviations
-cabbrev make    make!
-cabbrev <silent> pyrun  !python3 %
 abbrev  celan   clean
 abbrev  slef    self
 
@@ -179,6 +178,21 @@ augroup NewFileFormat
     autocmd BufNewFile *.{h,hpp} call MyC()
     autocmd BufNewFile *.py call MyPy()
 augroup END
+
+if !exists("*Run")
+    command! Run call Run()
+    function! Run()
+        if &filetype=="vim"
+            source %
+        elseif &filetype=="python"
+            !python3 %
+        elseif &filetype=="c" || &filetype=="cpp"
+            make run
+        else
+            echom "There's nothing to do"
+        endif
+    endfunction
+endif
 
 " Highlight function
 function! MyHighlight()
