@@ -1,5 +1,6 @@
 git config --global user.name "sis"
 git config --global user.email "sis06232@gmail.com"
+git config --global core.autocrlf input
 git config --global core.excludesfile '~/workspace/dotfiles/gitignore'
 git config --global diff.tool vimdiff
 git config --global difftool.prompt true
