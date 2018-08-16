@@ -152,28 +152,24 @@ autocmd VimResized * wincmd =
 autocmd FileType help wincmd L
 autocmd QuickFixCmdPost grep,make cwindow | redraw!
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
-
-" Remember last position
 autocmd BufReadPost *
             \ if line("'\"") > 0 && line("'\"") <= line("$") |
             \ exe "norm! g`\"zz" |
             \ endif
 
-" C/C++ formatting
-function! MyC()
+function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
 
-" Python formatting
-function! MyPy()
+function! NewPy()
     exe "norm! i\n\nif __name__ == \"__main__\":\npass\n\egg"
 endfunction
 
-augroup NewFileFormat
+augroup NewFile
     autocmd!
-    autocmd BufNewFile *.{h,hpp} call MyC()
-    autocmd BufNewFile *.py call MyPy()
+    autocmd BufNewFile *.{h,hpp} call NewHeader()
+    autocmd BufNewFile *.py call NewPy()
 augroup END
 
 if !exists("*Run")
