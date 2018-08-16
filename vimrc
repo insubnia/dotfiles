@@ -99,6 +99,8 @@ nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
 nnoremap ?  :ts /
+nnoremap +  <C-w>>
+nnoremap _  <C-w><
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
