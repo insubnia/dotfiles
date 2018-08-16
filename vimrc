@@ -87,8 +87,6 @@ endif
 
 " Key mappings
 let mapleader=" "
-nnoremap J  <nop>
-nnoremap K  <nop>
 nnoremap Y  y$
 nnoremap j  gj
 nnoremap k  gk
@@ -132,6 +130,8 @@ noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 nmap Q  <Plug>(qf_qf_toggle)
+nmap J  <Plug>(qf_qf_next)
+nmap K  <Plug>(qf_qf_previous)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
