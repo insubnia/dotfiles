@@ -99,6 +99,8 @@ nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
 nnoremap ?  :ts /
+nnoremap +  <C-w>>
+nnoremap _  <C-w><
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
@@ -110,6 +112,7 @@ nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
 nnoremap <leader>a  :Ack!<space>
+nnoremap <leader>r  :Run<CR>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
@@ -128,22 +131,17 @@ noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
 noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
-nmap Q      <Plug>(qf_qf_toggle)
+nmap Q  <Plug>(qf_qf_toggle)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
-" Clipboard
 if !has("clipboard")
-    nnoremap \d  dd:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap \y  yy:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap \d  d:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    vnoremap \y  y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    nnoremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
+    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
 endif
 
 " Abbreviations
-cabbrev make    make!
-cabbrev <silent> pyrun  !python3 %
 abbrev  celan   clean
 abbrev  slef    self
 
@@ -156,32 +154,43 @@ autocmd VimResized * wincmd =
 autocmd FileType help wincmd L
 autocmd QuickFixCmdPost grep,make cwindow | redraw!
 autocmd FilterWritePre * if &diff | 1 | redraw! | endif
-
-" Remember last position
 autocmd BufReadPost *
             \ if line("'\"") > 0 && line("'\"") <= line("$") |
             \ exe "norm! g`\"zz" |
             \ endif
 
-" C/C++ formatting
-function! MyC()
+function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
 endfunction
 
-" Python formatting
-function! MyPy()
+function! NewPy()
     exe "norm! i\n\nif __name__ == \"__main__\":\npass\n\egg"
 endfunction
 
-augroup NewFileFormat
+augroup NewFile
     autocmd!
-    autocmd BufNewFile *.{h,hpp} call MyC()
-    autocmd BufNewFile *.py call MyPy()
+    autocmd BufNewFile *.{h,hpp} call NewHeader()
+    autocmd BufNewFile *.py call NewPy()
 augroup END
 
+if !exists("*Run")
+    command! Run call Run()
+    function! Run()
+        if &filetype=="vim"
+            source %
+        elseif &filetype=="python"
+            !python3 %
+        elseif &filetype=="c" || &filetype=="cpp"
+            make run
+        else
+            echom "There's nothing to do"
+        endif
+    endfunction
+endif
+
 " Highlight function
-function! MyHighlight()
+function! Highlight()
     hi link Global  Function
     hi link Defined Tag
     hi link Member  String
@@ -196,14 +205,16 @@ function! MyHighlight()
     hi link CTagsUnion          Proto
     hi link EnumeratorName      Proto
 endfunction
-autocmd ColorScheme * call MyHighlight()
+autocmd ColorScheme * call Highlight()
 
-function! TS()      " Tab to space
+command! TS call TabToSpace()
+function! TabToSpace()
     set expandtab
     %retab
 endfunction
 
-function! ST()      " Space to tab
+command! ST call SpaceToTab()
+function! SpaceToTab()
     set noexpandtab
     %retab!
 endfunction
@@ -213,6 +224,7 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_disable_for_files_larger_than_kb=1024
 
 " gitgutter
 set updatetime=100
