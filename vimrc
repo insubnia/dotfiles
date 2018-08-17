@@ -71,7 +71,7 @@ set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 
-set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
+set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst

@@ -1,5 +1,3 @@
-noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
-
 function! DiffKeymap(mode)
     if a:mode
         noremap <leader>g :diffget<CR>

@@ -33,6 +33,7 @@ Thumbs.db
 *.elf
 *.map
 *.taghl
+*.stackdump
 
 # compression extension
 *.zip
