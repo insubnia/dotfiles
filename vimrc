@@ -96,9 +96,11 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
+nnoremap 0  :noh<CR>
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
-nnoremap _  <C-w><
+nnoremap -  <C-w><
+nnoremap _  :cexpr []<CR>
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
@@ -130,8 +132,8 @@ noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 nmap Q  <Plug>(qf_qf_toggle)
-nmap J  <Plug>(qf_qf_next)
-nmap K  <Plug>(qf_qf_previous)
+nmap J  <Plug>(qf_qf_next)zz
+nmap K  <Plug>(qf_qf_previous)zz
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
