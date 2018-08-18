@@ -1,3 +1,12 @@
+Valuable key
+0
+_
++
+-
+R
+<S-Tab>
+<Tab> is bonding to <C-i> : cannot detach
+
 function! DiffKeymap(mode)
     if a:mode
         noremap <leader>g :diffget<CR>

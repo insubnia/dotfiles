@@ -104,6 +104,7 @@ nnoremap _  :cexpr []<CR>
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
+nnoremap <S-Tab> gt
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
@@ -146,6 +147,7 @@ endif
 " Abbreviations
 abbrev  celan   clean
 abbrev  slef    self
+cabbrev Noh     noh
 
 " External program settings
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
