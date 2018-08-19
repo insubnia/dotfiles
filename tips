@@ -1,4 +1,13 @@
-noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
+Valuable key
+0
+_
++
+-
+R
+<BS>
+<S-Tab>
+<Tab> is bonding to <C-i> : cannot detach
+replace <C-i> to something and then use <Tab>
 
 function! DiffKeymap(mode)
     if a:mode

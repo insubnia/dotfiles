@@ -71,7 +71,7 @@ set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 
-set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store
+set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
@@ -98,24 +98,30 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
+nnoremap 0  :noh<CR>
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
-nnoremap _  <C-w><
+nnoremap -  <C-w><
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
+nnoremap <BS>   :noh<Bar>cexpr []<CR>
+nnoremap <S-Tab> gt
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-i>  <C-i>zz
+nnoremap <C-h>  :%s//g<Left><Left>
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
-nnoremap <leader>a  :Ack!<space>
+nnoremap <leader>h  K
+nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<CR>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
 vnoremap <  <gv
 vnoremap >  >gv
+vnoremap <C-h>  :s//g<Left><Left>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-a>  <Esc>I
@@ -132,6 +138,9 @@ noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 nmap Q  <Plug>(qf_qf_toggle)
+nmap ]q <Plug>(qf_qf_next)zz
+nmap [q <Plug>(qf_qf_previous)zz
+nmap _  <Plug>(qf_qf_switch)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
@@ -144,6 +153,7 @@ endif
 " Abbreviations
 abbrev  celan   clean
 abbrev  slef    self
+cabbrev Noh     noh
 
 " External program settings
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
@@ -179,10 +189,12 @@ if !exists("*Run")
     function! Run()
         if &filetype=="vim"
             source %
-        elseif &filetype=="python"
-            !python3 %
         elseif &filetype=="c" || &filetype=="cpp"
             make run
+        elseif &filetype=="python"
+            !python3 %
+        elseif &filetype=="swift"
+            !swift %
         else
             echom "There's nothing to do"
         endif
