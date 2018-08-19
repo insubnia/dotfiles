@@ -100,7 +100,6 @@ nnoremap 0  :noh<CR>
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap -  <C-w><
-nnoremap _  :cexpr []<CR>
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
@@ -114,6 +113,7 @@ nnoremap <C-h>  :%s//g<Left><Left>
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
 nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <leader>h  K
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<CR>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
@@ -138,6 +138,7 @@ noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 nmap Q  <Plug>(qf_qf_toggle)
 nmap J  <Plug>(qf_qf_next)zz
 nmap K  <Plug>(qf_qf_previous)zz
+nmap _  <Plug>(qf_qf_switch)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
 
