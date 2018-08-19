@@ -87,6 +87,8 @@ endif
 
 " Key mappings
 let mapleader=" "
+nnoremap J  <nop>
+nnoremap K  <nop>
 nnoremap Y  y$
 nnoremap j  gj
 nnoremap k  gk
@@ -103,7 +105,7 @@ nnoremap -  <C-w><
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
-nnoremap <BS>  :cexpr [] \| noh \| echom "Clear"<CR>
+nnoremap <BS>   :noh<Bar>cexpr []<CR>
 nnoremap <S-Tab> gt
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
@@ -136,8 +138,8 @@ noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
 noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
 noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
 nmap Q  <Plug>(qf_qf_toggle)
-nmap J  <Plug>(qf_qf_next)zz
-nmap K  <Plug>(qf_qf_previous)zz
+nmap ]q <Plug>(qf_qf_next)zz
+nmap [q <Plug>(qf_qf_previous)zz
 nmap _  <Plug>(qf_qf_switch)
 nmap <C-j>  ]czz
 nmap <C-k>  [czz
@@ -187,10 +189,12 @@ if !exists("*Run")
     function! Run()
         if &filetype=="vim"
             source %
-        elseif &filetype=="python"
-            !python3 %
         elseif &filetype=="c" || &filetype=="cpp"
             make run
+        elseif &filetype=="python"
+            !python3 %
+        elseif &filetype=="swift"
+            !swift %
         else
             echom "There's nothing to do"
         endif
