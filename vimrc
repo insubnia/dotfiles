@@ -110,8 +110,7 @@ nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-h>  :%s//g<left><left>
 nnoremap <C-n>  :NERDTreeToggle<cr>
-nnoremap <C-w>]     <C-w>]:wincmd L<cr>zz
-nnoremap <C-w><cr>  <C-w><cr>:wincmd L<cr>zz
+nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <leader>h  K
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
