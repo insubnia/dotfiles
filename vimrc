@@ -147,7 +147,6 @@ inoremap <C-k>  <C-o>D
 cnoremap <C-b>  <left>
 cnoremap <C-f>  <right>
 cnoremap <C-v>  <C-r>"
-cnoremap <C-g>  s//g<left><left>
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
