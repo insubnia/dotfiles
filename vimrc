@@ -98,19 +98,16 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap 0  :noh<CR>
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap -  <C-w><
+nnoremap 0  <C-i>zz
 nnoremap ZA :wqa<CR>
 nnoremap R  :e<CR><C-l><C-w>=
 nnoremap T  :TagbarToggle<CR><C-w>=
-nnoremap <BS>   :noh<Bar>cexpr []<CR>
-nnoremap <S-Tab> gt
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
-nnoremap <C-i>  <C-i>zz
 nnoremap <C-h>  :%s//g<Left><Left>
 nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
 nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
@@ -119,6 +116,9 @@ nnoremap <leader>h  K
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<CR>
 nnoremap <leader>t  :Dispatch ctags -R .<CR>
+nnoremap <Tab>      <C-w>w
+nnoremap <S-Tab>    <C-w>W
+nnoremap <BS>       :noh<Bar>cexpr []<CR>
 vnoremap <  <gv
 vnoremap >  >gv
 vnoremap <C-h>  :s//g<Left><Left>
