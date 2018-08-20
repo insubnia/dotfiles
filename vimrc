@@ -84,18 +84,14 @@ set wildignore+=.git,.gitmodules,.svn
 
 if has("gui_running")
     set guioptions+=k
-    set guioptions-=L
-    set guioptions-=T
-    set guioptions-=m
+    set guioptions-=L guioptions-=T guioptions-=m
 endif
 
-" External program settings
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
-" Cursor settings
 if &term =~ "xterm"
     let &t_SI = "\e[5 q"    " Start Insert mode
     let &t_SR = "\e[3 q"    " Start Replace mode
@@ -215,7 +211,6 @@ if !exists("*Run")
     endfunction
 endif
 
-" Highlight function
 function! Highlight()
     hi link Global  Function
     hi link Defined Tag
