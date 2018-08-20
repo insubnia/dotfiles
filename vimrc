@@ -1,4 +1,6 @@
-" sis vim runtime configuration
+" vim: set foldmethod=marker:
+" ============================================================================
+" .vimrc of sis {{{
 
 " Get OS informaion
 if has("win32") || has("win32unix")
@@ -6,8 +8,9 @@ if has("win32") || has("win32unix")
 else
     let os=substitute(system("uname"), "\n", "", "")
 endif
-
-" Plugin
+" }}}
+" ============================================================================
+" PLUGINS {{{
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -44,8 +47,9 @@ Plugin 'morhetz/gruvbox'
 Plugin 'chriskempson/base16-vim'
 call vundle#end()
 filetype plugin indent on
-
-" Basic options
+" }}}
+" ============================================================================
+" BASIC SETTINGS {{{
 syntax on
 set nocp
 set noswf nobk noudf
@@ -70,7 +74,7 @@ set tags=tags       " echo tagfiles() to check tag files
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
-
+set foldmethod=marker
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
@@ -78,14 +82,28 @@ set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
 
-" Cursor settings
-if &term =~ "xterm"
-    let &t_SI = "\e[5 q"    " Start insert mode
-    let &t_SR = "\e[3 q"    " Start replace mode
-    let &t_EI = "\e[0 q"    " End insert & replace mode
+if has("gui_running")
+    set guioptions+=k
+    set guioptions-=L
+    set guioptions-=T
+    set guioptions-=m
 endif
 
-" Key mappings
+" External program settings
+let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
+let &makeprg='make $*'
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+set errorformat=%f:%l:%c:%serror:%m
+
+" Cursor settings
+if &term =~ "xterm"
+    let &t_SI = "\e[5 q"    " Start Insert mode
+    let &t_SR = "\e[3 q"    " Start Replace mode
+    let &t_EI = "\e[0 q"    " End Insert & replace mode
+endif
+" }}}
+" ============================================================================
+" MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
 nnoremap J  <nop>
 nnoremap K  <nop>
@@ -149,16 +167,12 @@ if !has("clipboard")
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
-" Abbreviations
 abbrev  celan   clean
 abbrev  slef    self
 cabbrev Noh     noh
-
-" External program settings
-let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
-let &makeprg='make $*'
-set errorformat=%f:%l:%c:%serror:%m
-
+" }}}
+" ============================================================================
+" AUTOCMD {{{
 autocmd VimResized * wincmd =
 autocmd FileType help wincmd L
 autocmd QuickFixCmdPost grep,make cwindow | redraw!
@@ -182,7 +196,9 @@ augroup NewFile
     autocmd BufNewFile *.{h,hpp} call NewHeader()
     autocmd BufNewFile *.py call NewPy()
 augroup END
-
+" }}}
+" ============================================================================
+" FUNCTIONS & COMMANDS {{{
 if !exists("*Run")
     command! Run call Run()
     function! Run()
@@ -229,7 +245,9 @@ function! SpaceToTab()
     set noexpandtab
     %retab!
 endfunction
-
+" }}}
+" ============================================================================
+" PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -295,14 +313,9 @@ let g:tagbar_sort=1
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
-
-if has("gui_running")
-    set guioptions+=k
-    set guioptions-=L
-    set guioptions-=T
-    set guioptions-=m
-endif
-
+" }}}
+" ============================================================================
+" FINISH {{{
 if os == "Darwin"
     let g:airline_theme='dracula'
     colo dracula
@@ -316,3 +329,5 @@ elseif has("win32unix")
     let g:airline_theme='onedark'
     colo onedark
 endif
+" }}}
+" ============================================================================
