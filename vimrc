@@ -102,52 +102,52 @@ nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap -  <C-w><
 nnoremap 0  <C-i>zz
-nnoremap ZA :wqa<CR>
-nnoremap R  :e<CR><C-l><C-w>=
-nnoremap T  :TagbarToggle<CR><C-w>=
+nnoremap ZA :wqa<cr>
+nnoremap R  :e<cr><C-l><C-w>=
+nnoremap T  :TagbarToggle<cr><C-w>=
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
-nnoremap <C-h>  :%s//g<Left><Left>
-nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
-nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
-nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <C-h>  :%s//g<left><left>
+nnoremap <C-n>  :NERDTreeToggle<cr><C-w>=
+nnoremap <C-w>]     <C-w>]:wincmd L<cr>zz
+nnoremap <C-w><cr>  <C-w><cr>:wincmd L<cr>zz
 nnoremap <leader>h  K
 nnoremap <leader>f  :Ack!<space>
-nnoremap <leader>r  :Run<CR>
-nnoremap <leader>t  :Dispatch ctags -R .<CR>
-nnoremap <Tab>      <C-w>w
-nnoremap <S-Tab>    <C-w>W
-nnoremap <BS>       :noh<Bar>cexpr []<CR>
+nnoremap <leader>r  :Run<cr>
+nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <Tab>      gt
+nnoremap <S-Tab>    gT
+nnoremap <BS>       :noh<bar>cexpr []<cr>
 vnoremap <  <gv
 vnoremap >  >gv
-vnoremap <C-h>  :s//g<Left><Left>
-inoremap <C-b>  <Left>
-inoremap <C-f>  <Right>
-inoremap <C-a>  <Esc>I
-inoremap <C-e>  <End>
+vnoremap <C-h>  :s//g<left><left>
+inoremap <C-b>  <left>
+inoremap <C-f>  <right>
+inoremap <C-a>  <esc>I
+inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
-cnoremap <C-b>  <Left>
-cnoremap <C-f>  <Right>
+cnoremap <C-b>  <left>
+cnoremap <C-f>  <right>
 cnoremap <C-v>  <C-r>"
-cnoremap <C-g>  s//g<Left><Left>
-noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
-noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
-noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
-noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
-nmap Q  <Plug>(qf_qf_toggle)
-nmap ]q <Plug>(qf_qf_next)zz
-nmap [q <Plug>(qf_qf_previous)zz
-nmap _  <Plug>(qf_qf_switch)
-nmap <C-j>  ]czz
-nmap <C-k>  [czz
+cnoremap <C-g>  s//g<left><left>
+noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
+noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
+noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
+noremap  <expr> <leader>1  &diff ? ":diffget LO<cr>" : ""
+noremap  <expr> <leader>2  &diff ? ":diffget BA<cr>" : ""
+noremap  <expr> <leader>3  &diff ? ":diffget RE<cr>" : ""
+nmap Q  <plug>(qf_qf_toggle)
+nmap ]q <plug>(qf_qf_next)zz
+nmap [q <plug>(qf_qf_previous)zz
+nmap _  <plug>(qf_qf_switch)
+nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
+nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
 if !has("clipboard")
-    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
 " Abbreviations
@@ -241,6 +241,7 @@ let g:ycm_disable_for_files_larger_than_kb=1024
 " gitgutter
 set updatetime=100
 set signcolumn=yes
+let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
 
 " airline
