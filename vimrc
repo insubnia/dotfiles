@@ -103,13 +103,13 @@ nnoremap +  <C-w>>
 nnoremap -  <C-w><
 nnoremap 0  <C-i>zz
 nnoremap ZA :wqa<cr>
-nnoremap R  :e<cr><C-l><C-w>=
-nnoremap T  :TagbarToggle<cr><C-w>=
+nnoremap R  :e<cr><C-l>
+nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-h>  :%s//g<left><left>
-nnoremap <C-n>  :NERDTreeToggle<cr><C-w>=
+nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w>]     <C-w>]:wincmd L<cr>zz
 nnoremap <C-w><cr>  <C-w><cr>:wincmd L<cr>zz
 nnoremap <leader>h  K
