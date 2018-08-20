@@ -1,4 +1,6 @@
-" sis vim runtime configuration
+" vim: set foldmethod=marker:
+" ============================================================================
+" .vimrc of sis {{{
 
 " Get OS informaion
 if has("win32") || has("win32unix")
@@ -6,8 +8,9 @@ if has("win32") || has("win32unix")
 else
     let os=substitute(system("uname"), "\n", "", "")
 endif
-
-" Plugin
+" }}}
+" ============================================================================
+" PLUGINS {{{
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -44,8 +47,9 @@ Plugin 'morhetz/gruvbox'
 Plugin 'chriskempson/base16-vim'
 call vundle#end()
 filetype plugin indent on
-
-" Basic options
+" }}}
+" ============================================================================
+" BASIC SETTINGS {{{
 syntax on
 set nocp
 set noswf nobk noudf
@@ -70,7 +74,7 @@ set tags=tags       " echo tagfiles() to check tag files
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
-
+set foldmethod=marker
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
@@ -78,14 +82,28 @@ set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
 
-" Cursor settings
-if &term =~ "xterm"
-    let &t_SI = "\e[5 q"    " Start insert mode
-    let &t_SR = "\e[3 q"    " Start replace mode
-    let &t_EI = "\e[0 q"    " End insert & replace mode
+if has("gui_running")
+    set guioptions+=k
+    set guioptions-=L
+    set guioptions-=T
+    set guioptions-=m
 endif
 
-" Key mappings
+" External program settings
+let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
+let &makeprg='make $*'
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+set errorformat=%f:%l:%c:%serror:%m
+
+" Cursor settings
+if &term =~ "xterm"
+    let &t_SI = "\e[5 q"    " Start Insert mode
+    let &t_SR = "\e[3 q"    " Start Replace mode
+    let &t_EI = "\e[0 q"    " End Insert & replace mode
+endif
+" }}}
+" ============================================================================
+" MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
 nnoremap J  <nop>
 nnoremap K  <nop>
@@ -98,68 +116,63 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap 0  :noh<CR>
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap -  <C-w><
-nnoremap ZA :wqa<CR>
-nnoremap R  :e<CR><C-l><C-w>=
-nnoremap T  :TagbarToggle<CR><C-w>=
-nnoremap <BS>   :noh<Bar>cexpr []<CR>
-nnoremap <S-Tab> gt
+nnoremap 0  <C-i>zz
+nnoremap ZA :wqa<cr>
+nnoremap R  :e<cr><C-l>
+nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
-nnoremap <C-i>  <C-i>zz
-nnoremap <C-h>  :%s//g<Left><Left>
-nnoremap <C-n>  :NERDTreeToggle<CR><C-w>=
-nnoremap <C-w>]     <C-w>]:wincmd L<CR>zz
-nnoremap <C-w><CR>  <C-w><CR>:wincmd L<CR>zz
+nnoremap <C-h>  :%s//g<left><left>
+nnoremap <C-n>  :NERDTreeToggle<cr>
+nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <leader>h  K
 nnoremap <leader>f  :Ack!<space>
-nnoremap <leader>r  :Run<CR>
-nnoremap <leader>t  :Dispatch ctags -R .<CR>
+nnoremap <leader>r  :Run<cr>
+nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <Tab>      gt
+nnoremap <S-Tab>    gT
+nnoremap <BS>       :noh<bar>cexpr []<cr>
 vnoremap <  <gv
 vnoremap >  >gv
-vnoremap <C-h>  :s//g<Left><Left>
-inoremap <C-b>  <Left>
-inoremap <C-f>  <Right>
-inoremap <C-a>  <Esc>I
-inoremap <C-e>  <End>
+vnoremap <C-h>  :s//g<left><left>
+inoremap <C-b>  <left>
+inoremap <C-f>  <right>
+inoremap <C-a>  <esc>I
+inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
-cnoremap <C-b>  <Left>
-cnoremap <C-f>  <Right>
+cnoremap <C-b>  <left>
+cnoremap <C-f>  <right>
 cnoremap <C-v>  <C-r>"
-cnoremap <C-g>  s//g<Left><Left>
-noremap  <C-_>  :call NERDComment(0, "toggle")<CR>
-noremap  <expr> <leader>g  &diff ? ":diffget<CR>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<CR>" : ""
-noremap  <expr> <leader>1  &diff ? ":diffget LO<CR>" : ""
-noremap  <expr> <leader>2  &diff ? ":diffget BA<CR>" : ""
-noremap  <expr> <leader>3  &diff ? ":diffget RE<CR>" : ""
-nmap Q  <Plug>(qf_qf_toggle)
-nmap ]q <Plug>(qf_qf_next)zz
-nmap [q <Plug>(qf_qf_previous)zz
-nmap _  <Plug>(qf_qf_switch)
-nmap <C-j>  ]czz
-nmap <C-k>  [czz
+cnoremap <C-g>  s//g<left><left>
+noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
+noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
+noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
+noremap  <expr> <leader>1  &diff ? ":diffget LO<cr>" : ""
+noremap  <expr> <leader>2  &diff ? ":diffget BA<cr>" : ""
+noremap  <expr> <leader>3  &diff ? ":diffget RE<cr>" : ""
+nmap Q  <plug>(qf_qf_toggle)
+nmap ]q <plug>(qf_qf_next)zz
+nmap [q <plug>(qf_qf_previous)zz
+nmap _  <plug>(qf_qf_switch)
+nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
+nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
 if !has("clipboard")
-    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<CR>
-    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<CR>o<ESC>p
+    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
-" Abbreviations
 abbrev  celan   clean
 abbrev  slef    self
 cabbrev Noh     noh
-
-" External program settings
-let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
-let &makeprg='make $*'
-set errorformat=%f:%l:%c:%serror:%m
-
+" }}}
+" ============================================================================
+" AUTOCMD {{{
 autocmd VimResized * wincmd =
 autocmd FileType help wincmd L
 autocmd QuickFixCmdPost grep,make cwindow | redraw!
@@ -183,7 +196,9 @@ augroup NewFile
     autocmd BufNewFile *.{h,hpp} call NewHeader()
     autocmd BufNewFile *.py call NewPy()
 augroup END
-
+" }}}
+" ============================================================================
+" FUNCTIONS & COMMANDS {{{
 if !exists("*Run")
     command! Run call Run()
     function! Run()
@@ -230,7 +245,9 @@ function! SpaceToTab()
     set noexpandtab
     %retab!
 endfunction
-
+" }}}
+" ============================================================================
+" PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -241,6 +258,7 @@ let g:ycm_disable_for_files_larger_than_kb=1024
 " gitgutter
 set updatetime=100
 set signcolumn=yes
+let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
 
 " airline
@@ -295,14 +313,9 @@ let g:tagbar_sort=1
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
-
-if has("gui_running")
-    set guioptions+=k
-    set guioptions-=L
-    set guioptions-=T
-    set guioptions-=m
-endif
-
+" }}}
+" ============================================================================
+" FINISH {{{
 if os == "Darwin"
     let g:airline_theme='dracula'
     colo dracula
@@ -316,3 +329,5 @@ elseif has("win32unix")
     let g:airline_theme='onedark'
     colo onedark
 endif
+" }}}
+" ============================================================================
