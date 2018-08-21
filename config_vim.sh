@@ -40,4 +40,3 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
 else
     echo Vundle already exist!
 fi
-
