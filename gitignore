@@ -1,6 +1,16 @@
+# .gitignore of sis
 
-#ignore thumbnails created by windows
+# Mac
+.DS_Store
+
+# Windows
 Thumbs.db
+
+# MS Office
+*.doc*
+*.xls*
+*.ppt*
+
 #Ignore files build by Visual Studio
 *.obj
 *.exe
@@ -42,15 +52,11 @@ Thumbs.db
 *.tar
 *.tgz
 
+# python
 __pycache__/
 *.pyc
 *.pyo
+
+# ctags
 tags
-
-# Mac
-.DS_Store
-
-# MS Office
-*.doc*
-*.xls*
-*.ppt*
+.ctags
