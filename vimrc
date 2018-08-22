@@ -117,7 +117,7 @@ nnoremap +  <C-w>>
 nnoremap -  <C-w><
 nnoremap 0  <C-i>zz
 nnoremap ZA :wqa<cr>
-nnoremap R  :e<cr><C-l>
+nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
