@@ -84,18 +84,14 @@ set wildignore+=.git,.gitmodules,.svn
 
 if has("gui_running")
     set guioptions+=k
-    set guioptions-=L
-    set guioptions-=T
-    set guioptions-=m
+    set guioptions-=L guioptions-=T guioptions-=m
 endif
 
-" External program settings
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
-" Cursor settings
 if &term =~ "xterm"
     let &t_SI = "\e[5 q"    " Start Insert mode
     let &t_SR = "\e[3 q"    " Start Replace mode
@@ -121,7 +117,7 @@ nnoremap +  <C-w>>
 nnoremap -  <C-w><
 nnoremap 0  <C-i>zz
 nnoremap ZA :wqa<cr>
-nnoremap R  :e<cr><C-l>
+nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
@@ -147,7 +143,6 @@ inoremap <C-k>  <C-o>D
 cnoremap <C-b>  <left>
 cnoremap <C-f>  <right>
 cnoremap <C-v>  <C-r>"
-cnoremap <C-g>  s//g<left><left>
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
@@ -216,7 +211,6 @@ if !exists("*Run")
     endfunction
 endif
 
-" Highlight function
 function! Highlight()
     hi link Global  Function
     hi link Defined Tag
@@ -292,8 +286,6 @@ let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar']
 
 " ack
-let g:ack_default_options=" -s -H --nocolor --nogroup --column -i --smart-case"
-let g:ack_default_options.=" --ignore-file=is:tags"
 let g:ack_qhandler="botright cwindow"
 let g:ack_apply_qmappings=0
 let g:ackhighlight=1

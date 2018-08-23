@@ -1,0 +1,9 @@
+--column
+--ignore-case
+--smart-case
+--ignore-file=is:tags
+--ignore-file=ext:log
+--ignore-file=ext:bak
+--ignore-file=ext:map
+--ignore-file=ext:taghl
+--ignore-file=ext:arxml

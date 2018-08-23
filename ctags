@@ -1,0 +1,5 @@
+--exclude=.git
+--exclude=.svn
+--exclude=Makefile
+--exclude=makefile
+--exclude=*.sh

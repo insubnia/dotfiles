@@ -110,4 +110,3 @@ $(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
 	@$(CXX) -o $@ -c $< $(INC_DIR) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
-

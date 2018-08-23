@@ -17,4 +17,3 @@ def FlagsForFile(filename, **kwargs):
 
 if __name__ == "__main__":
     pass
-
