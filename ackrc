@@ -1,0 +1,4 @@
+--column
+--ignore-case
+--smart-case
+--ignore-file=is:tags
