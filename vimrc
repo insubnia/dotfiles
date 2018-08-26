@@ -123,13 +123,11 @@ nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-c>  :Close<cr>
-nnoremap <C-f>  :Ack!<space>
-nnoremap <C-b>  :make all<cr>
 nnoremap <C-h>  :%s//g<left><left>
 nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <leader>h  K
-nnoremap <leader>f  yiw:Ack!<space><C-r>"<cr>
+nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <Tab>      gt
