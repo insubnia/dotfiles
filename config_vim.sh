@@ -1,35 +1,19 @@
 #!/bin/bash
 
-DIR=$PWD
+DOTFILES=$HOME/workspace/dotfiles
 
-# Making symbolic link of vimrc
-if [ ! -e ~/.vimrc ]; then
-    echo -e "making vimrc symlink\n"
-    cd ~
-    ln -s $DIR/vimrc .vimrc
-    cd - > /dev/null
+if [ ! -e $HOME/.vimrc ]; then
+    ln -s $DOTFILES/vimrc $HOME/.vimrc
+    echo Make .vimrc symlink
 else
-    echo vimrc already exist!
+    echo vimrc already exists
 fi
 
-# Making symbolic link of after directory
-if [ ! -d ~/.vim/after ]; then
-    echo -e "making after ftplugin symlink\n"
-    cd ~/.vim/
-    ln -s $DIR/after/ after
-    cd - > /dev/null
+if [ ! -d $HOME/.vim/after ]; then
+    ln -s $DOTFILES/after $HOME/.vim/after
+    echo Make .vim/after symlink
 else
-    echo after directory already exist!
-fi
-
-# Configure ycm_extra_config file
-if [ ! -e ~/.vim/.ycm_extra_conf.py ]; then
-    echo -e "making ycm_extra_conf symlink"
-    cd ~/.vim/
-    ln -s $DIR/ycm_extra_conf.py .ycm_extra_conf.py
-    cd - > /dev/null
-else
-    echo ycm_extra_conf already exist!
+    echo after dir already exists
 fi
 
 # Vundle & Plugin install
@@ -38,5 +22,5 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim > /dev/null
     vim -c PluginInstall -c qa
 else
-    echo Vundle already exist!
+    echo Vundle already exists
 fi

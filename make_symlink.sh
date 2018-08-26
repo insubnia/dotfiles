@@ -1,26 +1,28 @@
+#!/bin/bash
+
 DOTFILES=$HOME/workspace/dotfiles
 
 TAR=$HOME/.ctags
 if [ ! -e $TAR ]; then
     ln -s $DOTFILES/ctags $TAR
-    echo Create exuberant-ctags symlink
+    echo Make exuberant-ctags symlink
 else
-    echo .ctags already exist
+    echo .ctags already exists
 fi
 
 TAR=$HOME/.ctags.d/default.ctags
 if [ ! -e $TAR ]; then
     mkdir -p $(dirname $TAR)
     ln -s $DOTFILES/ctags $TAR
-    echo Create universal-ctags symlink
+    echo Make universal-ctags symlink
 else
-    echo default.ctags already exist
+    echo default.ctags already exists
 fi
 
 TAR=$HOME/.ackrc
 if [ ! -e $TAR ]; then
     ln -s $DOTFILES/ackrc $TAR
-    echo Create ackrc symlink
+    echo Make ackrc symlink
 else
-    echo .ackrc already exist
+    echo .ackrc already exists
 fi
