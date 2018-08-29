@@ -22,6 +22,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-dispatch'
 Plugin 'mileszs/ack.vim'
@@ -114,7 +115,7 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
-nnoremap -  <C-w><
+nnoremap _  <C-w><
 nnoremap 0  <C-i>zz
 nnoremap ZA :wqa<cr>
 nnoremap R  :GitGutterAll<cr>
@@ -153,7 +154,6 @@ noremap  <expr> <leader>3  &diff ? ":diffget RE<cr>" : ""
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
-nmap _  <plug>(qf_qf_switch)
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
 nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
@@ -286,7 +286,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
-let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar']
+let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
 let g:ack_qhandler="botright cwindow"
