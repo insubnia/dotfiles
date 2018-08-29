@@ -22,6 +22,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-dispatch'
 Plugin 'mileszs/ack.vim'
@@ -32,6 +33,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
+Plugin 'shime/vim-livedown'
 if os != "Windows"
     Plugin 'valloric/youcompleteme'
 endif
@@ -114,7 +116,7 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
-nnoremap -  <C-w><
+nnoremap _  <C-w><
 nnoremap 0  <C-i>zz
 nnoremap ZA :wqa<cr>
 nnoremap R  :GitGutterAll<cr>
@@ -122,6 +124,7 @@ nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
+nnoremap <C-c>  :Close<cr>
 nnoremap <C-h>  :%s//g<left><left>
 nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
@@ -152,7 +155,6 @@ noremap  <expr> <leader>3  &diff ? ":diffget RE<cr>" : ""
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
-nmap _  <plug>(qf_qf_switch)
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
 nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
@@ -194,6 +196,8 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
+command! Close  ccl<bar>NERDTreeClose<bar>TagbarClose
+
 if !exists("*Run")
     command! Run call Run()
     function! Run()
@@ -203,6 +207,8 @@ if !exists("*Run")
             make run
         elseif &filetype=="python"
             !python3 %
+        elseif &filetype=="markdown"
+            LivedownPreview
         elseif &filetype=="swift"
             !swift %
         else
@@ -244,7 +250,7 @@ endfunction
 " PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
@@ -283,7 +289,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
-let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar']
+let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
 let g:ack_qhandler="botright cwindow"
@@ -305,6 +311,9 @@ let g:tagbar_sort=1
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
+
+" livedown
+let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
 " }}}
 " ============================================================================
 " FINISH {{{

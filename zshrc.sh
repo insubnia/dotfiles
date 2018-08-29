@@ -4,7 +4,10 @@ if [ $PWD = $HOME ]; then
     cd workspace
 fi
 
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+# ZSH_THEME="avit"
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
 plugins=(
     colored-man-pages
     autojump
