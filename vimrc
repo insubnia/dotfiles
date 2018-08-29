@@ -33,6 +33,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'TagHighlight'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
+Plugin 'shime/vim-livedown'
 if os != "Windows"
     Plugin 'valloric/youcompleteme'
 endif
@@ -206,6 +207,8 @@ if !exists("*Run")
             make run
         elseif &filetype=="python"
             !python3 %
+        elseif &filetype=="markdown"
+            LivedownPreview
         elseif &filetype=="swift"
             !swift %
         else
@@ -308,6 +311,9 @@ let g:tagbar_sort=1
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
+
+" livedown
+let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
 " }}}
 " ============================================================================
 " FINISH {{{
