@@ -1,7 +1,6 @@
 " vim: set foldmethod=marker:
 " ============================================================================
 " .vimrc of sis {{{
-
 " Get OS informaion
 if has("win32") || has("win32unix")
     let os="Windows"
@@ -118,7 +117,8 @@ nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap _  <C-w><
 nnoremap 0  <C-i>zz
-nnoremap ZA :wqa<cr>
+nnoremap ZA :wa<cr>
+nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
