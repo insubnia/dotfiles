@@ -196,7 +196,15 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
-command! Close  ccl<bar>helpclose<bar>NERDTreeClose<bar>TagbarClose
+if !exists("*Close")
+    command! Close call Close()
+    function! Close()
+        cclose
+        helpclose
+        NERDTreeClose
+        TagbarClose
+    endfunction
+endif
 
 if !exists("*Run")
     command! Run call Run()
