@@ -312,6 +312,10 @@ let g:qf_auto_resize=0
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
 let g:ctrlp_wildignore=1
+let g:ctrlp_use_caching=1
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_cache_dir='$HOME/.cache/ctrlp'
+let g:ctrlp_user_command=(has("win32") ? 'dir %s /-n /b /s /a-d' : 'find %s -type f')
 
 " tagbar
 let g:tagbar_autofocus=1
