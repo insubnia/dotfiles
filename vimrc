@@ -122,22 +122,22 @@ nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
+nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-c>  :Close<cr>
-nnoremap <C-h>  :%s//g<left><left>
 nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <leader>h  K
-nnoremap <leader>f  :Ack!<space>
-nnoremap <leader>r  :Run<cr>
-nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <Tab>      gt
 nnoremap <S-Tab>    gT
 nnoremap <BS>       :noh<bar>cexpr []<cr>
+nnoremap <leader>f  :Ack!<space>
+nnoremap <leader>r  :Run<cr>
+nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <leader>h  :%s//g<left><left>
+vnoremap <leader>h  :s//g<left><left>
 vnoremap <  <gv
 vnoremap >  >gv
-vnoremap <C-h>  :s//g<left><left>
 inoremap <C-b>  <left>
 inoremap <C-f>  <right>
 inoremap <C-a>  <esc>I
@@ -159,8 +159,8 @@ nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
 nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
 if !has("clipboard")
-    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
-    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
@@ -196,7 +196,7 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
-command! Close  ccl<bar>NERDTreeClose<bar>TagbarClose
+command! Close  ccl<bar>helpclose<bar>NERDTreeClose<bar>TagbarClose
 
 if !exists("*Run")
     command! Run call Run()
