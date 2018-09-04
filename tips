@@ -23,3 +23,7 @@ endfunction
 
 autocmd BufEnter * if &diff | call DiffKeymap(1) | endif
 autocmd BufWinLeave * if &diff | call DiffKeymap(0) | endif
+
+if executable("ack")
+    let g:ctrlp_user_command.=' | ack -v ".git|.svn" '
+endif

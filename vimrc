@@ -1,7 +1,6 @@
 " vim: set foldmethod=marker:
 " ============================================================================
 " .vimrc of sis {{{
-
 " Get OS informaion
 if has("win32") || has("win32unix")
     let os="Windows"
@@ -118,26 +117,27 @@ nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap _  <C-w><
 nnoremap 0  <C-i>zz
-nnoremap ZA :wqa<cr>
+nnoremap ZA :wa<cr>
+nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
 nnoremap <C-]>  g<C-]>
+nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
 nnoremap <C-o>  <C-o>zz
 nnoremap <C-c>  :Close<cr>
-nnoremap <C-h>  :%s//g<left><left>
 nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <leader>h  K
-nnoremap <leader>f  :Ack!<space>
-nnoremap <leader>r  :Run<cr>
-nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <Tab>      gt
 nnoremap <S-Tab>    gT
 nnoremap <BS>       :noh<bar>cexpr []<cr>
+nnoremap <leader>f  :Ack!<space>
+nnoremap <leader>r  :Run<cr>
+nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <leader>h  :%s//g<left><left>
+vnoremap <leader>h  :s//g<left><left>
 vnoremap <  <gv
 vnoremap >  >gv
-vnoremap <C-h>  :s//g<left><left>
 inoremap <C-b>  <left>
 inoremap <C-f>  <right>
 inoremap <C-a>  <esc>I
@@ -159,8 +159,8 @@ nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
 nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
 if !has("clipboard")
-    noremap \d  :del  \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
-    noremap \y  :yank \| silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
@@ -196,7 +196,15 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
-command! Close  ccl<bar>NERDTreeClose<bar>TagbarClose
+if !exists("*Close")
+    command! Close call Close()
+    function! Close()
+        cclose
+        helpclose
+        NERDTreeClose
+        TagbarClose
+    endfunction
+endif
 
 if !exists("*Run")
     command! Run call Run()
@@ -303,7 +311,10 @@ let g:qf_auto_resize=0
 " CtrlP
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
-let g:ctrlp_wildignore=1
+let g:ctrlp_user_command=(has("win32") ? 'dir %s /-n /b /s /a-d' : 'find %s -type f')
+if executable("grep")
+    let g:ctrlp_user_command.=' | grep -v -e .git -e .svn '
+endif
 
 " tagbar
 let g:tagbar_autofocus=1
