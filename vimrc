@@ -311,9 +311,10 @@ let g:qf_auto_resize=0
 " CtrlP
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
+let g:ctrlp_match_window='results:100'
 let g:ctrlp_user_command=(has("win32") ? 'dir %s /-n /b /s /a-d' : 'find %s -type f')
 if executable("grep")
-    let g:ctrlp_user_command.=' | grep -v -e .git -e .svn '
+    let g:ctrlp_user_command.=' | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
 endif
 
 " tagbar
@@ -327,7 +328,7 @@ let g:peekaboo_window="vert botright 40new"
 let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
 " }}}
 " ============================================================================
-" FINISH {{{
+" OUTRO {{{
 if os == "Darwin"
     let g:airline_theme='dracula'
     colo dracula
