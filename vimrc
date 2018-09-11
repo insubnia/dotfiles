@@ -214,7 +214,11 @@ if !exists("*Run")
         elseif &filetype=="c" || &filetype=="cpp"
             make run
         elseif &filetype=="python"
-            !python3 %
+            if has("win32")
+                !python %
+            else
+                !python3 %
+            endif
         elseif &filetype=="markdown"
             LivedownPreview
         elseif &filetype=="swift"
