@@ -58,6 +58,7 @@ set autoread autowrite
 set hidden          " Keep current buffer as hidden, when opening a new file
 set path+=**        " add subdirectories in working path
 set title           " set window's title, reflecting the file currently being edited
+set encoding=utf-8
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
