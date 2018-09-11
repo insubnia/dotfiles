@@ -1,5 +1,5 @@
+-Hi
 --column
---ignore-case
 --smart-case
 --ignore-file=is:tags
 --ignore-file=ext:log

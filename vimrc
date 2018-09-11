@@ -305,6 +305,7 @@ let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
+autocmd BufEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
 let g:ack_qhandler="botright cwindow"
 let g:ack_apply_qmappings=0
 let g:ackhighlight=1
