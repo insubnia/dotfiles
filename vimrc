@@ -132,6 +132,7 @@ nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <Tab>      gt
 nnoremap <S-Tab>    gT
 nnoremap <BS>       :noh<bar>cexpr []<cr>
+nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
