@@ -197,6 +197,8 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
+command! SyntaxToggle if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+
 if !exists("*Close")
     command! Close call Close()
     function! Close()
