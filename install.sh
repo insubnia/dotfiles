@@ -32,6 +32,8 @@ done < <(cat << EOF
     autojump
     fzf
     unrar
+    nodejs
+    npm
 EOF
 )
 

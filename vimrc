@@ -58,6 +58,7 @@ set autoread autowrite
 set hidden          " Keep current buffer as hidden, when opening a new file
 set path+=**        " add subdirectories in working path
 set title           " set window's title, reflecting the file currently being edited
+set encoding=utf-8
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
@@ -131,6 +132,7 @@ nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <Tab>      gt
 nnoremap <S-Tab>    gT
 nnoremap <BS>       :noh<bar>cexpr []<cr>
+nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
@@ -196,6 +198,8 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
+command! SyntaxToggle if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+
 if !exists("*Close")
     command! Close call Close()
     function! Close()
@@ -214,7 +218,11 @@ if !exists("*Run")
         elseif &filetype=="c" || &filetype=="cpp"
             make run
         elseif &filetype=="python"
-            !python3 %
+            if has("win32")
+                !python %
+            else
+                !python3 %
+            endif
         elseif &filetype=="markdown"
             LivedownPreview
         elseif &filetype=="swift"
@@ -300,6 +308,7 @@ let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
+autocmd BufEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
 let g:ack_qhandler="botright cwindow"
 let g:ack_apply_qmappings=0
 let g:ackhighlight=1
@@ -311,9 +320,10 @@ let g:qf_auto_resize=0
 " CtrlP
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
+let g:ctrlp_match_window='results:100'
 let g:ctrlp_user_command=(has("win32") ? 'dir %s /-n /b /s /a-d' : 'find %s -type f')
 if executable("grep")
-    let g:ctrlp_user_command.=' | grep -v -e .git -e .svn '
+    let g:ctrlp_user_command.=' | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
 endif
 
 " tagbar
@@ -327,7 +337,7 @@ let g:peekaboo_window="vert botright 40new"
 let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
 " }}}
 " ============================================================================
-" FINISH {{{
+" OUTRO {{{
 if os == "Darwin"
     let g:airline_theme='dracula'
     colo dracula

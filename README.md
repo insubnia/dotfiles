@@ -1,31 +1,29 @@
-dotfiles of sis
-===============
-vimrc
------
-**This is the reason why I manage this git repository**  
-It's all about my IDE
+# dotfiles of sis
 
-shell script
-------------
+
+## vimrc
+**Goal** > **versatile** and **standalone** IDE  
+Put the most of my effort into this
+
+
+## shell script
 - Configuration script
     - git
     - vim
     - zsh
-- Install script  
-    Use Mac and Linux package manager
 
-runtime configuration
----------------------
+- Install script  
+    Using brew and apt
+
+
+## runtime configuration
 - zshrc
-    - zsh plugins
-    - trivia settings
 - ackrc
 - ctags
 
-etc
----
+
+## etc.
 - gitignore
-- ycm_extra_conf.py  
-need for YouCompleteMe plugin
-- tips  
-ideas for ultimate custom dotfiles
+- ycm_extra_conf.py
+- tips
+***
