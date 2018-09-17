@@ -55,29 +55,26 @@ syntax on
 set nocp
 set noswf nobk noudf
 set autoread autowrite
-set hidden          " Keep current buffer as hidden, when opening a new file
-set path+=**        " add subdirectories in working path
-set title           " set window's title, reflecting the file currently being edited
+set backspace=2
 set encoding=utf-8
+set title hidden mouse=a
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
-set mouse=a         " enalbe cursor move with mouse
-set termguicolors   " use gui colors instead of terminal colors
 set hlsearch incsearch
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
 set tabstop=4 softtabstop=4 shiftwidth=4
 set timeoutlen=500 ttimeoutlen=0
-set wildmenu        " enhanced command-line completion
-set backspace=2     " make backspace work like most other programs
-set tags=tags       " echo tagfiles() to check tag files
+set termguicolors wildmenu
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F10>
 set foldmethod=marker
+set path+=**    " add subdirectories in working path
+set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
