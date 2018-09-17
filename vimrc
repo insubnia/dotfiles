@@ -144,8 +144,6 @@ inoremap <C-f>  <right>
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
-inoremap <C-v>  <F10><C-r>"<F10>
-cnoremap <C-v>  <C-r>"
 cnoremap <C-b>  <left>
 cnoremap <C-f>  <right>
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
@@ -164,6 +162,11 @@ if !has("clipboard")
     noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
+endif
+
+if os != "Darwin"
+    inoremap <C-v>  <F10><C-r>"<F10>
+    cnoremap <C-v>  <C-r>"
 endif
 
 abbrev  celan   clean
