@@ -76,6 +76,7 @@ set tags=tags       " echo tagfiles() to check tag files
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
+set nopaste pastetoggle=<F10>
 set foldmethod=marker
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
@@ -122,6 +123,7 @@ nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
+nnoremap <F9>   :SyntaxToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
@@ -145,9 +147,10 @@ inoremap <C-f>  <right>
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
+inoremap <C-v>  <F10><C-r>"<F10>
+cnoremap <C-v>  <C-r>"
 cnoremap <C-b>  <left>
 cnoremap <C-f>  <right>
-cnoremap <C-v>  <C-r>"
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
