@@ -120,7 +120,7 @@ nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
-nnoremap <F9>   :SyntaxToggle<cr>
+nnoremap <F2>   :SyntaxToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
