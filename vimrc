@@ -216,19 +216,21 @@ endif
 if !exists("*Run")
     command! Run call Run()
     function! Run()
-        if &filetype=="vim"
+        if &filetype == "vim"
             source %
-        elseif &filetype=="c" || &filetype=="cpp"
+        elseif &filetype == "sh"
+            !source %
+        elseif &filetype == "c" || &filetype == "cpp"
             make run
-        elseif &filetype=="python"
+        elseif &filetype == "python"
             if has("win32")
                 !python %
             else
                 !python3 %
             endif
-        elseif &filetype=="markdown"
+        elseif &filetype == "markdown"
             LivedownPreview
-        elseif &filetype=="swift"
+        elseif &filetype == "swift"
             !swift %
         else
             echom "There's nothing to do"
