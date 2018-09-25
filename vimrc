@@ -71,7 +71,6 @@ set termguicolors wildmenu
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
-set nopaste pastetoggle=<F10>
 set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
@@ -165,6 +164,7 @@ if !has("clipboard")
 endif
 
 if os != "Darwin"
+    set pastetoggle=<F10>
     inoremap <C-v>  <F10><C-r>"<F10>
     cnoremap <C-v>  <C-r>"
 endif
