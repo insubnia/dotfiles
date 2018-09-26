@@ -186,11 +186,12 @@ autocmd BufReadPost *
 
 function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
-    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
+    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\e4G"
 endfunction
 
 function! NewPy()
-    exe "norm! i\n\nif __name__ == \"__main__\":\npass\n\egg"
+    exe "norm! i#!".system("which python3")
+    exe "norm! i\n\n\nif __name__ == \"__main__\":\npass\e3G"
 endfunction
 
 augroup NewFile
