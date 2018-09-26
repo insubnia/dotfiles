@@ -21,6 +21,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 unsetopt BG_NICE
 
+alias vi='vim'
 alias python='python3'
-alias ff='find . -type f -iname'
 alias gdf='git difftool -t vimdiff'
+alias ff='find . -type f -iname'
