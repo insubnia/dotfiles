@@ -1,6 +1,6 @@
 " vim: set foldmethod=marker:
 " ============================================================================
-" .vimrc of sis {{{
+" INTRO {{{
 " Get OS informaion
 if has("win32") || has("win32unix")
     let os="Windows"
@@ -129,7 +129,7 @@ nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <Tab>      gt
 nnoremap <S-Tab>    gT
-nnoremap <BS>       :noh<bar>cexpr []<cr>
+nnoremap <BS>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
@@ -202,6 +202,7 @@ augroup END
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
 command! SyntaxToggle if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+command! Clear noh | cexpr []
 
 if !exists("*Close")
     command! Close call Close()
