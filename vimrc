@@ -1,6 +1,6 @@
 " vim: set foldmethod=marker:
 " ============================================================================
-" .vimrc of sis {{{
+" INTRO {{{
 " Get OS informaion
 if has("win32") || has("win32unix")
     let os="Windows"
@@ -55,28 +55,25 @@ syntax on
 set nocp
 set noswf nobk noudf
 set autoread autowrite
-set hidden          " Keep current buffer as hidden, when opening a new file
-set path+=**        " add subdirectories in working path
-set title           " set window's title, reflecting the file currently being edited
+set backspace=2
 set encoding=utf-8
+set title hidden mouse=a
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
-set mouse=a         " enalbe cursor move with mouse
-set termguicolors   " use gui colors instead of terminal colors
 set hlsearch incsearch
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
 set tabstop=4 softtabstop=4 shiftwidth=4
 set timeoutlen=500 ttimeoutlen=0
-set wildmenu        " enhanced command-line completion
-set backspace=2     " make backspace work like most other programs
-set tags=tags       " echo tagfiles() to check tag files
+set termguicolors wildmenu
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set foldmethod=marker
+set path+=**    " add subdirectories in working path
+set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
@@ -122,6 +119,7 @@ nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
+nnoremap <F2>   :SyntaxToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
@@ -131,7 +129,7 @@ nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <Tab>      gt
 nnoremap <S-Tab>    gT
-nnoremap <BS>       :noh<bar>cexpr []<cr>
+nnoremap <BS>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
@@ -147,7 +145,6 @@ inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
 cnoremap <C-b>  <left>
 cnoremap <C-f>  <right>
-cnoremap <C-v>  <C-r>"
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
@@ -164,6 +161,12 @@ if !has("clipboard")
     noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
+endif
+
+if os != "Darwin"
+    set pastetoggle=<F10>
+    inoremap <C-v>  <F10><C-r>"<F10>
+    cnoremap <C-v>  <C-r>"
 endif
 
 abbrev  celan   clean
@@ -183,11 +186,12 @@ autocmd BufReadPost *
 
 function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
-    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\ekk"
+    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\e4G"
 endfunction
 
 function! NewPy()
-    exe "norm! i\n\nif __name__ == \"__main__\":\npass\n\egg"
+    exe "norm! i#!".system("which python3")
+    exe "norm! i\n\n\nif __name__ == \"__main__\":\npass\e3G"
 endfunction
 
 augroup NewFile
@@ -199,6 +203,7 @@ augroup END
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
 command! SyntaxToggle if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+command! Clear noh | cexpr []
 
 if !exists("*Close")
     command! Close call Close()
@@ -213,19 +218,21 @@ endif
 if !exists("*Run")
     command! Run call Run()
     function! Run()
-        if &filetype=="vim"
+        if &filetype == "vim"
             source %
-        elseif &filetype=="c" || &filetype=="cpp"
+        elseif &filetype == "sh"
+            !source %
+        elseif &filetype == "c" || &filetype == "cpp"
             make run
-        elseif &filetype=="python"
+        elseif &filetype == "python"
             if has("win32")
                 !python %
             else
                 !python3 %
             endif
-        elseif &filetype=="markdown"
+        elseif &filetype == "markdown"
             LivedownPreview
-        elseif &filetype=="swift"
+        elseif &filetype == "swift"
             !swift %
         else
             echom "There's nothing to do"
@@ -308,7 +315,7 @@ let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
-autocmd BufEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
+autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
 let g:ack_qhandler="botright cwindow"
 let g:ack_apply_qmappings=0
 let g:ackhighlight=1
