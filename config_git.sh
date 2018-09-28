@@ -1,3 +1,5 @@
+#!/bin/bash
+
 git config --global user.name "sis"
 git config --global user.email "sis06232@gmail.com"
 git config --global core.editor $(which vim)
