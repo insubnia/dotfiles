@@ -71,6 +71,7 @@ set termguicolors wildmenu
 set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
+set nopaste pastetoggle=<F19>
 set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
@@ -138,13 +139,13 @@ nnoremap <leader>h  :%s//g<left><left>
 vnoremap <leader>h  :s//g<left><left>
 vnoremap <  <gv
 vnoremap >  >gv
-inoremap <C-b>  <left>
-inoremap <C-f>  <right>
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
-cnoremap <C-b>  <left>
-cnoremap <C-f>  <right>
+inoremap <C-y>  <F19><C-r>"<F19>
+cnoremap <C-y>  <C-r>"
+noremap! <C-b>  <left>
+noremap! <C-f>  <right>
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
@@ -164,9 +165,7 @@ if !has("clipboard")
 endif
 
 if os != "Darwin"
-    set pastetoggle=<F10>
-    inoremap <C-v>  <F10><C-r>"<F10>
-    cnoremap <C-v>  <C-r>"
+    map! <C-v>  <C-y>
 endif
 
 abbrev  celan   clean
@@ -277,6 +276,7 @@ let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
+let g:ycm_key_list_stop_completion=['<C-c>']
 
 " gitgutter
 set updatetime=100
