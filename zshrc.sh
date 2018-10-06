@@ -4,9 +4,9 @@ if [ $PWD = $HOME ]; then
     cd workspace
 fi
 
-# ZSH_THEME="agnoster"
-# ZSH_THEME="avit"
 ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs background_jobs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator history time)
 
 plugins=(
     colored-man-pages
