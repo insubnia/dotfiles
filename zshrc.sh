@@ -6,7 +6,9 @@ fi
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs background_jobs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator history time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time date)
+POWERLEVEL9K_TIME_FORMAT=%t
+POWERLEVEL9K_DATE_FORMAT=%D{%F(%a)}
 
 plugins=(
     colored-man-pages
