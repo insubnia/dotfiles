@@ -276,7 +276,7 @@ let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
-let g:ycm_key_list_stop_completion=['<C-c>']
+let g:ycm_key_list_stop_completion=[]
 
 " gitgutter
 set updatetime=100
