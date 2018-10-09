@@ -147,11 +147,11 @@ cnoremap <C-y>  <C-r>"
 noremap! <C-b>  <left>
 noremap! <C-f>  <right>
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
+noremap  <leader>1  :diffget LO<cr>
+noremap  <leader>2  :diffget BA<cr>
+noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
-noremap  <expr> <leader>1  &diff ? ":diffget LO<cr>" : ""
-noremap  <expr> <leader>2  &diff ? ":diffget BA<cr>" : ""
-noremap  <expr> <leader>3  &diff ? ":diffget RE<cr>" : ""
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
