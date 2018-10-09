@@ -135,8 +135,6 @@ nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
-nnoremap <leader>h  :%s//g<left><left>
-vnoremap <leader>h  :s//g<left><left>
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-a>  <esc>I
@@ -152,6 +150,7 @@ noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
+noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
