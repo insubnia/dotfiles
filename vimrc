@@ -120,7 +120,6 @@ nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
-nnoremap <F2>   :SyntaxToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
@@ -135,6 +134,7 @@ nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
 vnoremap >  >gv
 inoremap <C-a>  <esc>I
@@ -200,7 +200,6 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
-command! SyntaxToggle if exists("g:syntax_on") | syntax off | else | syntax enable | endif
 command! Clear noh | cexpr []
 
 if !exists("*Close")
