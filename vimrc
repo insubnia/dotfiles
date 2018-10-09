@@ -215,6 +215,9 @@ endif
 if !exists("*Run")
     command! Run call Run()
     function! Run()
+        if !has("gui") | silent !clear
+        endif
+
         if &filetype == "vim"
             source %
         elseif &filetype == "sh"
@@ -222,10 +225,8 @@ if !exists("*Run")
         elseif &filetype == "c" || &filetype == "cpp"
             make run
         elseif &filetype == "python"
-            if has("win32")
-                !python %
-            else
-                !python3 %
+            if has("win32") | !python %
+            else | !python3 %
             endif
         elseif &filetype == "markdown"
             LivedownPreview
