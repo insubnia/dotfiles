@@ -22,5 +22,8 @@ if executable("ack")
     let g:ctrlp_user_command.=' | ack -v ".git|.svn" '
 endif
 
+should reslove...
+vnoremap [] s[]<esc>P
+
 # Date and time format
 https://www.ibm.com/support/knowledgecenter/ko/ssw_ibm_i_73/rtref/strfti.htm

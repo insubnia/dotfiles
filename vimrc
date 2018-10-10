@@ -137,6 +137,11 @@ nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
 vnoremap >  >gv
+vnoremap "" s""<esc>P
+vnoremap '' s''<esc>P
+vnoremap <> s<><esc>P
+vnoremap () s()<esc>P
+vnoremap {} s{}<esc>P
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
@@ -215,7 +220,7 @@ endif
 if !exists("*Run")
     command! Run call Run()
     function! Run()
-        if !has("gui") | silent !clear
+        if !has("win32") | silent !clear
         endif
 
         if &filetype == "vim"
