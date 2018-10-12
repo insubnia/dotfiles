@@ -127,9 +127,9 @@ nnoremap <C-o>  <C-o>zz
 nnoremap <C-c>  :Close<cr>
 nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <Tab>      gt
-nnoremap <S-Tab>    gT
-nnoremap <BS>       :Clear<cr>
+nnoremap <tab>      gt
+nnoremap <S-tab>    gT
+nnoremap <bs>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
@@ -154,7 +154,7 @@ noremap  <leader>1  :diffget LO<cr>
 noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
+noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginUpdate<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
@@ -211,6 +211,7 @@ if !exists("*Close")
     command! Close call Close()
     function! Close()
         cclose
+        pclose
         helpclose
         NERDTreeClose
         TagbarClose
