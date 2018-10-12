@@ -154,7 +154,7 @@ noremap  <leader>1  :diffget LO<cr>
 noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginUpdate<cr>"
+noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
@@ -243,6 +243,21 @@ if !exists("*Run")
         endif
     endfunction
 endif
+
+command! PluginAction call PluginAction()
+function! PluginAction()
+    let l:cin = input("Select mode [i,c,u]: ") | redraw
+
+    if l:cin == 'i'
+        PluginInstall
+    elseif l:cin == 'c'
+        PluginClean
+    elseif l:cin == 'u'
+        PluginUpdate
+    else
+        echo "Invalid input"
+    endif
+endfunction
 
 function! Highlight()
     hi link Global  Function
