@@ -87,7 +87,7 @@ if has("gui_running")
     set guioptions-=L guioptions-=T guioptions-=m
 endif
 
-let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
+let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
@@ -246,7 +246,8 @@ endif
 
 command! PluginAction call PluginAction()
 function! PluginAction()
-    let l:cin = input("Select mode [i,c,u]: ") | redraw
+    echo "Select mode [i,c,u]: "
+    let l:cin = nr2char(getchar())
 
     if l:cin == 'i'
         PluginInstall
@@ -296,6 +297,8 @@ let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
+let g:ycm_key_list_select_completion=['<down>']
+let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
 
 " gitgutter
