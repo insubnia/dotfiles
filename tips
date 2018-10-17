@@ -23,8 +23,9 @@ gx: open URL under cursor
 
 [colors]
 base16-dracula / violet
-candy / base16_default
-gruit / fairyfloss
+candy          / base16_default
+gruit          / fairyfloss
+PaperColor     / ravenpower
 
 
 [reference]
