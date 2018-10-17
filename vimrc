@@ -87,7 +87,7 @@ if has("gui_running")
     set guioptions-=L guioptions-=T guioptions-=m
 endif
 
-let &grepprg='grep -Irin --exclude={tags,"*".{log,bak,map,lst,d,taghl}} --exclude-dir={.git,.svn} $* .'
+let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
 let &makeprg='make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
@@ -120,7 +120,6 @@ nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap R  :GitGutterAll<cr>
 nnoremap T  :TagbarToggle<cr>
-nnoremap <F2>   :SyntaxToggle<cr>
 nnoremap <C-]>  g<C-]>
 nnoremap <C-h>  K
 nnoremap <C-t>  <C-t>zz
@@ -128,15 +127,21 @@ nnoremap <C-o>  <C-o>zz
 nnoremap <C-c>  :Close<cr>
 nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <Tab>      gt
-nnoremap <S-Tab>    gT
-nnoremap <BS>       :Clear<cr>
+nnoremap <tab>      gt
+nnoremap <S-tab>    gT
+nnoremap <bs>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
 vnoremap >  >gv
+vnoremap "" s""<esc>P
+vnoremap '' s''<esc>P
+vnoremap <> s<><esc>P
+vnoremap () s()<esc>P
+vnoremap {} s{}<esc>P
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
@@ -149,7 +154,7 @@ noremap  <leader>1  :diffget LO<cr>
 noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ""
+noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
@@ -200,13 +205,13 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
-command! SyntaxToggle if exists("g:syntax_on") | syntax off | else | syntax enable | endif
 command! Clear noh | cexpr []
 
 if !exists("*Close")
     command! Close call Close()
     function! Close()
         cclose
+        pclose
         helpclose
         NERDTreeClose
         TagbarClose
@@ -216,6 +221,9 @@ endif
 if !exists("*Run")
     command! Run call Run()
     function! Run()
+        if !has("win32") | silent !clear
+        endif
+
         if &filetype == "vim"
             source %
         elseif &filetype == "sh"
@@ -223,10 +231,8 @@ if !exists("*Run")
         elseif &filetype == "c" || &filetype == "cpp"
             make run
         elseif &filetype == "python"
-            if has("win32")
-                !python %
-            else
-                !python3 %
+            if has("win32") | !python %
+            else | !python3 %
             endif
         elseif &filetype == "markdown"
             LivedownPreview
@@ -237,6 +243,22 @@ if !exists("*Run")
         endif
     endfunction
 endif
+
+command! PluginAction call PluginAction()
+function! PluginAction()
+    echo "Select mode [i,c,u]: "
+    let l:cin = nr2char(getchar())
+
+    if l:cin == 'i'
+        PluginInstall
+    elseif l:cin == 'c'
+        PluginClean
+    elseif l:cin == 'u'
+        PluginUpdate
+    else
+        echo "Invalid input"
+    endif
+endfunction
 
 function! Highlight()
     hi link Global  Function
@@ -275,6 +297,8 @@ let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
+let g:ycm_key_list_select_completion=['<down>']
+let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
 
 " gitgutter

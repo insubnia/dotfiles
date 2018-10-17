@@ -10,6 +10,10 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time date)
 POWERLEVEL9K_TIME_FORMAT=%t
 POWERLEVEL9K_DATE_FORMAT=%D{%F(%a)}
 
+# nerd font
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs background_jobs)
+
 plugins=(
     colored-man-pages
     autojump
