@@ -103,6 +103,7 @@ endif
 let mapleader=" "
 nnoremap J  <nop>
 nnoremap K  <nop>
+nnoremap Q  @q
 nnoremap Y  y$
 nnoremap j  gj
 nnoremap k  gk
@@ -156,7 +157,6 @@ noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
