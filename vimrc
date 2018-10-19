@@ -143,6 +143,7 @@ vnoremap '' s''<esc>P
 vnoremap <> s<><esc>P
 vnoremap () s()<esc>P
 vnoremap {} s{}<esc>P
+vnoremap <C-t>  :Tab /
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
