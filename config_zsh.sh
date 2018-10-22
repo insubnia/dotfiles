@@ -1,4 +1,14 @@
-#!/bin/zsh
+#!/bin/bash
+
+# install zsh
+case "$OSTYPE" in
+    darwin*)
+        brew install zsh
+        ;;
+    linux*)
+        sudo apt-get install zsh
+        ;;
+esac
 
 # install oh my zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
