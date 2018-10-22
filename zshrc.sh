@@ -15,6 +15,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs background_jobs)
 
 plugins=(
+    git
     colored-man-pages
     autojump
     extract
