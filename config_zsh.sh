@@ -24,7 +24,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 # Append source line
-LINE="source $HOME/workspace/dotfiles/zshrc.sh"
+LINE="source $HOME/workspace/dotfiles/zshrc"
 if ! grep -q $LINE $HOME/.zshrc; then
     echo "Append line"
     echo $LINE >> $HOME/.zshrc
