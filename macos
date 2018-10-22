@@ -28,4 +28,4 @@ done < <(cat << EOF
 EOF
 )
 
-echo -e "\n\nInstallation complete\n\n"
+echo -e "\nComplete\n"
