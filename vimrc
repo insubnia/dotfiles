@@ -40,11 +40,16 @@ endif
 Plugin 'dracula/vim'
 Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'cocopon/iceberg.vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'tomasr/molokai'
+Plugin 'tssm/fairyfloss.vim'
 Plugin 'morhetz/gruvbox'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'tomasr/molokai'
+Plugin 'sjl/badwolf'
+Plugin 'freeo/vim-kalisi'
+Plugin 'dikiaap/minimalist'
+Plugin 'ajh17/spacegray.vim'
 Plugin 'chriskempson/base16-vim'
 call vundle#end()
 filetype plugin indent on
@@ -376,8 +381,8 @@ elseif os == "Linux"
     let g:airline_theme='jellybeans'
     colo jellybeans
 elseif has("win32")
-    let g:airline_theme='base16_google'
-    colo base16-google-dark
+    let g:airline_theme='fairyfloss'
+    colo fairyfloss
 elseif has("win32unix")
     let g:airline_theme='onedark'
     colo onedark
