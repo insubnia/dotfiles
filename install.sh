@@ -5,6 +5,10 @@ case "$OSTYPE" in
         pm="brew"
         ;;
     linux*)
+        if [ $EUID != 0 ]; then
+            sudo "$0" "$@"
+            exit $?
+        fi
         pm="apt-get"
         ;;
 esac
