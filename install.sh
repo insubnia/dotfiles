@@ -6,8 +6,8 @@ case "$OSTYPE" in
         ;;
     linux*)
         if [ $EUID != 0 ]; then
-            sudo "$0" "$@"
-            exit $?
+            echo -e "\nThis script must be run as root\n\nTerminate the script\n"
+            return
         fi
         pm="apt-get"
         ;;
