@@ -33,7 +33,6 @@ done < <(cat << EOF
     python3-pip
     ack
     autojump
-    fzf
     unrar
     nodejs
     npm

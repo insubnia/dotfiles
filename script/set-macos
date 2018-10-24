@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Don't show recent application in Dock
+defaults write com.apple.dock show-recents -bool true
+
+# Fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat        -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
