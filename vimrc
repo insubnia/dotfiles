@@ -40,11 +40,16 @@ endif
 Plugin 'dracula/vim'
 Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'cocopon/iceberg.vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'tomasr/molokai'
+Plugin 'tssm/fairyfloss.vim'
 Plugin 'morhetz/gruvbox'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'tomasr/molokai'
+Plugin 'sjl/badwolf'
+Plugin 'freeo/vim-kalisi'
+Plugin 'dikiaap/minimalist'
+Plugin 'ajh17/spacegray.vim'
 Plugin 'chriskempson/base16-vim'
 call vundle#end()
 filetype plugin indent on
@@ -103,6 +108,7 @@ endif
 let mapleader=" "
 nnoremap J  <nop>
 nnoremap K  <nop>
+nnoremap Q  @q
 nnoremap Y  y$
 nnoremap j  gj
 nnoremap k  gk
@@ -142,6 +148,7 @@ vnoremap '' s''<esc>P
 vnoremap <> s<><esc>P
 vnoremap () s()<esc>P
 vnoremap {} s{}<esc>P
+vnoremap <C-t>  :Tab /
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
@@ -156,7 +163,6 @@ noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-nmap Q  <plug>(qf_qf_toggle)
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
@@ -293,7 +299,7 @@ endfunction
 " PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/conf/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
@@ -375,8 +381,8 @@ elseif os == "Linux"
     let g:airline_theme='jellybeans'
     colo jellybeans
 elseif has("win32")
-    let g:airline_theme='base16_google'
-    colo base16-google-dark
+    let g:airline_theme='fairyfloss'
+    colo fairyfloss
 elseif has("win32unix")
     let g:airline_theme='onedark'
     colo onedark

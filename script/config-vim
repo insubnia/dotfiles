@@ -2,12 +2,7 @@
 
 DOTFILES=$HOME/workspace/dotfiles
 
-if [ ! -e $HOME/.vimrc ]; then
-    ln -sf $DOTFILES/vimrc $HOME/.vimrc
-    echo Make .vimrc symlink
-else
-    echo vimrc already exists
-fi
+ln -sf $DOTFILES/vimrc $HOME/.vimrc
 
 if [ ! -d $HOME/.vim/after ]; then
     ln -sf $DOTFILES/after $HOME/.vim/after

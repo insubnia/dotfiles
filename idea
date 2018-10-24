@@ -1,5 +1,6 @@
 [todo]
 vnoremap [] s[]<esc>P
+nmap Q  <plug>(qf_qf_toggle)
 
 function! DiffKeymap(mode)
     if a:mode
