@@ -1,8 +1,40 @@
 #!/bin/bash
 
-# Don't show recent application in Dock
-defaults write com.apple.dock show-recents -bool true
+# Tips taken from: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
+
+##############################################################################
+# HIDs
+##############################################################################
 
 # Fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat        -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 25
+
+# Enable full keyboard access for all controls
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+
+##############################################################################
+# Dock
+##############################################################################
+
+# Don't show recent application in Dock
+defaults write com.apple.dock show-recents -bool true
+
+# Make Dock icons of hidden applications translucent
+defaults write com.apple.dock showhidden -bool true
+
+
+##############################################################################
+# Finder
+##############################################################################
+
+# Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool true
