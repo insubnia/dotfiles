@@ -1,4 +1,6 @@
-# zshrc of sis
+#!/bin/zsh
+
+source $HOME/workspace/dotfiles/common
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 ZSH_DISABLE_COMPFIX="true"
@@ -23,16 +25,6 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
+
 source $ZSH/oh-my-zsh.sh
 unsetopt BG_NICE
-
-alias vi='vim'
-alias python='python3'
-alias gdf='git difftool -t vimdiff'
-alias ff='find . -type f -iname'
-alias tre='tree -L 2'
-
-if [ $PWD = $HOME ]; then
-    mkdir -p workspace
-    cd workspace
-fi

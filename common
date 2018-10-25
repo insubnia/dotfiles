@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ $PWD = $HOME ]; then
+    mkdir -p workspace
+    cd workspace
+fi
+
+alias vi='vim'
+alias python='python3'
+alias gdf='git difftool -t vimdiff'
+alias ff='find . -type f -iname'
+alias tre='tree -L 2'
