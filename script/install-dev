@@ -30,7 +30,6 @@ done < <(cat << EOF
     cmake
     ctags
     python3
-    python3-pip
     ack
     autojump
     unrar
