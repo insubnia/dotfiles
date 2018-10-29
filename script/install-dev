@@ -38,4 +38,7 @@ done < <(cat << EOF
 EOF
 )
 
+echo -e "\n[Cloning color schemes]"
+git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git $HOME/workspace/colorschemes
+
 echo -e "\nComplete\n"
