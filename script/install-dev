@@ -30,7 +30,6 @@ done < <(cat << EOF
     cmake
     ctags
     python3
-    python3-pip
     ack
     autojump
     unrar
@@ -38,5 +37,8 @@ done < <(cat << EOF
     npm
 EOF
 )
+
+echo -e "\n[Cloning color schemes]"
+git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git $HOME/workspace/colorschemes
 
 echo -e "\nComplete\n"

@@ -1,10 +1,17 @@
 #!/bin/bash
 
+if [ ! -x $(which pip3) ]; then
+    if [[ $OSTYPE == linux* ]]; then
+        echo -e "\nInstall pip3 first"
+        sudo apt-get install python3-pip
+    fi
+fi
+
 echo -e "\nInstall python packages"
 
 while read line
 do
-    echo -e "\n[Installing $line]"
+    echo -e "\n[Install & Upgrade $line]"
     sudo -H pip3 install -U $line
 done < <(cat << EOF
     pip
