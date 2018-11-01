@@ -144,6 +144,7 @@ nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
 vnoremap >  >gv
 vnoremap t  :Tab /
+vnoremap ,  :Tab /,\zs/l0r1<cr>
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap <> s<><esc>P
