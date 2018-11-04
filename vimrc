@@ -20,6 +20,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'w0rp/ale'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
@@ -307,6 +308,8 @@ let g:ycm_disable_for_files_larger_than_kb=1024
 let g:ycm_key_list_select_completion=['<down>']
 let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
+
+" ale
 
 " gitgutter
 set updatetime=100

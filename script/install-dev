@@ -35,6 +35,7 @@ done < <(cat << EOF
     unrar
     nodejs
     npm
+    clang-format
 EOF
 )
 
