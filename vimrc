@@ -20,7 +20,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'w0rp/ale'
+Plugin 'chiel92/vim-autoformat'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
@@ -140,6 +140,7 @@ nnoremap <bs>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
+nnoremap <leader>l  :Autoformat<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
@@ -309,7 +310,7 @@ let g:ycm_key_list_select_completion=['<down>']
 let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
 
-" ale
+" autoformat
 
 " gitgutter
 set updatetime=100
