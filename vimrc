@@ -140,7 +140,6 @@ nnoremap <bs>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
-nnoremap <leader>l  :Autoformat<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
@@ -163,6 +162,7 @@ noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <leader>1  :diffget LO<cr>
 noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
+noremap  <leader>l  :Autoformat<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
