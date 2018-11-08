@@ -20,20 +20,20 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'chiel92/vim-autoformat'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
-Plugin 'tpope/vim-dispatch'
+Plugin 'godlygeek/tabular'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'romainl/vim-qf'
+Plugin 'chiel92/vim-autoformat'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
-Plugin 'majutsushi/tagbar'
-Plugin 'TagHighlight'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
 Plugin 'shime/vim-livedown'
+Plugin 'TagHighlight'
 if os != "Windows"
     Plugin 'valloric/youcompleteme'
 endif
@@ -148,9 +148,10 @@ vnoremap t  :Tab /
 vnoremap ,  :Tab /,\zs/l0r1<cr>
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
-vnoremap <> s<><esc>P
 vnoremap () s()<esc>P
 vnoremap {} s{}<esc>P
+vnoremap [] s[]<esc>P
+vnoremap <> s<><esc>P
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
@@ -310,10 +311,6 @@ let g:ycm_key_list_select_completion=['<down>']
 let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
 
-" autoformat
-let g:formatdef_clangformat = '"clang-format -style=webkit"'
-let g:formatdef_astyle_c    = '"astyle --style=kr"'
-
 " gitgutter
 set updatetime=100
 set signcolumn=yes
@@ -350,16 +347,6 @@ let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
-" ack
-autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
-let g:ack_qhandler="botright cwindow"
-let g:ack_apply_qmappings=0
-let g:ackhighlight=1
-
-" qf
-let g:qf_mapping_ack_style=1
-let g:qf_auto_resize=0
-
 " CtrlP
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
@@ -372,6 +359,20 @@ endif
 " tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
+
+" ack
+autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
+let g:ack_qhandler="botright cwindow"
+let g:ack_apply_qmappings=0
+let g:ackhighlight=1
+
+" qf
+let g:qf_mapping_ack_style=1
+let g:qf_auto_resize=0
+
+" autoformat
+let g:formatdef_clangformat = '"clang-format -style=webkit"'
+let g:formatdef_astyle_c    = '"astyle --style=kr"'
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
