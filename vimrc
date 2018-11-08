@@ -107,8 +107,6 @@ endif
 " ============================================================================
 " MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
-nnoremap J  <nop>
-nnoremap K  <nop>
 nnoremap Q  @q
 nnoremap Y  y$
 nnoremap j  gj
@@ -119,6 +117,8 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
+nnoremap J  ddp
+nnoremap K  kddpk
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap _  <C-w><
