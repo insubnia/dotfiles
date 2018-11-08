@@ -311,6 +311,8 @@ let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
 
 " autoformat
+let g:formatdef_clangformat = '"clang-format -style=webkit"'
+let g:formatdef_astyle_c    = '"astyle --style=kr"'
 
 " gitgutter
 set updatetime=100
@@ -383,14 +385,14 @@ if os == "Darwin"
     let g:airline_theme='dracula'
     colo dracula
 elseif os == "Linux"
-    let g:airline_theme='jellybeans'
-    colo jellybeans
+    let g:airline_theme='onedark'
+    colo onedark
 elseif has("win32")
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
-    let g:airline_theme='onedark'
-    colo onedark
+    let g:airline_theme='jellybeans'
+    colo jellybeans
 endif
 " }}}
 " ============================================================================

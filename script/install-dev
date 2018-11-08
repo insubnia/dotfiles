@@ -36,7 +36,7 @@ done < <(cat << EOF
     nodejs
     npm
     llvm
-    clang-format
+    astyle
 EOF
 )
 
