@@ -137,6 +137,7 @@ nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>      gt
 nnoremap <S-tab>    gT
 nnoremap <bs>       :Clear<cr>
+nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
@@ -146,7 +147,7 @@ vnoremap <  <gv
 vnoremap >  >gv
 vnoremap t  :Tab /
 vnoremap ,  :Tab /,\zs/l0r1<cr>
-vnoremap <leader><space> :retab<bar>Tab /\s\zs\h/l1r0<cr>
+vnoremap <leader><space> :retab<bar>norm gv<cr>:Tab /\s\zs\S/l1r0<cr>
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
