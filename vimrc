@@ -84,7 +84,7 @@ set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
-set wildignore+=.clang-format,tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
+set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
 

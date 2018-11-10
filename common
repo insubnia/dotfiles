@@ -8,4 +8,8 @@ alias python='python3'
 alias gdf='git difftool -t vimdiff'
 alias ff='find . -type f -iname'
 alias tre='tree -L 2'
-alias myclang='clang-format -style=webkit -dump-config > .clang-format'
+alias myclang='clang-format -style="{\
+    BasedOnStyle                     : WebKit,\
+    PointerAlignment                 : Right,\
+    KeepEmptyLinesAtTheStartOfBlocks : false,\
+    }" -dump-config > .clang-format'
