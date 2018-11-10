@@ -1,15 +1,6 @@
 #!/bin/bash
 
 CONF=$HOME/workspace/dotfiles/conf
-DOTFILES=$HOME/workspace/dotfiles
-
-TAR=$HOME/.ctags
-if [ ! -e $TAR ]; then
-    ln -sf $CONF/ctags $TAR
-    echo Make exuberant-ctags symlink
-else
-    echo .ctags already exists
-fi
 
 TAR=$HOME/.ctags.d/default.ctags
 if [ ! -e $TAR ]; then
@@ -20,4 +11,7 @@ else
     echo default.ctags already exists
 fi
 
-ln -sf $CONF/ackrc $HOME/.ackrc
+# exuberant-ctags
+ln -sf $CONF/ctags    $HOME/.ctags
+ln -sf $CONF/ackrc    $HOME/.ackrc
+ln -sf $CONF/astylerc $HOME/.astylerc

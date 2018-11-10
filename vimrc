@@ -374,11 +374,6 @@ let g:qf_auto_resize=0
 
 " autoformat
 let g:autoformat_verbosemode=0
-let g:formatdef_astyle='"astyle --style=kr -p"'
-if !filereadable(".clang-format")
-    let g:formatters_c=['astyle']
-    let g:formatters_cpp=['astyle']
-endif
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
