@@ -184,9 +184,9 @@ if os != "Darwin"
     map! <C-v>  <C-y>
 endif
 
-abbrev  celan   clean
-abbrev  slef    self
-cabbrev Noh     noh
+abbrev  celan clean
+abbrev  slef  self
+cabbrev Noh   noh
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -278,14 +278,14 @@ function! Highlight()
     hi link Member  String
     hi link Proto   Number
 
-    hi link DefinedName         Defined
-    hi link EnumerationValue    Defined
-    hi link GlobalVariable      Global
-    hi link CTagsConstant       Global
-    hi link CTagsStructure      Proto
-    hi link CTagsClass          Proto
-    hi link CTagsUnion          Proto
-    hi link EnumeratorName      Proto
+    hi link DefinedName      Defined
+    hi link EnumerationValue Defined
+    hi link GlobalVariable   Global
+    hi link CTagsConstant    Global
+    hi link CTagsStructure   Proto
+    hi link CTagsClass       Proto
+    hi link CTagsUnion       Proto
+    hi link EnumeratorName   Proto
 endfunction
 autocmd ColorScheme * call Highlight()
 
