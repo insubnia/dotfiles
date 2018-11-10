@@ -35,6 +35,8 @@ done < <(cat << EOF
     unrar
     nodejs
     npm
+    llvm
+    astyle
 EOF
 )
 

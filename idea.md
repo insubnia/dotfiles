@@ -2,6 +2,9 @@
 Brilliant ideas for my IDE
 
 ## To do
+    **:py3f %** command
+    **:pyxf %** command
+
     vnoremap [] s[]<esc>P
     nmap Q  <plug>(qf_qf_toggle)
 

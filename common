@@ -1,12 +1,11 @@
 #!/bin/sh
 
-if [ $PWD = $HOME ]; then
-    mkdir -p workspace
-    cd workspace
-fi
+mkdir -p ~/workspace
+cd ~/workspace
 
 alias vi='vim'
 alias python='python3'
 alias gdf='git difftool -t vimdiff'
 alias ff='find . -type f -iname'
 alias tre='tree -L 2'
+alias myclang='clang-format -style=webkit -dump-config > .clang-format'

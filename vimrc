@@ -21,18 +21,19 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
-Plugin 'tpope/vim-dispatch'
+Plugin 'godlygeek/tabular'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'romainl/vim-qf'
+Plugin 'chiel92/vim-autoformat'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
-Plugin 'majutsushi/tagbar'
-Plugin 'TagHighlight'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
 Plugin 'shime/vim-livedown'
+Plugin 'TagHighlight'
 if os != "Windows"
     Plugin 'valloric/youcompleteme'
 endif
@@ -83,7 +84,7 @@ set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
-set wildignore+=tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
+set wildignore+=.clang-format,tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
 
@@ -106,8 +107,6 @@ endif
 " ============================================================================
 " MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
-nnoremap J  <nop>
-nnoremap K  <nop>
 nnoremap Q  @q
 nnoremap Y  y$
 nnoremap j  gj
@@ -118,6 +117,8 @@ nnoremap *  *zz
 nnoremap #  #zz
 nnoremap dw diw
 nnoremap yw yiw
+nnoremap J  ddp
+nnoremap K  kddpk
 nnoremap ?  :ts /
 nnoremap +  <C-w>>
 nnoremap _  <C-w><
@@ -140,15 +141,19 @@ nnoremap <leader>s  :wa<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <leader><space> :wa<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 vnoremap <  <gv
 vnoremap >  >gv
 vnoremap t  :Tab /
+vnoremap ,  :Tab /,\zs/l0r1<cr>
+vnoremap <leader><space> :retab<bar>norm gv<cr>:Tab /\s\zs\S/l1r0<cr>
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
-vnoremap <> s<><esc>P
 vnoremap () s()<esc>P
 vnoremap {} s{}<esc>P
+vnoremap [] s[]<esc>P
+vnoremap <> s<><esc>P
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
@@ -160,6 +165,7 @@ noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <leader>1  :diffget LO<cr>
 noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
+noremap  <leader>l  :Autoformat<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
@@ -178,9 +184,9 @@ if os != "Darwin"
     map! <C-v>  <C-y>
 endif
 
-abbrev  celan   clean
-abbrev  slef    self
-cabbrev Noh     noh
+abbrev  celan clean
+abbrev  slef  self
+cabbrev Noh   noh
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -272,14 +278,14 @@ function! Highlight()
     hi link Member  String
     hi link Proto   Number
 
-    hi link DefinedName         Defined
-    hi link EnumerationValue    Defined
-    hi link GlobalVariable      Global
-    hi link CTagsConstant       Global
-    hi link CTagsStructure      Proto
-    hi link CTagsClass          Proto
-    hi link CTagsUnion          Proto
-    hi link EnumeratorName      Proto
+    hi link DefinedName      Defined
+    hi link EnumerationValue Defined
+    hi link GlobalVariable   Global
+    hi link CTagsConstant    Global
+    hi link CTagsStructure   Proto
+    hi link CTagsClass       Proto
+    hi link CTagsUnion       Proto
+    hi link EnumeratorName   Proto
 endfunction
 autocmd ColorScheme * call Highlight()
 
@@ -343,16 +349,6 @@ let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
-" ack
-autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
-let g:ack_qhandler="botright cwindow"
-let g:ack_apply_qmappings=0
-let g:ackhighlight=1
-
-" qf
-let g:qf_mapping_ack_style=1
-let g:qf_auto_resize=0
-
 " CtrlP
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
@@ -366,6 +362,19 @@ endif
 let g:tagbar_autofocus=1
 let g:tagbar_sort=1
 
+" ack
+autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
+let g:ack_qhandler="botright cwindow"
+let g:ack_apply_qmappings=0
+let g:ackhighlight=1
+
+" qf
+let g:qf_mapping_ack_style=1
+let g:qf_auto_resize=0
+
+" autoformat
+let g:autoformat_verbosemode=0
+
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
 
@@ -378,14 +387,14 @@ if os == "Darwin"
     let g:airline_theme='dracula'
     colo dracula
 elseif os == "Linux"
-    let g:airline_theme='jellybeans'
-    colo jellybeans
+    let g:airline_theme='onedark'
+    colo onedark
 elseif has("win32")
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
-    let g:airline_theme='onedark'
-    colo onedark
+    let g:airline_theme='jellybeans'
+    colo jellybeans
 endif
 " }}}
 " ============================================================================

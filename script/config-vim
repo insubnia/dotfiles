@@ -5,7 +5,7 @@ DOTFILES=$HOME/workspace/dotfiles
 ln -sf $DOTFILES/vimrc $HOME/.vimrc
 
 if [ ! -d $HOME/.vim/after ]; then
-    ln -sf $DOTFILES/after $HOME/.vim/after
+    ln -sf $DOTFILES/conf/vim-after $HOME/.vim/after
     echo Make .vim/after symlink
 else
     echo after dir already exists
