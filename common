@@ -11,5 +11,6 @@ alias tre='tree -L 2'
 alias myclang='clang-format -style="{\
     BasedOnStyle                     : WebKit,\
     PointerAlignment                 : Right,\
+    Cpp11BracedListStyle             : true,\
     KeepEmptyLinesAtTheStartOfBlocks : false,\
     }" -dump-config > .clang-format'
