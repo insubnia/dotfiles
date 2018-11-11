@@ -15,12 +15,12 @@ do
     sudo -H pip3 install -U $line
 done < <(cat << EOF
     pip
-    pylint
-    autopep8
     numpy
     scipy
     matplotlib
     pyqt5
+    pylint
+    autopep8
 EOF
 )
 
