@@ -153,6 +153,7 @@ vnoremap () s()<esc>P
 vnoremap {} s{}<esc>P
 vnoremap [] s[]<esc>P
 vnoremap <> s<><esc>P
+vnoremap <leader>=  :Tab /=<cr>
 vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
 vnoremap <leader>,  :Tab /,\zs/l0r1<cr>
 vnoremap <leader><space> :retab<bar>norm gv<cr> :Tab /\s\zs\S/l1r0<cr>
@@ -170,6 +171,8 @@ noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+nmap ]a <plug>(ale_next_wrap)zz
+nmap [a <plug>(ale_previous_wrap)zz
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
@@ -179,10 +182,6 @@ if !has("clipboard")
     noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
-endif
-
-if os != "Darwin"
-    map! <C-v>  <C-y>
 endif
 
 abbrev  celan clean
