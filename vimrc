@@ -374,6 +374,9 @@ let g:qf_mapping_ack_style=1
 let g:qf_auto_resize=0
 
 " ale
+let g:ale_linters={
+            \'python': ['pylint'],
+            \}
 let g:ale_fixers={
             \'c': ['clang-format'],
             \'cpp': ['clang-format'],

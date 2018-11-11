@@ -12,7 +12,7 @@ echo -e "\nInstall python packages"
 while read line
 do
     echo -e "\n[Install & Upgrade $line]"
-    sudo -H pip3 install -U $line
+    python3 -m pip install -U --user $line
 done < <(cat << EOF
     pip
     numpy
