@@ -89,6 +89,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,*.taghl,.DS_Store,*.stackdump
 
 if has("gui_running")
+    set guifont=D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
@@ -137,10 +138,9 @@ nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>      gt
 nnoremap <S-tab>    gT
 nnoremap <bs>       :Clear<cr>
-nnoremap <leader>s  :wa<cr>
-nnoremap <leader>r  :Run<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>l  :ALEFix<cr>
+nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <leader><space> :wa<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
@@ -151,12 +151,12 @@ vnoremap t  :Tab /
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
-vnoremap {} s{}<esc>P
-vnoremap [] s[]<esc>P
 vnoremap <> s<><esc>P
-vnoremap <leader>=  :Tab /=<cr>
-vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
+vnoremap [] s[]<esc>P
+vnoremap {} s{}<esc>P
 vnoremap <leader>,  :Tab /,\zs/l0r1<cr>
+vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
+vnoremap <leader>=  :Tab /=<cr>
 vnoremap <leader><space> :retab<bar>norm gv<cr> :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
@@ -398,7 +398,6 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
-    set guifont=D2Coding:h10
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
