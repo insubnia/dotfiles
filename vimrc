@@ -144,6 +144,7 @@ nnoremap <leader>l  :ALEFix<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <leader><space> :wa<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
+nnoremap <F3>   :GitGutterToggle<cr>
 vnoremap <  <gv
 vnoremap >  >gv
 vnoremap t  :Tab /
@@ -171,10 +172,10 @@ noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-nmap ]a <plug>(ale_next_wrap)zz
-nmap [a <plug>(ale_previous_wrap)zz
-nmap ]q <plug>(qf_qf_next)zz
-nmap [q <plug>(qf_qf_previous)zz
+nmap ]a  <plug>(ale_next_wrap)zz
+nmap [a  <plug>(ale_previous_wrap)zz
+nmap ]q  <plug>(qf_qf_next)zz
+nmap [q  <plug>(qf_qf_previous)zz
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
 nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
@@ -397,6 +398,7 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
+    set guifont=D2Coding:h10
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
