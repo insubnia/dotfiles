@@ -14,4 +14,4 @@ fi
 # exuberant-ctags
 ln -sf $CONF/ctags    $HOME/.ctags
 ln -sf $CONF/ackrc    $HOME/.ackrc
-ln -sf $CONF/astylerc $HOME/.astylerc
+ln -sf $CONF/pylintrc $HOME/.pylintrc

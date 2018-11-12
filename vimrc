@@ -27,7 +27,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'romainl/vim-qf'
-Plugin 'chiel92/vim-autoformat'
+Plugin 'w0rp/ale'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
@@ -81,12 +81,12 @@ set nopaste pastetoggle=<F19>
 set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
-set wildignore+=*.zip,*.tar,*.gz,*.png,*.jpg,.DS_Store,*.stackdump
-set wildignore+=*.doc*,*.xls*,*.ppt*
-set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
-set wildignore+=.clang-format,tags,*.log,*.bak,*.taghl,*.d,*.map,*.lst
-set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.git,.gitmodules,.svn
+set wildignore+=*.doc*,*.xls*,*.ppt*
+set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
+set wildignore+=*.pyc,*.pyo,__pycache__
+set wildignore+=tags,*.taghl,.DS_Store,*.stackdump
 
 if has("gui_running")
     set guioptions+=k
@@ -138,22 +138,26 @@ nnoremap <tab>      gt
 nnoremap <S-tab>    gT
 nnoremap <bs>       :Clear<cr>
 nnoremap <leader>s  :wa<cr>
-nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>r  :Run<cr>
+nnoremap <leader>f  :Ack!<space>
+nnoremap <leader>l  :ALEFix<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <leader><space> :wa<cr>
 nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
+nnoremap <F3>   :GitGutterToggle<cr>
 vnoremap <  <gv
 vnoremap >  >gv
 vnoremap t  :Tab /
-vnoremap ,  :Tab /,\zs/l0r1<cr>
-vnoremap <leader><space> :retab<bar>norm gv<cr>:Tab /\s\zs\S/l1r0<cr>
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
 vnoremap {} s{}<esc>P
 vnoremap [] s[]<esc>P
 vnoremap <> s<><esc>P
+vnoremap <leader>=  :Tab /=<cr>
+vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
+vnoremap <leader>,  :Tab /,\zs/l0r1<cr>
+vnoremap <leader><space> :retab<bar>norm gv<cr> :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
@@ -165,12 +169,13 @@ noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
 noremap  <leader>1  :diffget LO<cr>
 noremap  <leader>2  :diffget BA<cr>
 noremap  <leader>3  :diffget RE<cr>
-noremap  <leader>l  :Autoformat<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-nmap ]q <plug>(qf_qf_next)zz
-nmap [q <plug>(qf_qf_previous)zz
+nmap ]a  <plug>(ale_next_wrap)zz
+nmap [a  <plug>(ale_previous_wrap)zz
+nmap ]q  <plug>(qf_qf_next)zz
+nmap [q  <plug>(qf_qf_previous)zz
 nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
 nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
 
@@ -178,10 +183,6 @@ if !has("clipboard")
     noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
-endif
-
-if os != "Darwin"
-    map! <C-v>  <C-y>
 endif
 
 abbrev  celan clean
@@ -372,8 +373,15 @@ let g:ackhighlight=1
 let g:qf_mapping_ack_style=1
 let g:qf_auto_resize=0
 
-" autoformat
-let g:autoformat_verbosemode=0
+" ale
+let g:ale_linters={
+            \'python': ['pylint'],
+            \}
+let g:ale_fixers={
+            \'c': ['clang-format'],
+            \'cpp': ['clang-format'],
+            \'python': ['autopep8'],
+            \}
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
@@ -390,6 +398,7 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
+    set guifont=D2Coding:h10
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
