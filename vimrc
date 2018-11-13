@@ -324,30 +324,30 @@ let g:gitgutter_max_signs=1024
 set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#tagbar#enabled=1
+let g:airline#extensions#tabline#show_buffers=0
+let g:airline#extensions#tabline#tab_nr_type=1
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
+let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeMapOpenVSplit='v'
-let g:NERDTreeShowHidden=1
 let g:NERDTreeRespectWildIgnore=1
+let g:NERDTreeShowHidden=1
 
 " NERDCommenter
-let g:NERDSpaceDelims=1
+let g:NERDCommentEmptyLines=1
 let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
-let g:NERDCommentEmptyLines=1
+let g:NERDSpaceDelims=1
 let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " indentLine
-let g:indentLine_showFirstIndentLevel=1
-let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
+let g:indentLine_leadingSpaceEnabled=0
+let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " CtrlP
