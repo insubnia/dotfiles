@@ -8,6 +8,7 @@ alias python='python3'
 alias gdf='git difftool -t vimdiff'
 alias ff='find . -type f -iname'
 alias tre='tree -L 2'
+alias makefile='ln -sf ~/workspace/dotfiles/makefile'
 alias myclang='clang-format -style="{\
     BasedOnStyle                     : WebKit,\
     Cpp11BracedListStyle             : true,\
