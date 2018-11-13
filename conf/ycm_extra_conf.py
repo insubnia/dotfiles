@@ -1,19 +1,21 @@
 import os
 
-exclude = [".git", ".svn"]
+EXCLUDE = [".git", ".svn"]
+
 
 def FlagsForFile(filename, **kwargs):
     dirs = []
-    for p,d,f in os.walk("."):
-        if not any(e in p for e in exclude):
+    for p, d, f in os.walk("."):
+        if not any(e in p for e in EXCLUDE):
             dirs.append("-I" + p)
 
     flags = ["-W", "-Wall"]
     flags.extend(dirs)
 
     return {
-            'flags': flags,
-            }
+        'flags': flags,
+    }
+
 
 if __name__ == "__main__":
     pass
