@@ -324,8 +324,18 @@ let g:gitgutter_max_signs=1024
 set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
 let g:airline#extensions#tabline#show_buffers=0
 let g:airline#extensions#tabline#tab_nr_type=1
+nnoremap \1 1gt
+nnoremap \2 2gt
+nnoremap \3 3gt
+nnoremap \4 4gt
+nnoremap \5 5gt
+nnoremap \6 6gt
+nnoremap \7 7gt
+nnoremap \8 8gt
+nnoremap \9 9gt
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -365,13 +375,13 @@ let g:tagbar_sort=1
 
 " ack
 autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
-let g:ack_qhandler="botright cwindow"
 let g:ack_apply_qmappings=0
+let g:ack_qhandler="botright cwindow"
 let g:ackhighlight=1
 
 " qf
-let g:qf_mapping_ack_style=1
 let g:qf_auto_resize=0
+let g:qf_mapping_ack_style=1
 
 " ale
 let g:ale_linters={
