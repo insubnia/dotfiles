@@ -137,9 +137,10 @@ nnoremap <C-n>  :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>      gt
 nnoremap <S-tab>    gT
-nnoremap <bs>       :Clear<cr>
+nnoremap <bs>       :noh<cr>
 nnoremap <leader>f  :Ack!<space>
 nnoremap <leader>l  :ALEFix<cr>
+nnoremap <leader>q  :copen<cr>
 nnoremap <leader>r  :Run<cr>
 nnoremap <leader>t  :Dispatch ctags -R .<cr>
 nnoremap <leader><space> :wa<cr>
@@ -165,13 +166,15 @@ inoremap <C-y>  <F19><C-r>"<F19>
 cnoremap <C-y>  <C-r>"
 noremap! <C-b>  <left>
 noremap! <C-f>  <right>
+noremap  \1 :diffget LO<cr>
+noremap  \2 :diffget BA<cr>
+noremap  \3 :diffget RE<cr>
 noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
-noremap  <leader>1  :diffget LO<cr>
-noremap  <leader>2  :diffget BA<cr>
-noremap  <leader>3  :diffget RE<cr>
 noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
 noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+nmap ]t  :tabmove +<cr>
+nmap [t  :tabmove -<cr>
 nmap ]a  <plug>(ale_next_wrap)zz
 nmap [a  <plug>(ale_previous_wrap)zz
 nmap ]q  <plug>(qf_qf_next)zz
@@ -327,15 +330,15 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#formatter='unique_tail'
 let g:airline#extensions#tabline#show_buffers=0
 let g:airline#extensions#tabline#tab_nr_type=1
-nnoremap \1 1gt
-nnoremap \2 2gt
-nnoremap \3 3gt
-nnoremap \4 4gt
-nnoremap \5 5gt
-nnoremap \6 6gt
-nnoremap \7 7gt
-nnoremap \8 8gt
-nnoremap \9 9gt
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
