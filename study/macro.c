@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define _BV(bit) (1 << (bit))
+
 #define PP_NARG(...) \
     PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
 #define PP_NARG_(...) \

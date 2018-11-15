@@ -377,7 +377,7 @@ let g:tagbar_autofocus=1
 let g:tagbar_sort=1
 
 " ack
-autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
+autocmd VimEnter * if os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
 let g:ack_qhandler="botright cwindow"
 let g:ackhighlight=1
@@ -411,6 +411,7 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
+    let g:gitgutter_enabled=0
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
