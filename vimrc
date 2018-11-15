@@ -156,6 +156,7 @@ vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
 vnoremap <leader>,  :Tab /,\zs/l0r1<cr>
+vnoremap <leader>/  :Tab /\/\/<cr>  
 vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
 vnoremap <leader>=  :Tab /=<cr>
 vnoremap <leader><space> :retab<bar>norm gv<cr> :Tab /\s\zs\S/l1r0<cr>
@@ -374,7 +375,7 @@ endif
 
 " tagbar
 let g:tagbar_autofocus=1
-let g:tagbar_sort=1
+let g:tagbar_sort=0
 
 " ack
 autocmd VimEnter * if os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
