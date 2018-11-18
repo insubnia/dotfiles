@@ -155,11 +155,11 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <leader>,  :Tab /,\zs/l0r1<cr>
 vnoremap <leader>/  :Tab /\/\/<cr>  
-vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
 vnoremap <leader>=  :Tab /=<cr>
-vnoremap <leader><space> :retab<bar>norm gv<cr> :Tab /\s\zs\S/l1r0<cr>
+vnoremap <leader>,  :s/ *,/,/g\|noh<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>:  :s/ *:/:/g\|noh<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a>  <esc>I
 inoremap <C-e>  <end>
 inoremap <C-k>  <C-o>D
