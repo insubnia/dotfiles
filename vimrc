@@ -108,85 +108,85 @@ endif
 " ============================================================================
 " MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
-nnoremap Q  @q
-nnoremap Y  y$
-nnoremap j  gj
-nnoremap k  gk
-nnoremap n  nzz
-nnoremap N  Nzz
-nnoremap *  *zz
-nnoremap #  #zz
+nnoremap Q @q
+nnoremap Y y$
+nnoremap j gj
+nnoremap k gk
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap J ddp
+nnoremap K kddpk
+nnoremap ? :ts /
+nnoremap + <C-w>>
+nnoremap _ <C-w><
+nnoremap 0 <C-i>zz
+nnoremap R :GitGutterAll<cr>
+nnoremap T :TagbarToggle<cr>
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap J  ddp
-nnoremap K  kddpk
-nnoremap ?  :ts /
-nnoremap +  <C-w>>
-nnoremap _  <C-w><
-nnoremap 0  <C-i>zz
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
-nnoremap R  :GitGutterAll<cr>
-nnoremap T  :TagbarToggle<cr>
-nnoremap <C-]>  g<C-]>
-nnoremap <C-h>  K
-nnoremap <C-t>  <C-t>zz
-nnoremap <C-o>  <C-o>zz
-nnoremap <C-c>  :Close<cr>
-nnoremap <C-n>  :NERDTreeToggle<cr>
+nnoremap <C-]> g<C-]>
+nnoremap <C-h> K
+nnoremap <C-t> <C-t>zz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-c> :Close<cr>
+nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <tab>      gt
-nnoremap <S-tab>    gT
-nnoremap <bs>       :noh<cr>
-nnoremap <leader>f  :Ack!<space>
-nnoremap <leader>l  :ALEFix<cr>
-nnoremap <leader>q  :copen<cr>
-nnoremap <leader>r  :Run<cr>
-nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <tab>   gt
+nnoremap <S-tab> gT
+nnoremap <bs>    :noh<cr>
+nnoremap <leader>f :Ack!<space>
+nnoremap <leader>l :ALEFix<cr>
+nnoremap <leader>q :copen<cr>
+nnoremap <leader>r :Run<cr>
+nnoremap <leader>t :Dispatch ctags -R .<cr>
 nnoremap <leader><space> :wa<cr>
-nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
-nnoremap <F3>   :GitGutterToggle<cr>
-vnoremap <  <gv
-vnoremap >  >gv
-vnoremap t  :Tab /
+nnoremap <expr> <F2> exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
+nnoremap <F3> :GitGutterToggle<cr>
+vnoremap < <gv
+vnoremap > >gv
+vnoremap t :Tab /
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <leader>/  :Tab /\/\/<cr>  
-vnoremap <leader>=  :Tab /=<cr>
-vnoremap <leader>,  :s/ *,/,/g\|noh<cr>gv :Tab /,\zs/l0r1<cr>
-vnoremap <leader>:  :s/ *:/:/g\|noh<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader>/ :Tab /\/\/<cr>  
+vnoremap <leader>= :Tab /=<cr>
+vnoremap <leader>, :s/ *,/,/g\|noh<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>: :s/ *:/:/g\|noh<cr>gv :Tab /:\zs/l0r1<cr>
 vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
-inoremap <C-a>  <esc>I
-inoremap <C-e>  <end>
-inoremap <C-k>  <C-o>D
-inoremap <C-y>  <F19><C-r>"<F19>
-cnoremap <C-y>  <C-r>"
-noremap! <C-b>  <left>
-noremap! <C-f>  <right>
-noremap  \1 :diffget LO<cr>
-noremap  \2 :diffget BA<cr>
-noremap  \3 :diffget RE<cr>
-noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
-noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
-noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-nmap ]t  :tabmove +<cr>
-nmap [t  :tabmove -<cr>
-nmap ]a  <plug>(ale_next_wrap)zz
-nmap [a  <plug>(ale_previous_wrap)zz
-nmap ]q  <plug>(qf_qf_next)zz
-nmap [q  <plug>(qf_qf_previous)zz
-nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
-nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
+inoremap <C-a> <esc>I
+inoremap <C-e> <end>
+inoremap <C-k> <C-o>D
+inoremap <C-y> <F19><C-r>"<F19>
+cnoremap <C-y> <C-r>"
+noremap! <C-b> <left>
+noremap! <C-f> <right>
+noremap \1: diffget LO<cr>
+noremap \2: diffget BA<cr>
+noremap \3: diffget RE<cr>
+noremap <C-_> :call NERDComment(0, "toggle")<cr>
+noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":silent grep! "
+noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
+noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+nmap ]t :tabmove +<cr>
+nmap [t :tabmove -<cr>
+nmap ]a <plug>(ale_next_wrap)zz
+nmap [a <plug>(ale_previous_wrap)zz
+nmap ]q <plug>(qf_qf_next)zz
+nmap [q <plug>(qf_qf_previous)zz
+nmap <C-j> <plug>GitGutterNextHunk<bar>zz
+nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 
 if !has("clipboard")
-    noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
-    noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
-    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
+    noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
 abbrev  celan clean
