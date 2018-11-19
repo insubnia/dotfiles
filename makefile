@@ -25,14 +25,16 @@ else
 	SO = $(TAR_DIR)$(TARGET).so
 endif
 
+OUTPUT = $(ELF) $(BIN) $(HEX) $(MAP) $(SO)
+
 OPT	= -O2 -g3
 
 CFLAGS	= -W -Wall -MMD $(OPT) -std=c99
 CXXFLAGS= -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS	= -v
 
-SRC_DIR	= src/
-INC_DIR	= src/include/
+SRC_DIR	= ./
+INC_DIR	= ./
 BLD_DIR	= build/
 TAR_DIR	= ./
 LIB_DIR	= ./
@@ -47,6 +49,8 @@ CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
 OBJS	= $(COBJS) $(CXXOBJS)
 DEPS	= $(OBJS:.o=*.d)
 
+OUTPUT	+= $(OBJS) $(DEPS)
+
 INC_DIR	:= $(addprefix -I, $(INC_DIR))
 LIB_DIR	:= $(addprefix -L, $(LIB_DIR))
 LIBS	:= $(addprefix -l, $(LIBS))
@@ -60,7 +64,7 @@ all: $(ELF) #$(BIN) $(HEX)
 PHONY += clean
 clean:
 	@echo Removing files
-	@$(RM) $(ELF) $(BIN) $(HEX) $(OBJS) $(DEPS) $(MAP) $(SO)
+	@$(RM) $(OUTPUT)
 
 PHONY += run
 run:

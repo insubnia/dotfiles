@@ -89,6 +89,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,*.taghl,.DS_Store,*.stackdump
 
 if has("gui_running")
+    set guifont=D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
@@ -107,82 +108,85 @@ endif
 " ============================================================================
 " MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
-nnoremap Q  @q
-nnoremap Y  y$
-nnoremap j  gj
-nnoremap k  gk
-nnoremap n  nzz
-nnoremap N  Nzz
-nnoremap *  *zz
-nnoremap #  #zz
+nnoremap Q @q
+nnoremap Y y$
+nnoremap j gj
+nnoremap k gk
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap J ddp
+nnoremap K kddpk
+nnoremap ? :ts /
+nnoremap + <C-w>>
+nnoremap _ <C-w><
+nnoremap 0 <C-i>zz
+nnoremap R :GitGutterAll<cr>
+nnoremap T :TagbarToggle<cr>
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap J  ddp
-nnoremap K  kddpk
-nnoremap ?  :ts /
-nnoremap +  <C-w>>
-nnoremap _  <C-w><
-nnoremap 0  <C-i>zz
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
-nnoremap R  :GitGutterAll<cr>
-nnoremap T  :TagbarToggle<cr>
-nnoremap <C-]>  g<C-]>
-nnoremap <C-h>  K
-nnoremap <C-t>  <C-t>zz
-nnoremap <C-o>  <C-o>zz
-nnoremap <C-c>  :Close<cr>
-nnoremap <C-n>  :NERDTreeToggle<cr>
+nnoremap <C-]> g<C-]>
+nnoremap <C-h> K
+nnoremap <C-t> <C-t>zz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-c> :Close<cr>
+nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <tab>      gt
-nnoremap <S-tab>    gT
-nnoremap <bs>       :Clear<cr>
-nnoremap <leader>s  :wa<cr>
-nnoremap <leader>r  :Run<cr>
-nnoremap <leader>f  :Ack!<space>
-nnoremap <leader>l  :ALEFix<cr>
-nnoremap <leader>t  :Dispatch ctags -R .<cr>
+nnoremap <tab>   gt
+nnoremap <S-tab> gT
+nnoremap <bs>    :noh<cr>
+nnoremap <leader>f :Ack!<space>
+nnoremap <leader>l :ALEFix<cr>
+nnoremap <leader>q :copen<cr>
+nnoremap <leader>r :Run<cr>
+nnoremap <leader>t :Dispatch ctags -R .<cr>
 nnoremap <leader><space> :wa<cr>
-nnoremap <expr> <F2>  exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
-nnoremap <F3>   :GitGutterToggle<cr>
-vnoremap <  <gv
-vnoremap >  >gv
-vnoremap t  :Tab /
+nnoremap <expr> <F2> exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
+nnoremap <F3> :GitGutterToggle<cr>
+vnoremap < <gv
+vnoremap > >gv
+vnoremap t :Tab /
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
-vnoremap {} s{}<esc>P
-vnoremap [] s[]<esc>P
 vnoremap <> s<><esc>P
-vnoremap <leader>=  :Tab /=<cr>
-vnoremap <leader>:  :Tab /:\zs/l0r1<cr>
-vnoremap <leader>,  :Tab /,\zs/l0r1<cr>
-vnoremap <leader><space> :retab<bar>norm gv<cr> :Tab /\s\zs\S/l1r0<cr>
-inoremap <C-a>  <esc>I
-inoremap <C-e>  <end>
-inoremap <C-k>  <C-o>D
-inoremap <C-y>  <F19><C-r>"<F19>
-cnoremap <C-y>  <C-r>"
-noremap! <C-b>  <left>
-noremap! <C-f>  <right>
-noremap  <C-_>  :call NERDComment(0, "toggle")<cr>
-noremap  <leader>1  :diffget LO<cr>
-noremap  <leader>2  :diffget BA<cr>
-noremap  <leader>3  :diffget RE<cr>
-noremap  <expr> <leader>g  &diff ? ":diffget<cr>" : ":silent grep! "
-noremap  <expr> <leader>p  &diff ? ":diffput<cr>" : ":PluginAction<cr>"
-noremap  <expr> <leader>h  (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-nmap ]a  <plug>(ale_next_wrap)zz
-nmap [a  <plug>(ale_previous_wrap)zz
-nmap ]q  <plug>(qf_qf_next)zz
-nmap [q  <plug>(qf_qf_previous)zz
-nmap <C-j>  <plug>GitGutterNextHunk<bar>zz
-nmap <C-k>  <plug>GitGutterPrevHunk<bar>zz
+vnoremap [] s[]<esc>P
+vnoremap {} s{}<esc>P
+vnoremap <leader>/ :Tab /\/\/<cr>  
+vnoremap <leader>= :Tab /=<cr>
+vnoremap <leader>, :s/ *,/,/g\|noh<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>: :s/ *:/:/g\|noh<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
+inoremap <C-a> <esc>I
+inoremap <C-e> <end>
+inoremap <C-k> <C-o>D
+inoremap <C-y> <F19><C-r>"<F19>
+cnoremap <C-y> <C-r>"
+noremap! <C-b> <left>
+noremap! <C-f> <right>
+noremap \1: diffget LO<cr>
+noremap \2: diffget BA<cr>
+noremap \3: diffget RE<cr>
+noremap <C-_> :call NERDComment(0, "toggle")<cr>
+noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":silent grep! "
+noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
+noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+nmap ]t :tabmove +<cr>
+nmap [t :tabmove -<cr>
+nmap ]a <plug>(ale_next_wrap)zz
+nmap [a <plug>(ale_previous_wrap)zz
+nmap ]q <plug>(qf_qf_next)zz
+nmap [q <plug>(qf_qf_previous)zz
+nmap <C-j> <plug>GitGutterNextHunk<bar>zz
+nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 
 if !has("clipboard")
-    noremap \d  :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
-    noremap \y  :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
-    noremap \p  :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
+    noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
 abbrev  celan clean
@@ -324,30 +328,40 @@ let g:gitgutter_max_signs=1024
 set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#tagbar#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline#extensions#tabline#show_buffers=0
+let g:airline#extensions#tabline#tab_nr_type=1
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeDirArrowCollapsible='~'
+let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeMapOpenVSplit='v'
-let g:NERDTreeShowHidden=1
 let g:NERDTreeRespectWildIgnore=1
+let g:NERDTreeShowHidden=1
 
 " NERDCommenter
-let g:NERDSpaceDelims=1
+let g:NERDCommentEmptyLines=1
 let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
-let g:NERDCommentEmptyLines=1
+let g:NERDSpaceDelims=1
 let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " indentLine
-let g:indentLine_showFirstIndentLevel=1
-let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_leadingSpaceChar='.'
+let g:indentLine_leadingSpaceEnabled=0
+let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " CtrlP
@@ -361,17 +375,17 @@ endif
 
 " tagbar
 let g:tagbar_autofocus=1
-let g:tagbar_sort=1
+let g:tagbar_sort=0
 
 " ack
-autocmd VimEnter * if has("win32unix") | let g:ackprg="ack -s --nocolor --nogroup" | endif
-let g:ack_qhandler="botright cwindow"
+autocmd VimEnter * if os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
+let g:ack_qhandler="botright cwindow"
 let g:ackhighlight=1
 
 " qf
-let g:qf_mapping_ack_style=1
 let g:qf_auto_resize=0
+let g:qf_mapping_ack_style=1
 
 " ale
 let g:ale_linters={
@@ -398,7 +412,7 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
-    set guifont=D2Coding:h10
+    let g:gitgutter_enabled=0
     let g:airline_theme='fairyfloss'
     colo fairyfloss
 elseif has("win32unix")
