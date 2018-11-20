@@ -129,15 +129,16 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
-nnoremap <C-]> g<C-]>
-nnoremap <C-h> K
-nnoremap <C-t> <C-t>zz
-nnoremap <C-o> <C-o>zz
 nnoremap <C-c> :Close<cr>
+nnoremap <C-h> :YcmCom GoTo<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
+nnoremap <C-o> <C-o>zz
+nnoremap <C-t> :JumpBack<cr>zz
+nnoremap <C-]> g<C-]>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>   gt
 nnoremap <S-tab> gT
+nnoremap <cr>    o<esc>
 nnoremap <bs>    :noh<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
@@ -224,6 +225,7 @@ augroup END
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
 command! Clear noh | cexpr []
+command! JumpBack try | pop | catch | exe "norm " | endtry
 
 if !exists("*Close")
     command! Close call Close()
