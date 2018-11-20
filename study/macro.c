@@ -2,6 +2,14 @@
 
 #define _BV(bit) (1 << (bit))
 
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
+
+#define ABS(x) (((x)<0)?-(x):(x))
+
+#define ARRAY_SIZE(x) (sizeof((x))/sizeof((x)[0])) 
+
+
 #define PP_NARG(...) \
     PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
 #define PP_NARG_(...) \

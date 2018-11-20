@@ -109,6 +109,7 @@ endif
 " MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
 nnoremap Q @q
+nnoremap W @w
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
@@ -323,6 +324,9 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
+if has("win32")
+    let g:gitgutter_enabled=0
+endif
 
 " airline
 set laststatus=2
@@ -412,9 +416,8 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
-    let g:gitgutter_enabled=0
-    let g:airline_theme='fairyfloss'
-    colo fairyfloss
+    let g:airline_theme='iceberg'
+    colo iceberg
 elseif has("win32unix")
     let g:airline_theme='jellybeans'
     colo jellybeans
