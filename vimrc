@@ -158,9 +158,10 @@ vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>  
+vnoremap <leader>; :call Trim()<cr>
 vnoremap <leader>= :Tab /=<cr>
-vnoremap <leader>, :s/ *,/,/g\|noh<cr>gv :Tab /,\zs/l0r1<cr>
-vnoremap <leader>: :s/ *:/:/g\|noh<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>: :call Trim()<cr>gv :Tab /:\zs/l0r1<cr>
 vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
@@ -278,6 +279,12 @@ function! PluginAction()
     else
         echo "Invalid input"
     endif
+endfunction
+
+function! Trim()
+    silent '<,'>retab
+    silent '<,'>s/ *\([,:]\)/\1/ge
+    silent '<,'>s/ *\([()[\];]\) */\1/ge
 endfunction
 
 function! Highlight()
