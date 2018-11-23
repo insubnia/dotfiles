@@ -157,7 +157,7 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <leader>/ :Tab /\/\/<cr>  
+vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>; :call Trim()<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
@@ -283,9 +283,11 @@ endfunction
 
 function! Trim()
     silent '<,'>retab
-    silent '<,'>s/ *\([,:]\)/\1/ge
-    silent '<,'>s/ *\([()[\];]\) */\1/ge
-    silent '<,'>s/ *= */ = /ge
+    silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
+    silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
+    silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
+    silent exe "'<,'>" . 's/ *\([=!~&|^+-/*]*=\) */ \1 /ge'
+    silent '<,'>s/\s\+$//ge
 endfunction
 
 function! Highlight()
