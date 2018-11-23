@@ -44,6 +44,8 @@ Thumbs.db
 *.map
 *.taghl
 *.stackdump
+*.ini
+*.log
 
 # compression extension
 *.zip

@@ -285,6 +285,7 @@ function! Trim()
     silent '<,'>retab
     silent '<,'>s/ *\([,:]\)/\1/ge
     silent '<,'>s/ *\([()[\];]\) */\1/ge
+    silent '<,'>s/ *= */ = /ge
 endfunction
 
 function! Highlight()
