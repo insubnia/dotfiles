@@ -130,15 +130,15 @@ nnoremap yw yiw
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-nnoremap <C-h> :YcmCom GoTo<cr>
+" nnoremap <C-h>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
-nnoremap <C-]> g<C-]>
+nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>   gt
 nnoremap <S-tab> gT
-nnoremap <cr>    o<esc>
+" nnoremap <cr>    o<esc>
 nnoremap <bs>    :noh<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
@@ -238,6 +238,14 @@ if !exists("*Close")
         TagbarClose
     endfunction
 endif
+
+function! GoTo()
+    try
+        exe "tjump " . expand("<cword>")
+    catch
+        YcmCompleter GoTo
+    endtry
+endfunction
 
 if !exists("*Run")
     command! Run call Run()
