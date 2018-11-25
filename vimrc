@@ -34,7 +34,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'TagHighlight'
-if os != "Windows"
+if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
 " ---------- colorschemes ----------
@@ -109,6 +109,7 @@ endif
 " MAPPINGS & ABBREVIATIONS {{{
 let mapleader=" "
 nnoremap Q @q
+nnoremap W @w
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
@@ -128,15 +129,16 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
-nnoremap <C-]> g<C-]>
-nnoremap <C-h> K
-nnoremap <C-t> <C-t>zz
-nnoremap <C-o> <C-o>zz
 nnoremap <C-c> :Close<cr>
+" nnoremap <C-h>
 nnoremap <C-n> :NERDTreeToggle<cr>
+nnoremap <C-o> <C-o>zz
+nnoremap <C-t> :JumpBack<cr>zz
+nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>   gt
 nnoremap <S-tab> gT
+" nnoremap <cr>
 nnoremap <bs>    :noh<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
@@ -155,16 +157,17 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <leader>/ :Tab /\/\/<cr>  
+vnoremap <leader>/ :Tab /\/\/<cr>
+vnoremap <leader>; :call Trim()<cr>
 vnoremap <leader>= :Tab /=<cr>
-vnoremap <leader>, :s/ *,/,/g\|noh<cr>gv :Tab /,\zs/l0r1<cr>
-vnoremap <leader>: :s/ *:/:/g\|noh<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>: :call Trim()<cr>gv :Tab /:\zs/l0r1<cr>
 vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
-inoremap <C-y> <F19><C-r>"<F19>
-cnoremap <C-y> <C-r>"
+inoremap <C-y> <F19><C-r>*<F19>
+cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
 noremap \1: diffget LO<cr>
@@ -223,6 +226,7 @@ augroup END
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
 command! Clear noh | cexpr []
+command! JumpBack try | pop | catch | exe "norm " | endtry
 
 if !exists("*Close")
     command! Close call Close()
@@ -234,6 +238,14 @@ if !exists("*Close")
         TagbarClose
     endfunction
 endif
+
+function! GoTo()
+    try
+        exe "tjump " . expand("<cword>")
+    catch
+        YcmCompleter GoTo
+    endtry
+endfunction
 
 if !exists("*Run")
     command! Run call Run()
@@ -277,6 +289,15 @@ function! PluginAction()
     endif
 endfunction
 
+function! Trim()
+    silent '<,'>retab
+    silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
+    silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
+    silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
+    silent exe "'<,'>" . 's/ *\([=!~&|^+-/*]*=\) */ \1 /ge'
+    silent '<,'>s/\s\+$//ge
+endfunction
+
 function! Highlight()
     hi link Global  Function
     hi link Defined Tag
@@ -310,7 +331,7 @@ endfunction
 " PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf='$HOME/workspace/dotfiles/conf/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/workspace/dotfiles/conf/ycm_extra_conf.py'
 let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
@@ -323,6 +344,9 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
+if has("win32")
+    let g:gitgutter_enabled=0
+endif
 
 " airline
 set laststatus=2
@@ -368,9 +392,10 @@ let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window='results:100'
-let g:ctrlp_user_command=(has("win32") ? 'dir %s /-n /b /s /a-d' : 'find %s -type f')
-if executable("grep")
-    let g:ctrlp_user_command.=' | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
+if has("win32")
+    let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
+else
+    let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
 endif
 
 " tagbar
@@ -412,9 +437,8 @@ elseif os == "Linux"
     let g:airline_theme='onedark'
     colo onedark
 elseif has("win32")
-    let g:gitgutter_enabled=0
-    let g:airline_theme='fairyfloss'
-    colo fairyfloss
+    let g:airline_theme='iceberg'
+    colo iceberg
 elseif has("win32unix")
     let g:airline_theme='jellybeans'
     colo jellybeans
