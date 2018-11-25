@@ -130,7 +130,7 @@ nnoremap yw yiw
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-" nnoremap <C-h>
+nnoremap <C-h> :Ack! <C-r><C-w><cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
