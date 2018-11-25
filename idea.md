@@ -1,5 +1,5 @@
 # Idea
-Brilliant ideas for my IDE
+Ultimate goal is standalone IDE with only VIM
 
 ## To do
     **:py3f %** command

@@ -138,7 +138,7 @@ nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab>   gt
 nnoremap <S-tab> gT
-" nnoremap <cr>    o<esc>
+" nnoremap <cr>
 nnoremap <bs>    :noh<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
@@ -166,8 +166,8 @@ vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
-inoremap <C-y> <F19><C-r>"<F19>
-cnoremap <C-y> <C-r>"
+inoremap <C-y> <F19><C-r>*<F19>
+cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
 noremap \1: diffget LO<cr>
