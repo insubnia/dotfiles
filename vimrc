@@ -140,7 +140,6 @@ nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>f :Ack!<space>
-nnoremap <leader>h K
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
@@ -177,7 +176,7 @@ noremap \3: diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":silent grep! "
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
-noremap <expr> <C-space> (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap ]a <plug>(ale_next_wrap)zz
@@ -186,6 +185,7 @@ nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+map <C-space> <C-_>
 
 if !has("clipboard")
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
