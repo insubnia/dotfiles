@@ -130,16 +130,15 @@ nnoremap yw yiw
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-nnoremap <C-h> :Ack! <C-r><C-w><cr>
+nnoremap <C-h> K
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <tab>   gt
+nnoremap <tab> gt
 nnoremap <S-tab> gT
-" nnoremap <cr>
-nnoremap <bs>    :noh<cr>
+nnoremap <bs> :noh<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
@@ -167,6 +166,7 @@ inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
 inoremap <C-y> <F19><C-r>*<F19>
+cnoremap <C-a> <home>
 cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
@@ -185,6 +185,7 @@ nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+map <C-space> <leader>h
 
 if !has("clipboard")
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
@@ -260,9 +261,7 @@ if !exists("*Run")
         elseif &filetype == "c" || &filetype == "cpp"
             make run
         elseif &filetype == "python"
-            if has("win32") | !python %
-            else | !python3 %
-            endif
+            exe has("win32") ? "!python %" : "!python3 %"
         elseif &filetype == "markdown"
             LivedownPreview
         elseif &filetype == "swift"
@@ -344,9 +343,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-if has("win32")
-    let g:gitgutter_enabled=0
-endif
+let g:gitgutter_enabled=(has("win32") ? 0 : 1)
 
 " airline
 set laststatus=2
