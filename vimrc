@@ -144,6 +144,7 @@ nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :Dispatch ctags -R .<cr>
+nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
 nnoremap <expr> <F2> exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 nnoremap <F3> :GitGutterToggle<cr>
@@ -229,16 +230,28 @@ augroup END
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 
-if !exists("*Close")
-    command! Close call Close()
-    function! Close()
-        cclose
-        pclose
-        helpclose
-        NERDTreeClose
-        TagbarClose
-    endfunction
-endif
+command! Close call Close()
+function! Close()
+    cclose
+    pclose
+    helpclose
+    NERDTreeClose
+    TagbarClose
+endfunction
+
+command! WhiteSpace call WhiteSpace()
+function! WhiteSpace()
+    if &diffopt !~ "iwhite"
+        set diffopt+=iwhite
+        let g:gitgutter_diff_args='-b'
+        echo "Ignore white space"
+    else
+        set diffopt-=iwhite
+        let g:gitgutter_diff_args=''
+        echo "Check white space"
+    endif
+    GitGutterAll
+endfunction
 
 function! GoTo()
     try
