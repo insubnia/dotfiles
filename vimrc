@@ -96,7 +96,7 @@ if has("gui_running")
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
-let &makeprg='make $*'
+let &makeprg='clear && make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
