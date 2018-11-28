@@ -36,7 +36,6 @@ done < <(cat << EOF
     nodejs
     npm
     llvm
-    astyle
 EOF
 )
 
