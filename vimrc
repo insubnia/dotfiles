@@ -21,7 +21,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'Yggdroot/indentLine'
+Plugin 'yggdroot/indentLine'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -209,6 +209,22 @@ autocmd BufReadPost *
             \ if line("'\"") > 0 && line("'\"") <= line("$") |
             \ exe "norm! g`\"zz" |
             \ endif
+autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
+
+function! OperatorHL()
+    syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
+    highlight OperatorChars guifg=cyan
+endfunction
+autocmd ColorScheme * call OperatorHL()
+autocmd Syntax * call OperatorHL()
+
+function! AUTOSAR()
+    syn keyword cType boolean
+    syn keyword cType sint8 sint16 sint32
+    syn keyword cType uint8 uint16 uint32
+    syn keyword cType float32 float64
+endfunction
+autocmd Syntax c call AUTOSAR()
 
 function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
@@ -310,23 +326,6 @@ function! Trim()
     silent exe "'<,'>" . 's/ *\([=!~&|^+-/*]*=\) */ \1 /ge'
     silent '<,'>s/\s\+$//ge
 endfunction
-
-function! Highlight()
-    hi link Global  Function
-    hi link Defined Tag
-    hi link Member  String
-    hi link Proto   Number
-
-    hi link DefinedName      Defined
-    hi link EnumerationValue Defined
-    hi link GlobalVariable   Global
-    hi link CTagsConstant    Global
-    hi link CTagsStructure   Proto
-    hi link CTagsClass       Proto
-    hi link CTagsUnion       Proto
-    hi link EnumeratorName   Proto
-endfunction
-autocmd ColorScheme * call Highlight()
 
 command! TS call TabToSpace()
 function! TabToSpace()
