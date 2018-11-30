@@ -33,7 +33,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
-Plugin 'TagHighlight'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -140,6 +139,7 @@ nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
+nnoremap <leader>a :ALEToggle<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
@@ -228,7 +228,7 @@ function! AUTOSAR()
     syn keyword cType uint8 uint16 uint32
     syn keyword cType float32 float64
 endfunction
-autocmd Syntax c call AUTOSAR()
+autocmd Syntax c,cpp call AUTOSAR()
 
 function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
@@ -428,7 +428,7 @@ let g:qf_mapping_ack_style=1
 
 " ale
 let g:ale_linters={
-            \'python': ['pylint'],
+            \'python': ['flake8'],
             \}
 let g:ale_fixers={
             \'c': ['clang-format'],

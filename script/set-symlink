@@ -12,6 +12,6 @@ else
 fi
 
 # exuberant-ctags
-ln -sf $CONF/ctags    $HOME/.ctags
-ln -sf $CONF/ackrc    $HOME/.ackrc
-ln -sf $CONF/pylintrc $HOME/.pylintrc
+ln -sf $CONF/ctags $HOME/.ctags
+ln -sf $CONF/ackrc $HOME/.ackrc
+ln -sf $CONF/flake8 $HOME/.flake8

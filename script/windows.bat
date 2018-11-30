@@ -1,8 +1,8 @@
 set DOTFILES=%USERPROFILE%/workspace/dotfiles
 
-mklink "%USERPROFILE%/_vimrc"    "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/.ackrc"    "%DOTFILES%/conf/ackrc"
-mklink "%USERPROFILE%/.pylintrc" "%DOTFILES%/conf/pylintrc"
+mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
+mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
+mklink "%USERPROFILE%/.flake8" "%DOTFILES%/conf/flake8"
 
 REM  tool
 choco install -y chocolateygui
