@@ -87,7 +87,7 @@ set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=tags,*.taghl,.DS_Store,*.stackdump
+set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
     set guifont=D2Coding:h10
@@ -209,7 +209,11 @@ autocmd BufReadPost *
             \ if line("'\"") > 0 && line("'\"") <= line("$") |
             \ exe "norm! g`\"zz" |
             \ endif
+
+" after ftplugin
 autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
+autocmd FileType c,cpp setlocal cinoptions=:0,g0
+autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
     syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
