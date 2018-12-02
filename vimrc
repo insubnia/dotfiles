@@ -216,7 +216,7 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
-    syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
+    syntax match OperatorChars /[+-/*%=~&|^!?.,:;\<>(){}[\]][/*]\@!/
     highlight OperatorChars guifg=cyan
 endfunction
 autocmd ColorScheme * call OperatorHL()
