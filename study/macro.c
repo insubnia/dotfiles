@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define _BV(bit) (1 << (bit))
+#define _BV(bit) (1UL << (bit))
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))

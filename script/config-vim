@@ -4,13 +4,6 @@ DOTFILES=$HOME/workspace/dotfiles
 
 ln -sf $DOTFILES/vimrc $HOME/.vimrc
 
-if [ ! -d $HOME/.vim/after ]; then
-    ln -sf $DOTFILES/conf/vim-after $HOME/.vim/after
-    echo Make .vim/after symlink
-else
-    echo after dir already exists
-fi
-
 # Vundle & Plugin install
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
     echo -e "cloning Vundle\n"

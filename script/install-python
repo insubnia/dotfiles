@@ -19,7 +19,6 @@ done < <(cat << EOF
     scipy
     matplotlib
     pyqt5
-    pylint
     autopep8
 EOF
 )

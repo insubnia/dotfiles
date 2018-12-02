@@ -26,6 +26,7 @@ Ultimate goal is standalone IDE with only VIM
 
 ## Remember
 gx : open URL under cursor
+(command mode) <C-r><C-w> : insert word under cursor
 ***
 
 ## Colors

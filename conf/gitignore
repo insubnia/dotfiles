@@ -42,7 +42,6 @@ Thumbs.db
 *.hex
 *.elf
 *.map
-*.taghl
 *.stackdump
 *.ini
 *.log

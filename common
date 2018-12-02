@@ -15,7 +15,6 @@ alias myclang='clang-format -style="{\
     AlignAfterOpenBracket            : Align,\
     AlignTrailingComments            : true,\
     Cpp11BracedListStyle             : true,\
-    DerivePointerAlignment           : true,\
     KeepEmptyLinesAtTheStartOfBlocks : false,\
     MaxEmptyLinesToKeep              : 1,\
     PointerAlignment                 : Right,\

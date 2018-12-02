@@ -21,7 +21,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'Yggdroot/indentLine'
+Plugin 'yggdroot/indentLine'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -33,7 +33,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
-Plugin 'TagHighlight'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -78,6 +77,7 @@ set diffopt+=vertical
 set completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
+set lazyredraw
 set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
@@ -86,7 +86,7 @@ set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=tags,*.taghl,.DS_Store,*.stackdump
+set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
     set guifont=D2Coding:h10
@@ -95,7 +95,7 @@ if has("gui_running")
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
-let &makeprg='make $*'
+let &makeprg='clear && make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
@@ -130,21 +130,22 @@ nnoremap yw yiw
 nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-" nnoremap <C-h>
+nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
-nnoremap <tab>   gt
+nnoremap <tab> gt
 nnoremap <S-tab> gT
-" nnoremap <cr>
-nnoremap <bs>    :noh<cr>
+nnoremap <bs> :noh<cr>
+nnoremap <leader>a :ALEToggle<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :Dispatch ctags -R .<cr>
+nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
 nnoremap <expr> <F2> exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
 nnoremap <F3> :GitGutterToggle<cr>
@@ -167,6 +168,7 @@ inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
 inoremap <C-y> <F19><C-r>*<F19>
+cnoremap <C-a> <home>
 cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
@@ -185,6 +187,7 @@ nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+map <C-space> <C-_>
 
 if !has("clipboard")
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
@@ -207,6 +210,26 @@ autocmd BufReadPost *
             \ exe "norm! g`\"zz" |
             \ endif
 
+" after ftplugin
+autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
+autocmd FileType c,cpp setlocal cinoptions=:0,g0
+autocmd FileType python setlocal tabstop=4
+
+function! OperatorHL()
+    syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
+    highlight OperatorChars guifg=cyan
+endfunction
+autocmd ColorScheme * call OperatorHL()
+autocmd Syntax * call OperatorHL()
+
+function! AUTOSAR()
+    syn keyword cType boolean
+    syn keyword cType sint8 sint16 sint32
+    syn keyword cType uint8 uint16 uint32
+    syn keyword cType float32 float64
+endfunction
+autocmd Syntax c,cpp call AUTOSAR()
+
 function! NewHeader()
     let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
     exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\e4G"
@@ -228,16 +251,28 @@ augroup END
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 
-if !exists("*Close")
-    command! Close call Close()
-    function! Close()
-        cclose
-        pclose
-        helpclose
-        NERDTreeClose
-        TagbarClose
-    endfunction
-endif
+command! Close call Close()
+function! Close()
+    cclose
+    pclose
+    helpclose
+    NERDTreeClose
+    TagbarClose
+endfunction
+
+command! WhiteSpace call WhiteSpace()
+function! WhiteSpace()
+    if &diffopt !~ "iwhite"
+        set diffopt+=iwhite
+        let g:gitgutter_diff_args='-b'
+        echo "Ignore white space"
+    else
+        set diffopt-=iwhite
+        let g:gitgutter_diff_args=''
+        echo "Check white space"
+    endif
+    GitGutterAll
+endfunction
 
 function! GoTo()
     try
@@ -260,9 +295,7 @@ if !exists("*Run")
         elseif &filetype == "c" || &filetype == "cpp"
             make run
         elseif &filetype == "python"
-            if has("win32") | !python %
-            else | !python3 %
-            endif
+            exe has("win32") ? "!python %" : "!python3 %"
         elseif &filetype == "markdown"
             LivedownPreview
         elseif &filetype == "swift"
@@ -298,23 +331,6 @@ function! Trim()
     silent '<,'>s/\s\+$//ge
 endfunction
 
-function! Highlight()
-    hi link Global  Function
-    hi link Defined Tag
-    hi link Member  String
-    hi link Proto   Number
-
-    hi link DefinedName      Defined
-    hi link EnumerationValue Defined
-    hi link GlobalVariable   Global
-    hi link CTagsConstant    Global
-    hi link CTagsStructure   Proto
-    hi link CTagsClass       Proto
-    hi link CTagsUnion       Proto
-    hi link EnumeratorName   Proto
-endfunction
-autocmd ColorScheme * call Highlight()
-
 command! TS call TabToSpace()
 function! TabToSpace()
     set expandtab
@@ -344,9 +360,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-if has("win32")
-    let g:gitgutter_enabled=0
-endif
+let g:gitgutter_enabled=(has("win32") ? 0 : 1)
 
 " airline
 set laststatus=2
@@ -414,7 +428,7 @@ let g:qf_mapping_ack_style=1
 
 " ale
 let g:ale_linters={
-            \'python': ['pylint'],
+            \'python': ['flake8'],
             \}
 let g:ale_fixers={
             \'c': ['clang-format'],
