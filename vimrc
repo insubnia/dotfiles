@@ -140,10 +140,12 @@ nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
+nnoremap <leader>d :Gdiff<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
+nnoremap <leader>s :py3file %<cr>
 nnoremap <leader>t :Dispatch ctags -R .<cr>
 nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
