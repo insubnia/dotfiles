@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DOTFILES=$HOME/workspace/dotfiles
+DOTFILES=~/workspace/dotfiles
 
-ln -sf $DOTFILES/vimrc $HOME/.vimrc
+ln -sf $DOTFILES/vimrc ~/.vimrc
 
 # Vundle & Plugin install
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then

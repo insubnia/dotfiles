@@ -1,8 +1,8 @@
 #!/bin/bash
 
-CONF=$HOME/workspace/dotfiles/conf
+CONF=~/workspace/dotfiles/conf
 
-TAR=$HOME/.ctags.d/default.ctags
+TAR=~/.ctags.d/default.ctags
 if [ ! -e $TAR ]; then
     mkdir -p $(dirname $TAR)
     ln -sf $CONF/ctags $TAR
@@ -12,6 +12,6 @@ else
 fi
 
 # exuberant-ctags
-ln -sf $CONF/ctags $HOME/.ctags
-ln -sf $CONF/ackrc $HOME/.ackrc
-ln -sf $CONF/flake8 $HOME/.flake8
+ln -sf $CONF/ctags ~/.ctags
+ln -sf $CONF/ackrc ~/.ackrc
+ln -sf $CONF/flake8 ~/.flake8
