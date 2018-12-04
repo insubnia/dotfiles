@@ -183,12 +183,12 @@ noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
-nmap ]a <plug>(ale_next_wrap)zz
-nmap [a <plug>(ale_previous_wrap)zz
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+nmap <leader>j <plug>(ale_next_wrap)zz
+nmap <leader>k <plug>(ale_previous_wrap)zz
 map <C-space> <C-_>
 
 if !has("clipboard")
