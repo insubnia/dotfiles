@@ -120,8 +120,8 @@ nnoremap # #zz
 nnoremap J ddp
 nnoremap K kddpk
 nnoremap ? :ts /
-nnoremap + <C-w>>
-nnoremap _ <C-w><
+nnoremap + >
+nnoremap _ <
 nnoremap 0 <C-i>zz
 nnoremap R :GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
@@ -135,12 +135,13 @@ nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-]> :call GoTo()<cr>
-nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
+nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
-nnoremap <leader>d :Gdiff<cr>
+nnoremap <leader>d :Gdiff<space>
+nnoremap <leader>e :Ack! <cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
@@ -169,7 +170,7 @@ vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
-inoremap <C-y> <F19><C-r>*<F19>
+inoremap <C-y> <F19>*<F19>
 cnoremap <C-a> <home>
 cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
@@ -189,6 +190,7 @@ nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
+nmap <C-w><C-]> <C-w>]
 map <C-space> <C-_>
 
 if !has("clipboard")
@@ -252,6 +254,11 @@ augroup END
 " FUNCTIONS & COMMANDS {{{
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
+command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
+
+command! RemoveTrailingWS %s/\s\+$//e
+command! TS set expandtab | %retab
+command! ST set noexpandtab | %retab!
 
 command! Close call Close()
 function! Close()
@@ -331,18 +338,6 @@ function! Trim()
     silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
     silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/]*=\) */ \1 /ge'
     silent '<,'>s/\s\+$//ge
-endfunction
-
-command! TS call TabToSpace()
-function! TabToSpace()
-    set expandtab
-    %retab
-endfunction
-
-command! ST call SpaceToTab()
-function! SpaceToTab()
-    set noexpandtab
-    %retab!
 endfunction
 " }}}
 " ============================================================================
