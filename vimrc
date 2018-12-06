@@ -33,9 +33,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
-Plugin 'ryanoasis/vim-devicons'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
+    Plugin 'ryanoasis/vim-devicons'
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
@@ -338,7 +338,7 @@ function! Trim()
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
     silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
     silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/]*=\) */ \1 /ge'
-    silent '<,'>s/\s\+$//ge
+    silent '<,'>s/\s\+$//e
 endfunction
 " }}}
 " ============================================================================
@@ -380,6 +380,7 @@ nnoremap <leader>9 9gt
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeMapOpenVSplit='v'
+let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
 
