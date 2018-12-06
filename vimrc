@@ -33,6 +33,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
+Plugin 'ryanoasis/vim-devicons'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -378,8 +379,6 @@ nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowCollapsible='~'
-let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
@@ -438,6 +437,10 @@ let g:peekaboo_window="vert botright 40new"
 
 " livedown
 let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
+
+" devicon
+let g:WebDevIconsUnicodeDecorateFolderNodes=1
+let g:DevIconsEnableFoldersOpenClose=1
 " }}}
 " ============================================================================
 " OUTRO {{{
