@@ -141,7 +141,7 @@ nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
 nnoremap <leader>d :Gdiff<space>
-nnoremap <leader>e :Ack! <cr>
+nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
