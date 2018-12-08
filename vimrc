@@ -33,9 +33,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
+Plugin 'ryanoasis/vim-devicons'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
-    Plugin 'ryanoasis/vim-devicons'
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
@@ -90,7 +90,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
-    set guifont=D2Coding:h10
+    set guifont=MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
