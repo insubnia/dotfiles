@@ -200,9 +200,10 @@ if !has("clipboard")
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
+abbrev  ture  true
+abbrev  Ture  True
 abbrev  celan clean
 abbrev  slef  self
-cabbrev Noh   noh
 " }}}
 " ============================================================================
 " AUTOCMD {{{
