@@ -254,6 +254,7 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
+command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")

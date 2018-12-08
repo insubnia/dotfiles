@@ -36,6 +36,7 @@ done < <(cat << EOF
     nodejs
     npm
     llvm
+    dos2unix
 EOF
 )
 
