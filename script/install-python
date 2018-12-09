@@ -15,11 +15,14 @@ do
     python3 -m pip install -U --user $line
 done < <(cat << EOF
     pip
+    flake8
+    pep8-naming
+    autopep8
     numpy
     scipy
     matplotlib
     pyqt5
-    autopep8
+    pyinstaller
 EOF
 )
 

@@ -33,6 +33,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
+Plugin 'ryanoasis/vim-devicons'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -89,7 +90,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
-    set guifont=D2Coding:h10
+    set guifont=MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
@@ -100,9 +101,9 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
 if &term =~ "xterm"
-    let &t_SI = "\e[5 q"    " Start Insert mode
-    let &t_SR = "\e[3 q"    " Start Replace mode
-    let &t_EI = "\e[0 q"    " End Insert & replace mode
+    let &t_SI="\e[5 q"
+    let &t_SR="\e[3 q"
+    let &t_EI="\e[0 q"
 endif
 " }}}
 " ============================================================================
@@ -120,8 +121,8 @@ nnoremap # #zz
 nnoremap J ddp
 nnoremap K kddpk
 nnoremap ? :ts /
-nnoremap + <C-w>>
-nnoremap _ <C-w><
+nnoremap + >
+nnoremap _ <
 nnoremap 0 <C-i>zz
 nnoremap R :GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
@@ -135,20 +136,21 @@ nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-]> :call GoTo()<cr>
-nnoremap <C-w><C-]> <C-w>]<C-w>Lzz
+nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
+nnoremap <leader>d :Gdiff<space>
+nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
+nnoremap <leader>s :SynToggle<cr>
 nnoremap <leader>t :Dispatch ctags -R .<cr>
 nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
-nnoremap <expr> <F2> exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
-nnoremap <F3> :GitGutterToggle<cr>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
@@ -167,7 +169,7 @@ vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
-inoremap <C-y> <F19><C-r>*<F19>
+inoremap <C-y> <F19>*<F19>
 cnoremap <C-a> <home>
 cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
@@ -176,17 +178,18 @@ noremap \1: diffget LO<cr>
 noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
-noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":silent grep! "
+noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
-nmap ]a <plug>(ale_next_wrap)zz
-nmap [a <plug>(ale_previous_wrap)zz
 nmap ]q <plug>(qf_qf_next)zz
 nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+nmap <leader>j <plug>(ale_next_wrap)zz
+nmap <leader>k <plug>(ale_previous_wrap)zz
+nmap <C-w><C-]> <C-w>]
 map <C-space> <C-_>
 
 if !has("clipboard")
@@ -195,9 +198,11 @@ if !has("clipboard")
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
-abbrev  celan clean
-abbrev  slef  self
-cabbrev Noh   noh
+abbrev slef self
+abbrev ture true
+abbrev Ture True
+abbrev celan clean
+abbrev lamda lambda
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -216,8 +221,12 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
-    syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-    highlight OperatorChars guifg=cyan
+    syntax match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
+    if &background == "dark"
+        highlight OperatorChars guifg=cyan
+    else
+        highlight OperatorChars guifg=red
+    endif
 endfunction
 autocmd ColorScheme * call OperatorHL()
 autocmd Syntax * call OperatorHL()
@@ -248,8 +257,15 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
+command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
+command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
+command! SynToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
+
+command! RemoveTrailingWS %s/\s\+$//e
+command! TS set expandtab | %retab
+command! ST set noexpandtab | %retab!
 
 command! Close call Close()
 function! Close()
@@ -327,20 +343,8 @@ function! Trim()
     silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
     silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
-    silent exe "'<,'>" . 's/ *\([=!~&|^+-/*]*=\) */ \1 /ge'
-    silent '<,'>s/\s\+$//ge
-endfunction
-
-command! TS call TabToSpace()
-function! TabToSpace()
-    set expandtab
-    %retab
-endfunction
-
-command! ST call SpaceToTab()
-function! SpaceToTab()
-    set noexpandtab
-    %retab!
+    silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/]*=\) */ \1 /ge'
+    silent '<,'>s/\s\+$//e
 endfunction
 " }}}
 " ============================================================================
@@ -381,9 +385,8 @@ nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowCollapsible='~'
-let g:NERDTreeDirArrowExpandable='+'
 let g:NERDTreeMapOpenVSplit='v'
+let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
 
@@ -441,21 +444,25 @@ let g:peekaboo_window="vert botright 40new"
 
 " livedown
 let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
+
+" devicon
+let g:WebDevIconsUnicodeDecorateFolderNodes=1
+let g:DevIconsEnableFoldersOpenClose=1
 " }}}
 " ============================================================================
 " OUTRO {{{
 if os == "Darwin"
-    let g:airline_theme='dracula'
     colo dracula
+    let g:airline_theme='dracula'
 elseif os == "Linux"
-    let g:airline_theme='onedark'
-    colo onedark
-elseif has("win32")
-    let g:airline_theme='iceberg'
-    colo iceberg
-elseif has("win32unix")
-    let g:airline_theme='jellybeans'
     colo jellybeans
+    let g:airline_theme='jellybeans'
+elseif has("win32")
+    colo spacegray
+    let g:airline_theme='biogoo'
+elseif has("win32unix")
+    colo onedark
+    let g:airline_theme='onedark'
 endif
 " }}}
 " ============================================================================

@@ -2,11 +2,6 @@
 Ultimate goal is standalone IDE with only VIM
 
 ## To do
-    **:py3f %** command
-    **:pyxf %** command
-
-    vnoremap [] s[]<esc>P
-    nmap Q  <plug>(qf_qf_toggle)
 
     function! DiffKeymap(mode)
         if a:mode
@@ -26,6 +21,7 @@ Ultimate goal is standalone IDE with only VIM
 
 ## Remember
 gx : open URL under cursor
+<C-w><C-o>: Make current window the only one on the screen
 (command mode) <C-r><C-w> : insert word under cursor
 ***
 
@@ -34,6 +30,7 @@ base16-dracula / violet
 candy          / base16_default
 gruit          / fairyfloss
 PaperColor     / ravenpower
+spacegray      / biogoo
 ***
 
 ## Reference
