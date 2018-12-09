@@ -30,6 +30,7 @@ base16-dracula / violet
 candy          / base16_default
 gruit          / fairyfloss
 PaperColor     / ravenpower
+spacegray      / biogoo
 ***
 
 ## Reference

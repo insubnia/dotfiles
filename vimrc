@@ -101,9 +101,9 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
 if &term =~ "xterm"
-    let &t_SI = "\e[5 q"    " Start Insert mode
-    let &t_SR = "\e[3 q"    " Start Replace mode
-    let &t_EI = "\e[0 q"    " End Insert & replace mode
+    let &t_SI="\e[5 q"
+    let &t_SR="\e[3 q"
+    let &t_EI="\e[0 q"
 endif
 " }}}
 " ============================================================================
@@ -222,7 +222,11 @@ autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
     syntax match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-    highlight OperatorChars guifg=cyan
+    if &background == "dark"
+        highlight OperatorChars guifg=cyan
+    else
+        highlight OperatorChars guifg=red
+    endif
 endfunction
 autocmd ColorScheme * call OperatorHL()
 autocmd Syntax * call OperatorHL()
@@ -448,17 +452,17 @@ let g:DevIconsEnableFoldersOpenClose=1
 " ============================================================================
 " OUTRO {{{
 if os == "Darwin"
-    let g:airline_theme='dracula'
     colo dracula
+    let g:airline_theme='dracula'
 elseif os == "Linux"
-    let g:airline_theme='onedark'
-    colo onedark
-elseif has("win32")
-    let g:airline_theme='iceberg'
-    colo iceberg
-elseif has("win32unix")
-    let g:airline_theme='jellybeans'
     colo jellybeans
+    let g:airline_theme='jellybeans'
+elseif has("win32")
+    colo spacegray
+    let g:airline_theme='biogoo'
+elseif has("win32unix")
+    colo onedark
+    let g:airline_theme='onedark'
 endif
 " }}}
 " ============================================================================
