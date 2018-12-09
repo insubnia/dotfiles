@@ -147,12 +147,10 @@ nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
-nnoremap <leader>s :py3file %<cr>
+nnoremap <leader>s :SynToggle<cr>
 nnoremap <leader>t :Dispatch ctags -R .<cr>
 nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
-nnoremap <expr> <F2> exists("g:syntax_on") ? ":syn off<cr>" : ":syn enable<cr>"
-nnoremap <F3> :GitGutterToggle<cr>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
@@ -180,7 +178,7 @@ noremap \1: diffget LO<cr>
 noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
-noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":silent grep! "
+noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 nmap ]t :tabmove +<cr>
@@ -200,10 +198,11 @@ if !has("clipboard")
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
-abbrev  ture  true
-abbrev  Ture  True
-abbrev  celan clean
-abbrev  slef  self
+abbrev slef self
+abbrev ture true
+abbrev Ture True
+abbrev celan clean
+abbrev lamda lambda
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -258,6 +257,7 @@ command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
+command! SynToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
 command! RemoveTrailingWS %s/\s\+$//e
 command! TS set expandtab | %retab
