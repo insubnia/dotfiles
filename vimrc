@@ -90,7 +90,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
-    set guifont=MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
+    set guifont=Consolas_NF:h10,MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
