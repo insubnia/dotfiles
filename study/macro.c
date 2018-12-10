@@ -2,6 +2,15 @@
 
 #define _BV(bit) (1UL << (bit))
 
+#define BIT(nr) (1UL << (nr))
+/*
+ * x = !!x // booleanize
+ * set_bit(nr, p)
+ * clear_bit(nr, p)
+ * change_bit(nr, p)
+ * test_bit(nr, p)
+ */
+
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
