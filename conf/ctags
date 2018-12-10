@@ -1,3 +1,4 @@
+--fields=+l
 --exclude=.git
 --exclude=.svn
 --exclude=Makefile

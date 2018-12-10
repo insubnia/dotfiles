@@ -245,7 +245,9 @@ function! NewHeader()
 endfunction
 
 function! NewPy()
-    exe "norm! i#!".system("which python3")
+    if os != "Windows"
+        exe "norm! i#!".system("which python3")
+    endif
     exe "norm! i\n\n\nif __name__ == \"__main__\":\npass\e3G"
 endfunction
 
@@ -352,7 +354,6 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/workspace/dotfiles/conf/ycm_extra_conf.py'
-let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
 let g:ycm_key_list_select_completion=['<down>']
@@ -392,7 +393,6 @@ let g:NERDTreeShowHidden=1
 
 " NERDCommenter
 let g:NERDCommentEmptyLines=1
-let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDSpaceDelims=1
 let g:NERDTrimTrailingWhitespace=1
