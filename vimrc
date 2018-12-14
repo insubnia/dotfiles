@@ -366,7 +366,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-let g:gitgutter_enabled=(has("win32") ? 0 : 1)
+let g:gitgutter_enabled=(has("gui_running") ? 0 : 1)
 
 " airline
 set laststatus=2
@@ -447,6 +447,7 @@ let g:peekaboo_window="vert botright 40new"
 let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
 
 " devicon
+let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 " }}}
