@@ -73,9 +73,8 @@ set autoindent smartindent cindent
 set smarttab expandtab
 set tabstop=4 softtabstop=4 shiftwidth=4
 set timeoutlen=500 ttimeoutlen=0
-set termguicolors wildmenu
 set diffopt+=vertical
-set completeopt=menuone,noselect
+set wildmenu completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
 set lazyredraw
@@ -99,6 +98,8 @@ let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn
 let &makeprg='clear && make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
+
+if &term != "win32" | set termguicolors | endif
 
 if &term =~ "xterm"
     let &t_SI="\e[5 q"
