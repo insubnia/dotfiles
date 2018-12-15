@@ -15,6 +15,7 @@ done < <(cat << EOF
     flash-npapi
     vlc
     folx
+    google-chrome
     mounty
 EOF
 )

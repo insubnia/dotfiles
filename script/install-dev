@@ -43,4 +43,24 @@ EOF
 echo -e "\n[Cloning color schemes]"
 git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colorschemes
 
+# Install list depending on OS
+macos_list=(
+    binutils
+    coreutils
+)
+
+linux_list=(
+)
+
+case "$OSTYPE" in
+    darwin*) list=($macos_list) ;;
+    linux*) list=($linux_list) ;;
+esac
+
+for item in $list
+do
+    echo -e "\n[Installing $item]"
+    $pm install -y $item
+done
+
 echo -e "\nComplete\n"
