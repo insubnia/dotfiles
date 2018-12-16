@@ -77,7 +77,7 @@ set diffopt+=vertical
 set wildmenu completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
-set lazyredraw
+set lazyredraw termguicolors
 set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
@@ -98,8 +98,6 @@ let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn
 let &makeprg='clear && make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
-
-if &term != "win32" | set termguicolors | endif
 
 if &term =~ "xterm"
     let &t_SI="\e[5 q"
@@ -366,7 +364,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-let g:gitgutter_enabled=(has("gui_running") ? 0 : 1)
+let g:gitgutter_enabled=(has("gui_win32") ? 0 : 1)
 
 " airline
 set laststatus=2
@@ -447,7 +445,7 @@ let g:peekaboo_window="vert botright 40new"
 let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
 
 " devicon
-let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
+" let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 " }}}
