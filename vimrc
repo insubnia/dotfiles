@@ -239,8 +239,9 @@ endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 
 function! NewHeader()
-    let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
-    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\e4G"
+    " let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
+    " exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
+    exe "norm! i#pragma once\n\n\e"
 endfunction
 
 function! NewPy()
