@@ -3,9 +3,9 @@
 " INTRO {{{
 " Get OS informaion
 if has("win32") || has("win32unix")
-    let os="Windows"
+    let g:os="Windows"
 else
-    let os=substitute(system("uname"), "\n", "", "")
+    let g:os=substitute(system("uname"), "\n", "", "")
 endif
 " }}}
 " ============================================================================
@@ -245,10 +245,10 @@ function! NewHeader()
 endfunction
 
 function! NewPy()
-    if os != "Windows"
+    if g:os != "Windows"
         exe "norm! i#!".system("which python3")
     endif
-    exe "norm! i\n\n\nif __name__ == \"__main__\":\npass\e3G"
+    exe "norm! i\n\nif __name__ == \"__main__\":\npass\ekkk"
 endfunction
 
 augroup NewFile
@@ -421,7 +421,7 @@ let g:tagbar_autofocus=1
 let g:tagbar_sort=0
 
 " ack
-autocmd VimEnter * if os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
+autocmd VimEnter * if g:os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
 let g:ack_qhandler="botright cwindow"
 let g:ackhighlight=1
@@ -444,7 +444,7 @@ let g:ale_fixers={
 let g:peekaboo_window="vert botright 40new"
 
 " livedown
-let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
+let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
 " let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
@@ -453,10 +453,10 @@ let g:DevIconsEnableFoldersOpenClose=1
 " }}}
 " ============================================================================
 " OUTRO {{{
-if os == "Darwin"
+if g:os == "Darwin"
     colo dracula
     let g:airline_theme='dracula'
-elseif os == "Linux"
+elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
