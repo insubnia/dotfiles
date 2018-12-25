@@ -43,13 +43,15 @@ LIBS	=
 include $(wildcard *.mk)
 
 CSRCS	= $(wildcard $(SRC_DIR)*.c)
-COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
 CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
+
+COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
 CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
 OBJS	= $(COBJS) $(CXXOBJS)
 DEPS	= $(OBJS:.o=*.d)
-
 OUTPUT	+= $(OBJS) $(DEPS)
+
+-include $(DEPS)
 
 INC_DIR	:= $(addprefix -I, $(INC_DIR))
 LIB_DIR	:= $(addprefix -L, $(LIB_DIR))

@@ -3,9 +3,9 @@
 " INTRO {{{
 " Get OS informaion
 if has("win32") || has("win32unix")
-    let os="Windows"
+    let g:os="Windows"
 else
-    let os=substitute(system("uname"), "\n", "", "")
+    let g:os=substitute(system("uname"), "\n", "", "")
 endif
 " }}}
 " ============================================================================
@@ -73,12 +73,11 @@ set autoindent smartindent cindent
 set smarttab expandtab
 set tabstop=4 softtabstop=4 shiftwidth=4
 set timeoutlen=500 ttimeoutlen=0
-set termguicolors wildmenu
 set diffopt+=vertical
-set completeopt=menuone,noselect
+set wildmenu completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
-set lazyredraw
+set lazyredraw termguicolors
 set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
@@ -90,7 +89,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
-    set guifont=MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
+    set guifont=Consolas_NF:h10,MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
@@ -240,13 +239,16 @@ endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 
 function! NewHeader()
-    let name = "__".toupper(substitute(expand("%:t"), "\\.", "_", "g"))."__"
-    exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif\t//". name "\e4G"
+    " let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
+    " exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
+    exe "norm! i#pragma once\n\n\e"
 endfunction
 
 function! NewPy()
-    exe "norm! i#!".system("which python3")
-    exe "norm! i\n\n\nif __name__ == \"__main__\":\npass\e3G"
+    if g:os != "Windows"
+        exe "norm! i#!".system("which python3")
+    endif
+    exe "norm! i\n\nif __name__ == \"__main__\":\npass\ekkk"
 endfunction
 
 augroup NewFile
@@ -344,6 +346,7 @@ function! Trim()
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
     silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
     silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/]*=\) */ \1 /ge'
+    silent '<,'>s/\(\S\)\s\+/\1 /ge
     silent '<,'>s/\s\+$//e
 endfunction
 " }}}
@@ -352,7 +355,6 @@ endfunction
 " youcompleteme
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf='~/workspace/dotfiles/conf/ycm_extra_conf.py'
-let g:ycm_python_binary_path=substitute(system("which python3"), "\n", "", "")
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_disable_for_files_larger_than_kb=1024
 let g:ycm_key_list_select_completion=['<down>']
@@ -364,7 +366,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-let g:gitgutter_enabled=(has("win32") ? 0 : 1)
+let g:gitgutter_enabled=(has("gui_win32") ? 0 : 1)
 
 " airline
 set laststatus=2
@@ -392,7 +394,6 @@ let g:NERDTreeShowHidden=1
 
 " NERDCommenter
 let g:NERDCommentEmptyLines=1
-let g:NERDCompactSexyComs=1
 let g:NERDDefaultAlign='left'
 let g:NERDSpaceDelims=1
 let g:NERDTrimTrailingWhitespace=1
@@ -420,7 +421,7 @@ let g:tagbar_autofocus=1
 let g:tagbar_sort=0
 
 " ack
-autocmd VimEnter * if os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
+autocmd VimEnter * if g:os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
 let g:ack_qhandler="botright cwindow"
 let g:ackhighlight=1
@@ -443,18 +444,19 @@ let g:ale_fixers={
 let g:peekaboo_window="vert botright 40new"
 
 " livedown
-let g:livedown_browser=(os=="Darwin" ? "safari" : "chrome")
+let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
+" let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 " }}}
 " ============================================================================
 " OUTRO {{{
-if os == "Darwin"
+if g:os == "Darwin"
     colo dracula
     let g:airline_theme='dracula'
-elseif os == "Linux"
+elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
