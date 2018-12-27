@@ -3,6 +3,8 @@ Ultimate goal is standalone IDE with only VIM
 
 ## To do
 
+    guifontset for multiple GUI font (refer to xfontset)
+
     function! DiffKeymap(mode)
         if a:mode
             noremap <leader>g :diffget<CR>
