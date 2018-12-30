@@ -18,4 +18,6 @@ alias myclang='clang-format -style="{\
     KeepEmptyLinesAtTheStartOfBlocks : false,\
     MaxEmptyLinesToKeep              : 1,\
     PointerAlignment                 : Right,\
+    SortIncludes                     : false,\
+    SortUsingDeclarations            : false,\
     }" -dump-config > .clang-format'
