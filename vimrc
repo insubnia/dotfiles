@@ -400,6 +400,10 @@ let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
+" AutoPairs
+let g:AutoPairsFlyMode=1
+let g:AutoPairsShortcutFastWrap="<C-l>"
+
 " indentLine
 let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_leadingSpaceEnabled=0
