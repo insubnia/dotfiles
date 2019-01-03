@@ -41,12 +41,12 @@ endif
 Plugin 'dracula/vim'
 Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
 Plugin 'cocopon/iceberg.vim'
-Plugin 'tssm/fairyfloss.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'tomasr/molokai'
+Plugin 'tssm/fairyfloss.vim'
 Plugin 'sjl/badwolf'
 Plugin 'freeo/vim-kalisi'
 Plugin 'dikiaap/minimalist'
@@ -401,7 +401,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
 " AutoPairs
-let g:AutoPairsFlyMode=1
+let g:AutoPairsFlyMode=0
 let g:AutoPairsShortcutFastWrap="<C-l>"
 
 " indentLine
@@ -464,8 +464,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo spacegray
-    let g:airline_theme='biogoo'
+    colo molokai
+    let g:airline_theme='molokai'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
