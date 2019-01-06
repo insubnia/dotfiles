@@ -237,6 +237,7 @@ function! AUTOSAR()
     syn keyword cType float32 float64
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
+autocmd BufRead,BufNewFile *.arxml set filetype=xml
 
 function! NewHeader()
     " let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
