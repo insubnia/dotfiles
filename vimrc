@@ -160,7 +160,6 @@ vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>
-vnoremap <leader>; :call Trim()<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
 vnoremap <leader>: :call Trim()<cr>gv :Tab /:\zs/l0r1<cr>
@@ -180,6 +179,7 @@ noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap ]q <plug>(qf_qf_next)zz
