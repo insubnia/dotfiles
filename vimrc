@@ -34,6 +34,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'valloric/matchtagalways'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -78,7 +79,6 @@ set wildmenu completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
-set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.svn
@@ -220,15 +220,17 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
-    syntax match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-    if &background == "dark"
-        highlight OperatorChars guifg=cyan
-    else
-        highlight OperatorChars guifg=red
-    endif
+    syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
+    exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
 endfunction
-autocmd ColorScheme * call OperatorHL()
-autocmd Syntax * call OperatorHL()
+autocmd ColorScheme c,cpp,python call OperatorHL()
+autocmd Syntax c,cpp,python call OperatorHL()
+
+augroup XML
+    autocmd!
+    autocmd FileType xml setlocal fdm=indent
+    autocmd FileType xml setlocal fdl=2
+augroup END
 
 function! AUTOSAR()
     syn keyword cType boolean
