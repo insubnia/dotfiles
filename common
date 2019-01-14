@@ -10,7 +10,7 @@ alias ff='find . -type f -iname'
 alias tre='tree -L 2'
 alias makefile='ln -sf ~/workspace/dotfiles/makefile'
 
-alias myclang='clang-format -style="{\
+alias mycf='clang-format -style="{\
     BasedOnStyle                     : WebKit,\
     AlignAfterOpenBracket            : Align,\
     AlignTrailingComments            : true,\

@@ -242,9 +242,12 @@ autocmd Syntax c,cpp call AUTOSAR()
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 
 function! NewHeader()
-    " let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
-    " exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
-    exe "norm! i#pragma once\n\n\e"
+    if 1
+        exe "norm! i#pragma once\n\n\e"
+    else
+        let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
+        exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
+    endif
 endfunction
 
 function! NewPy()
