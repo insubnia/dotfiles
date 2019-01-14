@@ -8,15 +8,17 @@ while read line
 do
     brew cask install $line
 done < <(cat << EOF
-    iterm2
-    sourcetree
     karabiner-elements
     appcleaner
+    iterm2
+    google-chrome
+    onedrive
     flash-npapi
     vlc
     folx
-    google-chrome
     mounty
+    sourcetree
+    visual-studio-code
 EOF
 )
 

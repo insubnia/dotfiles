@@ -34,6 +34,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'valloric/matchtagalways'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -41,12 +42,12 @@ endif
 Plugin 'dracula/vim'
 Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
 Plugin 'cocopon/iceberg.vim'
-Plugin 'tssm/fairyfloss.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'tomasr/molokai'
+Plugin 'tssm/fairyfloss.vim'
 Plugin 'sjl/badwolf'
 Plugin 'freeo/vim-kalisi'
 Plugin 'dikiaap/minimalist'
@@ -78,7 +79,6 @@ set wildmenu completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
-set foldmethod=marker
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.svn
@@ -160,7 +160,6 @@ vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>
-vnoremap <leader>; :call Trim()<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
 vnoremap <leader>: :call Trim()<cr>gv :Tab /:\zs/l0r1<cr>
@@ -180,6 +179,7 @@ noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap ]q <plug>(qf_qf_next)zz
@@ -220,15 +220,17 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
-    syntax match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-    if &background == "dark"
-        highlight OperatorChars guifg=cyan
-    else
-        highlight OperatorChars guifg=red
-    endif
+    syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
+    exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
 endfunction
-autocmd ColorScheme * call OperatorHL()
-autocmd Syntax * call OperatorHL()
+autocmd ColorScheme c,cpp,python call OperatorHL()
+autocmd Syntax c,cpp,python call OperatorHL()
+
+augroup XML
+    autocmd!
+    autocmd FileType xml setlocal fdm=indent
+    autocmd FileType xml setlocal fdl=2
+augroup END
 
 function! AUTOSAR()
     syn keyword cType boolean
@@ -237,11 +239,15 @@ function! AUTOSAR()
     syn keyword cType float32 float64
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
+autocmd BufRead,BufNewFile *.arxml set filetype=xml
 
 function! NewHeader()
-    " let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
-    " exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
-    exe "norm! i#pragma once\n\n\e"
+    if 1
+        exe "norm! i#pragma once\n\n\e"
+    else
+        let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
+        exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
+    endif
 endfunction
 
 function! NewPy()
@@ -400,6 +406,10 @@ let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
 
+" AutoPairs
+let g:AutoPairsFlyMode=0
+let g:AutoPairsShortcutFastWrap="<C-l>"
+
 " indentLine
 let g:indentLine_leadingSpaceChar='.'
 let g:indentLine_leadingSpaceEnabled=0
@@ -460,8 +470,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo spacegray
-    let g:airline_theme='biogoo'
+    colo molokai
+    let g:airline_theme='molokai'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
