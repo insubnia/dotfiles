@@ -351,7 +351,7 @@ function! Trim()
     silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
     silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
-    silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/]*=\) */ \1 /ge'
+    silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/%<>]\{1,3}\) */ \1 /ge'
     silent '<,'>s/\(\S\)\s\+/\1 /ge
     silent '<,'>s/\s\+$//e
 endfunction
