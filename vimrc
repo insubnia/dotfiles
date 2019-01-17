@@ -448,7 +448,9 @@ let g:ale_fixers={
             \'c': ['clang-format'],
             \'cpp': ['clang-format'],
             \'python': ['autopep8'],
+            \'xml': ['xmllint'],
             \}
+let g:ale_xml_xmllint_options="--format"
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
