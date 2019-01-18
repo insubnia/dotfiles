@@ -21,11 +21,11 @@ plugins=(
     colored-man-pages
     autojump
     extract
-    z
 
     # custom
     zsh-autosuggestions
     zsh-syntax-highlighting
+    alias-tips
 )
 
 source $ZSH/oh-my-zsh.sh
