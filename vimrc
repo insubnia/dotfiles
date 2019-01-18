@@ -35,6 +35,7 @@ Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'valloric/matchtagalways'
+Plugin 'rhysd/vim-clang-format'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -462,6 +463,9 @@ let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 " let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
+
+" clang-format
+autocmd FileType c,cpp vnoremap <leader>l :ClangFormat<cr>gv=
 " }}}
 " ============================================================================
 " OUTRO {{{
