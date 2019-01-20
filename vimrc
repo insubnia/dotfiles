@@ -141,11 +141,11 @@ nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
+nnoremap <leader>b :make all<cr>
 nnoremap <leader>d :Gdiff<space>
 nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
-nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>s :SynToggle<cr>
 nnoremap <leader>t :Dispatch ctags -R .<cr>
@@ -189,6 +189,7 @@ nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
+nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 map <C-space> <C-_>
 
