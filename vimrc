@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker:
+" vim: set foldmethod=manual:
 " ============================================================================
 " INTRO {{{
 " Get OS informaion
@@ -148,7 +148,7 @@ nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>s :SynToggle<cr>
-nnoremap <leader>t :Dispatch ctags -R .<cr>
+nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
@@ -204,6 +204,7 @@ abbrev ture true
 abbrev Ture True
 abbrev celan clean
 abbrev lamda lambda
+abbrev swtich switch
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -478,8 +479,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo molokai
-    let g:airline_theme='molokai'
+    colo hybrid
+    let g:airline_theme='hybrid'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
