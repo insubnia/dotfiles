@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker:
+" vim: set foldmethod=manual:
 " ============================================================================
 " INTRO {{{
 " Get OS informaion
@@ -35,6 +35,7 @@ Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'valloric/matchtagalways'
+Plugin 'rhysd/vim-clang-format'
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -140,14 +141,14 @@ nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
+nnoremap <leader>b :make all<cr>
 nnoremap <leader>d :Gdiff<space>
 nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
-nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>s :SynToggle<cr>
-nnoremap <leader>t :Dispatch ctags -R .<cr>
+nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
@@ -188,6 +189,7 @@ nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
+nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 map <C-space> <C-_>
 
@@ -202,6 +204,7 @@ abbrev ture true
 abbrev Ture True
 abbrev celan clean
 abbrev lamda lambda
+abbrev swtich switch
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -351,7 +354,8 @@ function! Trim()
     silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
     silent exe "'<,'>" . 's/ *\([,:]\) */\1 /ge'
-    silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/]*=\) */ \1 /ge'
+    silent exe "'<,'>" . 's/ *\([=!~&|^+\-*/%<>]\{1,3}\) */ \1 /ge'
+    silent exe "'<,'>" . 's/ *-> */->/ge'
     silent '<,'>s/\(\S\)\s\+/\1 /ge
     silent '<,'>s/\s\+$//e
 endfunction
@@ -448,7 +452,9 @@ let g:ale_fixers={
             \'c': ['clang-format'],
             \'cpp': ['clang-format'],
             \'python': ['autopep8'],
+            \'xml': ['xmllint'],
             \}
+let g:ale_xml_xmllint_options="--format"
 
 " peekaboo
 let g:peekaboo_window="vert botright 40new"
@@ -460,6 +466,9 @@ let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 " let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
+
+" clang-format
+autocmd FileType c,cpp vnoremap <leader>l :ClangFormat<cr>gv=
 " }}}
 " ============================================================================
 " OUTRO {{{
@@ -470,8 +479,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo molokai
-    let g:airline_theme='molokai'
+    colo hybrid
+    let g:airline_theme='hybrid'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'

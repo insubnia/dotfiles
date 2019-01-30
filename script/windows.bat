@@ -13,8 +13,9 @@ choco install -y vlc
 choco install -y vim-tux
 choco install -y sourcetree
 choco install -y vscode
-choco install -y cmder
-choco install -y babun
+REM  choco install -y cmder
+REM  choco install -y babun
+choco install -y qtcreator
 
 REM  dev
 choco install -y git
