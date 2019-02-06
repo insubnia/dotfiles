@@ -320,7 +320,7 @@ if !exists("*Run")
         elseif &filetype == "sh"
             !source %
         elseif &filetype == "c" || &filetype == "cpp"
-            make run
+            make all run
         elseif &filetype == "python"
             exe has("win32") ? "!python %" : "!python3 %"
         elseif &filetype == "markdown"
