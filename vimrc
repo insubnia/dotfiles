@@ -192,6 +192,7 @@ nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
+imap <S-Tab> <C-d>
 map <C-space> <C-_>
 
 if !has("clipboard")
@@ -414,6 +415,8 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 " AutoPairs
 let g:AutoPairsFlyMode=0
 let g:AutoPairsShortcutFastWrap="<C-l>"
+autocmd FileType vim unlet g:AutoPairs['"']
+autocmd FileType c,cpp let g:AutoPairs['/*']='*/'
 
 " indentLine
 let g:indentLine_leadingSpaceChar='.'
