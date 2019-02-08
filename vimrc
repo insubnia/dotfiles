@@ -416,7 +416,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 " AutoPairs
 let g:AutoPairsFlyMode=0
 let g:AutoPairsShortcutFastWrap="<C-l>"
-autocmd FileType vim unlet g:AutoPairs['"']
+autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
 autocmd FileType c,cpp let g:AutoPairs['/*']='*/'
 
 " indentLine
