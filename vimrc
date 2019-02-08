@@ -34,6 +34,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'valloric/matchtagalways'
 Plugin 'jeaye/color_coded'
 Plugin 'rhysd/vim-clang-format'
@@ -468,6 +469,9 @@ let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
 let g:webdevicons_enable=1
+let g:webdevicons_conceal_nerdtree_brackets=0
+let g:WebDevIconsNerdTreeAfterGlyphPadding=(g:webdevicons_conceal_nerdtree_brackets ? ' ' : '')
+let g:WebDevIconsNerdTreeGitPluginForceVAlign=0
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 
