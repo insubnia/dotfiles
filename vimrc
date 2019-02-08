@@ -464,12 +464,12 @@ let g:peekaboo_window="vert botright 40new"
 let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
-" let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
+let g:webdevicons_enable=1
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 
 " color_coded
-let g:color_coded_enabled=1
+let g:color_coded_enabled=(g:os=="Windows" ? 0 : 1)
 let g:color_coded_filetypes=['c', 'cpp']
 
 " clang-format
