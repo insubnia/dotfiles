@@ -37,8 +37,10 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
-Plugin 'jeaye/color_coded'
 Plugin 'rhysd/vim-clang-format'
+if !g:os == "Windows"
+    Plugin 'jeaye/color_coded'
+endif
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -470,7 +472,7 @@ let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
 let g:webdevicons_enable=1
-let g:webdevicons_conceal_nerdtree_brackets=0
+let g:webdevicons_conceal_nerdtree_brackets=(g:os=="Windows" ? 1 : 0)
 let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
 let g:WebDevIconsNerdTreeAfterGlyphPadding=(g:webdevicons_conceal_nerdtree_brackets ? ' ' : '')
 let g:WebDevIconsNerdTreeGitPluginForceVAlign=(g:webdevicons_conceal_nerdtree_brackets)
@@ -488,7 +490,7 @@ let g:NERDTreeHighlightFolders=1
 let g:NERDTreeHighlightFoldersFullName=1
 
 " color_coded
-let g:color_coded_enabled=(g:os=="Windows" ? 0 : 1)
+let g:color_coded_enabled=1
 let g:color_coded_filetypes=['c', 'cpp']
 
 " clang-format
