@@ -9,7 +9,8 @@ def FlagsForFile(filename, **kwargs):
         if not any(e in p for e in EXCLUDE):
             dirs.append("-I" + p)
 
-    flags = ["-W", "-Wall"]
+    flags = []
+    # flags = ["-W", "-Wall"]
     flags.extend(dirs)
 
     return {

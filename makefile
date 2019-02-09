@@ -3,7 +3,8 @@
 
 TARGET	= $(notdir $(CURDIR))
 
-ARCH	=
+# Type "objcopy --help | tail, to show available architecture"
+ARCH	= native
 CROSS	= # i686-w64-mingw32-
 
 CC		= $(CROSS)gcc
@@ -11,7 +12,7 @@ CXX		= $(CROSS)g++
 LD		= $(CXX)
 # LD		= $(CROSS)ld
 SIZE	= $(CROSS)size
-OBJCOPY	= $(CROSS)objcopy		# Type "objcopy --help | tail", to find target architecture
+OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
 
@@ -29,9 +30,9 @@ OUTPUT = $(ELF) $(BIN) $(HEX) $(MAP) $(SO)
 
 OPT	= -O2 -g3
 
-CFLAGS	= -W -Wall -MMD $(OPT) -std=c99
-CXXFLAGS= -W -Wall -MMD $(OPT) -fpermissive
-# LDFLAGS	= -v
+CFLAGS   = -march=$(ARCH) -W -Wall -MMD $(OPT) -std=c99
+CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
+# LDFLAGS  = -v
 
 SRC_DIR	= ./
 INC_DIR	= ./

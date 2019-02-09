@@ -16,16 +16,19 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs background_jobs)
 fi
 
-plugins=(
+plugins+=(
     git
     colored-man-pages
     autojump
     extract
+)
 
-    # custom
+# custom
+plugins+=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     alias-tips
+    k
 )
 
 source $ZSH/oh-my-zsh.sh

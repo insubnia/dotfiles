@@ -24,6 +24,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone https://github.com/djui/alias-tips.git \
     ~/.oh-my-zsh/custom/plugins/alias-tips
+git clone https://github.com/supercrabtree/k \
+    ~/.oh-my-zsh/custom/plugins/k
 
 # Append source line
 LINE="source ~/workspace/dotfiles/zshrc"

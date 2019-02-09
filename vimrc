@@ -34,8 +34,13 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
 Plugin 'rhysd/vim-clang-format'
+if g:os != "Windows"
+    Plugin 'jeaye/color_coded'
+    Plugin 'xuyuanp/nerdtree-git-plugin'
+endif
 if !has("win32unix")
     Plugin 'valloric/youcompleteme'
 endif
@@ -191,6 +196,7 @@ nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
+imap <S-Tab> <C-d>
 map <C-space> <C-_>
 
 if !has("clipboard")
@@ -320,7 +326,7 @@ if !exists("*Run")
         elseif &filetype == "sh"
             !source %
         elseif &filetype == "c" || &filetype == "cpp"
-            make run
+            make all run
         elseif &filetype == "python"
             exe has("win32") ? "!python %" : "!python3 %"
         elseif &filetype == "markdown"
@@ -401,6 +407,8 @@ let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
+let g:NERDTreeDirArrowExpandable=''
+let g:NERDTreeDirArrowCollapsible=''
 
 " NERDCommenter
 let g:NERDCommentEmptyLines=1
@@ -413,6 +421,8 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 " AutoPairs
 let g:AutoPairsFlyMode=0
 let g:AutoPairsShortcutFastWrap="<C-l>"
+autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
+autocmd FileType c,cpp let g:AutoPairs['/*']='*/'
 
 " indentLine
 let g:indentLine_leadingSpaceChar='.'
@@ -463,9 +473,27 @@ let g:peekaboo_window="vert botright 40new"
 let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
-" let g:webdevicons_enable=(os=="Darwin" ? 1 : 0)
+let g:webdevicons_enable=1
+let g:webdevicons_conceal_nerdtree_brackets=(g:os=="Windows" ? 1 : 0)
+let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
+let g:WebDevIconsNerdTreeAfterGlyphPadding=(g:webdevicons_conceal_nerdtree_brackets ? ' ' : '')
+let g:WebDevIconsNerdTreeGitPluginForceVAlign=(g:webdevicons_conceal_nerdtree_brackets)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
+let g:DevIconsDefaultFolderOpenSymbol=''
+let g:DevIconsEnableNERDTreeRedraw=1
+
+" nerdtree-syntax-highlight
+let g:NERDTreeHighlightFolders=1
+let g:NERDTreeHighlightFoldersFullName=1
+let g:NERDTreeFileExtensionHighlightFullName=1
+let g:NERDTreeExactMatchHighlightFullName=1
+let g:NERDTreePatternMatchHighlightFullName=1
+
+" color_coded
+let g:color_coded_enabled=1
+let g:color_coded_filetypes=['c', 'cpp']
 
 " clang-format
 autocmd FileType c,cpp vnoremap <leader>l :ClangFormat<cr>gv=

@@ -1,10 +1,19 @@
 #include <stdio.h>
 
-#define _BV(bit) (1UL << (bit))
+// #define DEBUG 0
 
+#ifdef DEBUG
+#define DEBUG_PRINT(...) printf(__VA_ARGS__)
+#else
+#define DEBUG_PRINT(...) do {} while (0)
+#endif
+
+#define _BV(bit) (1UL << (bit))
 #define BIT(nr) (1UL << (nr))
 /*
  * x = !!x // booleanize
+ *
+ * set, clr, test bit
  * set_bit(nr, p)
  * clear_bit(nr, p)
  * change_bit(nr, p)

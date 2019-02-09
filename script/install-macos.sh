@@ -29,7 +29,7 @@ do
     brew cask install $line
 done < <(cat << EOF
     font-d2coding
-    font-hack-nerd-font
+    font-hack-nerd-font-mono
 EOF
 )
 
