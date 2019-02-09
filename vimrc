@@ -407,6 +407,8 @@ let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
+let g:NERDTreeDirArrowExpandable=''
+let g:NERDTreeDirArrowCollapsible=''
 
 " NERDCommenter
 let g:NERDCommentEmptyLines=1
