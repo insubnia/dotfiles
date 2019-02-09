@@ -475,7 +475,7 @@ let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 " devicon
 let g:webdevicons_enable=1
 let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
-let g:WebDevIconsNerdTreeAfterGlyphPadding=' '
+let g:WebDevIconsNerdTreeAfterGlyphPadding=(has("gui_running") ? '' : ' ')
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
