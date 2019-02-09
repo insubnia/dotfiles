@@ -38,11 +38,9 @@ Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
 Plugin 'rhysd/vim-clang-format'
 if g:os != "Windows"
+    Plugin 'valloric/youcompleteme'
     Plugin 'jeaye/color_coded'
     Plugin 'xuyuanp/nerdtree-git-plugin'
-endif
-if !has("win32unix")
-    Plugin 'valloric/youcompleteme'
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
@@ -404,7 +402,7 @@ nnoremap <leader>9 9gt
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeMapOpenVSplit='v'
-let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeQuitOnOpen=0
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
 let g:NERDTreeDirArrowExpandable=''
