@@ -35,6 +35,7 @@ Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'xuyuanp/nerdtree-git-plugin'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
 Plugin 'jeaye/color_coded'
 Plugin 'rhysd/vim-clang-format'
@@ -478,6 +479,13 @@ let g:DevIconsEnableFoldersOpenClose=1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
 let g:DevIconsDefaultFolderOpenSymbol=''
 let g:DevIconsEnableNERDTreeRedraw=1
+
+" nerdtree-syntax-highlight
+let g:NERDTreeFileExtensionHighlightFullName=1
+let g:NERDTreeExactMatchHighlightFullName=1
+let g:NERDTreePatternMatchHighlightFullName=1
+let g:NERDTreeHighlightFolders=1
+let g:NERDTreeHighlightFoldersFullName=1
 
 " color_coded
 let g:color_coded_enabled=(g:os=="Windows" ? 0 : 1)
