@@ -474,10 +474,8 @@ let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
 let g:webdevicons_enable=1
-let g:webdevicons_conceal_nerdtree_brackets=(g:os=="Windows" ? 1 : 0)
 let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
-let g:WebDevIconsNerdTreeAfterGlyphPadding=(g:webdevicons_conceal_nerdtree_brackets ? ' ' : '')
-let g:WebDevIconsNerdTreeGitPluginForceVAlign=(g:webdevicons_conceal_nerdtree_brackets)
+let g:WebDevIconsNerdTreeAfterGlyphPadding=' '
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
