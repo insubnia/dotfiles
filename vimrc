@@ -472,9 +472,11 @@ let g:webdevicons_enable=1
 let g:webdevicons_conceal_nerdtree_brackets=0
 let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
 let g:WebDevIconsNerdTreeAfterGlyphPadding=(g:webdevicons_conceal_nerdtree_brackets ? ' ' : '')
-let g:WebDevIconsNerdTreeGitPluginForceVAlign=0
+let g:WebDevIconsNerdTreeGitPluginForceVAlign=(g:webdevicons_conceal_nerdtree_brackets)
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
+let g:DevIconsDefaultFolderOpenSymbol=''
 let g:DevIconsEnableNERDTreeRedraw=1
 
 " color_coded
