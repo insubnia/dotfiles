@@ -2,10 +2,10 @@
 " ============================================================================
 " INTRO {{{
 " Get OS informaion
-if has('win32') || has('win32unix')
-    let g:os='Windows'
+if has("win32") || has("win32unix")
+    let g:os="Windows"
 else
-    let g:os=substitute(system('uname'), '\n', '', '')
+    let g:os=substitute(system("uname"), "\n", "", "")
 endif
 " }}}
 " ============================================================================
@@ -37,7 +37,7 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
 Plugin 'rhysd/vim-clang-format'
-if g:os != 'Windows'
+if g:os != "Windows"
     Plugin 'valloric/youcompleteme'
     Plugin 'jeaye/color_coded'
     Plugin 'xuyuanp/nerdtree-git-plugin'
@@ -92,7 +92,7 @@ set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
-if has('gui_running')
+if has("gui_running")
     set guifont=Consolas_NF:h10,MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
@@ -103,15 +103,15 @@ let &makeprg='clear && make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
-if &term =~ 'xterm'
-    let &t_SI='\e[5 q'
-    let &t_SR='\e[3 q'
-    let &t_EI='\e[0 q'
+if &term =~ "xterm"
+    let &t_SI="\e[5 q"
+    let &t_SR="\e[3 q"
+    let &t_EI="\e[0 q"
 endif
 " }}}
 " ============================================================================
 " MAPPINGS & ABBREVIATIONS {{{
-let mapleader=' '
+let mapleader=" "
 nnoremap Q @q
 nnoremap W @w
 nnoremap Y y$
@@ -179,11 +179,11 @@ noremap! <C-f> <right>
 noremap \1: diffget LO<cr>
 noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
-noremap <C-_> :call NERDComment(0, 'toggle')<cr>
-noremap <expr> <leader>g &diff ? ':diffget<cr>' : ':GitGutterToggle<cr>'
-noremap <expr> <leader>p &diff ? ':diffput<cr>' : ':PluginAction<cr>'
-noremap <expr> <leader>h (mode()=='n' ? ':%' : ':') . 's//g<left><left>'
-noremap <expr> <leader>; (mode()=='n' ? 'V' : '') . ':call Trim()<cr>'
+noremap <C-_> :call NERDComment(0, "toggle")<cr>
+noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
+noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
+noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap ]q <plug>(qf_qf_next)zz
@@ -197,10 +197,10 @@ nmap <C-w><C-]> <C-w>]
 imap <S-Tab> <C-d>
 map <C-space> <C-_>
 
-if !has('clipboard')
-    noremap \d :del<bar>silent call system('xclip -i -selection clipboard', getreg('\"'))<cr>
-    noremap \y :yank<bar>silent call system('xclip -i -selection clipboard', getreg('\"'))<cr>
-    noremap \p :call setreg('\"',system('xclip -o -selection clipboard'))<cr>o<esc>p
+if !has("clipboard")
+    noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
+    noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
 abbrev slef self
@@ -228,7 +228,7 @@ autocmd FileType python setlocal tabstop=4
 
 function! OperatorHL()
     syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-    exe 'hi OperatorChars guifg=' . (&bg=='dark' ? 'cyan' : 'red')
+    exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
 endfunction
 autocmd ColorScheme c,cpp,python call OperatorHL()
 autocmd Syntax c,cpp,python call OperatorHL()
@@ -250,18 +250,18 @@ autocmd BufRead,BufNewFile *.arxml set filetype=xml
 
 function! NewHeader()
     if 1
-        exe 'norm! i#pragma once\n\n\e'
+        exe "norm! i#pragma once\n\n\e"
     else
-        let name = toupper(substitute(expand('%:t'), '\\.', '_', 'g'))
-        exe 'norm! i#ifndef '. name '\n#define '. name '\n\n\n\n#endif  /* '. name ' */\e4G'
+        let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
+        exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
     endif
 endfunction
 
 function! NewPy()
-    if g:os != 'Windows'
-        exe 'norm! i#!'.system('which python3')
+    if g:os != "Windows"
+        exe "norm! i#!".system("which python3")
     endif
-    exe 'norm! i\n\nif __name__ == \"__main__\":\npass\ekkk'
+    exe "norm! i\n\nif __name__ == \"__main__\":\npass\ekkk"
 endfunction
 
 augroup NewFile
@@ -274,9 +274,9 @@ augroup END
 " FUNCTIONS & COMMANDS {{{
 command! Font set guifont=*
 command! Clear noh | cexpr []
-command! JumpBack try | pop | catch | exe 'norm ' | endtry
-command! Diff exe 'windo ' . (&diff ? 'diffoff' : 'diffthis')
-command! SynToggle exe 'syn ' . (exists('g:syntax_on') ? 'off' : 'on')
+command! JumpBack try | pop | catch | exe "norm " | endtry
+command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
+command! SynToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
 command! RemoveTrailingWS %s/\s\+$//e
 command! TS set expandtab | %retab
@@ -293,53 +293,53 @@ endfunction
 
 command! WhiteSpace call WhiteSpace()
 function! WhiteSpace()
-    if &diffopt !~ 'iwhite'
+    if &diffopt !~ "iwhite"
         set diffopt+=iwhite
         let g:gitgutter_diff_args='-b'
-        echo 'Ignore white space'
+        echo "Ignore white space"
     else
         set diffopt-=iwhite
         let g:gitgutter_diff_args=''
-        echo 'Check white space'
+        echo "Check white space"
     endif
     GitGutterAll
 endfunction
 
 function! GoTo()
     try
-        exe 'tjump ' . expand('<cword>')
+        exe "tjump " . expand("<cword>")
     catch
         YcmCompleter GoTo
     endtry
 endfunction
 
-if !exists('*Run')
+if !exists("*Run")
     command! Run call Run()
     function! Run()
-        if !has('win32') | silent !clear
+        if !has("win32") | silent !clear
         endif
 
-        if &filetype == 'vim'
+        if &filetype == "vim"
             source %
-        elseif &filetype == 'sh'
+        elseif &filetype == "sh"
             !source %
-        elseif &filetype == 'c' || &filetype == 'cpp'
+        elseif &filetype == "c" || &filetype == "cpp"
             make all run
-        elseif &filetype == 'python'
-            exe has('win32') ? '!python %' : '!python3 %'
-        elseif &filetype == 'markdown'
+        elseif &filetype == "python"
+            exe has("win32") ? "!python %" : "!python3 %"
+        elseif &filetype == "markdown"
             LivedownPreview
-        elseif &filetype == 'swift'
+        elseif &filetype == "swift"
             !swift %
         else
-            echom 'There's nothing to do'
+            echom "There's nothing to do"
         endif
     endfunction
 endif
 
 command! PluginAction call PluginAction()
 function! PluginAction()
-    echo 'Select mode [i,c,u]: '
+    echo "Select mode [i,c,u]: "
     let l:cin = nr2char(getchar())
 
     if l:cin == 'i'
@@ -349,7 +349,7 @@ function! PluginAction()
     elseif l:cin == 'u'
         PluginUpdate
     else
-        echo 'Invalid input'
+        echo "Invalid input"
     endif
 endfunction
 
@@ -380,7 +380,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-let g:gitgutter_enabled=(has('gui_win32') ? 0 : 1)
+let g:gitgutter_enabled=(has("gui_win32") ? 0 : 1)
 
 " airline
 set laststatus=2
@@ -400,7 +400,7 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 " NERDTree
-autocmd BufEnter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeQuitOnOpen=0
 let g:NERDTreeRespectWildIgnore=1
@@ -418,7 +418,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 
 " AutoPairs
 let g:AutoPairsFlyMode=0
-let g:AutoPairsShortcutFastWrap='<C-l>'
+let g:AutoPairsShortcutFastWrap="<C-l>"
 autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
 autocmd FileType c,cpp let g:AutoPairs['/*']='*/'
 
@@ -432,7 +432,7 @@ let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window='results:100'
-if has('win32')
+if has("win32")
     let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
 else
     let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
@@ -443,9 +443,9 @@ let g:tagbar_autofocus=1
 let g:tagbar_sort=0
 
 " ack
-autocmd VimEnter * if g:os=='Windows' | let g:ackprg='ack -His --smart-case --column --nocolor --nogroup' | endif
+autocmd VimEnter * if g:os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
-let g:ack_qhandler='botright cwindow'
+let g:ack_qhandler="botright cwindow"
 let g:ackhighlight=1
 
 " qf
@@ -462,18 +462,18 @@ let g:ale_fixers={
             \'python': ['autopep8'],
             \'xml': ['xmllint'],
             \}
-let g:ale_xml_xmllint_options='--format'
+let g:ale_xml_xmllint_options="--format"
 
 " peekaboo
-let g:peekaboo_window='vert botright 40new'
+let g:peekaboo_window="vert botright 40new"
 
 " livedown
-let g:livedown_browser=(g:os=='Darwin' ? 'safari' : 'chrome')
+let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
 
 " devicon
 let g:webdevicons_enable=1
 let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
-let g:WebDevIconsNerdTreeAfterGlyphPadding=(has('gui_running') ? '' : ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding=(has("gui_running") ? '' : ' ')
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
@@ -496,16 +496,16 @@ autocmd FileType c,cpp vnoremap <leader>l :ClangFormat<cr>gv=
 " }}}
 " ============================================================================
 " OUTRO {{{
-if g:os == 'Darwin'
+if g:os == "Darwin"
     colo dracula
     let g:airline_theme='dracula'
-elseif g:os == 'Linux'
+elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
-elseif has('win32')
+elseif has("win32")
     colo hybrid
     let g:airline_theme='hybrid'
-elseif has('win32unix')
+elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
 endif
