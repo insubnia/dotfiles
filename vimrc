@@ -278,7 +278,7 @@ command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
 command! SynToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
-command! RemoveTrailingWS %s/\s\+$//e
+command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 
@@ -308,8 +308,12 @@ endfunction
 function! GoTo()
     try
         exe "tjump " . expand("<cword>")
-    catch
-        YcmCompleter GoTo
+    catch /E426:\|E433:/
+        try
+            YcmCompleter GoTo
+        catch /E492:/
+            echohl WarningMsg | echo "No youcompleteme" | echohl None
+        endtry
     endtry
 endfunction
 
@@ -503,8 +507,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo hybrid
-    let g:airline_theme='hybrid'
+    colo gruvbox
+    let g:airline_theme='gruvbox'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
