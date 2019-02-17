@@ -28,6 +28,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'romainl/vim-qf'
 Plugin 'w0rp/ale'
+Plugin 'chiel92/vim-autoformat'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
@@ -36,7 +37,6 @@ Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
-Plugin 'rhysd/vim-clang-format'
 if g:os != "Windows"
     Plugin 'valloric/youcompleteme'
     Plugin 'jeaye/color_coded'
@@ -163,6 +163,7 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
+vnoremap <leader>l :Autoformat<cr>
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
@@ -494,9 +495,6 @@ let g:NERDTreePatternMatchHighlightFullName=1
 " color_coded
 let g:color_coded_enabled=1
 let g:color_coded_filetypes=['c', 'cpp']
-
-" clang-format
-autocmd FileType c,cpp vnoremap <leader>l :ClangFormat<cr>gv=
 " }}}
 " ============================================================================
 " OUTRO {{{
