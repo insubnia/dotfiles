@@ -15,6 +15,7 @@ alias mycf='clang-format -style="{\
     BasedOnStyle                     : WebKit,\
     AlignAfterOpenBracket            : Align,\
     AlignTrailingComments            : true,\
+    AllowShortCaseLabelsOnASingleLine: true,\
     Cpp11BracedListStyle             : true,\
     KeepEmptyLinesAtTheStartOfBlocks : false,\
     MaxEmptyLinesToKeep              : 2,\
