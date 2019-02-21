@@ -83,6 +83,22 @@ dump: $(ELF)
 	@echo Information from $<
 	@$(OBJDUMP) -S -D $<
 
+PHONY += dev
+dev:
+	@echo Config dev; echo
+	@clang-format -style="{\
+		BasedOnStyle                      : WebKit,\
+		AlignAfterOpenBracket             : Align,\
+		AlignTrailingComments             : true,\
+		AllowShortCaseLabelsOnASingleLine : true,\
+		Cpp11BracedListStyle              : true,\
+		KeepEmptyLinesAtTheStartOfBlocks  : false,\
+		MaxEmptyLinesToKeep               : 2,\
+		PointerAlignment                  : Right,\
+		SortIncludes                      : false,\
+		SortUsingDeclarations             : false,\
+	}" -dump-config > .clang-format
+
 PHONY += test
 test:
 	@echo $(PHONY)
