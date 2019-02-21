@@ -21,6 +21,7 @@ REM  dev
 choco install -y git
 choco install -y ack
 choco install -y llvm
+choco install -y make
 choco install -y ctags
 choco install -y cmake
 choco install -y python3
