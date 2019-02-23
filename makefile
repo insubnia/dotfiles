@@ -89,8 +89,11 @@ dev:
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
+		AlignOperands                     : true,\
 		AlignTrailingComments             : true,\
 		AllowShortCaseLabelsOnASingleLine : true,\
+		BreakBeforeBinaryOperators        : None,\
+		BreakBeforeTernaryOperators       : false,\
 		Cpp11BracedListStyle              : true,\
 		KeepEmptyLinesAtTheStartOfBlocks  : false,\
 		MaxEmptyLinesToKeep               : 2,\
