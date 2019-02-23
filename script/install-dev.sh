@@ -47,11 +47,9 @@ git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colo
 macos_list=(
     binutils
     coreutils
-    caskroom/cask/qt-creator
 )
 
 linux_list=(
-    qtcreator
 )
 
 case "$OSTYPE" in

@@ -15,7 +15,6 @@ choco install -y sourcetree
 choco install -y vscode
 REM  choco install -y cmder
 REM  choco install -y babun
-choco install -y qtcreator
 
 REM  dev
 choco install -y git
