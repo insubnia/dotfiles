@@ -10,15 +10,3 @@ alias ff='find . -type f -iname'
 alias tre='tree -L 2'
 alias makefile='ln -sf ~/workspace/dotfiles/makefile'
 alias ycm='python ~/.vim/bundle/youcompleteme/install.py --clang-completer'
-
-alias mycf='clang-format -style="{\
-    BasedOnStyle                     : WebKit,\
-    AlignAfterOpenBracket            : Align,\
-    AlignTrailingComments            : true,\
-    Cpp11BracedListStyle             : true,\
-    KeepEmptyLinesAtTheStartOfBlocks : false,\
-    MaxEmptyLinesToKeep              : 2,\
-    PointerAlignment                 : Right,\
-    SortIncludes                     : false,\
-    SortUsingDeclarations            : false,\
-    }" -dump-config > .clang-format'

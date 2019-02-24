@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -x $(which pip3) ]; then
+if [ ! -x $(which pip) ]; then
     if [[ $OSTYPE == linux* ]]; then
         echo -e "\nInstall pip3 first"
         sudo apt-get install python3-pip

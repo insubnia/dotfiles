@@ -15,12 +15,12 @@ choco install -y sourcetree
 choco install -y vscode
 REM  choco install -y cmder
 REM  choco install -y babun
-choco install -y qtcreator
 
 REM  dev
 choco install -y git
 choco install -y ack
 choco install -y llvm
+choco install -y make
 choco install -y ctags
 choco install -y cmake
 choco install -y python3

@@ -9,7 +9,7 @@ case "$OSTYPE" in
             echo -e "\nThis script must be run as root\n\nTerminate the script\n"
             return
         fi
-        pm="apt-get"
+        pm="apt-get -y"
         ;;
 esac
 
@@ -20,7 +20,7 @@ $pm upgrade
 while read line
 do
     echo -e "\n[Installing $line]"
-    $pm install -y $line
+    $pm install $line
 done < <(cat << EOF
     gcc
     git
@@ -47,11 +47,9 @@ git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colo
 macos_list=(
     binutils
     coreutils
-    caskroom/cask/qt-creator
 )
 
 linux_list=(
-    qtcreator
 )
 
 case "$OSTYPE" in
@@ -62,7 +60,7 @@ esac
 for item in $list
 do
     echo -e "\n[Installing $item]"
-    $pm install -y $item
+    $pm install $item
 done
 
 echo -e "\nComplete\n"
