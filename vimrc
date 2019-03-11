@@ -146,7 +146,6 @@ nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
-nnoremap <leader>b :make all<cr>
 nnoremap <leader>d :Gdiff<space>
 nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
@@ -154,6 +153,7 @@ nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>s :SynToggle<cr>
 nnoremap <leader>t :!ctags -R .<cr>
+nnoremap <leader>u :make all<cr>
 nnoremap <leader>w :WhiteSpace<cr>
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
