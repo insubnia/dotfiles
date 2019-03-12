@@ -41,8 +41,6 @@ if g:os != "Windows"
     Plugin 'valloric/youcompleteme'
     Plugin 'jeaye/color_coded'
     Plugin 'xuyuanp/nerdtree-git-plugin'
-else
-    Plugin 'shougo/neocomplete.vim'
 endif
 " ---------- colorschemes ----------
 Plugin 'dracula/vim'
@@ -133,7 +131,6 @@ nnoremap R :GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
@@ -497,10 +494,6 @@ let g:NERDTreePatternMatchHighlightFullName=1
 " color_coded
 let g:color_coded_enabled=1
 let g:color_coded_filetypes=['c', 'cpp']
-
-" neocomplete
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#enable_smart_case=1
 " }}}
 " ============================================================================
 " OUTRO {{{
