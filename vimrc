@@ -24,7 +24,6 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'yggdroot/indentLine'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'romainl/vim-qf'
 Plugin 'w0rp/ale'
@@ -38,6 +37,7 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'valloric/matchtagalways'
 if g:os != "Windows"
+    Plugin 'majutsushi/tagbar'
     Plugin 'valloric/youcompleteme'
     Plugin 'jeaye/color_coded'
     Plugin 'xuyuanp/nerdtree-git-plugin'
@@ -93,6 +93,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
+    set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
@@ -195,7 +196,11 @@ nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-Tab> <C-d>
-map <C-space> <C-_>
+
+if has("gui_running")
+    map <C-space> <C-_>
+    imap <C-space> 
+endif
 
 if !has("clipboard")
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
@@ -504,8 +509,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo gruvbox
-    let g:airline_theme='gruvbox'
+    colo base16-solarized-dark
+    let g:airline_theme='base16_solarized'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
