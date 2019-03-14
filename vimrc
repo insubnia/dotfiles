@@ -293,7 +293,7 @@ function! Close()
     pclose
     helpclose
     NERDTreeClose
-    TagbarClose
+    try | exe "TagbarClose" | catch | endtry
 endfunction
 
 command! WhiteSpace call WhiteSpace()
