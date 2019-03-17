@@ -509,8 +509,8 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo base16-solarized-dark
-    let g:airline_theme='base16_solarized'
+    colo spacegray
+    let g:airline_theme='biogoo'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
