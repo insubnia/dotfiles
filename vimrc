@@ -146,14 +146,13 @@ nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
 nnoremap <leader>a :ALEToggle<cr>
 nnoremap <leader>d :Gdiff<space>
-nnoremap <leader>e :Ack!  %<cr>
+" nnoremap <leader>e reserved
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
-nnoremap <leader>s :SynToggle<cr>
 nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>u :make all<cr>
-nnoremap <leader>w :WhiteSpace<cr>
+nnoremap <leader>w :Ack!  %<cr>
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
@@ -282,7 +281,7 @@ command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
-command! SynToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
+command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
 command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
@@ -297,16 +296,16 @@ function! Close()
     try | exe "TagbarClose" | catch | endtry
 endfunction
 
-command! WhiteSpace call WhiteSpace()
-function! WhiteSpace()
+command! IgnoreSpaceChange call IgnoreSpaceChange()
+function! IgnoreSpaceChange()
     if &diffopt !~ "iwhite"
         set diffopt+=iwhite
         let g:gitgutter_diff_args='-b'
-        echo "Ignore white space"
+        echo "Ignore space change"
     else
         set diffopt-=iwhite
         let g:gitgutter_diff_args=''
-        echo "Check white space"
+        echo "Check space change"
     endif
     GitGutterAll
 endfunction
