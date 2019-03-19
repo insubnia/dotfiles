@@ -48,6 +48,7 @@ Plugin 'joshdick/onedark.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'tomasr/molokai'
 Plugin 'cocopon/iceberg.vim'
+Plugin 'ayu-theme/ayu-vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'NLKNguyen/papercolor-theme'
@@ -509,8 +510,9 @@ elseif g:os == "Linux"
     colo jellybeans
     let g:airline_theme='jellybeans'
 elseif has("win32")
-    colo spacegray
-    let g:airline_theme='biogoo'
+    let ayucolor='mirage'
+    colo ayu
+    let g:airline_theme='ayu_mirage'
 elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
