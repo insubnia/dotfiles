@@ -373,6 +373,19 @@ function! Trim()
     silent '<,'>s/\(\S\)\s\+/\1 /ge
     silent '<,'>s/\s\+$//e
 endfunction
+
+command HV call HV()
+let b:hex_view = 0
+function! HV()
+    if (b:hex_view == 0)
+        let b:hex_view = 1
+        exe "%!xxd"
+        set filetype=xxd
+    else
+        let b:hex_view = 0
+        exe "%!xxd -r"
+    endif
+endfunc
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
