@@ -380,9 +380,11 @@ function! HV()
         let b:hex_view = 1
         exe "%!xxd"
         set filetype=xxd
+        set readonly
     else
         let b:hex_view = 0
         exe "%!xxd -r"
+        set noreadonly
     endif
 endfunc
 " }}}
