@@ -89,6 +89,7 @@ dev:
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
+		AlignEscapedNewlines              : DontAlign,\
 		AlignOperands                     : true,\
 		AlignTrailingComments             : true,\
 		AllowShortCaseLabelsOnASingleLine : true,\
