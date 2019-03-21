@@ -43,19 +43,34 @@ if g:os != "Windows"
     Plugin 'xuyuanp/nerdtree-git-plugin'
 endif
 " ---------- colorschemes ----------
+" Best
 Plugin 'dracula/vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'tomasr/molokai'
-Plugin 'cocopon/iceberg.vim'
 Plugin 'ayu-theme/ayu-vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'tssm/fairyfloss.vim'
-Plugin 'sjl/badwolf'
-Plugin 'freeo/vim-kalisi'
+Plugin 'joshdick/onedark.vim'
+Plugin 'ajmwagar/vim-deus'
+" Harmonic
+Plugin 'nanotech/jellybeans.vim'
 Plugin 'dikiaap/minimalist'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'ashfinal/vim-colors-violet'
+Plugin 'sheerun/vim-wombat-scheme'
+" Colorful
+Plugin 'josuegaleas/jay'
+" Vivid
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'tomasr/molokai'
+Plugin 'sjl/badwolf'
+" Cynical
+Plugin 'cocopon/iceberg.vim'
+Plugin 'fxn/vim-monochrome'
+" Low contrast
+Plugin 'morhetz/gruvbox'
+Plugin 'freeo/vim-kalisi'
+Plugin 'crucerucalin/peaksea.vim'
+" Retro
+Plugin 'bdesham/biogoo'
+Plugin 'tssm/fairyfloss.vim'
+" Others
 Plugin 'ajh17/spacegray.vim'
 Plugin 'chriskempson/base16-vim'
 call vundle#end()
@@ -515,14 +530,15 @@ let g:color_coded_filetypes=['c', 'cpp']
 " }}}
 " ============================================================================
 " OUTRO {{{
+let ayucolor='mirage'
+
 if g:os == "Darwin"
     colo dracula
     let g:airline_theme='dracula'
 elseif g:os == "Linux"
-    colo jellybeans
-    let g:airline_theme='jellybeans'
+    colo deus
+    let g:airline_theme='deus'
 elseif has("win32")
-    let ayucolor='mirage'
     colo ayu
     let g:airline_theme='ayu_mirage'
 elseif has("win32unix")
