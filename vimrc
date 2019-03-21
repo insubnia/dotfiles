@@ -123,8 +123,6 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-nnoremap J ddp
-nnoremap K kddpk
 nnoremap ? :ts /
 nnoremap + >
 nnoremap _ <
@@ -185,10 +183,10 @@ noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
+nmap J <Plug>(qf_qf_next)zz
+nmap K <Plug>(qf_qf_previous)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
-nmap ]q <plug>(qf_qf_next)zz
-nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
