@@ -10,70 +10,72 @@ endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'yggdroot/indentLine'
-Plugin 'godlygeek/tabular'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'romainl/vim-qf'
-Plugin 'w0rp/ale'
-Plugin 'chiel92/vim-autoformat'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-surround'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'shime/vim-livedown'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'yggdroot/indentLine'
+Plug 'godlygeek/tabular'
+Plug 'kien/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'romainl/vim-qf'
+Plug 'w0rp/ale'
+Plug 'chiel92/vim-autoformat'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/vim-peekaboo'
+Plug 'shime/vim-livedown'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 if g:os != "Windows"
-    Plugin 'majutsushi/tagbar'
-    Plugin 'valloric/youcompleteme'
-    Plugin 'jeaye/color_coded'
-    Plugin 'xuyuanp/nerdtree-git-plugin'
+    Plug 'majutsushi/tagbar'
+    Plug 'valloric/youcompleteme'
+    Plug 'jeaye/color_coded'
+    Plug 'xuyuanp/nerdtree-git-plugin'
 endif
 " ---------- colorschemes ----------
 " Best
-Plugin 'dracula/vim'
-Plugin 'ayu-theme/ayu-vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'ajmwagar/vim-deus'
+Plug 'dracula/vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'ajmwagar/vim-deus'
 " Dark
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'dikiaap/minimalist'
-Plugin 'ashfinal/vim-colors-violet'
-Plugin 'w0ng/vim-hybrid'
+Plug 'nanotech/jellybeans.vim'
+Plug 'dikiaap/minimalist'
+Plug 'ashfinal/vim-colors-violet'
+Plug 'w0ng/vim-hybrid'
 " Vivid
-Plugin 'josuegaleas/jay'
-Plugin 'tomasr/molokai'
-Plugin 'sjl/badwolf'
-Plugin 'NLKNguyen/papercolor-theme'
+Plug 'josuegaleas/jay'
+Plug 'tomasr/molokai'
+Plug 'sjl/badwolf'
+Plug 'NLKNguyen/papercolor-theme'
 " Low contrast
-Plugin 'morhetz/gruvbox'
-Plugin 'freeo/vim-kalisi'
+Plug 'morhetz/gruvbox'
+Plug 'freeo/vim-kalisi'
 " Pastel
-Plugin 'crucerucalin/peaksea.vim'
-Plugin 'sheerun/vim-wombat-scheme'
+Plug 'crucerucalin/peaksea.vim'
+Plug 'sheerun/vim-wombat-scheme'
 " Cynical
-Plugin 'cocopon/iceberg.vim'
-Plugin 'fxn/vim-monochrome'
+Plug 'cocopon/iceberg.vim'
+Plug 'fxn/vim-monochrome'
 " Retro
-Plugin 'bdesham/biogoo'
-Plugin 'tssm/fairyfloss.vim'
+Plug 'bdesham/biogoo'
+Plug 'tssm/fairyfloss.vim'
 " Others
-Plugin 'ajh17/spacegray.vim'
-Plugin 'chriskempson/base16-vim'
-call vundle#end()
-filetype plugin indent on
+Plug 'ajh17/spacegray.vim'
+Plug 'chriskempson/base16-vim'
+call plug#end()
 " }}}
 " ============================================================================
 " BASIC SETTINGS {{{
@@ -194,7 +196,7 @@ noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
-noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
+noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
 nmap J <Plug>(qf_qf_next)zz
@@ -358,17 +360,17 @@ if !exists("*Run")
     endfunction
 endif
 
-command! PluginAction call PluginAction()
-function! PluginAction()
+command! PlugAction call PlugAction()
+function! PlugAction()
     echo "Select mode [i,c,u]: "
     let l:cin = nr2char(getchar())
 
     if l:cin == 'i'
-        PluginInstall
+        PlugInstall
     elseif l:cin == 'c'
-        PluginClean
+        PlugClean
     elseif l:cin == 'u'
-        PluginUpdate
+        PlugUpdate
     else
         echo "Invalid input"
     endif
