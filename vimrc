@@ -35,7 +35,6 @@ Plugin 'junegunn/vim-peekaboo'
 Plugin 'shime/vim-livedown'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'valloric/matchtagalways'
 if g:os != "Windows"
     Plugin 'majutsushi/tagbar'
     Plugin 'valloric/youcompleteme'
