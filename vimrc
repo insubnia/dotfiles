@@ -17,6 +17,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'valloric/youcompleteme', has('mac') ? {}: {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -26,9 +27,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'yggdroot/indentLine'
 Plug 'godlygeek/tabular'
-Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
+Plug 'majutsushi/tagbar', has('mac') ? {}: {'on': []}
+Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
 Plug 'chiel92/vim-autoformat'
 Plug 'tpope/vim-dispatch'
@@ -38,12 +40,8 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-if g:os != "Windows"
-    Plug 'majutsushi/tagbar'
-    Plug 'valloric/youcompleteme'
-    Plug 'jeaye/color_coded'
-    Plug 'xuyuanp/nerdtree-git-plugin'
-endif
+Plug 'xuyuanp/nerdtree-git-plugin', has('mac') ? {}: {'on': []}
+Plug 'jeaye/color_coded', has('mac') ? {}: {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -466,20 +464,6 @@ let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
-" CtrlP
-let g:ctrlp_by_filename=1
-let g:ctrlp_show_hidden=1
-let g:ctrlp_match_window='results:100'
-if has("win32")
-    let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
-else
-    let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
-endif
-
-" tagbar
-let g:tagbar_autofocus=1
-let g:tagbar_sort=0
-
 " ack
 autocmd VimEnter * if g:os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
@@ -489,6 +473,20 @@ let g:ackhighlight=1
 " qf
 let g:qf_auto_resize=0
 let g:qf_mapping_ack_style=1
+
+" tagbar
+let g:tagbar_autofocus=1
+let g:tagbar_sort=0
+
+" CtrlP
+let g:ctrlp_by_filename=1
+let g:ctrlp_show_hidden=1
+let g:ctrlp_match_window='results:100'
+if has("win32")
+    let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
+else
+    let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
+endif
 
 " ale
 let g:ale_linters={
@@ -537,14 +535,14 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme='dracula'
 elseif g:os == "Linux"
-    colo deus
-    let g:airline_theme='deus'
+    colo onedark
+    let g:airline_theme='onedark'
 elseif has("win32")
     colo ayu
     let g:airline_theme='ayu_mirage'
 elseif has("win32unix")
-    colo onedark
-    let g:airline_theme='onedark'
+    colo deus
+    let g:airline_theme='deus'
 endif
 " }}}
 " ============================================================================
