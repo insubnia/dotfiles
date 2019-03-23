@@ -11,7 +11,7 @@ endif
 " ============================================================================
 " PLUGINS {{{
 call plug#begin('~/.vim/plugged')
-Plug 'valloric/youcompleteme', has('mac') ? {}: {'on': []}
+Plug 'valloric/youcompleteme', has('mac') ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -23,7 +23,7 @@ Plug 'yggdroot/indentLine'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
-Plug 'majutsushi/tagbar', has('mac') ? {}: {'on': []}
+Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
 Plug 'chiel92/vim-autoformat'
@@ -34,8 +34,8 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', has('mac') ? {}: {'on': []}
-Plug 'jeaye/color_coded', has('mac') ? {}: {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', has('mac') ? {} : {'on': []}
+Plug 'jeaye/color_coded', has('mac') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
