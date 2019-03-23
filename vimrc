@@ -150,15 +150,14 @@ nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
-nnoremap <leader>a :ALEToggle<cr>
 nnoremap <leader>d :Gdiff<space>
-" nnoremap <leader>e reserved
+nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>u :make all<cr>
-nnoremap <leader>w :Ack!  %<cr>
+" nnoremap <leader>w :reserved
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
