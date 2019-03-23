@@ -10,55 +10,64 @@ endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'yggdroot/indentLine'
-Plugin 'godlygeek/tabular'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-Plugin 'romainl/vim-qf'
-Plugin 'w0rp/ale'
-Plugin 'chiel92/vim-autoformat'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-surround'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'junegunn/vim-peekaboo'
-Plugin 'shime/vim-livedown'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'valloric/matchtagalways'
-if g:os != "Windows"
-    Plugin 'valloric/youcompleteme'
-    Plugin 'jeaye/color_coded'
-    Plugin 'xuyuanp/nerdtree-git-plugin'
-endif
+call plug#begin('~/.vim/plugged')
+Plug 'valloric/youcompleteme', has('mac') ? {}: {'on': []}
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'yggdroot/indentLine'
+Plug 'godlygeek/tabular'
+Plug 'mileszs/ack.vim'
+Plug 'romainl/vim-qf'
+Plug 'majutsushi/tagbar', has('mac') ? {}: {'on': []}
+Plug 'kien/ctrlp.vim'
+Plug 'w0rp/ale'
+Plug 'chiel92/vim-autoformat'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-surround'
+Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/vim-peekaboo'
+Plug 'shime/vim-livedown'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'xuyuanp/nerdtree-git-plugin', has('mac') ? {}: {'on': []}
+Plug 'jeaye/color_coded', has('mac') ? {}: {'on': []}
 " ---------- colorschemes ----------
-Plugin 'dracula/vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'tomasr/molokai'
-Plugin 'cocopon/iceberg.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'tssm/fairyfloss.vim'
-Plugin 'sjl/badwolf'
-Plugin 'freeo/vim-kalisi'
-Plugin 'dikiaap/minimalist'
-Plugin 'ajh17/spacegray.vim'
-Plugin 'chriskempson/base16-vim'
-call vundle#end()
-filetype plugin indent on
+" Best
+Plug 'dracula/vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'ajmwagar/vim-deus'
+" Dark
+Plug 'nanotech/jellybeans.vim'
+Plug 'dikiaap/minimalist'
+Plug 'ashfinal/vim-colors-violet'
+Plug 'w0ng/vim-hybrid'
+" Vivid
+Plug 'josuegaleas/jay'
+Plug 'tomasr/molokai'
+Plug 'sjl/badwolf'
+Plug 'NLKNguyen/papercolor-theme'
+" Low contrast
+Plug 'morhetz/gruvbox'
+Plug 'freeo/vim-kalisi'
+" Pastel
+Plug 'crucerucalin/peaksea.vim'
+Plug 'sheerun/vim-wombat-scheme'
+" Cynical
+Plug 'cocopon/iceberg.vim'
+Plug 'fxn/vim-monochrome'
+" Retro
+Plug 'bdesham/biogoo'
+Plug 'tssm/fairyfloss.vim'
+" Others
+Plug 'ajh17/spacegray.vim'
+Plug 'chriskempson/base16-vim'
+call plug#end()
 " }}}
 " ============================================================================
 " BASIC SETTINGS {{{
@@ -93,7 +102,8 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has("gui_running")
-    set guifont=Consolas_NF:h10,MesloLGM_Nerd_Font_Mono:h9,D2Coding:h10
+    set omnifunc=syntaxcomplete#Complete
+    set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k
     set guioptions-=L guioptions-=T guioptions-=m
 endif
@@ -121,8 +131,6 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-nnoremap J ddp
-nnoremap K kddpk
 nnoremap ? :ts /
 nnoremap + >
 nnoremap _ <
@@ -131,7 +139,6 @@ nnoremap R :GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
 nnoremap dw diw
 nnoremap yw yiw
-nnoremap ZA :wa<cr>
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
@@ -143,16 +150,14 @@ nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <bs> :noh<cr>
-nnoremap <leader>a :ALEToggle<cr>
-nnoremap <leader>b :make all<cr>
 nnoremap <leader>d :Gdiff<space>
 nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
-nnoremap <leader>s :SynToggle<cr>
 nnoremap <leader>t :!ctags -R .<cr>
-nnoremap <leader>w :WhiteSpace<cr>
+nnoremap <leader>u :make all<cr>
+" nnoremap <leader>w :reserved
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
@@ -182,13 +187,13 @@ noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
-noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PluginAction<cr>"
+noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
+nmap J <Plug>(qf_qf_next)zz
+nmap K <Plug>(qf_qf_previous)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
-nmap ]q <plug>(qf_qf_next)zz
-nmap [q <plug>(qf_qf_previous)zz
 nmap <C-j> <plug>GitGutterNextHunk<bar>zz
 nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
@@ -196,7 +201,11 @@ nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-Tab> <C-d>
-map <C-space> <C-_>
+
+if has("gui_running")
+    map <C-space> <C-_>
+    imap <C-space> 
+endif
 
 if !has("clipboard")
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
@@ -277,7 +286,7 @@ command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
-command! SynToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
+command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
 command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
@@ -289,19 +298,19 @@ function! Close()
     pclose
     helpclose
     NERDTreeClose
-    TagbarClose
+    try | exe "TagbarClose" | catch | endtry
 endfunction
 
-command! WhiteSpace call WhiteSpace()
-function! WhiteSpace()
+command! IgnoreSpaceChange call IgnoreSpaceChange()
+function! IgnoreSpaceChange()
     if &diffopt !~ "iwhite"
         set diffopt+=iwhite
         let g:gitgutter_diff_args='-b'
-        echo "Ignore white space"
+        echo "Ignore space change"
     else
         set diffopt-=iwhite
         let g:gitgutter_diff_args=''
-        echo "Check white space"
+        echo "Check space change"
     endif
     GitGutterAll
 endfunction
@@ -342,17 +351,17 @@ if !exists("*Run")
     endfunction
 endif
 
-command! PluginAction call PluginAction()
-function! PluginAction()
+command! PlugAction call PlugAction()
+function! PlugAction()
     echo "Select mode [i,c,u]: "
     let l:cin = nr2char(getchar())
 
     if l:cin == 'i'
-        PluginInstall
+        PlugInstall
     elseif l:cin == 'c'
-        PluginClean
+        PlugClean
     elseif l:cin == 'u'
-        PluginUpdate
+        PlugUpdate
     else
         echo "Invalid input"
     endif
@@ -368,6 +377,21 @@ function! Trim()
     silent '<,'>s/\(\S\)\s\+/\1 /ge
     silent '<,'>s/\s\+$//e
 endfunction
+
+command HV call HV()
+let b:hex_view = 0
+function! HV()
+    if (b:hex_view == 0)
+        let b:hex_view = 1
+        exe "%!xxd"
+        set filetype=xxd
+        set readonly
+    else
+        let b:hex_view = 0
+        exe "%!xxd -r"
+        set noreadonly
+    endif
+endfunc
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
@@ -433,20 +457,6 @@ let g:indentLine_leadingSpaceEnabled=0
 let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
-" CtrlP
-let g:ctrlp_by_filename=1
-let g:ctrlp_show_hidden=1
-let g:ctrlp_match_window='results:100'
-if has("win32")
-    let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
-else
-    let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
-endif
-
-" tagbar
-let g:tagbar_autofocus=1
-let g:tagbar_sort=0
-
 " ack
 autocmd VimEnter * if g:os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
 let g:ack_apply_qmappings=0
@@ -456,6 +466,20 @@ let g:ackhighlight=1
 " qf
 let g:qf_auto_resize=0
 let g:qf_mapping_ack_style=1
+
+" tagbar
+let g:tagbar_autofocus=1
+let g:tagbar_sort=0
+
+" CtrlP
+let g:ctrlp_by_filename=1
+let g:ctrlp_show_hidden=1
+let g:ctrlp_match_window='results:100'
+if has("win32")
+    let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
+else
+    let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
+endif
 
 " ale
 let g:ale_linters={
@@ -498,18 +522,20 @@ let g:color_coded_filetypes=['c', 'cpp']
 " }}}
 " ============================================================================
 " OUTRO {{{
+let ayucolor='mirage'
+
 if g:os == "Darwin"
     colo dracula
     let g:airline_theme='dracula'
 elseif g:os == "Linux"
-    colo jellybeans
-    let g:airline_theme='jellybeans'
-elseif has("win32")
-    colo gruvbox
-    let g:airline_theme='gruvbox'
-elseif has("win32unix")
     colo onedark
     let g:airline_theme='onedark'
+elseif has("win32")
+    colo ayu
+    let g:airline_theme='ayu_mirage'
+elseif has("win32unix")
+    colo deus
+    let g:airline_theme='deus'
 endif
 " }}}
 " ============================================================================
