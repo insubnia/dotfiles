@@ -1,7 +1,7 @@
 " vim: set foldmethod=manual:
 " ============================================================================
 " INTRO {{{
-" Get OS informaion
+" Get OS informaion (:help feature-list)
 if has("win32") || has("win32unix")
     let g:os="Windows"
 else
@@ -11,7 +11,7 @@ endif
 " ============================================================================
 " PLUGINS {{{
 call plug#begin('~/.vim/plugged')
-Plug 'valloric/youcompleteme', has('mac') ? {} : {'on': []}
+Plug 'valloric/youcompleteme', g:os != 'Windows' ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -26,16 +26,16 @@ Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
-Plug 'chiel92/vim-autoformat'
+Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
-Plug 'shime/vim-livedown'
+Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', has('mac') ? {} : {'on': []}
-Plug 'jeaye/color_coded', has('mac') ? {} : {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', g:os != 'Windows' ? {} : {'on': []}
+Plug 'jeaye/color_coded', g:os != 'Windows' ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
