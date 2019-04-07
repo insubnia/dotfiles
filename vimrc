@@ -20,7 +20,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'yggdroot/indentLine'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
@@ -158,7 +158,7 @@ nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>u :make all<cr>
-" nnoremap <leader>w :reserved
+nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
