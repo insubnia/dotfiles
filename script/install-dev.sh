@@ -37,6 +37,7 @@ done < <(cat << EOF
     npm
     llvm
     dos2unix
+    git-flow
 EOF
 )
 
