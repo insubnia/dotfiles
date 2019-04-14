@@ -4,7 +4,7 @@ mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
 mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"
 mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
 mklink "%USERPROFILE%/.flake8" "%DOTFILES%/conf/flake8"
-mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
+REM  mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
 
 REM  tool
 choco install -y chocolateygui

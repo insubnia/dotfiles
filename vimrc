@@ -10,7 +10,7 @@ endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-call plug#begin('~/.vim/plugged')
+call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
 Plug 'valloric/youcompleteme', g:os != 'Windows' ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
