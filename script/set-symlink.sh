@@ -2,6 +2,8 @@
 
 CONF=~/workspace/dotfiles/conf
 
+ln -sf $CONF/gitignore ~/.gitignore
+
 TAR=~/.ctags.d/default.ctags
 if [ ! -e $TAR ]; then
     mkdir -p $(dirname $TAR)

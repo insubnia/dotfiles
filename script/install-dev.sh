@@ -48,6 +48,7 @@ git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colo
 macos_list=(
     binutils
     coreutils
+    fzf
 )
 
 linux_list=(
