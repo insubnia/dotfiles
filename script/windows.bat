@@ -1,7 +1,6 @@
 set DOTFILES=%USERPROFILE%/workspace/dotfiles
 
 mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"
 mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
 mklink "%USERPROFILE%/.flake8" "%DOTFILES%/conf/flake8"
 REM  mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
@@ -30,4 +29,4 @@ choco install -y nodejs
 choco install -y wget
 
 REM  font
-choco install -y d2codingfont
+REM  choco install -y
