@@ -183,6 +183,8 @@ cnoremap <C-a> <home>
 cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
+noremap! <F15> <nop>
+noremap <F15> <nop>
 noremap \1: diffget LO<cr>
 noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
