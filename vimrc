@@ -150,6 +150,10 @@ nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
+nnoremap <M-Up> kddpk
+nnoremap <M-Down> ddp
+nnoremap <M-Right> <C-i>zz
+nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Gdiff<space>
 nnoremap <leader>e :Ack!  %<cr>
