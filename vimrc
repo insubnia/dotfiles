@@ -1,17 +1,17 @@
 " vim: set foldmethod=manual:
 " ============================================================================
 " INTRO {{{
-" Get OS informaion
-if has("win32") || has("win32unix")
-    let g:os="Windows"
+" Get OS informaion (:help feature-list)
+if has('win32') || has('win32unix')
+    let g:os='Windows'
 else
-    let g:os=substitute(system("uname"), "\n", "", "")
+    let g:os=substitute(system('uname'), '\n', '', '')
 endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-call plug#begin('~/.vim/plugged')
-Plug 'valloric/youcompleteme', has('mac') ? {}: {'on': []}
+call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
+Plug 'valloric/youcompleteme', g:os != 'Windows' ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -20,22 +20,23 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'yggdroot/indentLine'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', {'on': ['Tabularize']}
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
-Plug 'majutsushi/tagbar', has('mac') ? {}: {'on': []}
+Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
-Plug 'chiel92/vim-autoformat'
-Plug 'tpope/vim-dispatch'
+Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
+Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
+Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
-Plug 'shime/vim-livedown'
+Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', has('mac') ? {}: {'on': []}
-Plug 'jeaye/color_coded', has('mac') ? {}: {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', g:os != 'Windows' ? {} : {'on': []}
+Plug 'jeaye/color_coded', g:os != 'Windows' ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -101,7 +102,7 @@ set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
-if has("gui_running")
+if has('gui_running')
     set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k
@@ -113,7 +114,7 @@ let &makeprg='clear && make $*'
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set errorformat=%f:%l:%c:%serror:%m
 
-if &term =~ "xterm"
+if &term =~ 'xterm'
     let &t_SI="\e[5 q"
     let &t_SR="\e[3 q"
     let &t_EI="\e[0 q"
@@ -121,7 +122,7 @@ endif
 " }}}
 " ============================================================================
 " MAPPINGS & ABBREVIATIONS {{{
-let mapleader=" "
+let mapleader=' '
 nnoremap Q @q
 nnoremap W @w
 nnoremap Y y$
@@ -149,6 +150,10 @@ nnoremap <C-]> :call GoTo()<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
+nnoremap <M-Up> kddpk
+nnoremap <M-Down> ddp
+nnoremap <M-Right> <C-i>zz
+nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Gdiff<space>
 nnoremap <leader>e :Ack!  %<cr>
@@ -157,7 +162,7 @@ nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>u :make all<cr>
-" nnoremap <leader>w :reserved
+nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
@@ -182,6 +187,8 @@ cnoremap <C-a> <home>
 cnoremap <C-y> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
+noremap! <F15> <nop>
+noremap <F15> <nop>
 noremap \1: diffget LO<cr>
 noremap \2: diffget BA<cr>
 noremap \3: diffget RE<cr>
@@ -202,12 +209,12 @@ nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-Tab> <C-d>
 
-if has("gui_running")
+if has('gui_running')
     map <C-space> <C-_>
     imap <C-space> 
 endif
 
-if !has("clipboard")
+if !has('clipboard')
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
@@ -268,7 +275,7 @@ function! NewHeader()
 endfunction
 
 function! NewPy()
-    if g:os != "Windows"
+    if g:os != 'Windows'
         exe "norm! i#!".system("which python3")
     endif
     exe "norm! i\n\nif __name__ == \"__main__\":\npass\ekkk"
@@ -298,12 +305,12 @@ function! Close()
     pclose
     helpclose
     NERDTreeClose
-    try | exe "TagbarClose" | catch | endtry
+    try | exe 'TagbarClose' | catch | endtry
 endfunction
 
 command! IgnoreSpaceChange call IgnoreSpaceChange()
 function! IgnoreSpaceChange()
-    if &diffopt !~ "iwhite"
+    if &diffopt !~ 'iwhite'
         set diffopt+=iwhite
         let g:gitgutter_diff_args='-b'
         echo "Ignore space change"
@@ -327,23 +334,23 @@ function! GoTo()
     endtry
 endfunction
 
-if !exists("*Run")
+if !exists('*Run')
     command! Run call Run()
     function! Run()
-        if !has("win32") | silent !clear
+        if !has('win32') | silent !clear
         endif
 
-        if &filetype == "vim"
+        if &filetype == 'vim'
             source %
-        elseif &filetype == "sh"
+        elseif &filetype == 'sh'
             !source %
-        elseif &filetype == "c" || &filetype == "cpp"
+        elseif &filetype == 'c' || &filetype == 'cpp'
             make all run
-        elseif &filetype == "python"
-            exe has("win32") ? "!python %" : "!python3 %"
-        elseif &filetype == "markdown"
+        elseif &filetype == 'python'
+            exe has('win32') ? '!python %' : '!python3 %'
+        elseif &filetype == 'markdown'
             LivedownPreview
-        elseif &filetype == "swift"
+        elseif &filetype == 'swift'
             !swift %
         else
             echom "There's nothing to do"
@@ -409,7 +416,7 @@ set updatetime=100
 set signcolumn=yes
 let g:gitgutter_map_keys=0
 let g:gitgutter_max_signs=1024
-let g:gitgutter_enabled=(has("gui_win32") ? 0 : 1)
+let g:gitgutter_enabled=(has('gui_win32') ? 0 : 1)
 
 " airline
 set laststatus=2
@@ -447,7 +454,7 @@ let g:NERDCustomDelimiters={'python': {'left': '#'},
 
 " AutoPairs
 let g:AutoPairsFlyMode=0
-let g:AutoPairsShortcutFastWrap="<C-l>"
+let g:AutoPairsShortcutFastWrap='<C-l>'
 autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
 autocmd FileType c,cpp let g:AutoPairs['/*']='*/'
 
@@ -458,9 +465,9 @@ let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
-autocmd VimEnter * if g:os=="Windows" | let g:ackprg="ack -His --smart-case --column --nocolor --nogroup" | endif
+autocmd VimEnter * if g:os=='Windows' | let g:ackprg='ack -His --smart-case --column --nocolor --nogroup' | endif
 let g:ack_apply_qmappings=0
-let g:ack_qhandler="botright cwindow"
+let g:ack_qhandler='botright cwindow'
 let g:ackhighlight=1
 
 " qf
@@ -475,7 +482,7 @@ let g:tagbar_sort=0
 let g:ctrlp_by_filename=1
 let g:ctrlp_show_hidden=1
 let g:ctrlp_match_window='results:100'
-if has("win32")
+if has('win32')
     let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
 else
     let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
@@ -491,13 +498,13 @@ let g:ale_fixers={
             \'python': ['autopep8'],
             \'xml': ['xmllint'],
             \}
-let g:ale_xml_xmllint_options="--format"
+let g:ale_xml_xmllint_options='--format'
 
 " peekaboo
-let g:peekaboo_window="vert botright 40new"
+let g:peekaboo_window='vert botright 40new'
 
 " livedown
-let g:livedown_browser=(g:os=="Darwin" ? "safari" : "chrome")
+let g:livedown_browser=(g:os=='Darwin' ? 'safari' : 'chrome')
 
 " devicon
 let g:webdevicons_enable=1
