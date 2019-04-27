@@ -2,13 +2,20 @@
 
 # Tips taken from: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
+##############################################################################
+# General UI/UX
+##############################################################################
+
+# Set sidebar icon size to large
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 3
+
 
 ##############################################################################
 # HIDs
 ##############################################################################
 
 # Fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat        -int 2
+defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 20
 
 # Enable full keyboard access for all controls
