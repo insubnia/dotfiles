@@ -38,6 +38,7 @@ done < <(cat << EOF
     llvm
     dos2unix
     git-flow
+    googler
 EOF
 )
 
