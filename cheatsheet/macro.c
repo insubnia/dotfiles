@@ -27,6 +27,7 @@
 
 #define ARRAY_SIZE(x) (sizeof((x))/sizeof((x)[0])) 
 
+#define offsetof(s,m) (size_t)&(((s *)0)->m)
 
 #define PP_NARG(...) \
     PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
