@@ -265,6 +265,7 @@ endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre set filetype=srec
+autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 
 function! NewHeader()
     if 1
@@ -455,7 +456,8 @@ let g:NERDDefaultAlign='left'
 let g:NERDSpaceDelims=1
 let g:NERDTrimTrailingWhitespace=1
 let g:NERDCustomDelimiters={'python': {'left': '#'},
-            \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}}
+            \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \ 'cmm': {'left': ';'}}
 
 " AutoPairs
 let g:AutoPairsFlyMode=0
