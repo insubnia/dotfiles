@@ -416,6 +416,7 @@ let g:ycm_disable_for_files_larger_than_kb=1024
 let g:ycm_key_list_select_completion=['<down>']
 let g:ycm_key_list_previous_completion=['<up>']
 let g:ycm_key_list_stop_completion=[]
+let g:ycm_show_diagnostics_ui=0
 
 " gitgutter
 set updatetime=100
@@ -506,6 +507,8 @@ let g:ale_fixers={
             \'xml': ['xmllint'],
             \}
 let g:ale_xml_xmllint_options='--format'
+let g:ale_sign_error='😡'
+let g:ale_sign_warning='🤔'
 
 " peekaboo
 let g:peekaboo_window='vert botright 40new'
