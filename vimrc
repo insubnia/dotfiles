@@ -507,8 +507,10 @@ let g:ale_fixers={
             \'xml': ['xmllint'],
             \}
 let g:ale_xml_xmllint_options='--format'
-let g:ale_sign_error='😡'
-let g:ale_sign_warning='🤔'
+if has('mac')
+    let g:ale_sign_error='😡'
+    let g:ale_sign_warning='🤔'
+endif
 
 " peekaboo
 let g:peekaboo_window='vert botright 40new'
