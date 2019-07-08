@@ -448,8 +448,13 @@ let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeQuitOnOpen=0
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
-let g:NERDTreeDirArrowExpandable=''
-let g:NERDTreeDirArrowCollapsible=''
+if has('mac')
+    let g:NERDTreeDirArrowExpandable='➡️'
+    let g:NERDTreeDirArrowCollapsible='⬇️'
+else
+    let g:NERDTreeDirArrowExpandable=''
+    let g:NERDTreeDirArrowCollapsible=''
+endif
 
 " NERDCommenter
 let g:NERDCommentEmptyLines=1
@@ -524,8 +529,13 @@ let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
 let g:WebDevIconsNerdTreeAfterGlyphPadding=(has("gui_running") ? '' : ' ')
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
-let g:DevIconsDefaultFolderOpenSymbol=''
+if has('mac')
+    let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol='📁'
+    let g:DevIconsDefaultFolderOpenSymbol='📂'
+else
+    let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
+    let g:DevIconsDefaultFolderOpenSymbol=''
+endif
 let g:DevIconsEnableNERDTreeRedraw=1
 
 " nerdtree-syntax-highlight
