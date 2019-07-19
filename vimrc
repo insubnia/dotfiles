@@ -448,13 +448,8 @@ let g:NERDTreeMapOpenVSplit='v'
 let g:NERDTreeQuitOnOpen=0
 let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
-if has('mac')
-    let g:NERDTreeDirArrowExpandable='➡️'
-    let g:NERDTreeDirArrowCollapsible='⬇️'
-else
-    let g:NERDTreeDirArrowExpandable=''
-    let g:NERDTreeDirArrowCollapsible=''
-endif
+let g:NERDTreeDirArrowExpandable=''
+let g:NERDTreeDirArrowCollapsible=''
 
 " NERDCommenter
 let g:NERDCommentEmptyLines=1
@@ -525,17 +520,12 @@ let g:livedown_browser=(g:os=='Darwin' ? 'safari' : 'chrome')
 
 " devicon
 let g:webdevicons_enable=1
-let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
+let g:WebDevIconsNerdTreeBeforeGlyphPadding=' '
 let g:WebDevIconsNerdTreeAfterGlyphPadding=(has("gui_running") ? '' : ' ')
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:DevIconsEnableFoldersOpenClose=1
-if has('mac')
-    let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol='📁'
-    let g:DevIconsDefaultFolderOpenSymbol='📂'
-else
-    let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
-    let g:DevIconsDefaultFolderOpenSymbol=''
-endif
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
+let g:DevIconsDefaultFolderOpenSymbol=''
 let g:DevIconsEnableNERDTreeRedraw=1
 
 " nerdtree-syntax-highlight
@@ -560,11 +550,11 @@ elseif g:os == "Linux"
     colo onedark
     let g:airline_theme='onedark'
 elseif has("win32")
-    colo ayu
-    let g:airline_theme='ayu_mirage'
-elseif has("win32unix")
     colo deus
     let g:airline_theme='deus'
+elseif has("win32unix")
+    colo ayu
+    let g:airline_theme='ayu_mirage'
 endif
 " }}}
 " ============================================================================
