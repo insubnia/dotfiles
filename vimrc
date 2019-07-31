@@ -410,29 +410,29 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS {{{
 " youcompleteme
-let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf='~/workspace/dotfiles/conf/ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_disable_for_files_larger_than_kb=1024
-let g:ycm_key_list_select_completion=['<down>']
-let g:ycm_key_list_previous_completion=['<up>']
-let g:ycm_key_list_stop_completion=[]
-let g:ycm_show_diagnostics_ui=0
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/conf/ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_disable_for_files_larger_than_kb = 1024
+let g:ycm_key_list_select_completion = ['<down>']
+let g:ycm_key_list_previous_completion = ['<up>']
+let g:ycm_key_list_stop_completion = []
+let g:ycm_show_diagnostics_ui = 0
 
 " gitgutter
 set updatetime=100
 set signcolumn=yes
-let g:gitgutter_map_keys=0
-let g:gitgutter_max_signs=1024
-let g:gitgutter_enabled=(has('gui_win32') ? 0 : 1)
+let g:gitgutter_map_keys = 0
+let g:gitgutter_max_signs = 1024
+let g:gitgutter_enabled = (has('gui_win32') ? 0 : 1)
 
 " airline
 set laststatus=2
-let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#formatter='unique_tail'
-let g:airline#extensions#tabline#show_buffers=0
-let g:airline#extensions#tabline#tab_nr_type=1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_nr_type = 1
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
 nnoremap <leader>3 3gt
@@ -445,104 +445,104 @@ nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeMapOpenVSplit='v'
-let g:NERDTreeQuitOnOpen=0
-let g:NERDTreeRespectWildIgnore=1
-let g:NERDTreeShowHidden=1
-let g:NERDTreeDirArrowExpandable=''
-let g:NERDTreeDirArrowCollapsible=''
+let g:NERDTreeMapOpenVSplit = 'v'
+let g:NERDTreeQuitOnOpen = 0
+let g:NERDTreeRespectWildIgnore = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
 
 " NERDCommenter
-let g:NERDCommentEmptyLines=1
-let g:NERDDefaultAlign='left'
-let g:NERDSpaceDelims=1
-let g:NERDTrimTrailingWhitespace=1
-let g:NERDCustomDelimiters={'python': {'left': '#'},
+let g:NERDCommentEmptyLines = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCustomDelimiters = {'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \ 'cmm': {'left': ';'}}
 
 " AutoPairs
-let g:AutoPairsFlyMode=0
-let g:AutoPairsShortcutFastWrap='<C-l>'
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutFastWrap = '<C-l>'
 autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
-autocmd FileType c,cpp let g:AutoPairs['/*']='*/'
+autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
 
 " indentLine
-let g:indentLine_leadingSpaceChar='.'
-let g:indentLine_leadingSpaceEnabled=0
-let g:indentLine_showFirstIndentLevel=1
-let g:indentLine_fileTypeExclude=['help', 'nerdtree', 'tagbar', 'text']
+let g:indentLine_leadingSpaceChar = '.'
+let g:indentLine_leadingSpaceEnabled = 0
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
-autocmd VimEnter * if g:os=='Windows' | let g:ackprg='ack -His --smart-case --column --nocolor --nogroup' | endif
-let g:ack_apply_qmappings=0
-let g:ack_qhandler='botright cwindow'
-let g:ackhighlight=1
+autocmd VimEnter * if g:os=='Windows' | let g:ackprg = 'ack -His --smart-case --column --nocolor --nogroup' | endif
+let g:ack_apply_qmappings = 0
+let g:ack_qhandler = 'botright cwindow'
+let g:ackhighlight = 1
 
 " qf
-let g:qf_auto_resize=0
-let g:qf_mapping_ack_style=1
+let g:qf_auto_resize = 0
+let g:qf_mapping_ack_style = 1
 
 " tagbar
-let g:tagbar_autofocus=1
-let g:tagbar_sort=0
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
 
 " CtrlP
-let g:ctrlp_by_filename=1
-let g:ctrlp_show_hidden=1
-let g:ctrlp_match_window='results:100'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_window = 'results:100'
 if has('win32')
-    let g:ctrlp_user_command='dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
+    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
 else
-    let g:ctrlp_user_command='find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
+    let g:ctrlp_user_command = 'find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
 endif
 
 " ale
-let g:ale_linters={
+let g:ale_linters = {
             \'python': ['flake8'],
             \}
-let g:ale_fixers={
+let g:ale_fixers = {
             \'c': ['clang-format'],
             \'cpp': ['clang-format'],
             \'python': ['autopep8'],
             \'xml': ['xmllint'],
             \}
-let g:ale_xml_xmllint_options='--format'
+let g:ale_xml_xmllint_options = '--format'
 if has('mac')
-    let g:ale_sign_error='😡'
-    let g:ale_sign_warning='🤔'
+    let g:ale_sign_error = '😡'
+    let g:ale_sign_warning = '🤔'
 endif
 
 " peekaboo
-let g:peekaboo_window='vert botright 40new'
+let g:peekaboo_window = 'vert botright 40new'
 
 " calendar
-let g:calendar_google_calendar=1
-let g:calendar_first_day='sunday'
+let g:calendar_google_calendar = 1
+let g:calendar_first_day = 'sunday'
 
 " livedown
-let g:livedown_browser=(g:os=='Darwin' ? 'safari' : 'chrome')
+let g:livedown_browser = (g:os=='Darwin' ? 'safari' : 'chrome')
 
 " devicon
-let g:webdevicons_enable=1
-let g:WebDevIconsNerdTreeBeforeGlyphPadding=' '
-let g:WebDevIconsNerdTreeAfterGlyphPadding=(has("gui_running") ? '' : ' ')
-let g:WebDevIconsUnicodeDecorateFolderNodes=1
-let g:DevIconsEnableFoldersOpenClose=1
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol=''
-let g:DevIconsDefaultFolderOpenSymbol=''
-let g:DevIconsEnableNERDTreeRedraw=1
+let g:webdevicons_enable = 1
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ' '
+let g:WebDevIconsNerdTreeAfterGlyphPadding = (has("gui_running") ? '' : ' ')
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsDefaultFolderOpenSymbol = ''
+let g:DevIconsEnableNERDTreeRedraw = 1
 
 " nerdtree-syntax-highlight
-let g:NERDTreeHighlightFolders=1
-let g:NERDTreeHighlightFoldersFullName=1
-let g:NERDTreeFileExtensionHighlightFullName=1
-let g:NERDTreeExactMatchHighlightFullName=1
-let g:NERDTreePatternMatchHighlightFullName=1
+let g:NERDTreeHighlightFolders = 1
+let g:NERDTreeHighlightFoldersFullName = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
 
 " color_coded
-let g:color_coded_enabled=1
-let g:color_coded_filetypes=['c', 'cpp']
+let g:color_coded_enabled = 1
+let g:color_coded_filetypes = ['c', 'cpp']
 " }}}
 " ============================================================================
 " OUTRO {{{
@@ -550,16 +550,16 @@ let ayucolor='mirage'
 
 if g:os == "Darwin"
     colo dracula
-    let g:airline_theme='dracula'
+    let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
     colo onedark
-    let g:airline_theme='onedark'
+    let g:airline_theme = 'onedark'
 elseif has("win32")
     colo deus
-    let g:airline_theme='deus'
+    let g:airline_theme = 'deus'
 elseif has("win32unix")
     colo ayu
-    let g:airline_theme='ayu_mirage'
+    let g:airline_theme = 'ayu_mirage'
 endif
 " }}}
 " ============================================================================
