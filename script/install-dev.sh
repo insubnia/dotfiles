@@ -24,6 +24,7 @@ do
 done < <(cat << EOF
     gcc
     git
+    tig
     wget
     tree
     make
@@ -38,6 +39,7 @@ done < <(cat << EOF
     llvm
     dos2unix
     git-flow
+    googler
 EOF
 )
 

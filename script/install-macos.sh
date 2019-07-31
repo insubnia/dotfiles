@@ -9,6 +9,7 @@ do
     brew cask install $line
 done < <(cat << EOF
     karabiner-elements
+    scroll-reverser
     appcleaner
     iterm2
     google-chrome
