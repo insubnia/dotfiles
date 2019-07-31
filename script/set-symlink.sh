@@ -12,6 +12,7 @@ else
 fi
 
 # exuberant-ctags
-ln -sf $CONF/ctags ~/.ctags
 ln -sf $CONF/ackrc ~/.ackrc
+ln -sf $CONF/tigrc ~/.tigrc
+ln -sf $CONF/ctags ~/.ctags
 ln -sf $CONF/flake8 ~/.flake8

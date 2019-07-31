@@ -24,6 +24,7 @@ do
 done < <(cat << EOF
     gcc
     git
+    tig
     wget
     tree
     make
