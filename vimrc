@@ -202,8 +202,8 @@ nmap J <Plug>(qf_qf_next)zz
 nmap K <Plug>(qf_qf_previous)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
-nmap <C-j> <plug>GitGutterNextHunk<bar>zz
-nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
+nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
