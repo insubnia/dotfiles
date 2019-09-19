@@ -366,7 +366,9 @@ function! PlugAction()
     echo "Select mode [i,c,u]: "
     let l:cin = nr2char(getchar())
 
-    if l:cin == 'i'
+    if l:cin == ''
+        redraw!
+    elseif l:cin == 'i'
         PlugInstall
     elseif l:cin == 'c'
         PlugClean
