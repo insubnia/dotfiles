@@ -11,7 +11,7 @@ endif
 " ============================================================================
 " PLUGINS {{{
 call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme', !has('win32unix') ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
