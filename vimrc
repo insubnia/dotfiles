@@ -27,7 +27,6 @@ Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
 Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
-Plug 'itchyny/calendar.vim'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
@@ -517,10 +516,6 @@ endif
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
-
-" calendar
-let g:calendar_google_calendar = 1
-let g:calendar_first_day = 'sunday'
 
 " livedown
 let g:livedown_browser = (g:os=='Darwin' ? 'safari' : 'chrome')
