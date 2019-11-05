@@ -189,9 +189,9 @@ noremap! <C-b> <left>
 noremap! <C-f> <right>
 noremap! <F15> <nop>
 noremap <F15> <nop>
-noremap \1: diffget LO<cr>
-noremap \2: diffget BA<cr>
-noremap \3: diffget RE<cr>
+noremap \1 :diffget LO<cr>
+noremap \2 :diffget BA<cr>
+noremap \3 :diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
@@ -208,6 +208,18 @@ nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-Tab> <C-d>
+
+" Fast yank & paste
+noremap <expr> 1y mode()=='n' ? '"1yiw' : '"1y'
+noremap <expr> 2y mode()=='n' ? '"2yiw' : '"2y'
+noremap <expr> 3y mode()=='n' ? '"3yiw' : '"3y'
+noremap <expr> 4y mode()=='n' ? '"4yiw' : '"4y'
+noremap <expr> 5y mode()=='n' ? '"5yiw' : '"5y'
+noremap 1p "1p
+noremap 2p "2p
+noremap 3p "3p
+noremap 4p "4p
+noremap 5p "5p
 
 if has('gui_running')
     map <C-space> <C-_>
