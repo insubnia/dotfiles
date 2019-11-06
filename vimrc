@@ -276,7 +276,7 @@ function! AUTOSAR()
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
-autocmd BufRead,BufNewFile *.sre set filetype=srec
+autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 
 function! NewHeader()
