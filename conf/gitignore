@@ -65,3 +65,4 @@ tags
 # Vector
 *.blf
 *.cbf
+*.stcfg

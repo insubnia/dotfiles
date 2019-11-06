@@ -85,7 +85,11 @@ dump: $(ELF)
 
 PHONY += dev
 dev:
-	@echo Config dev; echo
+	@echo Configuring development environment...
+
+PHONY += clang
+clang:
+	@echo Create .clang-format; echo
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\

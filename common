@@ -1,7 +1,9 @@
 #!/bin/sh
 
-mkdir -p ~/workspace
-cd ~/workspace
+if [[ $PWD == $HOME ]]; then
+    mkdir -p ~/workspace
+    cd ~/workspace
+fi
 
 alias vi='vim'
 alias python='python3'

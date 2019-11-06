@@ -10,18 +10,24 @@
 
 #define _BV(bit) (1UL << (bit))
 #define BIT(nr) (1UL << (nr))
+
 /*
  * x = !!x // booleanize
  *
- * set, clr, test bit
+ * < refer to bitops >
  * set_bit(nr, p)
  * clear_bit(nr, p)
  * change_bit(nr, p)
  * test_bit(nr, p)
  */
 
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
+/* Macros for min/max. */
+#ifndef MIN
+#define MIN(a, b) (((a)<(b))?(a):(b))
+#endif /* MIN */
+#ifndef MAX
+#define MAX(a, b) (((a)>(b))?(a):(b))
+#endif /* MAX */
 
 #define ABS(x) (((x)<0)?-(x):(x))
 

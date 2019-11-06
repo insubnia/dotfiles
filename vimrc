@@ -11,7 +11,7 @@ endif
 " ============================================================================
 " PLUGINS {{{
 call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme', !has('win32unix') ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -27,7 +27,6 @@ Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
 Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
-Plug 'itchyny/calendar.vim'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-startify'
@@ -190,9 +189,9 @@ noremap! <C-b> <left>
 noremap! <C-f> <right>
 noremap! <F15> <nop>
 noremap <F15> <nop>
-noremap \1: diffget LO<cr>
-noremap \2: diffget BA<cr>
-noremap \3: diffget RE<cr>
+noremap \1 :diffget LO<cr>
+noremap \2 :diffget BA<cr>
+noremap \3 :diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
@@ -202,13 +201,25 @@ nmap J <Plug>(qf_qf_next)zz
 nmap K <Plug>(qf_qf_previous)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
-nmap <C-j> <plug>GitGutterNextHunk<bar>zz
-nmap <C-k> <plug>GitGutterPrevHunk<bar>zz
+nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
+nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
 nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-Tab> <C-d>
+
+" Fast yank & paste
+noremap <expr> 1y mode()=='n' ? '"1yiw' : '"1y'
+noremap <expr> 2y mode()=='n' ? '"2yiw' : '"2y'
+noremap <expr> 3y mode()=='n' ? '"3yiw' : '"3y'
+noremap <expr> 4y mode()=='n' ? '"4yiw' : '"4y'
+noremap <expr> 5y mode()=='n' ? '"5yiw' : '"5y'
+noremap 1p "1p
+noremap 2p "2p
+noremap 3p "3p
+noremap 4p "4p
+noremap 5p "5p
 
 if has('gui_running')
     map <C-space> <C-_>
@@ -265,7 +276,7 @@ function! AUTOSAR()
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
-autocmd BufRead,BufNewFile *.sre set filetype=srec
+autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 
 function! NewHeader()
@@ -366,7 +377,9 @@ function! PlugAction()
     echo "Select mode [i,c,u]: "
     let l:cin = nr2char(getchar())
 
-    if l:cin == 'i'
+    if l:cin == ''
+        redraw!
+    elseif l:cin == 'i'
         PlugInstall
     elseif l:cin == 'c'
         PlugClean
@@ -515,10 +528,6 @@ endif
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
-
-" calendar
-let g:calendar_google_calendar = 1
-let g:calendar_first_day = 'sunday'
 
 " livedown
 let g:livedown_browser = (g:os=='Darwin' ? 'safari' : 'chrome')
