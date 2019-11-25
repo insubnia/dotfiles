@@ -1,5 +1,4 @@
-# Author: sis
-# general makefile
+# omni makefile
 
 TARGET	= $(notdir $(CURDIR))
 
@@ -66,7 +65,7 @@ all: $(ELF) #$(BIN) $(HEX)
 
 PHONY += clean
 clean:
-	@echo Removing files
+	@echo Removing Files
 	@$(RM) $(OUTPUT)
 
 PHONY += run
@@ -85,10 +84,10 @@ dump: $(ELF)
 
 PHONY += dev
 dev:
-	@echo Configuring development environment...
+	@echo Configuring Development Environment
 
-PHONY += clang
-clang:
+PHONY += clang-format
+clang-format:
 	@echo Create .clang-format; echo
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
