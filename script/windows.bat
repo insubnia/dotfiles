@@ -27,6 +27,7 @@ choco install -y cmake
 choco install -y python3
 choco install -y nodejs
 choco install -y wget
+choco install -y dos2unix
 
 REM  font
 REM  choco install -y
