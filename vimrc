@@ -95,7 +95,7 @@ set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
 set path+=**    " add subdirectories in working path
 set tags=tags   " echo tagfiles() to check tag files
-set wildignore+=.git,.gitmodules,.svn
+set wildignore+=.git,.gitmodules,.gitignore,.svn
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
@@ -105,7 +105,7 @@ set wildignore+=tags,.DS_Store,*.stackdump
 if has('gui_running')
     set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
-    set guioptions+=k
+    set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
 endif
 
@@ -155,8 +155,8 @@ nnoremap <M-Down> ddp
 nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
-nnoremap <leader>d :Gdiff<space>
-nnoremap <leader>e :Ack!  %<cr>
+nnoremap <leader>d :Diff<cr>
+" nnoremap <leader>e :Ack!  %<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
@@ -193,7 +193,7 @@ noremap \1 :diffget LO<cr>
 noremap \2 :diffget BA<cr>
 noremap \3 :diffget RE<cr>
 noremap <C-_> :call NERDComment(0, "toggle")<cr>
-noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":GitGutterToggle<cr>"
+noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
@@ -555,8 +555,6 @@ let g:color_coded_filetypes = ['c', 'cpp']
 " }}}
 " ============================================================================
 " OUTRO {{{
-let ayucolor='mirage'
-
 if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
@@ -564,11 +562,12 @@ elseif g:os == "Linux"
     colo onedark
     let g:airline_theme = 'onedark'
 elseif has("win32")
+    let ayucolor='light'
+    colo ayu
+    let g:airline_theme = 'ayu_light'
+elseif has("win32unix")
     colo deus
     let g:airline_theme = 'deus'
-elseif has("win32unix")
-    colo ayu
-    let g:airline_theme = 'ayu_mirage'
 endif
 " }}}
 " ============================================================================
