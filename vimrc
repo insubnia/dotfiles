@@ -29,6 +29,7 @@ Plug 'w0rp/ale'
 Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sensible'
 Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
