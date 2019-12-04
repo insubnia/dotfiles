@@ -24,11 +24,13 @@ do
 done < <(cat << EOF
     gcc
     git
+    git-flow
     tig
     wget
     tree
     make
     cmake
+    scons
     ctags
     python3
     ack
@@ -38,7 +40,6 @@ done < <(cat << EOF
     npm
     llvm
     dos2unix
-    git-flow
 EOF
 )
 
