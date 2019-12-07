@@ -137,7 +137,7 @@ nnoremap ? :ts /
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
-nnoremap R :GitGutterAll<cr>
+nnoremap R :GitGutterEn<cr>:GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
 nnoremap dw diw
 nnoremap yw yiw
@@ -157,7 +157,7 @@ nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
-" nnoremap <leader>e :Ack!  %<cr>
+nnoremap <leader>e :TS<cr>:RMWS<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>

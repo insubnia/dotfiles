@@ -7,6 +7,7 @@ fi
 
 alias vi='vim'
 alias python='python3'
+alias pip='pip3'
 alias gdf='git difftool -t vimdiff'
 alias ff='find . -type f -iname'
 alias tre='tree -L 2'
