@@ -157,7 +157,7 @@ nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
-nnoremap <leader>e :TS<cr>:RMWS<cr>
+nnoremap <leader>e :TrimWhiteSpace<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
@@ -313,6 +313,7 @@ command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
+command! TrimWhiteSpace set expandtab | %retab | %s/\s\+$//e
 
 command! Close call Close()
 function! Close()
