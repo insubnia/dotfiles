@@ -315,6 +315,8 @@ command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 command! TrimWhiteSpace set expandtab | %retab | %s/\s\+$//e
 
+command! Preproc silent !gcc -E % | less
+
 command! Close call Close()
 function! Close()
     cclose
