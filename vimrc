@@ -304,6 +304,8 @@ augroup END
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
+command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
+
 command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
@@ -315,7 +317,7 @@ command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 command! TrimWhiteSpace set expandtab | %retab | %s/\s\+$//e
 
-command! Preproc silent !gcc -E % | less
+command! Preproc Silent gcc -E % | less
 
 command! Close call Close()
 function! Close()
