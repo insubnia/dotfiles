@@ -568,9 +568,9 @@ elseif g:os == "Linux"
     colo onedark
     let g:airline_theme = 'onedark'
 elseif has("win32")
-    let ayucolor='light'
+    let ayucolor='dark'
     colo ayu
-    let g:airline_theme = 'ayu_light'
+    let g:airline_theme = 'ayu_dark'
 elseif has("win32unix")
     colo deus
     let g:airline_theme = 'deus'
