@@ -485,6 +485,7 @@ let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutFastWrap = '<C-l>'
 autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
 autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
+autocmd FileType python inoremap f' f''<left>
 
 " indentLine
 let g:indentLine_leadingSpaceChar = '.'
