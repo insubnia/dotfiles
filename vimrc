@@ -165,6 +165,9 @@ nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>u :make all<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
+" nnoremap <leader>E
+nnoremap <leader>F :Ack!   %<left><left><left>
+" nnoremap <leader>R
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /

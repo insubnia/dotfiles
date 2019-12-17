@@ -11,11 +11,9 @@ choco install -y googlechrome
 choco install -y onedrive
 choco install -y flashplayerplugin
 choco install -y vlc
-choco install -y vim-tux
+choco install -y vim
 choco install -y sourcetree
 choco install -y vscode
-REM  choco install -y cmder
-REM  choco install -y babun
 
 REM  dev
 choco install -y git
@@ -30,4 +28,4 @@ choco install -y wget
 choco install -y dos2unix
 
 REM  font
-REM  choco install -y
+choco install -y d2codingfont
