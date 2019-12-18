@@ -9,18 +9,18 @@ case "$OSTYPE" in
             echo -e "\nThis script must be run as root\n\nTerminate the script\n"
             return
         fi
-        pm="apt-get -y"
+        pm='apt -y'
         ;;
 esac
 
 echo -e "\n[Update & upgrade packages]"
-$pm update
-$pm upgrade
+eval $pm update
+eval $pm upgrade
 
 while read line
 do
     echo -e "\n[Installing $line]"
-    $pm install $line
+    eval $pm install $line
 done < <(cat << EOF
     gcc
     git
@@ -63,7 +63,7 @@ esac
 for item in $list
 do
     echo -e "\n[Installing $item]"
-    $pm install $item
+    eval $pm install $item
 done
 
 echo -e "\nComplete\n"
