@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 
 // #define DEBUG 0
 
@@ -10,6 +11,8 @@
 
 #define _BV(bit) (1UL << (bit))
 #define BIT(nr) (1UL << (nr))
+
+typedef uint8_t five_uint8_t[5];
 
 /*
  * x = !!x // booleanize
@@ -81,6 +84,10 @@ int main(void)
 
     SAY(ha, sis, sjs, shs, sws);
     SAY(ha, sis, shs);
+
+    five_uint8_t hi;
+    hi[0] = 1;
+    hi[4] = 5;
 
     return 0;
 }
