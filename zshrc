@@ -14,6 +14,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     POWERLEVEL9K_MODE='nerdfont-complete'
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs background_jobs)
+elif [[ "$OSTYPE" == "linux"* ]]; then
+    ZSH_THEME="bira"
+else
+    echo $OSTYPE
 fi
 
 plugins+=(
