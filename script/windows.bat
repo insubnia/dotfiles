@@ -14,6 +14,7 @@ choco install -y vlc
 choco install -y vim
 choco install -y sourcetree
 choco install -y vscode
+choco install -y tortoisegit
 
 REM  dev
 choco install -y git
