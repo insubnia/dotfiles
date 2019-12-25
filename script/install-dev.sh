@@ -40,6 +40,7 @@ done < <(cat << EOF
     npm
     llvm
     dos2unix
+    libxml2
 EOF
 )
 

@@ -83,7 +83,7 @@ set title hidden mouse=a
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
-set hlsearch incsearch
+set hlsearch incsearch nowrapscan
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
@@ -162,6 +162,7 @@ nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :!ctags -R .<cr>
+nnoremap <leader>m :marks<cr>
 nnoremap <leader>u :make all<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
