@@ -220,11 +220,21 @@ noremap <expr> 2y mode()=='n' ? '"2yiw' : '"2y'
 noremap <expr> 3y mode()=='n' ? '"3yiw' : '"3y'
 noremap <expr> 4y mode()=='n' ? '"4yiw' : '"4y'
 noremap <expr> 5y mode()=='n' ? '"5yiw' : '"5y'
+noremap <expr> 6y mode()=='n' ? '"6yiw' : '"6y'
+noremap <expr> 7y mode()=='n' ? '"7yiw' : '"7y'
+noremap <expr> 8y mode()=='n' ? '"8yiw' : '"8y'
+noremap <expr> 9y mode()=='n' ? '"9yiw' : '"9y'
+noremap <expr> 0y mode()=='n' ? '"0yiw' : '"0y'
 noremap 1p "1p
 noremap 2p "2p
 noremap 3p "3p
 noremap 4p "4p
 noremap 5p "5p
+noremap 6p "6p
+noremap 7p "7p
+noremap 8p "8p
+noremap 9p "9p
+noremap 0p "0p
 
 if has('gui_running')
     map <C-space> <C-_>
