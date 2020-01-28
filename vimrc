@@ -83,7 +83,7 @@ set title hidden mouse=a
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
-set hlsearch incsearch nowrapscan
+set hlsearch incsearch "nowrapscan
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
@@ -580,12 +580,12 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    colo onedark
-    let g:airline_theme = 'onedark'
-elseif has("win32")
     let ayucolor='dark'
     colo ayu
     let g:airline_theme = 'ayu_dark'
+elseif has("win32")
+    colo molokai
+    let g:airline_theme = 'molokai'
 elseif has("win32unix")
     colo deus
     let g:airline_theme = 'deus'
