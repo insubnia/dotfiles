@@ -40,7 +40,7 @@ Thumbs.db
 *.bin
 *.lst
 *.hex
-*.elf
+# *.elf
 *.map
 *.stackdump
 *.ini
