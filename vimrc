@@ -185,11 +185,12 @@ vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
-inoremap <C-y> <F19>*<F19>
+inoremap <C-v> <F19>*<F19>
 cnoremap <C-a> <home>
-cnoremap <C-y> <C-r>*
+cnoremap <C-v> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
+noremap! <C-y> <C-v>
 noremap! <F15> <nop>
 noremap <F15> <nop>
 noremap \1 :diffget LO<cr>
