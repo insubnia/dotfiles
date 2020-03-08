@@ -466,6 +466,14 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
+function! AirlineInit()
+    if g:os == 'Darwin' || g:os == 'Linux'
+        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
+    elseif has('win32')
+        let g:airline_section_c .= ' 🚗 🅼 🅰 🅽 🅳 🅾 🚀'
+    endif
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
 nnoremap <leader>3 3gt
