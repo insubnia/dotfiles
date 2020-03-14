@@ -22,11 +22,13 @@ do
     echo -e "\n[Installing $line]"
     eval $pm install $line
 done < <(cat << EOF
+    vim
     gcc
     git
     git-flow
     tig
     wget
+    curl
     tree
     make
     cmake
