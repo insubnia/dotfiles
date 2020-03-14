@@ -2,8 +2,6 @@
 
 source $HOME/workspace/dotfiles/common
 
-ZSH_DISABLE_COMPFIX="true"
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
     ZSH_THEME="powerlevel10k/powerlevel10k"
 elif [[ "$OSTYPE" == "linux"* ]]; then
