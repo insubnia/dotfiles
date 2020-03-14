@@ -190,6 +190,7 @@ cnoremap <C-a> <home>
 cnoremap <C-v> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
+noremap! <C-j> <del>
 noremap! <C-y> <C-v>
 noremap! <F15> <nop>
 noremap <F15> <nop>
@@ -212,7 +213,7 @@ nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
-imap <S-Tab> <C-d>
+imap <S-tab> <C-d>
 
 " Fast yank & paste
 noremap <expr> 1y mode()=='n' ? '"1yiw' : '"1y'
