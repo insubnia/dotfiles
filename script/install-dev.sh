@@ -22,7 +22,6 @@ do
     echo -e "\n[Installing $line]"
     eval $pm install $line
 done < <(cat << EOF
-    vim
     gcc
     git
     git-flow
@@ -57,6 +56,9 @@ macos_list=(
 )
 
 linux_list=(
+    vim-gtk
+    xclip
+    python3-pip
 )
 
 case "$OSTYPE" in
