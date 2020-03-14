@@ -24,6 +24,7 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Clicking w/o pressing
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
+
 ##############################################################################
 # Dock
 ##############################################################################
@@ -38,6 +39,8 @@ defaults write com.apple.dock showhidden -bool true
 ##############################################################################
 # Finder
 ##############################################################################
+# Display the file extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Show status & path bar
 defaults write com.apple.finder ShowStatusBar -bool true
@@ -48,6 +51,8 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
 # Warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool true
+
+killall Finder
 
 
 ##############################################################################

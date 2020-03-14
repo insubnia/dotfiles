@@ -98,7 +98,7 @@ clang-format:
 		AllowShortCaseLabelsOnASingleLine : true,\
 		BreakBeforeBinaryOperators        : None,\
 		BreakBeforeTernaryOperators       : false,\
-		Cpp11BracedListStyle              : true,\
+		Cpp11BracedListStyle              : false,\
 		KeepEmptyLinesAtTheStartOfBlocks  : false,\
 		MaxEmptyLinesToKeep               : 2,\
 		PointerAlignment                  : Right,\

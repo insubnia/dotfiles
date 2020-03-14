@@ -11,7 +11,7 @@ endif
 " ============================================================================
 " PLUGINS {{{
 call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme', !has('win32unix') ? {} : {'on': []}
+Plug 'valloric/youcompleteme', g:os != 'Windows' ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -20,7 +20,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'yggdroot/indentLine'
-Plug 'godlygeek/tabular', {'on': ['Tabularize']}
+Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
@@ -37,7 +37,7 @@ Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'xuyuanp/nerdtree-git-plugin', g:os != 'Windows' ? {} : {'on': []}
-Plug 'jeaye/color_coded', g:os != 'Windows' ? {} : {'on': []}
+Plug 'jeaye/color_coded', has('lua') && g:os != 'Windows' ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -83,7 +83,7 @@ set title hidden mouse=a
 set visualbell noerrorbells
 set number cursorline ruler
 set splitright splitbelow
-set hlsearch incsearch
+set hlsearch incsearch "nowrapscan
 set ignorecase smartcase
 set autoindent smartindent cindent
 set smarttab expandtab
@@ -159,9 +159,9 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :TrimWhiteSpace<cr>
 nnoremap <leader>f :Ack!<space>
-nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :!ctags -R .<cr>
+nnoremap <leader>m :marks<cr>
 nnoremap <leader>u :make all<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
@@ -177,7 +177,6 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <leader>l :Autoformat<cr>
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
@@ -186,11 +185,13 @@ vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
-inoremap <C-y> <F19>*<F19>
+inoremap <C-v> <F19>*<F19>
 cnoremap <C-a> <home>
-cnoremap <C-y> <C-r>*
+cnoremap <C-v> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
+noremap! <C-j> <del>
+noremap! <C-y> <C-v>
 noremap! <F15> <nop>
 noremap <F15> <nop>
 noremap \1 :diffget LO<cr>
@@ -200,6 +201,7 @@ noremap <C-_> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
 nmap J <Plug>(qf_qf_next)zz
 nmap K <Plug>(qf_qf_previous)zz
@@ -211,7 +213,7 @@ nmap <leader>j <plug>(ale_next_wrap)zz
 nmap <leader>k <plug>(ale_previous_wrap)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
-imap <S-Tab> <C-d>
+imap <S-tab> <C-d>
 
 " Fast yank & paste
 noremap <expr> 1y mode()=='n' ? '"1yiw' : '"1y'
@@ -219,11 +221,21 @@ noremap <expr> 2y mode()=='n' ? '"2yiw' : '"2y'
 noremap <expr> 3y mode()=='n' ? '"3yiw' : '"3y'
 noremap <expr> 4y mode()=='n' ? '"4yiw' : '"4y'
 noremap <expr> 5y mode()=='n' ? '"5yiw' : '"5y'
+noremap <expr> 6y mode()=='n' ? '"6yiw' : '"6y'
+noremap <expr> 7y mode()=='n' ? '"7yiw' : '"7y'
+noremap <expr> 8y mode()=='n' ? '"8yiw' : '"8y'
+noremap <expr> 9y mode()=='n' ? '"9yiw' : '"9y'
+noremap <expr> 0y mode()=='n' ? '"0yiw' : '"0y'
 noremap 1p "1p
 noremap 2p "2p
 noremap 3p "3p
 noremap 4p "4p
 noremap 5p "5p
+noremap 6p "6p
+noremap 7p "7p
+noremap 8p "8p
+noremap 9p "9p
+noremap 0p "0p
 
 if has('gui_running')
     map <C-space> <C-_>
@@ -455,6 +467,14 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
+function! AirlineInit()
+    if g:os == 'Darwin' || g:os == 'Linux'
+        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
+    elseif has('win32')
+        let g:airline_section_c .= ' 🚗 MANDO'
+    endif
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
 nnoremap <leader>3 3gt
@@ -569,12 +589,12 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    colo onedark
-    let g:airline_theme = 'onedark'
-elseif has("win32")
     let ayucolor='dark'
     colo ayu
     let g:airline_theme = 'ayu_dark'
+elseif has("win32")
+    colo molokai
+    let g:airline_theme = 'molokai'
 elseif has("win32unix")
     colo deus
     let g:airline_theme = 'deus'

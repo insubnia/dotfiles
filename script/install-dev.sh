@@ -39,7 +39,9 @@ done < <(cat << EOF
     nodejs
     npm
     llvm
+    clang-format
     dos2unix
+    libxml2
 EOF
 )
 
