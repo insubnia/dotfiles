@@ -11,7 +11,7 @@ endif
 " ============================================================================
 " PLUGINS {{{
 call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme', g:os != 'Windows' ? {} : {'on': []}
+Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -36,14 +36,13 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', g:os != 'Windows' ? {} : {'on': []}
-Plug 'jeaye/color_coded', has('lua') && g:os != 'Windows' ? {} : {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
-Plug 'ayu-theme/ayu-vim'
-Plug 'joshdick/onedark.vim'
+Plug 'ayu-theme/ayu-vim' " light, dark, mirage
 Plug 'ajmwagar/vim-deus'
+Plug 'joshdick/onedark.vim'
 " Dark
 Plug 'nanotech/jellybeans.vim'
 Plug 'dikiaap/minimalist'
@@ -580,10 +579,6 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-
-" color_coded
-let g:color_coded_enabled = 1
-let g:color_coded_filetypes = ['c', 'cpp']
 " }}}
 " ============================================================================
 " OUTRO {{{
@@ -591,15 +586,15 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let ayucolor='dark'
+    let ayucolor='mirage'
     colo ayu
-    let g:airline_theme = 'ayu_dark'
+    let g:airline_theme = 'ayu_mirage'
 elseif has("win32")
-    colo molokai
-    let g:airline_theme = 'molokai'
-elseif has("win32unix")
     colo deus
     let g:airline_theme = 'deus'
+elseif has("win32unix")
+    colo iceberg
+    let g:airline_theme = 'iceberg'
 endif
 " }}}
 " ============================================================================

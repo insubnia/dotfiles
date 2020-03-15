@@ -3,7 +3,12 @@
 source $HOME/workspace/dotfiles/common
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    # type "p10k configure" to reconfigure
     ZSH_THEME="powerlevel10k/powerlevel10k"
+
+    # Customize by editing ~/.p10k.zsh
+    # In order to show user@hostname, remove below line
+    # typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
 elif [[ "$OSTYPE" == "linux"* ]]; then
     ZSH_THEME="powerlevel9k/powerlevel9k"
 
