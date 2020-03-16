@@ -121,7 +121,7 @@ if &term =~ 'xterm'
 endif
 " }}}
 " ============================================================================
-" MAPPINGS & ABBREVIATIONS {{{
+" KEY MAPPINGS {{{
 let mapleader=' '
 nnoremap Q @q
 nnoremap W @w
@@ -246,7 +246,15 @@ if !has('clipboard')
     noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
+" }}}
+" ============================================================================
+" ABBREVIATIONS {{{
+" <C-o> is dummy to invalidate inserting space
 
+" Timestamp
+iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
+
+" Fix typo
 abbrev slef self
 abbrev ture true
 abbrev Ture True
