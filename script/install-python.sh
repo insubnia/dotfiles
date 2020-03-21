@@ -23,6 +23,7 @@ done < <(cat << EOF
     matplotlib
     pyqt5
     pyinstaller
+    python-language-server
 EOF
 )
 

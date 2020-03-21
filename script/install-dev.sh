@@ -41,6 +41,7 @@ done < <(cat << EOF
     npm
     llvm
     clang-format
+    ccls
     dos2unix
     libxml2
 EOF
