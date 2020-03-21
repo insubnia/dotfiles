@@ -246,6 +246,8 @@ if !has('clipboard')
     noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
+
+autocmd FileType c,cpp inoremap /*<cr> /*<cr><bs><space>*<cr>*/<up><space>
 " }}}
 " ============================================================================
 " ABBREVIATIONS {{{
