@@ -102,7 +102,9 @@ set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
-if has('gui_running')
+if has('gui_win32')
+    set pythonthreehome=C:\python37
+    set pythonthreedll=C:\python37\python37.dll
     set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
