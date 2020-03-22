@@ -479,10 +479,7 @@ if has('nvim')
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
     nmap <C-]> <plug>(coc-definition)
-
     nmap <silent> gd <plug>(coc-definition)
-    nmap <leader>j <plug>(coc-diagnostic-next)
-    nmap <leader>k <plug>(coc-diagnostic-prev)
 endif
 
 " chromatica
@@ -589,10 +586,8 @@ let g:ale_fixers = {
             \'xml': ['xmllint'],
             \}
 let g:ale_xml_xmllint_options = '--format'
-if g:os == 'Darwin' || g:os == 'Linux'
-    let g:ale_sign_error = '😡'
-    let g:ale_sign_warning = '🤔'
-endif
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = ''
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
