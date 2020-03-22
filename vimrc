@@ -204,14 +204,14 @@ noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
-nmap J <Plug>(qf_qf_next)zz
-nmap K <Plug>(qf_qf_previous)zz
+nmap J <plug>(ale_next_wrap)zz
+nmap K <plug>(ale_previous_wrap)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
-nmap <leader>j <plug>(ale_next_wrap)zz
-nmap <leader>k <plug>(ale_previous_wrap)zz
+nmap <leader>j <Plug>(qf_qf_next)zz
+nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
