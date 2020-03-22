@@ -12,6 +12,7 @@ choco install -y onedrive
 choco install -y flashplayerplugin
 choco install -y vlc
 choco install -y vim
+choco install -y neovim
 choco install -y sourcetree
 choco install -y vscode
 choco install -y tortoisegit

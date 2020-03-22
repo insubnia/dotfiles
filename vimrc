@@ -10,8 +10,15 @@ endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+if has('nvim')
+    call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+else
+    call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
+    Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+    Plug 'jeaye/color_coded'
+endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -238,9 +245,8 @@ noremap 8p "8p
 noremap 9p "9p
 noremap 0p "0p
 
-if has('gui_running')
+if has('gui_win32')
     map <C-space> <C-_>
-    imap <C-space> 
 endif
 
 if !has('clipboard')
@@ -463,6 +469,14 @@ let g:ycm_key_list_select_completion = ['<down>']
 let g:ycm_key_list_previous_completion = ['<up>']
 let g:ycm_key_list_stop_completion = []
 let g:ycm_show_diagnostics_ui = 0
+
+" coc
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+    nmap <silent> gd <plug>(coc-definition)
+    nmap <C-]> <plug>(coc-definition)
+endif
 
 " gitgutter
 set updatetime=100
