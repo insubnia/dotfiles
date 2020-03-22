@@ -14,6 +14,7 @@ if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'arakashic/chromatica.nvim'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
@@ -474,9 +475,19 @@ let g:ycm_show_diagnostics_ui = 0
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-    nmap <silent> gd <plug>(coc-definition)
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
     nmap <C-]> <plug>(coc-definition)
+
+    nmap <silent> gd <plug>(coc-definition)
+    nmap <leader>j <plug>(coc-diagnostic-next)
+    nmap <leader>k <plug>(coc-diagnostic-prev)
 endif
+
+" chromatica
+let g:chromatica#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:chromatica#enable_at_startup=1
 
 " gitgutter
 set updatetime=100
