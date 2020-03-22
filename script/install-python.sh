@@ -24,6 +24,7 @@ done < <(cat << EOF
     pyqt5
     pyinstaller
     python-language-server
+    pynvim
 EOF
 )
 

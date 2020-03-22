@@ -22,6 +22,7 @@ do
     echo -e "\n[Installing $line]"
     eval $pm install $line
 done < <(cat << EOF
+    neovim
     gcc
     git
     git-flow

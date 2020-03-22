@@ -10,8 +10,16 @@ endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+if has('nvim')
+    call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'arakashic/chromatica.nvim'
+else
+    call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
+    Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+    Plug 'jeaye/color_coded'
+endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -238,9 +246,8 @@ noremap 8p "8p
 noremap 9p "9p
 noremap 0p "0p
 
-if has('gui_running')
+if has('gui_win32')
     map <C-space> <C-_>
-    imap <C-space> 
 endif
 
 if !has('clipboard')
@@ -464,6 +471,21 @@ let g:ycm_key_list_previous_completion = ['<up>']
 let g:ycm_key_list_stop_completion = []
 let g:ycm_show_diagnostics_ui = 0
 
+" coc
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    nmap <C-]> <plug>(coc-definition)
+    nmap <silent> gd <plug>(coc-definition)
+endif
+
+" chromatica
+let g:chromatica#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:chromatica#enable_at_startup=1
+
 " gitgutter
 set updatetime=100
 set signcolumn=yes
@@ -564,10 +586,8 @@ let g:ale_fixers = {
             \'xml': ['xmllint'],
             \}
 let g:ale_xml_xmllint_options = '--format'
-if g:os == 'Darwin' || g:os == 'Linux'
-    let g:ale_sign_error = '😡'
-    let g:ale_sign_warning = '🤔'
-endif
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = ''
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
