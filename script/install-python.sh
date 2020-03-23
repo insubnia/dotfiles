@@ -25,6 +25,7 @@ done < <(cat << EOF
     pyinstaller
     python-language-server
     pynvim
+    compiledb
 EOF
 )
 

@@ -106,6 +106,11 @@ clang-format:
 		SortUsingDeclarations             : false,\
 	}" -dump-config > .clang-format
 
+PHONY += cdb
+cdb:
+	@echo "Making compilation database (=compile_commands.json)"
+	@compiledb make
+
 PHONY += test
 test:
 	@echo $(PHONY)
