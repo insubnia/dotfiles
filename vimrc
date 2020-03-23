@@ -14,11 +14,11 @@ if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    Plug 'arakashic/chromatica.nvim'
+    Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
-    Plug 'jeaye/color_coded'
+    Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -109,6 +109,9 @@ set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
+
+if has('nvim')
+endif
 
 if has('gui_win32')
     set pythonthreehome=C:\python37
@@ -483,8 +486,12 @@ if has('nvim')
 endif
 
 " chromatica
-let g:chromatica#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-let g:chromatica#enable_at_startup=1
+let g:chromatica#enable_at_startup = 1
+if g:os == 'Darwin'
+    let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+elseif g:os == 'Linux'
+    let g:chromatica#libclang_path = '/usr/lib/llvm-x.x/lib/libclang.so'
+endif
 
 " gitgutter
 set updatetime=100
