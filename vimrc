@@ -38,7 +38,6 @@ Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown', {'for': 'markdown'}
@@ -406,8 +405,6 @@ if !exists('*Run')
             exe has('win32') ? '!python %' : '!python3 %'
         elseif &filetype == 'markdown'
             LivedownPreview
-        elseif &filetype == 'swift'
-            !swift %
         else
             echom "There's nothing to do"
         endif
