@@ -22,11 +22,13 @@ do
     echo -e "\n[Installing $line]"
     eval $pm install $line
 done < <(cat << EOF
+    neovim
     gcc
     git
     git-flow
     tig
     wget
+    curl
     tree
     make
     cmake
@@ -40,6 +42,7 @@ done < <(cat << EOF
     npm
     llvm
     clang-format
+    ccls
     dos2unix
     libxml2
 EOF
@@ -55,6 +58,9 @@ macos_list=(
 )
 
 linux_list=(
+    vim-gtk
+    xclip
+    python3-pip
 )
 
 case "$OSTYPE" in

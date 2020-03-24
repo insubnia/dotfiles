@@ -10,8 +10,16 @@ endif
 " }}}
 " ============================================================================
 " PLUGINS {{{
-call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-Plug 'valloric/youcompleteme', g:os != 'Windows' ? {} : {'on': []}
+if has('nvim')
+    call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
+else
+    call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
+    Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+    Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
+endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -36,14 +44,13 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', g:os != 'Windows' ? {} : {'on': []}
-Plug 'jeaye/color_coded', has('lua') && g:os != 'Windows' ? {} : {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
-Plug 'ayu-theme/ayu-vim'
-Plug 'joshdick/onedark.vim'
+Plug 'ayu-theme/ayu-vim' " light, dark, mirage
 Plug 'ajmwagar/vim-deus'
+Plug 'joshdick/onedark.vim'
 " Dark
 Plug 'nanotech/jellybeans.vim'
 Plug 'dikiaap/minimalist'
@@ -103,7 +110,12 @@ set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
-if has('gui_running')
+if has('nvim')
+endif
+
+if has('gui_win32')
+    set pythonthreehome=C:\python37
+    set pythonthreedll=C:\python37\python37.dll
     set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
@@ -122,7 +134,7 @@ if &term =~ 'xterm'
 endif
 " }}}
 " ============================================================================
-" MAPPINGS & ABBREVIATIONS {{{
+" KEY MAPPINGS {{{
 let mapleader=' '
 nnoremap Q @q
 nnoremap W @w
@@ -203,14 +215,14 @@ noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
 noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
-nmap J <Plug>(qf_qf_next)zz
-nmap K <Plug>(qf_qf_previous)zz
+nmap J <plug>(ale_next_wrap)zz
+nmap K <plug>(ale_previous_wrap)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
-nmap <leader>j <plug>(ale_next_wrap)zz
-nmap <leader>k <plug>(ale_previous_wrap)zz
+nmap <leader>j <Plug>(qf_qf_next)zz
+nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
@@ -237,9 +249,8 @@ noremap 8p "8p
 noremap 9p "9p
 noremap 0p "0p
 
-if has('gui_running')
+if has('gui_win32')
     map <C-space> <C-_>
-    imap <C-space> 
 endif
 
 if !has('clipboard')
@@ -248,6 +259,16 @@ if !has('clipboard')
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
 
+autocmd FileType c,cpp inoremap /*<cr> /*<cr><bs><space>*<cr>*/<up><space>
+" }}}
+" ============================================================================
+" ABBREVIATIONS {{{
+" <C-o> is dummy to invalidate inserting space
+
+" Timestamp
+iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
+
+" Fix typo
 abbrev slef self
 abbrev ture true
 abbrev Ture True
@@ -453,6 +474,25 @@ let g:ycm_key_list_previous_completion = ['<up>']
 let g:ycm_key_list_stop_completion = []
 let g:ycm_show_diagnostics_ui = 0
 
+" coc
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    nmap <C-]> <plug>(coc-definition)
+    nmap <silent> gd <plug>(coc-definition)
+endif
+
+" chromatica
+let g:chromatica#enable_at_startup = 1
+if g:os == 'Darwin'
+    let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+elseif g:os == 'Linux'
+    let g:chromatica#libclang_path = '/usr/lib/llvm-x.x/lib/libclang.so'
+endif
+
 " gitgutter
 set updatetime=100
 set signcolumn=yes
@@ -468,8 +508,10 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
-    if g:os == 'Darwin' || g:os == 'Linux'
-        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
+    if g:os == 'Darwin'
+        let g:airline_section_c .= ' 🧿 %#__accent_bold#sis'
+    elseif g:os == 'Linux'
+        let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
     elseif has('win32')
         let g:airline_section_c .= ' 🚗 MANDO'
     endif
@@ -551,10 +593,8 @@ let g:ale_fixers = {
             \'xml': ['xmllint'],
             \}
 let g:ale_xml_xmllint_options = '--format'
-if has('mac')
-    let g:ale_sign_error = '😡'
-    let g:ale_sign_warning = '🤔'
-endif
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = ''
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
@@ -578,10 +618,6 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-
-" color_coded
-let g:color_coded_enabled = 1
-let g:color_coded_filetypes = ['c', 'cpp']
 " }}}
 " ============================================================================
 " OUTRO {{{
@@ -589,15 +625,15 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let ayucolor='dark'
+    let ayucolor='mirage'
     colo ayu
-    let g:airline_theme = 'ayu_dark'
+    let g:airline_theme = 'ayu_mirage'
 elseif has("win32")
-    colo molokai
-    let g:airline_theme = 'molokai'
-elseif has("win32unix")
     colo deus
     let g:airline_theme = 'deus'
+elseif has("win32unix")
+    colo iceberg
+    let g:airline_theme = 'iceberg'
 endif
 " }}}
 " ============================================================================

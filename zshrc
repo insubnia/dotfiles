@@ -2,9 +2,14 @@
 
 source $HOME/workspace/dotfiles/common
 
-ZSH_DISABLE_COMPFIX="true"
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    # type "p10k configure" to reconfigure
+    ZSH_THEME="powerlevel10k/powerlevel10k"
+
+    # Customize by editing ~/.p10k.zsh
+    # In order to show user@hostname, remove below line
+    # typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+elif [[ "$OSTYPE" == "linux"* ]]; then
     ZSH_THEME="powerlevel9k/powerlevel9k"
 
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs background_jobs)
@@ -14,8 +19,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
     POWERLEVEL9K_MODE='nerdfont-complete'
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs background_jobs)
-elif [[ "$OSTYPE" == "linux"* ]]; then
-    ZSH_THEME="bira"
 else
     echo $OSTYPE
 fi

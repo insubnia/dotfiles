@@ -5,6 +5,10 @@ mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
 mklink "%USERPROFILE%/.flake8" "%DOTFILES%/conf/flake8"
 REM  mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
 
+mkdir "%USERPROFILE%/AppData/Local/nvim"
+mklink "%USERPROFILE%/AppData/Local/nvim/init.vim" "%DOTFILES%/vimrc"
+mklink "%USERPROFILE%/AppData/Local/nvim/coc-settings.json" "%DOTFILES%/conf/coc-settings.json"
+
 REM  tool
 choco install -y chocolateygui
 choco install -y googlechrome
@@ -12,6 +16,7 @@ choco install -y onedrive
 choco install -y flashplayerplugin
 choco install -y vlc
 choco install -y vim
+choco install -y neovim
 choco install -y sourcetree
 choco install -y vscode
 choco install -y tortoisegit
