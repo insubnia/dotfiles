@@ -34,7 +34,7 @@ CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS  = -v
 
 SRC_DIR	= ./
-INC_DIR	= ./
+INC_DIR	= include/ inc/
 BLD_DIR	= build/
 TAR_DIR	= ./
 LIB_DIR	= ./
@@ -48,7 +48,7 @@ CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
 COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
 CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
 OBJS	= $(COBJS) $(CXXOBJS)
-DEPS	= $(OBJS:.o=*.d)
+DEPS	= $(OBJS:.o=.d)
 OUTPUT	+= $(OBJS) $(DEPS)
 
 -include $(DEPS)
@@ -114,6 +114,7 @@ cdb:
 PHONY += test
 test:
 	@echo $(PHONY)
+	@echo $(OUTPUT)
 
 
 $(BIN): $(ELF)

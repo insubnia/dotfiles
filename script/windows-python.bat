@@ -4,3 +4,4 @@ python -m pip install autopep8
 python -m pip install pyqt5
 python -m pip install python-language-server
 python -m pip install pynvim
+python -m pip install compiledb
