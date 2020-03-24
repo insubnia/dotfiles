@@ -34,7 +34,7 @@ CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS  = -v
 
 SRC_DIR	= ./
-INC_DIR	= include/ inc/
+INC_DIR	= include/
 BLD_DIR	= build/
 TAR_DIR	= ./
 LIB_DIR	= ./
@@ -109,7 +109,7 @@ clang-format:
 PHONY += cdb
 cdb:
 	@echo "Making compilation database (=compile_commands.json)"
-	@compiledb make
+	@compiledb make clean all
 
 PHONY += test
 test:
