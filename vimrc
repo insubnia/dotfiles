@@ -110,10 +110,12 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has('nvim')
-    let g:python3_host_prog = 'C:/Python37/python'
+    if has('gui_running') " Windows nvim-qt
+        let g:python3_host_prog = 'C:/Python37/python'
+    endif
 endif
 
-if has('gui_win32')
+if has('gui_win32') " Windows vim
     set pythonthreehome=C:\python37
     set pythonthreedll=C:\python37\python37.dll
     set omnifunc=syntaxcomplete#Complete
