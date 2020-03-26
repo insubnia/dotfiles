@@ -110,6 +110,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has('nvim')
+    let g:python3_host_prog = 'C:/Python37/python'
 endif
 
 if has('gui_win32')
@@ -381,11 +382,15 @@ function! GoTo()
     try
         exe "tjump " . expand("<cword>")
     catch /E426:\|E433:/
-        try
-            YcmCompleter GoTo
-        catch /E492:/
-            echohl WarningMsg | echo "No youcompleteme" | echohl None
-        endtry
+        if has('nvim')
+            call CocAction('jumpDefinition')
+        else
+            try
+                YcmCompleter GoTo
+            catch /E492:/
+                echohl WarningMsg | echo "No youcompleteme" | echohl None
+            endtry
+        endif
     endtry
 endfunction
 
@@ -478,7 +483,6 @@ if has('nvim')
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-    nmap <C-]> <plug>(coc-definition)
     nmap <silent> gd <plug>(coc-definition)
 endif
 
