@@ -161,7 +161,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
-nnoremap <C-]> :call GoTo()<cr>
+nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
@@ -176,7 +176,7 @@ nnoremap <leader>f :Ack!<space>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>m :marks<cr>
-nnoremap <leader>u :make all<cr>
+nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
 " nnoremap <leader>E
@@ -380,6 +380,7 @@ function! IgnoreSpaceChange()
     GitGutterAll
 endfunction
 
+command! GoTo call GoTo()
 function! GoTo()
     try
         exe "tjump " . expand("<cword>")
@@ -396,6 +397,13 @@ function! GoTo()
     endtry
 endfunction
 
+command! Build call Build()
+function! Build()
+    if &filetype == 'c' || &filetype == 'cpp'
+        exe has('nvim') ? '!make all' : 'make all'
+    endif
+endfunction
+
 if !exists('*Run')
     command! Run call Run()
     function! Run()
@@ -407,7 +415,7 @@ if !exists('*Run')
         elseif &filetype == 'sh'
             !source %
         elseif &filetype == 'c' || &filetype == 'cpp'
-            make all run
+            exe has('nvim') ? '!make all run' : 'make all run'
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
         elseif &filetype == 'markdown'
