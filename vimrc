@@ -211,7 +211,7 @@ noremap <F15> <nop>
 noremap \1 :diffget LO<cr>
 noremap \2 :diffget BA<cr>
 noremap \3 :diffget RE<cr>
-noremap <C-_> :call NERDComment(0, "toggle")<cr>
+noremap <C-/> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
@@ -228,6 +228,12 @@ nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
+
+" Keymap emulation
+map <C-_> <C-/>
+if has('gui_win32') " Windows vim
+    map <C-space> <C-/>
+endif
 
 " Fast yank & paste
 noremap <expr> 1y mode()=='n' ? '"1yiw' : '"1y'
@@ -250,10 +256,6 @@ noremap 7p "7p
 noremap 8p "8p
 noremap 9p "9p
 noremap 0p "0p
-
-if has('gui_win32')
-    map <C-space> <C-_>
-endif
 
 if !has('clipboard')
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
