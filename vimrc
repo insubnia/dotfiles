@@ -110,7 +110,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has('nvim')
-    if has('gui_running') " Windows nvim-qt
+    if has('win32') " Windows nvim-qt
         let g:python3_host_prog = 'C:/Python37/python'
     endif
 endif
