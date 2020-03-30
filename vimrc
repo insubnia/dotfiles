@@ -147,7 +147,7 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-nnoremap ? :ts /
+" nnoremap ? :ts /
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
@@ -174,7 +174,7 @@ nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :TrimWhiteSpace<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>r :Run<cr>
-nnoremap <leader>t :!ctags -R .<cr>
+" nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>m :marks<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
@@ -356,6 +356,8 @@ command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 command! TrimWhiteSpace set expandtab | %retab | %s/\s\+$//e
+command! RO set ro
+command! RW set noro
 
 command! Preproc Silent gcc -E % | less
 
