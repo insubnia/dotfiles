@@ -229,6 +229,11 @@ nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
+if has('nvim')
+    nnoremap <leader>t :topleft vs<bar>term<cr>
+    tnoremap <esc> <C-\><C-n>
+endif
+
 " Keymap emulation
 map <C-_> <C-/>
 if has('gui_win32') " Windows vim
