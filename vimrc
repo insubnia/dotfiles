@@ -548,6 +548,8 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 " NERDTree
+autocmd StdinReadPre * let s:std_in = 1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 0
