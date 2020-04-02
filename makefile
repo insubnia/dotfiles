@@ -33,8 +33,10 @@ CFLAGS   = -march=$(ARCH) -W -Wall -MMD $(OPT) -std=c99
 CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS  = -v
 
-SRC_DIR	= ./
-INC_DIR	= include/
+SRCROOT	= .
+OBJROOT = debug
+
+INC_DIR	= inc/
 BLD_DIR	= build/
 TAR_DIR	= ./
 LIB_DIR	= ./
@@ -42,14 +44,19 @@ LIBS	=
 
 include $(wildcard *.mk)
 
-CSRCS	= $(wildcard $(SRC_DIR)*.c)
-CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
+ifeq ($(OS),Windows_NT)
+# TODO fill out windows shell command
+else
+CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
+CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
+endif
+COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
+CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
+OBJS    := $(COBJS) $(CXXOBJS)
+DEPS    := $(OBJS:.o=.d)
+TREE    := $(patsubst %/, %, $(dir $(OBJS)))
 
-COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
-CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
-OBJS	= $(COBJS) $(CXXOBJS)
-DEPS	= $(OBJS:.o=.d)
-OUTPUT	+= $(OBJS) $(DEPS)
+OUTPUT += $(OBJS) $(DEPS)
 
 -include $(DEPS)
 
@@ -135,13 +142,13 @@ $(SO): $(OBJS)
 	@echo Making dynamic library
 	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS) -shared
 
-$(COBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(BLD_DIR)
+$(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
+	@mkdir -p $(TREE)
 	@echo Compiling $(<F)
 	@$(CC) -o $@ -c $< $(INC_DIR) $(CFLAGS)
 
-$(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
-	@mkdir -p $(BLD_DIR)
+$(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
+	@mkdir -p $(TREE)
 	@echo Compiling $(<F)
 	@$(CXX) -o $@ -c $< $(INC_DIR) $(CXXFLAGS)
 
