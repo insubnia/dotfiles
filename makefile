@@ -15,6 +15,12 @@ OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
 
+ifeq ($(OS),Windows_NT)
+	MKDIR = mkdir
+else
+	MKDIR = mkdir -p
+endif
+
 ELF	= $(TAR_DIR)$(TARGET).elf
 BIN	= $(BLD_DIR)$(TARGET).bin
 HEX	= $(BLD_DIR)$(TARGET).hex
@@ -33,8 +39,8 @@ CFLAGS   = -march=$(ARCH) -W -Wall -MMD $(OPT) -std=c99
 CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS  = -v
 
-SRCROOT	= .
-OBJROOT = debug
+SRCROOT	= ./
+OBJROOT = debug/
 
 INC_DIR	= inc/
 BLD_DIR	= build/
@@ -44,7 +50,7 @@ LIBS	=
 
 include $(wildcard *.mk)
 
-SUBDIRS := $(wildcard $(SRCROOT)/*/) $(SRCROOT)/
+SUBDIRS := $(wildcard $(SRCROOT)*/) $(SRCROOT)
 CSRCS   := $(wildcard $(addsuffix *.c, $(SUBDIRS)))
 CXXSRCS := $(wildcard $(addsuffix *.cpp, $(SUBDIRS)))
 
@@ -56,13 +62,17 @@ else
 # CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
 # CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
 endif
-COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
-CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
+COBJS   := $(CSRCS:$(SRCROOT)%.c=$(OBJROOT)%.o)
+CXXOBJS := $(CXXSRCS:$(SRCROOT)%.cpp=$(OBJROOT)%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
-TREE    := $(patsubst %/, %, $(dir $(OBJS)))
+TREE    := $(patsubst %/, %, $(dir $(OBJS))) # TODO remove duplicated dirs
 
 OUTPUT += $(OBJS) $(DEPS)
+
+ifeq ($(OS),Windows_NT)
+	# TREE = $(subst /,\\, $(TREE))
+endif
 
 -include $(DEPS)
 
@@ -126,6 +136,7 @@ cdb:
 
 PHONY += test
 test:
+	@echo $(TREE)
 	@echo $(CSRCS)
 
 
@@ -138,22 +149,22 @@ $(HEX): $(ELF)
 	@$(OBJCOPY) -O ihex $< $@
 
 $(ELF): $(OBJS)
-	@mkdir -p $(TAR_DIR)
+	@$(MKDIR) $(TAR_DIR)
 	@echo Linking $(@F)
 	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS)
 
 $(SO): $(OBJS)
-	@mkdir -p $(TAR_DIR)
+	@$(MKDIR) $(TAR_DIR)
 	@echo Making dynamic library
 	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
-	@mkdir -p $(TREE)
+	@$(MKDIR) $(TREE)
 	@echo Compiling $(<F)
 	@$(CC) -o $@ -c $< $(INC_DIR) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
-	@mkdir -p $(TREE)
+	@$(MKDIR) $(TREE)
 	@echo Compiling $(<F)
 	@$(CXX) -o $@ -c $< $(INC_DIR) $(CXXFLAGS)
 
