@@ -44,11 +44,17 @@ LIBS	=
 
 include $(wildcard *.mk)
 
+SUBDIRS := $(wildcard $(SRCROOT)/*/) $(SRCROOT)/
+CSRCS   := $(wildcard $(addsuffix *.c, $(SUBDIRS)))
+CXXSRCS := $(wildcard $(addsuffix *.cpp, $(SUBDIRS)))
+
+# TODO $(filter-out pattern, text)
+
 ifeq ($(OS),Windows_NT)
 # TODO fill out windows shell command
 else
-CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
-CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
+# CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
+# CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
 endif
 COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
 CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
@@ -120,8 +126,7 @@ cdb:
 
 PHONY += test
 test:
-	@echo $(PHONY)
-	@echo $(OUTPUT)
+	@echo $(CSRCS)
 
 
 $(BIN): $(ELF)
