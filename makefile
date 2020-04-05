@@ -16,9 +16,9 @@ OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
 
 ifeq ($(OS),Windows_NT)
-	MKDIR = mkdir
+	MKDIR := md
 else
-	MKDIR = mkdir -p
+	MKDIR := mkdir -p
 endif
 
 ELF	= $(TAR_DIR)/$(TARGET).elf
@@ -50,23 +50,19 @@ LIBS    =
 
 include $(wildcard *.mk)
 
-SUBDIRS := $(dir $(wildcard $(SRCROOT)/*/.)) $(SRCROOT)/
-CSRCS   := $(wildcard $(addsuffix *.c, $(SUBDIRS)))
-CXXSRCS := $(wildcard $(addsuffix *.cpp, $(SUBDIRS)))
-
-# TODO $(filter-out pattern, text)
-
 ifeq ($(OS),Windows_NT)
-# TODO fill out windows shell command
+	SUBDIRS := $(dir $(wildcard $(SRCROOT)/*/.)) $(SRCROOT)/
+	CSRCS   := $(wildcard $(addsuffix *.c, $(SUBDIRS)))
+	CXXSRCS := $(wildcard $(addsuffix *.cpp, $(SUBDIRS)))
 else
-# CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
-# CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
+	CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
+	CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
 endif
 COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
 CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
-TREE    := $(sort $(patsubst %/, %, $(dir $(OBJS))))
+TREE    := $(sort $(dir $(OBJS)))
 
 OUTPUT += $(OBJS) $(DEPS)
 
