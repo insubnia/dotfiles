@@ -326,7 +326,7 @@ autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 
 function! NewHeader()
-    if 1
+    if 0
         let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
         exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif  /* ". name . " */\e4G"
     else
