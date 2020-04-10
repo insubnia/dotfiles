@@ -1,5 +1,5 @@
 {
-    "diagnostic.enable":false,
-    "languageserver": {
-    }
+  "diagnostic.enable": true,
+  "languageserver": {},
+  "pyls.enable": false
 }

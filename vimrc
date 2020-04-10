@@ -230,6 +230,8 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
+    nmap J <plug>(coc-diagnostic-next)zz
+    nmap K <plug>(coc-diagnostic-prev)zz
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
 endif
@@ -300,6 +302,7 @@ autocmd BufReadPost *
 autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
 autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
+autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 function! OperatorHL()
     syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
@@ -310,8 +313,8 @@ autocmd Syntax c,cpp,python call OperatorHL()
 
 augroup XML
     autocmd!
-    autocmd FileType xml setlocal fdm=indent
-    autocmd FileType xml setlocal fdl=2
+    " autocmd FileType xml setlocal fdm=indent
+    " autocmd FileType xml setlocal fdl=2
 augroup END
 
 function! AUTOSAR()
@@ -496,6 +499,13 @@ let g:ycm_key_list_stop_completion = []
 let g:ycm_show_diagnostics_ui = 0
 
 " coc
+let g:coc_global_extensions = [
+            \'coc-clangd',
+            \'coc-cmake',
+            \'coc-python',
+            \'coc-xml',
+            \'coc-json',
+            \]
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -565,6 +575,7 @@ let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCustomDelimiters = {'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \ 'json': {'left': '/*', 'right': '*/'},
             \ 'cmm': {'left': ';'}}
 
 " AutoPairs
