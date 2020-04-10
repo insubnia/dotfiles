@@ -613,6 +613,7 @@ let g:ale_fixers = {
             \'cpp': ['clang-format'],
             \'python': ['autopep8'],
             \'xml': ['xmllint'],
+            \'cmake': ['cmakeformat'],
             \}
 let g:ale_xml_xmllint_options = '--format'
 let g:ale_sign_error = '✘'

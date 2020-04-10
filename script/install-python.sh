@@ -26,6 +26,7 @@ done < <(cat << EOF
     python-language-server
     pynvim
     compiledb
+    cmake_format
 EOF
 )
 
