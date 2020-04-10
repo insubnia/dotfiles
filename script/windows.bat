@@ -35,6 +35,7 @@ choco install -y ctags
 choco install -y cmake
 choco install -y python3
 choco install -y nodejs
+choco install -y jq
 choco install -y wget
 choco install -y dos2unix
 

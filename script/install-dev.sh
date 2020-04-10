@@ -41,6 +41,7 @@ done < <(cat << EOF
     autojump
     unrar
     nodejs
+    jq
     npm
     dos2unix
     libxml2

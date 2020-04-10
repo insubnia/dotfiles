@@ -607,6 +607,7 @@ endif
 " ale
 let g:ale_linters = {
             \'python': ['flake8'],
+            \'json': ['jq']
             \}
 let g:ale_fixers = {
             \'c': ['clang-format'],
@@ -614,6 +615,7 @@ let g:ale_fixers = {
             \'python': ['autopep8'],
             \'xml': ['xmllint'],
             \'cmake': ['cmakeformat'],
+            \'json': ['jq']
             \}
 let g:ale_xml_xmllint_options = '--format'
 let g:ale_sign_error = '✘'
