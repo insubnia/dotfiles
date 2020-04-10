@@ -1,11 +1,19 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.10)
 
 get_filename_component(CWD ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
-project({CWD})
-
-file(GLOB SRCS "*.c" "*.cpp")
+project(${CWD})
 
 include_directories(include)
 
-add_executable(${CWD}.elf ${SRCS})
+# Target
+set(TARGET ${CMAKE_PROJECT_NAME}.elf)
+
+# Source files
+file(GLOB SRCS "*.c" "*.cpp")
+
+add_executable(${TARGET} ${SRCS})
+add_custom_target(run
+    COMMAND ${TARGET}
+    DEPENDS ${TARGET}
+)
