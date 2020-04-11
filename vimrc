@@ -231,8 +231,8 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    nmap J <plug>(coc-diagnostic-next)zz
-    nmap K <plug>(coc-diagnostic-prev)zz
+    " nmap J <plug>(coc-diagnostic-next)zz
+    " nmap K <plug>(coc-diagnostic-prev)zz
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
 endif
