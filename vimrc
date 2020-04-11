@@ -15,6 +15,7 @@ if has('nvim')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
+    Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
@@ -500,6 +501,7 @@ let g:ycm_show_diagnostics_ui = 0
 
 " coc
 let g:coc_global_extensions = [
+            \'coc-prettier',
             \'coc-clangd',
             \'coc-cmake',
             \'coc-python',
@@ -618,7 +620,6 @@ endif
 " ale
 let g:ale_linters = {
             \'python': ['flake8'],
-            \'json': ['jq']
             \}
 let g:ale_fixers = {
             \'c': ['clang-format'],

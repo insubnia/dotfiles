@@ -36,6 +36,7 @@ done < <(cat << EOF
     make
     cmake
     scons
+    prettier
     ctags
     python3
     autojump
