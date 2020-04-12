@@ -15,10 +15,11 @@ if has('nvim')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
-    Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+    Plug 'w0rp/ale'
+    Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
     Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
 Plug 'tpope/vim-fugitive'
@@ -34,8 +35,6 @@ Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
-Plug 'w0rp/ale'
-Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
@@ -56,6 +55,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'dikiaap/minimalist'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'w0ng/vim-hybrid'
+Plug 'tomasiser/vim-code-dark'
 " Vivid
 Plug 'josuegaleas/jay'
 Plug 'tomasr/molokai'
@@ -216,10 +216,7 @@ noremap <C-/> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
-nmap J <plug>(ale_next_wrap)zz
-nmap K <plug>(ale_previous_wrap)zz
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
@@ -231,10 +228,16 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    " nmap J <plug>(coc-diagnostic-next)zz
-    " nmap K <plug>(coc-diagnostic-prev)zz
+    nmap J <plug>(coc-diagnostic-next)zz
+    nmap K <plug>(coc-diagnostic-prev)zz
+    vmap <leader>l <plug>(coc-format-selected)
+    nmap <leader>l <plug>(coc-format)
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
+else
+    nmap J <plug>(ale_next_wrap)zz
+    nmap K <plug>(ale_previous_wrap)zz
+    noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
 endif
 
 " Keymap emulation
@@ -507,6 +510,8 @@ let g:coc_global_extensions = [
             \'coc-python',
             \'coc-xml',
             \'coc-json',
+            \'coc-prettier',
+            \'coc-tsserver',
             \]
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
@@ -666,8 +671,8 @@ elseif g:os == "Linux"
     colo ayu
     let g:airline_theme = 'ayu_mirage'
 elseif has("win32")
-    colo deus
-    let g:airline_theme = 'deus'
+    colo codedark
+    let g:airline_theme = 'codedark'
 elseif has("win32unix")
     colo iceberg
     let g:airline_theme = 'iceberg'
