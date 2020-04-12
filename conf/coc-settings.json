@@ -1,5 +1,11 @@
 {
   "diagnostic.enable": true,
   "languageserver": {},
+  "python": {
+    "linting": {
+      "flake8Enabled": true,
+      "pylintEnalbed": false
+    }
+  },
   "pyls.enable": false
 }

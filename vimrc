@@ -18,7 +18,7 @@ if has('nvim')
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
     Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
@@ -149,6 +149,7 @@ nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 " nnoremap ? :ts /
+nnoremap ? :Ack!  %<left><left>
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
@@ -181,7 +182,7 @@ nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
 " nnoremap <leader>E
-nnoremap <leader>F :Ack!   %<left><left><left>
+" nnoremap <leader>F
 " nnoremap <leader>R
 vnoremap < <gv
 vnoremap > >gv
@@ -228,8 +229,8 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    nmap J <plug>(coc-diagnostic-next)zz
-    nmap K <plug>(coc-diagnostic-prev)zz
+    nmap J <plug>(coc-diagnostic-next)
+    nmap K <plug>(coc-diagnostic-prev)
     vmap <leader>l <plug>(coc-format-selected)
     nmap <leader>l <plug>(coc-format)
     nnoremap <leader>t :topleft vs<bar>term<cr>
@@ -627,6 +628,7 @@ let g:ale_linters = {
             \'python': ['flake8'],
             \}
 let g:ale_fixers = {
+            \'*': ['remove_trailing_lines', 'trim_whitespace'],
             \'c': ['clang-format'],
             \'cpp': ['clang-format'],
             \'python': ['autopep8'],
