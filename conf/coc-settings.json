@@ -1,5 +1,8 @@
 {
-  "diagnostic.enable": true,
+  "diagnostic": {
+    "enable": true,
+    "displayByAle": false
+  },
   "languageserver": {},
   "python": {
     "linting": {

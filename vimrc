@@ -18,7 +18,6 @@ if has('nvim')
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
-    Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
     Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
@@ -35,6 +34,7 @@ Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
@@ -175,9 +175,10 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :TrimWhiteSpace<cr>
 nnoremap <leader>f :Ack!<space>
+nnoremap <leader>l :ALEFix<cr>
+nnoremap <leader>m :marks<cr>
 nnoremap <leader>r :Run<cr>
 " nnoremap <leader>t :!ctags -R .<cr>
-nnoremap <leader>m :marks<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
@@ -217,6 +218,7 @@ noremap <C-/> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
+" noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
 noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
@@ -232,13 +234,13 @@ if has('nvim')
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
     vmap <leader>l <plug>(coc-format-selected)
-    nmap <leader>l <plug>(coc-format)
+    " nmap <leader>l <plug>(coc-format)
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
 else
     nmap J <plug>(ale_next_wrap)zz
     nmap K <plug>(ale_previous_wrap)zz
-    noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
+    vnoremap <leader>l :Autoformat<cr>
 endif
 
 " Keymap emulation
@@ -288,6 +290,8 @@ iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
 abbrev slef self
 abbrev ture true
 abbrev Ture True
+abbrev flase false
+abbrev Flase False
 abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
