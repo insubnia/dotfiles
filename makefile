@@ -15,14 +15,20 @@ OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
 RM		= rm -f
 
-ELF	= $(TAR_DIR)$(TARGET).elf
-BIN	= $(BLD_DIR)$(TARGET).bin
-HEX	= $(BLD_DIR)$(TARGET).hex
-MAP	= $(BLD_DIR)$(TARGET).map
 ifeq ($(OS),Windows_NT)
-	SO = $(TAR_DIR)$(TARGET).dll
+	MKDIR := md
 else
-	SO = $(TAR_DIR)$(TARGET).so
+	MKDIR := mkdir -p
+endif
+
+ELF	= $(TAR_DIR)/$(TARGET).elf
+BIN	= $(BLD_DIR)/$(TARGET).bin
+HEX	= $(BLD_DIR)/$(TARGET).hex
+MAP	= $(BLD_DIR)/$(TARGET).map
+ifeq ($(OS),Windows_NT)
+	SO = $(TAR_DIR)/$(TARGET).dll
+else
+	SO = $(TAR_DIR)/$(TARGET).so
 endif
 
 OUTPUT = $(ELF) $(BIN) $(HEX) $(MAP) $(SO)
@@ -33,28 +39,41 @@ CFLAGS   = -march=$(ARCH) -W -Wall -MMD $(OPT) -std=c99
 CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS  = -v
 
-SRC_DIR	= ./
-INC_DIR	= include/
-BLD_DIR	= build/
-TAR_DIR	= ./
-LIB_DIR	= ./
-LIBS	=
+SRCROOT = .
+OBJROOT = debug
+
+INCDIRS = include
+LIBDIRS = .
+BLD_DIR = build
+TAR_DIR = .
+LIBS    =
 
 include $(wildcard *.mk)
 
-CSRCS	= $(wildcard $(SRC_DIR)*.c)
-CXXSRCS	= $(wildcard $(SRC_DIR)*.cpp)
+ifeq ($(OS),Windows_NT)
+	SUBDIRS := $(dir $(wildcard $(SRCROOT)/*/.)) $(SRCROOT)/
+	CSRCS   := $(wildcard $(addsuffix *.c, $(SUBDIRS)))
+	CXXSRCS := $(wildcard $(addsuffix *.cpp, $(SUBDIRS)))
+else
+	CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
+	CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
+endif
+COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
+CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
+OBJS    := $(COBJS) $(CXXOBJS)
+DEPS    := $(OBJS:.o=.d)
+TREE    := $(sort $(dir $(OBJS)))
 
-COBJS	= $(patsubst $(SRC_DIR)%.c, $(BLD_DIR)%.o, $(CSRCS))
-CXXOBJS	= $(patsubst $(SRC_DIR)%.cpp, $(BLD_DIR)%.o, $(CXXSRCS))
-OBJS	= $(COBJS) $(CXXOBJS)
-DEPS	= $(OBJS:.o=.d)
-OUTPUT	+= $(OBJS) $(DEPS)
+OUTPUT += $(OBJS) $(DEPS)
+
+ifeq ($(OS),Windows_NT)
+	TREE := $(subst /,\\,$(TREE))
+endif
 
 -include $(DEPS)
 
-INC_DIR	:= $(addprefix -I, $(INC_DIR))
-LIB_DIR	:= $(addprefix -L, $(LIB_DIR))
+INCDIRS	:= $(addprefix -I, $(INCDIRS))
+LIBDIRS	:= $(addprefix -L, $(LIBDIRS))
 LIBS	:= $(addprefix -l, $(LIBS))
 
 PHONY += all
@@ -113,8 +132,8 @@ cdb:
 
 PHONY += test
 test:
-	@echo $(PHONY)
-	@echo $(OUTPUT)
+	@echo $(TREE)
+	@echo $(CSRCS)
 
 
 $(BIN): $(ELF)
@@ -126,23 +145,23 @@ $(HEX): $(ELF)
 	@$(OBJCOPY) -O ihex $< $@
 
 $(ELF): $(OBJS)
-	@mkdir -p $(TAR_DIR)
+	@$(MKDIR) $(TAR_DIR)
 	@echo Linking $(@F)
-	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS)
+	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(SO): $(OBJS)
-	@mkdir -p $(TAR_DIR)
+	@$(MKDIR) $(TAR_DIR)
 	@echo Making dynamic library
-	@$(LD) -o $@ $^ $(LIB_DIR) $(LIBS) $(LDFLAGS) -shared
+	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
-$(COBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(BLD_DIR)
+$(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
+	@$(MKDIR) $(TREE)
 	@echo Compiling $(<F)
-	@$(CC) -o $@ -c $< $(INC_DIR) $(CFLAGS)
+	@$(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
-$(CXXOBJS): $(BLD_DIR)%.o: $(SRC_DIR)%.cpp
-	@mkdir -p $(BLD_DIR)
+$(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
+	@$(MKDIR) $(TREE)
 	@echo Compiling $(<F)
-	@$(CXX) -o $@ -c $< $(INC_DIR) $(CXXFLAGS)
+	@$(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)

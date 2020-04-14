@@ -7,6 +7,7 @@ REM  mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
 
 mkdir "%USERPROFILE%/AppData/Local/nvim"
 mklink "%USERPROFILE%/AppData/Local/nvim/init.vim" "%DOTFILES%/vimrc"
+mklink "%USERPROFILE%/AppData/Local/nvim/ginit.vim" "%DOTFILES%/conf/ginit.vim"
 mklink "%USERPROFILE%/AppData/Local/nvim/coc-settings.json" "%DOTFILES%/conf/coc-settings.json"
 
 REM  tool
@@ -34,6 +35,8 @@ choco install -y ctags
 choco install -y cmake
 choco install -y python3
 choco install -y nodejs
+choco install -y yarn
+choco install -y jq
 choco install -y wget
 choco install -y dos2unix
 

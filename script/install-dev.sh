@@ -23,26 +23,27 @@ do
     eval $pm install $line
 done < <(cat << EOF
     neovim
-    gcc
     git
     git-flow
     tig
+    ack
     wget
     curl
     tree
+    gcc
+    llvm
+    clang-format
     make
     cmake
     scons
+    prettier
     ctags
     python3
-    ack
     autojump
     unrar
     nodejs
+    jq
     npm
-    llvm
-    clang-format
-    ccls
     dos2unix
     libxml2
 EOF

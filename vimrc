@@ -18,6 +18,7 @@ if has('nvim')
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
+    Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
     Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
 Plug 'tpope/vim-fugitive'
@@ -33,12 +34,10 @@ Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
 Plug 'kien/ctrlp.vim'
-Plug 'w0rp/ale'
-Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown', {'for': 'markdown'}
@@ -56,6 +55,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'dikiaap/minimalist'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'w0ng/vim-hybrid'
+Plug 'tomasiser/vim-code-dark'
 " Vivid
 Plug 'josuegaleas/jay'
 Plug 'tomasr/molokai'
@@ -111,9 +111,12 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,*.stackdump
 
 if has('nvim')
+    if has('win32') " Windows nvim-qt
+        let g:python3_host_prog = 'C:/Python37/python'
+    endif
 endif
 
-if has('gui_win32')
+if has('gui_win32') " Windows vim
     set pythonthreehome=C:\python37
     set pythonthreedll=C:\python37\python37.dll
     set omnifunc=syntaxcomplete#Complete
@@ -145,7 +148,8 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-nnoremap ? :ts /
+" nnoremap ? :ts /
+nnoremap ? :Ack!  %<left><left>
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
@@ -159,7 +163,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
-nnoremap <C-]> :call GoTo()<cr>
+nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
@@ -169,16 +173,16 @@ nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
-nnoremap <leader>e :TrimWhiteSpace<cr>
+nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
-nnoremap <leader>r :Run<cr>
-nnoremap <leader>t :!ctags -R .<cr>
+nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>m :marks<cr>
-nnoremap <leader>u :make all<cr>
+nnoremap <leader>r :Run<cr>
+nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
 " nnoremap <leader>E
-nnoremap <leader>F :Ack!   %<left><left><left>
+" nnoremap <leader>F
 " nnoremap <leader>R
 vnoremap < <gv
 vnoremap > >gv
@@ -191,8 +195,8 @@ vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
-vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
-vnoremap <leader>: :call Trim()<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>: :call MyFormat()<cr>gv :Tab /:\zs/l0r1<cr>
 vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
@@ -209,14 +213,11 @@ noremap <F15> <nop>
 noremap \1 :diffget LO<cr>
 noremap \2 :diffget BA<cr>
 noremap \3 :diffget RE<cr>
-noremap <C-_> :call NERDComment(0, "toggle")<cr>
+noremap <C-/> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
-noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
-nmap J <plug>(ale_next_wrap)zz
-nmap K <plug>(ale_previous_wrap)zz
+noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call MyFormat()<cr>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
@@ -226,6 +227,27 @@ nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
+
+if has('nvim')
+    nmap J <plug>(coc-diagnostic-next)
+    nmap K <plug>(coc-diagnostic-prev)
+    vmap <leader>l <plug>(coc-format-selected)
+    " nmap <leader>l <plug>(coc-format)
+
+    " Terminal keymappings
+    nnoremap <leader>t :topleft vs<bar>term<cr>
+    tnoremap <esc> <C-\><C-n>
+else
+    nmap J <plug>(ale_next_wrap)zz
+    nmap K <plug>(ale_previous_wrap)zz
+    vnoremap <leader>l :Autoformat<cr>
+endif
+
+" Keymap emulation
+map <C-_> <C-/>
+if has('gui_win32') " Windows vim
+    map <C-space> <C-/>
+endif
 
 " Fast yank & paste
 noremap <expr> 1y mode()=='n' ? '"1yiw' : '"1y'
@@ -249,10 +271,6 @@ noremap 8p "8p
 noremap 9p "9p
 noremap 0p "0p
 
-if has('gui_win32')
-    map <C-space> <C-_>
-endif
-
 if !has('clipboard')
     noremap \d :del<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
@@ -272,6 +290,8 @@ iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
 abbrev slef self
 abbrev ture true
 abbrev Ture True
+abbrev flase false
+abbrev Flase False
 abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
@@ -291,6 +311,7 @@ autocmd BufReadPost *
 autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
 autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
+autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 function! OperatorHL()
     syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
@@ -301,8 +322,8 @@ autocmd Syntax c,cpp,python call OperatorHL()
 
 augroup XML
     autocmd!
-    autocmd FileType xml setlocal fdm=indent
-    autocmd FileType xml setlocal fdl=2
+    " autocmd FileType xml setlocal fdm=indent
+    " autocmd FileType xml setlocal fdl=2
 augroup END
 
 function! AUTOSAR()
@@ -315,13 +336,14 @@ autocmd Syntax c,cpp call AUTOSAR()
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
+autocmd BufRead,BufNewFile CMakeLists* set filetype=cmake
 
 function! NewHeader()
-    if 1
-        exe "norm! i#pragma once\n\n\e"
-    else
+    if 0
         let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
-        exe "norm! i#ifndef ". name "\n#define ". name "\n\n\n\n#endif  /* ". name " */\e4G"
+        exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif  /* ". name . " */\e4G"
+    else
+        exe "norm! i#pragma once\n\n\e"
     endif
 endfunction
 
@@ -348,10 +370,11 @@ command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
 command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
-command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
-command! TrimWhiteSpace set expandtab | %retab | %s/\s\+$//e
+command! Trim set expandtab | %retab | %s/\s\+$//e | %s/$//e
+command! RO set ro
+command! RW set noro
 
 command! Preproc Silent gcc -E % | less
 
@@ -378,16 +401,28 @@ function! IgnoreSpaceChange()
     GitGutterAll
 endfunction
 
+command! GoTo call GoTo()
 function! GoTo()
     try
         exe "tjump " . expand("<cword>")
     catch /E426:\|E433:/
-        try
-            YcmCompleter GoTo
-        catch /E492:/
-            echohl WarningMsg | echo "No youcompleteme" | echohl None
-        endtry
+        if has('nvim')
+            call CocAction('jumpDefinition')
+        else
+            try
+                YcmCompleter GoTo
+            catch /E492:/
+                echohl WarningMsg | echo "No youcompleteme" | echohl None
+            endtry
+        endif
     endtry
+endfunction
+
+command! Build call Build()
+function! Build()
+    if &filetype == 'c' || &filetype == 'cpp'
+        exe has('nvim') ? '!make all' : 'make all'
+    endif
 endfunction
 
 if !exists('*Run')
@@ -401,13 +436,11 @@ if !exists('*Run')
         elseif &filetype == 'sh'
             !source %
         elseif &filetype == 'c' || &filetype == 'cpp'
-            make all run
+            exe has('nvim') ? '!make all run' : 'make all run'
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
         elseif &filetype == 'markdown'
             LivedownPreview
-        elseif &filetype == 'swift'
-            !swift %
         else
             echom "There's nothing to do"
         endif
@@ -432,7 +465,7 @@ function! PlugAction()
     endif
 endfunction
 
-function! Trim()
+function! MyFormat()
     silent '<,'>retab
     silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
@@ -475,13 +508,22 @@ let g:ycm_key_list_stop_completion = []
 let g:ycm_show_diagnostics_ui = 0
 
 " coc
+let g:coc_global_extensions = [
+            \'coc-prettier',
+            \'coc-clangd',
+            \'coc-cmake',
+            \'coc-python',
+            \'coc-xml',
+            \'coc-json',
+            \'coc-prettier',
+            \'coc-tsserver',
+            \]
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-    nmap <C-]> <plug>(coc-definition)
     nmap <silent> gd <plug>(coc-definition)
 endif
 
@@ -528,6 +570,8 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 " NERDTree
+autocmd StdinReadPre * let s:std_in = 1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 0
@@ -543,6 +587,7 @@ let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCustomDelimiters = {'python': {'left': '#'},
             \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \ 'json': {'left': '/*', 'right': '*/'},
             \ 'cmm': {'left': ';'}}
 
 " AutoPairs
@@ -587,10 +632,13 @@ let g:ale_linters = {
             \'python': ['flake8'],
             \}
 let g:ale_fixers = {
+            \'*': ['remove_trailing_lines', 'trim_whitespace'],
             \'c': ['clang-format'],
             \'cpp': ['clang-format'],
             \'python': ['autopep8'],
             \'xml': ['xmllint'],
+            \'cmake': ['cmakeformat'],
+            \'json': ['jq']
             \}
 let g:ale_xml_xmllint_options = '--format'
 let g:ale_sign_error = '✘'
@@ -629,8 +677,8 @@ elseif g:os == "Linux"
     colo ayu
     let g:airline_theme = 'ayu_mirage'
 elseif has("win32")
-    colo deus
-    let g:airline_theme = 'deus'
+    colo codedark
+    let g:airline_theme = 'codedark'
 elseif has("win32unix")
     colo iceberg
     let g:airline_theme = 'iceberg'
