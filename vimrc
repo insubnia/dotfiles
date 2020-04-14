@@ -336,6 +336,7 @@ autocmd Syntax c,cpp call AUTOSAR()
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
+autocmd BufRead,BufNewFile CMakeLists* set filetype=cmake
 
 function! NewHeader()
     if 0
