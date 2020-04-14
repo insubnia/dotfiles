@@ -178,7 +178,6 @@ nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>m :marks<cr>
 nnoremap <leader>r :Run<cr>
-" nnoremap <leader>t :!ctags -R .<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
@@ -196,8 +195,8 @@ vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
-vnoremap <leader>, :call Trim()<cr>gv :Tab /,\zs/l0r1<cr>
-vnoremap <leader>: :call Trim()<cr>gv :Tab /:\zs/l0r1<cr>
+vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
+vnoremap <leader>: :call MyFormat()<cr>gv :Tab /:\zs/l0r1<cr>
 vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
@@ -218,8 +217,7 @@ noremap <C-/> :call NERDComment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
-" noremap <expr> <leader>l (mode()=='n' ? ":ALEFix<cr>" : ":Autoformat<cr>")
-noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call Trim()<cr>"
+noremap <expr> <leader>; (mode()=='n' ? "V" : "") . ":call MyFormat()<cr>"
 nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
@@ -235,6 +233,8 @@ if has('nvim')
     nmap K <plug>(coc-diagnostic-prev)
     vmap <leader>l <plug>(coc-format-selected)
     " nmap <leader>l <plug>(coc-format)
+
+    " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
 else
@@ -372,7 +372,7 @@ command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
-command! Trim set expandtab | %retab | %s/\s\+$//e | %s/$//g
+command! Trim set expandtab | %retab | %s/\s\+$//e | %s/$//e
 command! RO set ro
 command! RW set noro
 
@@ -465,7 +465,7 @@ function! PlugAction()
     endif
 endfunction
 
-function! Trim()
+function! MyFormat()
     silent '<,'>retab
     silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
     silent exe "'<,'>" . 's/\S\zs *\([)}\];]\)/\1/ge'
