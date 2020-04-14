@@ -173,7 +173,7 @@ nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
-nnoremap <leader>e :TrimWhiteSpace<cr>
+nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>m :marks<cr>
@@ -369,10 +369,9 @@ command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
 command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
-command! RMWS %s/\s\+$//e
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
-command! TrimWhiteSpace set expandtab | %retab | %s/\s\+$//e
+command! Trim set expandtab | %retab | %s/\s\+$//e | %s/$//g
 command! RO set ro
 command! RW set noro
 
