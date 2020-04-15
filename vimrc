@@ -175,7 +175,6 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
-nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>m :marks<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>u :Build<cr>
@@ -222,6 +221,7 @@ nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
+nmap <leader>l <plug>(ale_fix)
 nmap <leader>j <Plug>(qf_qf_next)zz
 nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <leader>q <Plug>(qf_qf_toggle)
@@ -231,9 +231,8 @@ imap <S-tab> <C-d>
 if has('nvim')
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
-    vmap <leader>l <plug>(coc-format-selected)
     " nmap <leader>l <plug>(coc-format)
-
+    vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
@@ -509,14 +508,13 @@ let g:ycm_show_diagnostics_ui = 0
 
 " coc
 let g:coc_global_extensions = [
-            \'coc-prettier',
             \'coc-clangd',
             \'coc-cmake',
-            \'coc-python',
-            \'coc-xml',
             \'coc-json',
             \'coc-prettier',
+            \'coc-python',
             \'coc-tsserver',
+            \'coc-xml',
             \]
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
