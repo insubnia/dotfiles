@@ -497,7 +497,7 @@ endif
 " PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/conf/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_disable_for_files_larger_than_kb = 1024
 let g:ycm_key_list_select_completion = ['<down>']
@@ -516,6 +516,7 @@ let g:coc_global_extensions = [
             \'coc-tsserver',
             \'coc-xml',
             \]
+let g:coc_config_home = '~/workspace/dotfiles/vim'
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -600,7 +601,7 @@ let g:UltiSnipsExpandTrigger = "<C-s>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
 let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/conf/UltiSnips']
+let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
 
 " indentLine
 let g:indentLine_leadingSpaceChar = '.'
