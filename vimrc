@@ -28,6 +28,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
+Plug 'sirver/ultisnips'
 Plug 'yggdroot/indentLine'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
@@ -275,8 +276,6 @@ if !has('clipboard')
     noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
-
-autocmd FileType c,cpp inoremap /*<cr> /*<cr><bs><space>*<cr>*/<up><space>
 " }}}
 " ============================================================================
 " ABBREVIATIONS {{{
@@ -513,6 +512,7 @@ let g:coc_global_extensions = [
             \'coc-json',
             \'coc-prettier',
             \'coc-python',
+            \'coc-snippets',
             \'coc-tsserver',
             \'coc-xml',
             \]
@@ -594,6 +594,13 @@ let g:AutoPairsShortcutFastWrap = '<C-l>'
 autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
 autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
 autocmd FileType python inoremap f' f''<left>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger = "<C-s>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
+let g:UltiSnipsEditSplit = "vertical"
+let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/conf/UltiSnips']
 
 " indentLine
 let g:indentLine_leadingSpaceChar = '.'

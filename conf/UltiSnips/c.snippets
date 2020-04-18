@@ -1,0 +1,33 @@
+snippet cc "(snippet) comment" b
+/*
+ * $0
+ */
+endsnippet
+
+
+snippet struct "(snippet) struct NAME { ... }"
+struct ${1:/* NAME */} {
+    ${2:/* MEMBER */}
+};
+endsnippet
+
+
+snippet typedef "(snippet) typedef struct { ... } NAME"
+typedef struct {
+	${2:/* MEMBER */}
+} ${1:/* NAME */};
+endsnippet
+
+
+snippet enum "(snippet) enum { ... }"
+enum {
+    $0
+};
+endsnippet
+
+
+snippet union "(snippet) union NAME { ... }"
+union ${1:/* NAME */} {
+    ${2:/* MEMBER */}
+};
+endsnippet
