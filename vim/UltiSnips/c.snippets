@@ -5,29 +5,29 @@ snippet cc "(snippet) comment" b
 endsnippet
 
 
-snippet struct "(snippet) struct NAME { ... }"
+snippet "struct " "(snippet) struct NAME { ... }" brA
 struct ${1:/* NAME */} {
-    ${2:/* MEMBER */}
+	${2:/* MEMBER */}
 };
 endsnippet
 
 
-snippet typedef "(snippet) typedef struct { ... } NAME"
+snippet "union " "(snippet) union NAME { ... }" brA
+union ${1:/* NAME */} {
+	${2:/* MEMBER */}
+};
+endsnippet
+
+
+snippet "enum " "(snippet) enum { ... }" brA
+enum {
+	${0:/* ENUM */}
+};
+endsnippet
+
+
+snippet "typedef struct " "(snippet) typedef struct { ... } NAME" brA
 typedef struct {
 	${2:/* MEMBER */}
-} ${1:/* NAME */};
-endsnippet
-
-
-snippet enum "(snippet) enum { ... }"
-enum {
-    $0
-};
-endsnippet
-
-
-snippet union "(snippet) union NAME { ... }"
-union ${1:/* NAME */} {
-    ${2:/* MEMBER */}
-};
+} ${1:/* TYPE */};
 endsnippet
