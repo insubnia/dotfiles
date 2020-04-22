@@ -26,8 +26,23 @@ enum {
 endsnippet
 
 
-snippet "typedef struct " "(snippet) typedef struct { ... } NAME" brA
-typedef struct {
+snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } NAME" brA
+typedef `!p snip.rv = match.group(1)` {
 	${2:/* MEMBER */}
 } ${1:/* TYPE */};
+endsnippet
+
+
+snippet "#if (\w+)([ !=]*)" "(snippet) #if MACRO ... #endif /* MACRO */" r
+#if `!p snip.rv = match.group(1)``!p snip.rv = match.group(2)`$0
+#endif /* `!p snip.rv = match.group(1)` */
+endsnippet
+
+
+snippet mando "(snippet) MANDO" b
+/*
+ * Copyright (c) ${1:--- YEAR ---} Mando Inc. All rights reserved.
+ *
+ * Author: insub.song@halla.com
+ */
 endsnippet
