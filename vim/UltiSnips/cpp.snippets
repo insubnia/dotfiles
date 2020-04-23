@@ -1,1 +1,50 @@
-c.snippets
+snippet cc "(snippet) comment" b
+/*
+ * $0
+ */
+endsnippet
+
+
+snippet "struct " "(snippet) struct NAME { ... }" brA
+struct ${1:/* NAME */} {
+	${2:/* MEMBER */}
+};
+endsnippet
+
+
+snippet "union " "(snippet) union NAME { ... }" brA
+union ${1:/* NAME */} {
+	${2:/* MEMBER */}
+};
+endsnippet
+
+
+snippet "enum " "(snippet) enum { ... }" brA
+enum {
+	${0:/* ENUM */}
+};
+endsnippet
+
+
+snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } NAME" brA
+typedef `!p snip.rv = match.group(1)` {
+	${2:/* MEMBER */}
+} ${1:/* TYPE */};
+endsnippet
+
+
+snippet "#if (\w+)([ !=]*)" "(snippet) #if MACRO ... #endif /* MACRO */" r
+#if `!p snip.rv = match.group(1)``!p snip.rv = match.group(2)`$0
+#endif /* `!p snip.rv = match.group(1)` */
+endsnippet
+
+
+snippet mando "(snippet) MANDO" b
+/*
+ * Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.
+ *
+ * Author: Insub Song (insub.song@halla.com)
+ *
+ */
+${2}
+endsnippet
