@@ -337,9 +337,9 @@ autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 autocmd BufRead,BufNewFile CMakeLists* set filetype=cmake
 
 function! NewHeader()
-    if 0
-        let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
-        exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif  /* ". name . " */\e4G"
+    if 1
+        let name = "_" . toupper(substitute(expand("%:t"), "\\.", "_", "g")) . "_"
+        exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif /* ". name . " */\e4G"
     else
         exe "norm! i#pragma once\n\n\e"
     endif
