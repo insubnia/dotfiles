@@ -46,7 +46,13 @@ INCDIRS = include
 LIBDIRS = .
 BLD_DIR = build
 TAR_DIR = .
-LIBS    =
+
+ifeq ($(OS),Windows_NT)
+	LIBS =
+else
+	LIBS = ncurses
+endif
+
 
 include $(wildcard *.mk)
 
