@@ -5,30 +5,30 @@ snippet cc "(snippet) comment" b
 endsnippet
 
 
-snippet "struct " "(snippet) struct NAME { ... }" brA
+snippet "struct\s*" "(snippet) struct NAME { ... }" br
 struct ${1:/* NAME */} {
-	${2:/* MEMBER */}
+	$0
 };
 endsnippet
 
 
-snippet "union " "(snippet) union NAME { ... }" brA
+snippet "union\s*" "(snippet) union NAME { ... }" br
 union ${1:/* NAME */} {
-	${2:/* MEMBER */}
+	$0
 };
 endsnippet
 
 
-snippet "enum " "(snippet) enum { ... }" brA
+snippet "enum\s*" "(snippet) enum { ... }" br
 enum {
-	${0:/* ENUM */}
+	${1:/* LIST */}
 };
 endsnippet
 
 
-snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } NAME" brA
+snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } TYPE" brA
 typedef `!p snip.rv = match.group(1)` {
-	${2:/* MEMBER */}
+	$0
 } ${1:/* TYPE */};
 endsnippet
 
@@ -47,6 +47,15 @@ snippet mando "(snippet) MANDO" b
  *
  */
 ${2}
+endsnippet
+
+
+snippet cinc "(snippet) C include set" b
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+$0
 endsnippet
 
 

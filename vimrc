@@ -293,6 +293,7 @@ abbrev Flase False
 abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
+abbrev sturct struct
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -513,6 +514,7 @@ let g:coc_global_extensions = [
             \'coc-prettier',
             \'coc-python',
             \'coc-snippets',
+            \'coc-ultisnips',
             \'coc-tsserver',
             \'coc-xml',
             \]
