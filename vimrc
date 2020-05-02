@@ -164,6 +164,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
+nnoremap <C-q> :conf qa<cr>
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
