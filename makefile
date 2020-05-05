@@ -8,8 +8,8 @@ CROSS	= # i686-w64-mingw32-
 
 CC		= $(CROSS)gcc
 CXX		= $(CROSS)g++
-LD		= $(CXX)
 # LD		= $(CROSS)ld
+LD		= $(CXX)
 SIZE	= $(CROSS)size
 OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
@@ -38,6 +38,7 @@ OPT	= -O2 -g3
 CFLAGS   = -march=$(ARCH) -W -Wall -MMD $(OPT) -std=c99
 CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
 # LDFLAGS  = -v
+LDFLAGS  = -Wl,-map,$(MAP)
 
 SRCROOT = .
 OBJROOT = debug
@@ -68,9 +69,10 @@ COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
 CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
-TREE    := $(sort $(dir $(OBJS)))
 
 OUTPUT += $(OBJS) $(DEPS)
+
+TREE := $(sort $(dir $(OUTPUT)))
 
 ifeq ($(OS),Windows_NT)
 	TREE := $(subst /,\\,$(TREE))
