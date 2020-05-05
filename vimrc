@@ -39,7 +39,7 @@ Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
@@ -136,6 +136,8 @@ if &term =~ 'xterm'
     let &t_SR="\e[3 q"
     let &t_EI="\e[0 q"
 endif
+
+let c_syntax_for_h = 1
 " }}}
 " ============================================================================
 " KEY MAPPINGS {{{
