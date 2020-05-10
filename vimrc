@@ -289,6 +289,7 @@ endif
 iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
 
 " Fix typo
+abbrev hlep help
 abbrev slef self
 abbrev ture true
 abbrev Ture True
@@ -531,6 +532,7 @@ if has('nvim')
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
     nmap <silent> gd <plug>(coc-definition)
+    nmap <silent> gr <plug>(coc-rename)
 endif
 
 " chromatica
@@ -683,8 +685,8 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo violet
-    let g:airline_theme = 'violet'
+    colo dracula
+    let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
     let ayucolor='mirage'
     colo ayu
