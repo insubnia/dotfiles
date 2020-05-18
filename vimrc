@@ -166,7 +166,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
-nnoremap <C-q> :conf qa<cr>
+" nnoremap <C-q> :conf qa<cr>
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
@@ -236,8 +236,13 @@ imap <S-tab> <C-d>
 if has('nvim')
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
+    nmap gd <plug>(coc-definition)
+    nmap gl <plug>(coc-codeaction)
+    nmap gr <plug>(coc-rename)
+
     " nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
+
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
@@ -530,9 +535,6 @@ if has('nvim')
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    nmap <silent> gd <plug>(coc-definition)
-    nmap <silent> gr <plug>(coc-rename)
 endif
 
 " chromatica
