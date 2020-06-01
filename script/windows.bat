@@ -38,6 +38,7 @@ choco install -y yarn
 choco install -y jq
 choco install -y wget
 choco install -y dos2unix
+choco install -y microsoft-windows-terminal
 
 REM  font
 choco install -y d2codingfont
