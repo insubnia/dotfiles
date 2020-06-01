@@ -17,3 +17,13 @@ alias gitflow='git flow'
 alias omz='upgrade_oh_my_zsh'
 alias cmakefile='ln -sf ~/workspace/dotfiles/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
+
+case "$OSTYPE" in
+    darwin*)
+        ;;
+    linux*)
+        if grep -q Microsoft /proc/version; then
+        else
+        fi
+        ;;
+esac
