@@ -22,8 +22,10 @@ case "$OSTYPE" in
     darwin*)
         ;;
     linux*)
-        if grep -q Microsoft /proc/version; then
+        if [[ -n 'grep "Microsoft" /proc/version' ]]; then
+            alias open='explorer.exe'
         else
+            alias open='xdg-open'
         fi
         ;;
 esac
