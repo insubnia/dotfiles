@@ -19,7 +19,7 @@ else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
     Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
-    Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
+    " Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -118,12 +118,12 @@ if has('nvim')
 endif
 
 if has('gui_win32') " Windows vim
-    set pythonthreehome=C:\python37
-    set pythonthreedll=C:\python37\python37.dll
     set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
+    set pythonthreehome=C:\python37
+    set pythonthreedll=C:\python37\python37.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
@@ -239,10 +239,8 @@ if has('nvim')
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-
     " nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
-
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
