@@ -7,8 +7,7 @@ REM  mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
 
 mkdir "%USERPROFILE%/AppData/Local/nvim"
 mklink "%USERPROFILE%/AppData/Local/nvim/init.vim" "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/AppData/Local/nvim/ginit.vim" "%DOTFILES%/conf/ginit.vim"
-mklink "%USERPROFILE%/AppData/Local/nvim/coc-settings.json" "%DOTFILES%/conf/coc-settings.json"
+mklink "%USERPROFILE%/AppData/Local/nvim/ginit.vim" "%DOTFILES%/vim/ginit.vim"
 
 REM  tool
 choco install -y chocolateygui
@@ -39,6 +38,7 @@ choco install -y yarn
 choco install -y jq
 choco install -y wget
 choco install -y dos2unix
+choco install -y microsoft-windows-terminal
 
 REM  font
 choco install -y d2codingfont

@@ -10,5 +10,5 @@
       "pylintEnalbed": false
     }
   },
-  "pyls.enable": false
+  /* "pyls.enable": false */
 }

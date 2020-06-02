@@ -19,7 +19,7 @@ else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
     Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
-    Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
+    " Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
 endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -28,6 +28,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
+Plug 'sirver/ultisnips'
 Plug 'yggdroot/indentLine'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
@@ -117,12 +118,12 @@ if has('nvim')
 endif
 
 if has('gui_win32') " Windows vim
-    set pythonthreehome=C:\python37
-    set pythonthreedll=C:\python37\python37.dll
     set omnifunc=syntaxcomplete#Complete
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
+    set pythonthreehome=C:\python37
+    set pythonthreedll=C:\python37\python37.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
@@ -135,6 +136,8 @@ if &term =~ 'xterm'
     let &t_SR="\e[3 q"
     let &t_EI="\e[0 q"
 endif
+
+let c_syntax_for_h = 1
 " }}}
 " ============================================================================
 " KEY MAPPINGS {{{
@@ -163,6 +166,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
+" nnoremap <C-q> :conf qa<cr>
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
@@ -175,8 +179,8 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
-nnoremap <leader>l :ALEFix<cr>
 nnoremap <leader>m :marks<cr>
+nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
@@ -222,18 +226,21 @@ nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
+nmap <leader>l <plug>(ale_fix)
 nmap <leader>j <Plug>(qf_qf_next)zz
 nmap <leader>k <Plug>(qf_qf_previous)zz
-nmap <leader>q <Plug>(qf_qf_toggle)
+" nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
-    vmap <leader>l <plug>(coc-format-selected)
+    nmap gd <plug>(coc-definition)
+    nmap gl <plug>(coc-codeaction)
+    nmap gr <plug>(coc-rename)
     " nmap <leader>l <plug>(coc-format)
-
+    vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
     tnoremap <esc> <C-\><C-n>
@@ -276,8 +283,6 @@ if !has('clipboard')
     noremap \y :yank<bar>silent call system("xclip -i -selection clipboard", getreg("\""))<cr>
     noremap \p :call setreg("\"",system("xclip -o -selection clipboard"))<cr>o<esc>p
 endif
-
-autocmd FileType c,cpp inoremap /*<cr> /*<cr><bs><space>*<cr>*/<up><space>
 " }}}
 " ============================================================================
 " ABBREVIATIONS {{{
@@ -287,6 +292,7 @@ autocmd FileType c,cpp inoremap /*<cr> /*<cr><bs><space>*<cr>*/<up><space>
 iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
 
 " Fix typo
+abbrev hlep help
 abbrev slef self
 abbrev ture true
 abbrev Ture True
@@ -295,6 +301,7 @@ abbrev Flase False
 abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
+abbrev sturct struct
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -333,15 +340,16 @@ function! AUTOSAR()
     syn keyword cType float32 float64
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
+
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 autocmd BufRead,BufNewFile CMakeLists* set filetype=cmake
 
 function! NewHeader()
-    if 0
-        let name = toupper(substitute(expand("%:t"), "\\.", "_", "g"))
-        exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif  /* ". name . " */\e4G"
+    if 1
+        let name = "_" . toupper(substitute(expand("%:t"), "\\.", "_", "g")) . "_"
+        exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif /* ". name . " */\e4G"
     else
         exe "norm! i#pragma once\n\n\e"
     endif
@@ -499,7 +507,7 @@ endif
 " PLUGIN SETTINGS {{{
 " youcompleteme
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/conf/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_disable_for_files_larger_than_kb = 1024
 let g:ycm_key_list_select_completion = ['<down>']
@@ -509,22 +517,22 @@ let g:ycm_show_diagnostics_ui = 0
 
 " coc
 let g:coc_global_extensions = [
-            \'coc-prettier',
             \'coc-clangd',
             \'coc-cmake',
-            \'coc-python',
-            \'coc-xml',
             \'coc-json',
             \'coc-prettier',
+            \'coc-python',
+            \'coc-snippets',
+            \'coc-ultisnips',
             \'coc-tsserver',
+            \'coc-xml',
             \]
+let g:coc_config_home = '~/workspace/dotfiles/vim'
 if has('nvim')
     inoremap <silent><expr> <c-space> coc#refresh()
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    nmap <silent> gd <plug>(coc-definition)
 endif
 
 " chromatica
@@ -532,7 +540,7 @@ let g:chromatica#enable_at_startup = 1
 if g:os == 'Darwin'
     let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 elseif g:os == 'Linux'
-    let g:chromatica#libclang_path = '/usr/lib/llvm-x.x/lib/libclang.so'
+    let g:chromatica#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-10.so'
 endif
 
 " gitgutter
@@ -551,7 +559,7 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
     if g:os == 'Darwin'
-        let g:airline_section_c .= ' 🧿 %#__accent_bold#sis'
+        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
         let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
     elseif has('win32')
@@ -596,6 +604,13 @@ let g:AutoPairsShortcutFastWrap = '<C-l>'
 autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
 autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
 autocmd FileType python inoremap f' f''<left>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger = "<C-s>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
+let g:UltiSnipsEditSplit = "vertical"
+let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
 
 " indentLine
 let g:indentLine_leadingSpaceChar = '.'
@@ -670,15 +685,15 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo dracula
-    let g:airline_theme = 'dracula'
-elseif g:os == "Linux"
     let ayucolor='mirage'
     colo ayu
     let g:airline_theme = 'ayu_mirage'
+elseif g:os == "Linux"
+    colo dracula
+    let g:airline_theme = 'dracula'
 elseif has("win32")
-    colo codedark
-    let g:airline_theme = 'codedark'
+    colo kalisi
+    let g:airline_theme = 'kalisi'
 elseif has("win32unix")
     colo iceberg
     let g:airline_theme = 'iceberg'

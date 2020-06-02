@@ -1,0 +1,70 @@
+snippet cc "(snippet) comment" b
+/*
+ * $0
+ */
+endsnippet
+
+
+snippet "struct\s*" "(snippet) struct NAME { ... }" br
+struct ${1:/* NAME */} {
+	$0
+};
+endsnippet
+
+
+snippet "union\s*" "(snippet) union NAME { ... }" br
+union ${1:/* NAME */} {
+	$0
+};
+endsnippet
+
+
+snippet "enum\s*" "(snippet) enum { ... }" br
+enum {
+	${1:/* LIST */}
+};
+endsnippet
+
+
+snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } TYPE" brA
+typedef `!p snip.rv = match.group(1)` {
+	$0
+} ${1:/* TYPE */};
+endsnippet
+
+
+snippet "#if (\w+)([ !=]*)" "(snippet) #if MACRO ... #endif /* MACRO */" r
+#if `!p snip.rv = match.group(1)``!p snip.rv = match.group(2)`$0
+#endif /* `!p snip.rv = match.group(1)` */
+endsnippet
+
+
+snippet mando "(snippet) MANDO" b
+/*
+ * Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.
+ *
+ * Author: Insub Song (insub.song@halla.com)
+ *
+ */
+${2}
+endsnippet
+
+
+snippet cinc "(snippet) C include set" b
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+$0
+endsnippet
+
+
+snippet cppinc "(snippet) C include set" b
+#include <cstdio>
+#include <cstdint>
+#include <cstdbool>
+#include <iostream>
+
+using namespace std;
+$0
+endsnippet

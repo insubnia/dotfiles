@@ -49,8 +49,8 @@ done < <(cat << EOF
 EOF
 )
 
-echo -e "\n[Cloning color schemes]"
-git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colorschemes
+# echo -e "\n[Cloning color schemes]"
+# git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colorschemes
 
 # Install list depending on OS
 macos_list=(
@@ -62,6 +62,8 @@ linux_list=(
     vim-gtk
     xclip
     python3-pip
+    clang
+    libclang-dev
 )
 
 case "$OSTYPE" in

@@ -12,6 +12,11 @@
 #define _BV(bit) (1UL << (bit))
 #define BIT(nr) (1UL << (nr))
 
+/* Macros to clear/set/test flags. */
+#define	SET(t, f)	(t) |= (f)
+#define	CLR(t, f)	(t) &= ~(f)
+#define	ISSET(t, f)	!!((t) & (f))
+
 typedef uint8_t five_uint8_t[5];
 
 /*
