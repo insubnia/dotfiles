@@ -36,7 +36,6 @@ done < <(cat << EOF
     make
     cmake
     scons
-    prettier
     ctags
     python3
     autojump
@@ -64,11 +63,12 @@ linux_list=(
     python3-pip
     clang
     libclang-dev
+    net-tools
 )
 
 case "$OSTYPE" in
-    darwin*) list=($macos_list) ;;
-    linux*) list=($linux_list) ;;
+    darwin*) list=${macos_list[@]} ;;
+    linux*) list=${linux_list[@]} ;;
 esac
 
 for item in $list
