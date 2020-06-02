@@ -62,6 +62,8 @@ linux_list=(
     vim-gtk
     xclip
     python3-pip
+    clang
+    libclang-dev
 )
 
 case "$OSTYPE" in

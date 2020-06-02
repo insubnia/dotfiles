@@ -540,7 +540,7 @@ let g:chromatica#enable_at_startup = 1
 if g:os == 'Darwin'
     let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 elseif g:os == 'Linux'
-    let g:chromatica#libclang_path = '/usr/lib/llvm-x.x/lib/libclang.so'
+    let g:chromatica#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-10.so'
 endif
 
 " gitgutter
@@ -559,7 +559,7 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
     if g:os == 'Darwin'
-        let g:airline_section_c .= ' 🧿 %#__accent_bold#sis'
+        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
         let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
     elseif has('win32')
@@ -685,12 +685,12 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo dracula
-    let g:airline_theme = 'dracula'
-elseif g:os == "Linux"
     let ayucolor='mirage'
     colo ayu
     let g:airline_theme = 'ayu_mirage'
+elseif g:os == "Linux"
+    colo dracula
+    let g:airline_theme = 'dracula'
 elseif has("win32")
     colo kalisi
     let g:airline_theme = 'kalisi'
