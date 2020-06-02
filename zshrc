@@ -10,25 +10,26 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # In order to show user@hostname, remove below line
     # typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
 elif [[ "$OSTYPE" == "linux"* ]]; then
+    ZSH_THEME="powerlevel9k/powerlevel9k"
+
+    # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs background_jobs)
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user dir vcs background_jobs)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator battery time date)
+    POWERLEVEL9K_TIME_FORMAT=%t
+    POWERLEVEL9K_DATE_FORMAT=%D{%F(%a)}
+    POWERLEVEL9K_MODE='nerdfont-complete'
+
     if [[ -n 'grep "Microsoft" /proc/version' ]]; then
-        ZSH_THEME="avit"
+        # remove vcs for speed-up 
+        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(${POWERLEVEL9K_LEFT_PROMPT_ELEMENTS[@]/(vcs)})
     else
-        ZSH_THEME="powerlevel9k/powerlevel9k"
-
-        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs background_jobs)
-        POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time date)
-        POWERLEVEL9K_TIME_FORMAT=%t
-        POWERLEVEL9K_DATE_FORMAT=%D{%F(%a)}
-
-        POWERLEVEL9K_MODE='nerdfont-complete'
-        POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs background_jobs)
+        # echo "Native Linux"
     fi
 else
     echo $OSTYPE
 fi
 
 plugins+=(
-    git
     colored-man-pages
     autojump
     extract
