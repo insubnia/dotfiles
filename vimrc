@@ -44,7 +44,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+" Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'

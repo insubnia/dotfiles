@@ -39,6 +39,7 @@ choco install -y jq
 choco install -y wget
 choco install -y dos2unix
 choco install -y microsoft-windows-terminal
+choco install -y vcxsrv
 
 REM  font
 choco install -y d2codingfont

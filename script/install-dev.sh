@@ -62,6 +62,7 @@ linux_list=(
     xclip
     python3-pip
     clang
+    clangd
     libclang-dev
     net-tools
 )
