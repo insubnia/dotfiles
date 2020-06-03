@@ -367,6 +367,14 @@ augroup NewFile
     autocmd BufNewFile *.{h,hpp} call NewHeader()
     autocmd BufNewFile *.py call NewPy()
 augroup END
+
+let s:clip = '/mnt/c/Windows/System32/clip.exe' 
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
+    augroup END
+end
 " }}}
 " ============================================================================
 " FUNCTIONS & COMMANDS {{{
