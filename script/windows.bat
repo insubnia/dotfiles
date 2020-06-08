@@ -24,6 +24,7 @@ choco install -y tortoisegit
 REM server
 choco install -y openssh
 choco install -y putty
+choco install -y winscp
 
 REM  dev
 choco install -y git
