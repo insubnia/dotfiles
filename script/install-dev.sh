@@ -40,6 +40,7 @@ done < <(cat << EOF
     python3
     autojump
     unrar
+    p7zip
     nodejs
     jq
     npm
