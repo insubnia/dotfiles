@@ -41,7 +41,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
-Plug 'shime/vim-livedown', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
@@ -448,7 +448,7 @@ if !exists('*Run')
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
         elseif &filetype == 'markdown'
-            LivedownPreview
+            MarkdownPreview
         else
             echom "There's nothing to do"
         endif
@@ -661,9 +661,6 @@ let g:ale_sign_warning = ''
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
-
-" livedown
-let g:livedown_browser = (g:os=='Darwin' ? 'safari' : 'chrome')
 
 " devicon
 let g:webdevicons_enable = 1
