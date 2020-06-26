@@ -542,6 +542,9 @@ if g:os == 'Darwin'
 elseif g:os == 'Linux'
     let g:chromatica#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-10.so'
 endif
+let g:chromatica#global_args = []
+let g:chromatica#responsive_mode = 1
+let g:chromatica#delay_ms = 500
 
 " gitgutter
 set updatetime=100
