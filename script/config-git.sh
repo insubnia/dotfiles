@@ -15,6 +15,8 @@ git config --global merge.tool vimdiff2     # tool: vimdiff, vimdiff2, vimdiff3
 git config --global mergetool.prompt true
 git config --global merge.conflictstyle diff3   # confilctstyle: merge, diff3
 
+git config --global rebase.false
+
 git config --global alias.cp      "cherry-pick"
 git config --global alias.df      "diff --color-words"
 git config --global alias.rst     "reset"
