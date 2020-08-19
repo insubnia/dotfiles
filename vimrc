@@ -298,6 +298,7 @@ abbrev ture true
 abbrev Ture True
 abbrev flase false
 abbrev Flase False
+abbrev pirnt print
 abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
