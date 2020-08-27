@@ -1,14 +1,3 @@
-set DOTFILES=%USERPROFILE%/workspace/dotfiles
-
-mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
-mklink "%USERPROFILE%/.flake8" "%DOTFILES%/conf/flake8"
-REM  mklink /D "%USERPROFILE%/.vim" "%USERPROFILE%/vimfiles"
-
-mkdir "%USERPROFILE%/AppData/Local/nvim"
-mklink "%USERPROFILE%/AppData/Local/nvim/init.vim" "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/AppData/Local/nvim/ginit.vim" "%DOTFILES%/vim/ginit.vim"
-
 REM  tool
 choco install -y chocolateygui
 choco install -y googlechrome
@@ -24,6 +13,7 @@ choco install -y tortoisegit
 REM server
 choco install -y openssh
 choco install -y putty
+choco install -y winscp
 
 REM  dev
 choco install -y git
@@ -39,6 +29,7 @@ choco install -y jq
 choco install -y wget
 choco install -y dos2unix
 choco install -y microsoft-windows-terminal
+choco install -y vcxsrv
 
 REM  font
 choco install -y d2codingfont

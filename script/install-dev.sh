@@ -36,11 +36,11 @@ done < <(cat << EOF
     make
     cmake
     scons
-    prettier
     ctags
     python3
     autojump
     unrar
+    p7zip
     nodejs
     jq
     npm
@@ -63,12 +63,14 @@ linux_list=(
     xclip
     python3-pip
     clang
+    clangd
     libclang-dev
+    net-tools
 )
 
 case "$OSTYPE" in
-    darwin*) list=($macos_list) ;;
-    linux*) list=($linux_list) ;;
+    darwin*) list=${macos_list[@]} ;;
+    linux*) list=${linux_list[@]} ;;
 esac
 
 for item in $list

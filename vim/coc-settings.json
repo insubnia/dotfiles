@@ -3,7 +3,8 @@
     "enable": true,
     "displayByAle": false
   },
-  "languageserver": {},
+  "languageserver": {
+  },
   "python": {
     "linting": {
       "flake8Enabled": true,

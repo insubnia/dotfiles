@@ -41,10 +41,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
-Plug 'shime/vim-livedown', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+" Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -163,6 +163,7 @@ nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
+" nnoremap <C-m>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
@@ -298,6 +299,7 @@ abbrev ture true
 abbrev Ture True
 abbrev flase false
 abbrev Flase False
+abbrev pirnt print
 abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
@@ -329,8 +331,8 @@ autocmd Syntax c,cpp,python call OperatorHL()
 
 augroup XML
     autocmd!
-    " autocmd FileType xml setlocal fdm=indent
-    " autocmd FileType xml setlocal fdl=2
+    autocmd FileType xml setlocal fdm=indent
+    autocmd FileType xml setlocal fdl=2
 augroup END
 
 function! AUTOSAR()
@@ -448,7 +450,7 @@ if !exists('*Run')
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
         elseif &filetype == 'markdown'
-            LivedownPreview
+            MarkdownPreview
         else
             echom "There's nothing to do"
         endif
@@ -542,6 +544,9 @@ if g:os == 'Darwin'
 elseif g:os == 'Linux'
     let g:chromatica#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-10.so'
 endif
+let g:chromatica#global_args = []
+let g:chromatica#responsive_mode = 1
+let g:chromatica#delay_ms = 500
 
 " gitgutter
 set updatetime=100
@@ -563,7 +568,7 @@ function! AirlineInit()
     elseif g:os == 'Linux'
         let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
     elseif has('win32')
-        let g:airline_section_c .= ' 🚗 MANDO'
+        let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} at MANDO'
     endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
@@ -662,9 +667,6 @@ let g:ale_sign_warning = ''
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
 
-" livedown
-let g:livedown_browser = (g:os=='Darwin' ? 'safari' : 'chrome')
-
 " devicon
 let g:webdevicons_enable = 1
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ' '
@@ -689,11 +691,11 @@ if g:os == "Darwin"
     colo ayu
     let g:airline_theme = 'ayu_mirage'
 elseif g:os == "Linux"
+    colo jellybeans
+    let g:airline_theme = 'jellybeans'
+elseif has("win32")
     colo dracula
     let g:airline_theme = 'dracula'
-elseif has("win32")
-    colo kalisi
-    let g:airline_theme = 'kalisi'
 elseif has("win32unix")
     colo iceberg
     let g:airline_theme = 'iceberg'
