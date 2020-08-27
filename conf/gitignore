@@ -1,4 +1,4 @@
-# .gitignore of sis
+# .gitignore
 
 # Mac
 .DS_Store
@@ -32,6 +32,9 @@ Thumbs.db
 *.dll
 *.lib
 *.sbr
+
+# vim
+.vim/
 
 # custom
 *.swp

@@ -1,0 +1,35 @@
+{
+  "C_Cpp.updateChannel": "Insiders",
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+
+  "vim": {
+    "hlsearch": true,
+    "leader": "<space>",
+
+    "handleKeys": {
+      "<C-a>": true,
+      "<C-b>": true
+    },
+
+    "normalModeKeyBindingsNonRecursive": [
+      { "before": ["<bs>"], "commands": [":noh"] },
+      { "before": ["j"], "after": ["g", "j"] },
+      { "before": ["k"], "after": ["g", "k"] },
+      {
+        "before": ["<leader><space>"],
+        "commands": [":wa"]
+      }
+    ],
+
+    "visualModeKeyBindingsNonRecursive": [
+    ],
+
+    "insertModeKeyBindingsNonRecursive": [
+      { "before": ["<c-a>"], "after": ["<home>"] },
+      { "before": ["<c-e>"], "after": ["<end>"] },
+      { "before": ["<c-b>"], "after": ["<left>"] },
+      { "before": ["<c-f>"], "after": ["<right>"] }
+    ]
+  },
+  "editor.largeFileOptimizations": false
+}
