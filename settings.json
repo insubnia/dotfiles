@@ -11,25 +11,27 @@
       "<C-b>": true
     },
 
+      // { "before": [], "after": [] },
+      // { "before": [], "commands": [] },
     "normalModeKeyBindingsNonRecursive": [
       { "before": ["<bs>"], "commands": [":noh"] },
       { "before": ["j"], "after": ["g", "j"] },
       { "before": ["k"], "after": ["g", "k"] },
-      {
-        "before": ["<leader><space>"],
-        "commands": [":wa"]
-      }
+      { "before": ["<leader><space>"], "commands": ["workbench.action.files.saveAll"] },
+      { "before": ["<tab>"], "after": ["g", "t"] },
+      { "before": ["<s-tab>"], "after": ["g", "T"] },
     ],
-
     "visualModeKeyBindingsNonRecursive": [
     ],
-
     "insertModeKeyBindingsNonRecursive": [
-      { "before": ["<c-a>"], "after": ["<home>"] },
-      { "before": ["<c-e>"], "after": ["<end>"] },
-      { "before": ["<c-b>"], "after": ["<left>"] },
-      { "before": ["<c-f>"], "after": ["<right>"] }
+      { "before": ["<c-a>"], "commands": ["cursorHome"] },
+      { "before": ["<c-e>"], "commands": ["cursorEnd"] },
+      { "before": ["<c-b>"], "commands": ["cursorLeft"] },
+      { "before": ["<c-f>"], "commands": ["cursorRight"] }
     ]
   },
-  "editor.largeFileOptimizations": false
+  "editor.largeFileOptimizations": false,
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  }
 }

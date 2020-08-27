@@ -163,6 +163,7 @@ nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
+" nnoremap <C-m>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
