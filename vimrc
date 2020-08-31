@@ -333,6 +333,8 @@ augroup XML
     autocmd!
     autocmd FileType xml setlocal fdm=indent
     autocmd FileType xml setlocal fdl=2
+    nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
+    nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
 augroup END
 
 function! AUTOSAR()
@@ -504,6 +506,15 @@ if !exists('*HV')
         endif
     endfunc
 endif
+
+command! -nargs=+ FL call FL(<f-args>)
+function! FL(...)
+    try
+        exe "set foldlevel=" . a:1
+    catch
+        echo "Fold Level:" &foldlevel
+    endtry
+endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
