@@ -163,11 +163,10 @@ nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
-" nnoremap <C-m>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
-" nnoremap <C-q> :conf qa<cr>
+nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
@@ -176,12 +175,13 @@ nnoremap <M-Up> kddpk
 nnoremap <M-Down> ddp
 nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
+" nnoremap <cr> 
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
-nnoremap <leader>q :copen<cr>
+" nnoremap <leader>q :copen<cr>
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
