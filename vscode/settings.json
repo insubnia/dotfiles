@@ -5,14 +5,15 @@
   },
 
   "vim": {
+    "gdefault": true,
     "useSystemClipboard": true,
     "hlsearch": true,
 
     "leader": "<space>",
-    // "useCtrlKeys": true,
+    "useCtrlKeys": true,
     "handleKeys": {
-      // "<C-b>": true,
-      // "<C-f>": true,
+      "<C-b>": true,
+      "<C-f>": true,
     },
 
       // { "before": [""], "after": [""] },
