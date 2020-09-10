@@ -1,14 +1,18 @@
 {
   "C_Cpp.updateChannel": "Insiders",
-  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
 
   "vim": {
+    "useSystemClipboard": true,
     "hlsearch": true,
-    "leader": "<space>",
 
+    "leader": "<space>",
+    // "useCtrlKeys": true,
     "handleKeys": {
-      "<C-a>": true,
-      "<C-b>": true
+      // "<C-b>": true,
+      // "<C-f>": true,
     },
 
       // { "before": [""], "after": [""] },
@@ -21,25 +25,23 @@
       { "before": ["y", "w"], "after": ["y", "i", "w"] },
       { "before": ["Z", "Q"], "commands": [":q"] },
       { "before": ["Z", "Z"], "commands": [":wq"] },
+      { "before": ["<C-j>"], "commands": ["workbench.action.editor.nextChange"] },
+      { "before": ["<C-k>"], "commands": ["workbench.action.editor.previousChange"] },
       { "before": ["<C-n>"], "commands": ["workbench.action.toggleSidebarVisibility"] },
       { "before": ["<bs>"], "commands": [":noh"] },
       { "before": ["<tab>"], "after": ["g", "t"] },
       { "before": ["<S-tab>"], "after": ["g", "T"] },
       { "before": ["<leader>", "<space>"], "commands": ["workbench.action.files.saveAll"] },
+      { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
     ],
     "visualModeKeyBindingsNonRecursive": [
+      { "before": ["<leader>", "l"], "commands": ["editor.action.formatSelection"] },
     ],
     "insertModeKeyBindingsNonRecursive": [
       { "before": ["<C-a>"], "commands": ["cursorHome"] },
       { "before": ["<C-e>"], "commands": ["cursorEnd"] },
-
       { "before": ["<C-b>"], "commands": ["cursorLeft"] },
-      { "before": ["<C-f>"], "commands": ["cursorRight"] }
+      { "before": ["<C-f>"], "commands": ["cursorRight"] },
     ]
   },
-  "editor.largeFileOptimizations": false,
-  "[c]": {
-    "editor.defaultFormatter": "xaver.clang-format"
-  },
-  "window.zoomLevel": -1
 }
