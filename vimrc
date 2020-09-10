@@ -233,7 +233,9 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    nmap ? :call CocAction('doHover')<cr>
+    nnoremap \ :call CocAction('doHover')<cr>
+    nnoremap ? :CocList -I symbols<cr>
+
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
     nmap gd <plug>(coc-definition)
