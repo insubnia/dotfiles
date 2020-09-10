@@ -175,7 +175,6 @@ nnoremap <M-Up> kddpk
 nnoremap <M-Down> ddp
 nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
-" nnoremap <cr> 
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
@@ -241,6 +240,7 @@ if has('nvim')
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
     " nmap <leader>l <plug>(coc-format)
+    nmap <cr> :call CocAction('doHover')<cr>
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
