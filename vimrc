@@ -152,7 +152,6 @@ nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 " nnoremap ? :ts /
-nnoremap ? :Ack!  %<left><left>
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
@@ -234,13 +233,13 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
+    nmap ? :call CocAction('doHover')<cr>
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
     " nmap <leader>l <plug>(coc-format)
-    nmap <cr> :call CocAction('doHover')<cr>
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>
