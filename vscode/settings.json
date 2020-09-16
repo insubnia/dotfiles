@@ -1,6 +1,10 @@
 {
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "C_Cpp.updateChannel": "Insiders",
   "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
 

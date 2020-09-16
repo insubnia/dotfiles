@@ -157,6 +157,7 @@ nnoremap _ <
 nnoremap 0 <C-i>zz
 nnoremap R :GitGutterEn<cr>:GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
+nnoremap cw ciw
 nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
