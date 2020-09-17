@@ -40,6 +40,8 @@
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
     ],
     "visualModeKeyBindingsNonRecursive": [
+      { "before": ["<"], "after": ["<", "g", "v"] },
+      { "before": [">"], "after": [">", "g", "v"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatSelection"] },
     ],
     "insertModeKeyBindingsNonRecursive": [
