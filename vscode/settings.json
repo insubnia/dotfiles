@@ -39,16 +39,22 @@
       { "before": ["<leader>", "<space>"], "commands": ["workbench.action.files.saveAll"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
     ],
+    "normalModeKeyBindings": [
+    ],
     "visualModeKeyBindingsNonRecursive": [
       { "before": ["<"], "after": ["<", "g", "v"] },
       { "before": [">"], "after": [">", "g", "v"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatSelection"] },
+    ],
+    "visualModeKeyBindings": [
     ],
     "insertModeKeyBindingsNonRecursive": [
       { "before": ["<C-a>"], "commands": ["cursorHome"] },
       { "before": ["<C-e>"], "commands": ["cursorEnd"] },
       { "before": ["<C-b>"], "commands": ["cursorLeft"] },
       { "before": ["<C-f>"], "commands": ["cursorRight"] },
-    ]
+    ],
+    "insertModeKeyBindings": [
+    ],
   },
 }

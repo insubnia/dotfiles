@@ -191,6 +191,7 @@ nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
+vnoremap vw viw
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
@@ -234,7 +235,7 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    nnoremap \ :call CocAction('doHover')<cr>
+    nnoremap ; :call CocAction('doHover')<cr>
     nnoremap ? :CocList -I symbols<cr>
 
     nmap J <plug>(coc-diagnostic-next)

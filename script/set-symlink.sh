@@ -1,7 +1,8 @@
 #!/bin/bash
 
 DOTFILES=~/workspace/dotfiles
-CONF=~/workspace/dotfiles/conf
+CONF=$DOTFILES/conf
+VSCODE=$DOTFILES/vscode
 
 # TAR=~/.ctags.d/default.ctags
 # if [ ! -e $TAR ]; then
@@ -19,9 +20,12 @@ ln -sf $CONF/flake8 ~/.flake8
 
 case "$OSTYPE" in
     darwin*)
-        ln -sf $DOTFILES/settings.json ~/Library/Application\ Support/Code/User/settings.json
+        VSCODE_USER=~/Library/Application\ Support/Code/User
         ;;
     linux*)
-        ln -sf $DOTFILES/settings.json ~/.config/Code/User/settings.json
+        VSCODE_USER=~/.config/Code/User
         ;;
 esac
+
+ln -sf $VSCODE/settings.json $VSCODE_USER/settings.json
+ln -sf $VSCODE/keybindings.json $VSCODE_USER/keybindings.json
