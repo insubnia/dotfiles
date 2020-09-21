@@ -1,5 +1,8 @@
 {
+  "workbench.colorTheme": "Dracula",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+  "editor.wordWrap": "off",
+
   "C_Cpp.updateChannel": "Insiders",
   "[c]": {
     "editor.defaultFormatter": "xaver.clang-format"
@@ -16,13 +19,12 @@
     "leader": "<space>",
     "useCtrlKeys": true,
     "handleKeys": {
-      "<C-b>": true,
-      "<C-f>": true,
     },
 
       // { "before": [""], "after": [""] },
       // { "before": [""], "commands": [""] },
     "normalModeKeyBindingsNonRecursive": [
+      { "before": [";"], "commands": ["editor.action.showHover"] },
       { "before": ["j"], "after": ["g", "j"] },
       { "before": ["k"], "after": ["g", "k"] },
       { "before": ["Q"], "after": ["@", "q"] },
@@ -32,34 +34,29 @@
       { "before": ["g", "r"], "commands": ["editor.action.rename"] },
       { "before": ["Z", "Q"], "commands": [":q"] },
       { "before": ["Z", "Z"], "commands": [":wq"] },
+      { "before": ["<C-c>"], "commands": ["workbench.action.closeSidebar", "workbench.action.closePanel"] },
       { "before": ["<C-j>"], "commands": ["workbench.action.editor.nextChange"] },
       { "before": ["<C-k>"], "commands": ["workbench.action.editor.previousChange"] },
-      { "before": ["<C-n>"], "commands": ["workbench.action.toggleSidebarVisibility"] },
       { "before": ["<bs>"], "commands": [":noh"] },
       { "before": ["<tab>"], "after": ["g", "t"] },
       { "before": ["<S-tab>"], "after": ["g", "T"] },
       { "before": ["<leader>", "<space>"], "commands": ["workbench.action.files.saveAll"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
     ],
-    "normalModeKeyBindings": [
-    ],
     "visualModeKeyBindingsNonRecursive": [
       { "before": ["<"], "after": ["<", "g", "v"] },
       { "before": [">"], "after": [">", "g", "v"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatSelection"] },
     ],
-    "visualModeKeyBindings": [
-    ],
     "insertModeKeyBindingsNonRecursive": [
       { "before": ["<C-a>"], "commands": ["cursorHome"] },
       { "before": ["<C-e>"], "commands": ["cursorEnd"] },
-      { "before": ["<C-b>"], "commands": ["cursorLeft"] },
-      { "before": ["<C-f>"], "commands": ["cursorRight"] },
+    ],
+    "normalModeKeyBindings": [
+    ],
+    "visualModeKeyBindings": [
     ],
     "insertModeKeyBindings": [
     ],
   },
-  // "workbench.colorTheme": "Dracula",
-  "workbench.colorTheme": "Palenight Theme",
-  // "workbench.colorTheme": "Panda Syntax",
 }
