@@ -7,8 +7,8 @@
 
 { "key": "ctrl+c",                "command": "workbench.action.closeSidebar",
                                      "when": "sideBarFocus" },
-{ "key": "ctrl+n",                "command": "workbench.view.explorer",
-                                     "when": "!sideBarFocus" },
 { "key": "ctrl+n",                "command": "workbench.action.closeSidebar",
                                      "when": "sideBarFocus" },
+{ "key": "ctrl+n",                "command": "workbench.view.explorer",
+                                     "when": "editorTextFocus && vim.mode == 'Normal'" },
 ]
