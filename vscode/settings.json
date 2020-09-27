@@ -27,6 +27,7 @@
       { "before": [";"], "commands": ["editor.action.showHover"] },
       { "before": ["j"], "after": ["g", "j"] },
       { "before": ["k"], "after": ["g", "k"] },
+      { "before": ["T"], "commands": ["outline.focus"] },
       { "before": ["Q"], "after": ["@", "q"] },
       { "before": ["W"], "after": ["@", "w"] },
       { "before": ["Y"], "after": ["y", "$"] },
