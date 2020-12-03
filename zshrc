@@ -19,11 +19,11 @@ elif [[ "$OSTYPE" == "linux"* ]]; then
     POWERLEVEL9K_DATE_FORMAT=%D{%F(%a)}
     POWERLEVEL9K_MODE='nerdfont-complete'
 
-    if [[ -n 'grep "Microsoft" /proc/version' ]]; then
+    if grep -q Microsoft /proc/version; then
         # remove vcs for speed-up 
         POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(${POWERLEVEL9K_LEFT_PROMPT_ELEMENTS[@]/(vcs)})
     else
-        # echo "Native Linux"
+        # Native Linux System
     fi
 else
     echo $OSTYPE
