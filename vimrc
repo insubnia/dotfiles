@@ -152,22 +152,21 @@ nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 " nnoremap ? :ts /
-nnoremap ? :Ack!  %<left><left>
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
 nnoremap R :GitGutterEn<cr>:GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
+nnoremap cw ciw
 nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
-" nnoremap <C-m>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
-" nnoremap <C-q> :conf qa<cr>
+nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>] :vert stj <cr>
 nnoremap <tab> gt
@@ -181,7 +180,7 @@ nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
-nnoremap <leader>q :copen<cr>
+" nnoremap <leader>q 
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
@@ -192,6 +191,7 @@ nnoremap <leader><space> :wa<cr>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
+vnoremap vw viw
 vnoremap "" s""<esc>P
 vnoremap '' s''<esc>P
 vnoremap () s()<esc>P
@@ -227,14 +227,17 @@ nmap ]t :tabmove +<cr>
 nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
+nmap <C-q> <plug>(qf_qf_toggle)
 nmap <leader>l <plug>(ale_fix)
 nmap <leader>j <Plug>(qf_qf_next)zz
 nmap <leader>k <Plug>(qf_qf_previous)zz
-" nmap <leader>q <Plug>(qf_qf_toggle)
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
+    nnoremap ; :call CocAction('doHover')<cr>
+    nnoremap ? :CocList -I symbols<cr>
+
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
     nmap gd <plug>(coc-definition)
@@ -333,6 +336,8 @@ augroup XML
     autocmd!
     autocmd FileType xml setlocal fdm=indent
     autocmd FileType xml setlocal fdl=2
+    nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
+    nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
 augroup END
 
 function! AUTOSAR()
@@ -504,6 +509,15 @@ if !exists('*HV')
         endif
     endfunc
 endif
+
+command! -nargs=+ FL call FL(<f-args>)
+function! FL(...)
+    try
+        exe "set foldlevel=" . a:1
+    catch
+        echo "Fold Level:" &foldlevel
+    endtry
+endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{

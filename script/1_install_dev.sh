@@ -25,7 +25,6 @@ done < <(cat << EOF
     neovim
     git
     git-flow
-    tig
     ack
     wget
     curl
@@ -36,7 +35,6 @@ done < <(cat << EOF
     make
     cmake
     scons
-    ctags
     python3
     autojump
     unrar
