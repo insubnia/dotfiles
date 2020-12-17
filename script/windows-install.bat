@@ -2,13 +2,16 @@
 choco install -y chocolateygui
 choco install -y googlechrome
 choco install -y onedrive
-choco install -y flashplayerplugin
+REM  choco install -y flashplayerplugin
 choco install -y vlc
 choco install -y vim
 choco install -y neovim
 choco install -y sourcetree
 choco install -y vscode
 choco install -y tortoisegit
+choco install -y caffeine
+choco install -y winpcap
+choco install -y wireshark
 
 :: server-client
 choco install -y openssh

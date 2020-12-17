@@ -64,4 +64,5 @@
     "insertModeKeyBindings": [
     ],
   },
+  "window.zoomLevel": -1,
 }
