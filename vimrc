@@ -29,7 +29,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
-Plug 'yggdroot/indentLine'
+" Plug 'yggdroot/indentLine'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
@@ -636,6 +637,11 @@ let g:indentLine_leadingSpaceChar = '.'
 let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tagbar', 'text']
+
+" indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
 autocmd VimEnter * if g:os=='Windows' | let g:ackprg = 'ack -His --smart-case --column --nocolor --nogroup' | endif
