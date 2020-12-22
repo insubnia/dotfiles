@@ -1,4 +1,5 @@
-set DOTFILES=%USERPROFILE%/workspace/dotfiles
+:: set DOTFILES=%USERPROFILE%/workspace/dotfiles
+set DOTFILES=D:/workspace/dotfiles
 
 mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
 mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"

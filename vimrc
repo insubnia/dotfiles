@@ -182,7 +182,7 @@ nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
-" nnoremap <leader>q 
+" nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
@@ -190,6 +190,7 @@ nnoremap <leader><space> :wa<cr>
 " nnoremap <leader>E
 " nnoremap <leader>F
 " nnoremap <leader>R
+nnoremap <leader><cr> o<esc>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
