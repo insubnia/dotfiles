@@ -14,9 +14,9 @@ done < <(cat << EOF
     iterm2
     google-chrome
     onedrive
-    flash-npapi
     vlc
     folx
+    transmission
     mounty
     sourcetree
     visual-studio-code
