@@ -709,15 +709,15 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
+    colo dracula
+    let g:airline_theme = 'dracula'
+elseif g:os == "Linux"
     let ayucolor='mirage'
     colo ayu
     let g:airline_theme = 'ayu_mirage'
-elseif g:os == "Linux"
+elseif has("win32")
     colo jellybeans
     let g:airline_theme = 'jellybeans'
-elseif has("win32")
-    colo dracula
-    let g:airline_theme = 'dracula'
 elseif has("win32unix")
     colo iceberg
     let g:airline_theme = 'iceberg'
