@@ -10,6 +10,7 @@ choco install -y sourcetree
 choco install -y vscode
 choco install -y tortoisegit
 choco install -y caffeine
+choco install -y everything
 choco install -y winpcap
 choco install -y wireshark
 REM  choco install -y flashplayerplugin
