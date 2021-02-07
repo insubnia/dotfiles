@@ -6,7 +6,7 @@
 # Install apps
 while read line
 do
-    brew cask install $line
+    brew install --cask $line
 done < <(cat << EOF
     karabiner-elements
     scroll-reverser
@@ -20,6 +20,7 @@ done < <(cat << EOF
     mounty
     sourcetree
     visual-studio-code
+    wireshark
 EOF
 )
 
