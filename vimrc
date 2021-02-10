@@ -29,7 +29,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
-Plug 'yggdroot/indentLine'
+" Plug 'yggdroot/indentLine'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
@@ -180,7 +182,7 @@ nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
-" nnoremap <leader>q 
+" nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
 nnoremap <leader>u :Build<cr>
 nnoremap <leader>w :IgnoreSpaceChange<cr>
@@ -188,6 +190,7 @@ nnoremap <leader><space> :wa<cr>
 " nnoremap <leader>E
 " nnoremap <leader>F
 " nnoremap <leader>R
+nnoremap <leader><cr> o<esc>
 vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
@@ -637,6 +640,11 @@ let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tagbar', 'text']
 
+" indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
+
 " ack
 autocmd VimEnter * if g:os=='Windows' | let g:ackprg = 'ack -His --smart-case --column --nocolor --nogroup' | endif
 let g:ack_apply_qmappings = 0
@@ -701,15 +709,15 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
+    colo dracula
+    let g:airline_theme = 'dracula'
+elseif g:os == "Linux"
     let ayucolor='mirage'
     colo ayu
     let g:airline_theme = 'ayu_mirage'
-elseif g:os == "Linux"
+elseif has("win32")
     colo jellybeans
     let g:airline_theme = 'jellybeans'
-elseif has("win32")
-    colo dracula
-    let g:airline_theme = 'dracula'
 elseif has("win32unix")
     colo iceberg
     let g:airline_theme = 'iceberg'

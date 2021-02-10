@@ -6,7 +6,7 @@
 # Install apps
 while read line
 do
-    brew cask install $line
+    brew install --cask $line
 done < <(cat << EOF
     karabiner-elements
     scroll-reverser
@@ -14,12 +14,13 @@ done < <(cat << EOF
     iterm2
     google-chrome
     onedrive
-    flash-npapi
     vlc
     folx
+    transmission
     mounty
     sourcetree
     visual-studio-code
+    wireshark
 EOF
 )
 

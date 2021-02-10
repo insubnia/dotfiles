@@ -26,6 +26,7 @@ done < <(cat << EOF
     git
     git-flow
     ack
+    tmux
     wget
     curl
     tree
@@ -36,6 +37,7 @@ done < <(cat << EOF
     cmake
     scons
     python3
+    pyenv
     autojump
     unrar
     p7zip

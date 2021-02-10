@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Dracula",
+  "workbench.colorTheme": "Panda Syntax",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "editor.wordWrap": "off",
 
@@ -64,4 +64,5 @@
     "insertModeKeyBindings": [
     ],
   },
+  "window.zoomLevel": -1,
 }
