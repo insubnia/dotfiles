@@ -46,6 +46,7 @@ done < <(cat << EOF
     npm
     dos2unix
     libxml2
+    java
 EOF
 )
 

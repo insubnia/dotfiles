@@ -11,5 +11,8 @@
       "pylintEnalbed": false
     }
   },
-  /* "pyls.enable": false */
+  // "pyls.enable": false
+  "xml": {
+    "java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home" // "echo $JAVA_HOME" and get this
+  }
 }
