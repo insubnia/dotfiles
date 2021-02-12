@@ -53,8 +53,8 @@ defaults write com.apple.dock expose-group-by-app -bool true
 # Finder
 ##############################################################################
 
-# Display the file extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# Do not show the file extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool false
 
 # Do not show hidden files by default
 defaults write com.apple.finder AppleShowAllFiles FALSE
