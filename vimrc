@@ -249,7 +249,7 @@ if has('nvim')
     " nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
-    nnoremap <leader>t :topleft vs<bar>term<cr>
+    nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <esc> <C-\><C-n>
 else
     nmap J <plug>(ale_next_wrap)zz
