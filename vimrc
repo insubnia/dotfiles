@@ -170,7 +170,8 @@ nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
-nnoremap <C-w>] :vert stj <cr>
+" nnoremap <C-w>] :vert stj <cr>
+nnoremap <C-w>] :vs<cr>:GoTo<cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <M-Up> kddpk
