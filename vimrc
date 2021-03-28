@@ -29,7 +29,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
-" Plug 'yggdroot/indentLine'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
@@ -46,7 +45,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -634,12 +633,6 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
-
-" indentLine
-let g:indentLine_leadingSpaceChar = '.'
-let g:indentLine_leadingSpaceEnabled = 0
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tagbar', 'text']
 
 " indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
