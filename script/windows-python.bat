@@ -9,3 +9,6 @@ python -m pip install python-language-server
 python -m pip install pynvim
 python -m pip install compiledb
 python -m pip install pywin32
+python -m pip install tqdm
+python -m pip install colorama
+python -m pip install argparse

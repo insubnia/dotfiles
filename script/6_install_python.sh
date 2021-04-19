@@ -27,6 +27,9 @@ done < <(cat << EOF
     pynvim
     compiledb
     cmake_format
+    tqdm
+    colorama
+    argparse
 EOF
 )
 
