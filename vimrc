@@ -114,7 +114,7 @@ set wildignore+=tags,.DS_Store,*.stackdump
 
 if has('nvim')
     if has('win32') " Windows nvim-qt
-        let g:python3_host_prog = 'C:/Python37/python'
+        let g:python3_host_prog = 'C:/Python39/python'
     endif
 endif
 
@@ -123,8 +123,8 @@ if has('gui_win32') " Windows vim
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
-    set pythonthreehome=C:\python37
-    set pythonthreedll=C:\python37\python37.dll
+    set pythonthreehome=C:\Python39
+    set pythonthreedll=C:\Python39\python39.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'

@@ -1,3 +1,5 @@
+python -m pip install --upgrade pip
+
 python -m pip install flake8
 python -m pip install pep8-naming
 python -m pip install autopep8

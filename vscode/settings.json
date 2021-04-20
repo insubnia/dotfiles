@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Panda Syntax",
+  "workbench.colorTheme": "Dracula",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "editor.wordWrap": "off",
 
