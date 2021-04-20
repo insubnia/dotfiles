@@ -13,6 +13,7 @@ choco install -y caffeine
 choco install -y everything
 choco install -y winpcap
 choco install -y wireshark
+choco install -y iperf3
 REM  choco install -y flashplayerplugin
 
 :: server-client

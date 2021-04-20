@@ -47,6 +47,7 @@ done < <(cat << EOF
     dos2unix
     libxml2
     java
+    iperf3
 EOF
 )
 
