@@ -1,14 +1,21 @@
 {
+  "window.zoomLevel": -1,
   "workbench.colorTheme": "Dracula",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "editor.wordWrap": "off",
 
-  "C_Cpp.updateChannel": "Insiders",
-  "[c]": {
-    "editor.defaultFormatter": "xaver.clang-format"
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    // Added by me
+    "**/__pycache__": true,
+    "**/*.pyc": true,
   },
-  "[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format"
+  "search.exclude": {
+    "**/*.a2l": true,
   },
 
   "vim": {
@@ -64,5 +71,19 @@
     "insertModeKeyBindings": [
     ],
   },
-  "window.zoomLevel": -1,
+
+  "C_Cpp.updateChannel": "Insiders",
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+
+  "workbench.editorAssociations": [
+    {
+      "viewType": "jupyter.notebook.ipynb",
+      "filenamePattern": "*.ipynb"
+    }
+  ],
 }
