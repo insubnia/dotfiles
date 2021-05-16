@@ -58,6 +58,7 @@ EOF
 macos_list=(
     binutils
     coreutils
+    fd
 )
 
 linux_list=(
@@ -68,6 +69,7 @@ linux_list=(
     clangd
     libclang-dev
     net-tools
+    fd-find
 )
 
 case "$OSTYPE" in
