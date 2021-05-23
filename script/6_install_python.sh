@@ -30,6 +30,8 @@ done < <(cat << EOF
     tqdm
     colorama
     argparse
+    beautifulsoup4
+    requests
 EOF
 )
 
