@@ -14,6 +14,7 @@ choco install -y everything
 choco install -y winpcap
 choco install -y wireshark
 choco install -y iperf3
+choco install -y ntop
 REM  choco install -y flashplayerplugin
 
 :: server-client

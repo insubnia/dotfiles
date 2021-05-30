@@ -48,6 +48,7 @@ done < <(cat << EOF
     libxml2
     java
     iperf3
+    htop
 EOF
 )
 
