@@ -615,10 +615,13 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
-let g:NERDCustomDelimiters = {'python': {'left': '#'},
-            \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
-            \ 'json': {'left': '/*', 'right': '*/'},
-            \ 'cmm': {'left': ';'}}
+let g:NERDCustomDelimiters = {
+            \'python': {'left': '#'},
+            \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \'json': {'left': '/*', 'right': '*/'},
+            \'cmm': {'left': ';'},
+            \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}
+            \}
 
 " AutoPairs
 let g:AutoPairsFlyMode = 0
