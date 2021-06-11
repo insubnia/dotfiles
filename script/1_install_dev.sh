@@ -49,6 +49,7 @@ done < <(cat << EOF
     java
     iperf3
     htop
+    tcpdump
 EOF
 )
 
