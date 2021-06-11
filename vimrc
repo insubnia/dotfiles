@@ -29,14 +29,13 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
-" Plug 'yggdroot/indentLine'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
@@ -46,7 +45,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -115,7 +114,7 @@ set wildignore+=tags,.DS_Store,*.stackdump
 
 if has('nvim')
     if has('win32') " Windows nvim-qt
-        let g:python3_host_prog = 'C:/Python37/python'
+        let g:python3_host_prog = 'C:/Python39/python'
     endif
 endif
 
@@ -124,8 +123,8 @@ if has('gui_win32') " Windows vim
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
-    set pythonthreehome=C:\python37
-    set pythonthreedll=C:\python37\python37.dll
+    set pythonthreehome=C:\Python39
+    set pythonthreedll=C:\Python39\python39.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
@@ -170,7 +169,8 @@ nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
-nnoremap <C-w>] :vert stj <cr>
+" nnoremap <C-w>] :vert stj <cr>
+nnoremap <C-w>] :vs<cr>:GoTo<cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <M-Up> kddpk
@@ -249,7 +249,7 @@ if has('nvim')
     " nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
-    nnoremap <leader>t :topleft vs<bar>term<cr>
+    nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <esc> <C-\><C-n>
 else
     nmap J <plug>(ale_next_wrap)zz
@@ -585,7 +585,7 @@ function! AirlineInit()
     elseif g:os == 'Linux'
         let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
     elseif has('win32')
-        let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} at MANDO'
+        let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} from MANDO'
     endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
@@ -615,10 +615,13 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
-let g:NERDCustomDelimiters = {'python': {'left': '#'},
-            \ 'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
-            \ 'json': {'left': '/*', 'right': '*/'},
-            \ 'cmm': {'left': ';'}}
+let g:NERDCustomDelimiters = {
+            \'python': {'left': '#'},
+            \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \'json': {'left': '/*', 'right': '*/'},
+            \'cmm': {'left': ';'},
+            \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}
+            \}
 
 " AutoPairs
 let g:AutoPairsFlyMode = 0
@@ -633,12 +636,6 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
-
-" indentLine
-let g:indentLine_leadingSpaceChar = '.'
-let g:indentLine_leadingSpaceEnabled = 0
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tagbar', 'text']
 
 " indent-guides
 let g:indent_guides_enable_on_vim_startup = 1

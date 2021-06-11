@@ -27,6 +27,11 @@ done < <(cat << EOF
     pynvim
     compiledb
     cmake_format
+    tqdm
+    colorama
+    argparse
+    beautifulsoup4
+    requests
 EOF
 )
 

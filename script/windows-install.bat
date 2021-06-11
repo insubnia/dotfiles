@@ -13,18 +13,22 @@ choco install -y caffeine
 choco install -y everything
 choco install -y winpcap
 choco install -y wireshark
+choco install -y iperf3
+choco install -y ntop
 REM  choco install -y flashplayerplugin
 
 :: server-client
 choco install -y openssh
-choco install -y putty
 choco install -y winscp
 choco install -y telnet
-choco install -y teraterm
+choco install -y mobaxterm
+REM  choco install -y putty
+REM  choco install -y teraterm
 
 :: dev
 choco install -y git
 choco install -y ack
+choco install -y fd
 choco install -y llvm
 choco install -y make
 choco install -y ctags

@@ -1,14 +1,21 @@
 {
-  "workbench.colorTheme": "Panda Syntax",
+  "window.zoomLevel": -1,
+  "workbench.colorTheme": "Dracula",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
   "editor.wordWrap": "off",
 
-  "C_Cpp.updateChannel": "Insiders",
-  "[c]": {
-    "editor.defaultFormatter": "xaver.clang-format"
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    // Added by me
+    "**/__pycache__": true,
+    "**/*.pyc": true,
   },
-  "[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format"
+  "search.exclude": {
+    "**/*.a2l": true,
   },
 
   "vim": {
@@ -21,8 +28,6 @@
     "handleKeys": {
     },
 
-      // { "before": [""], "after": [""] },
-      // { "before": [""], "commands": [""] },
     "normalModeKeyBindingsNonRecursive": [
       { "before": [";"], "commands": ["editor.action.showHover"] },
       { "before": ["j"], "after": ["g", "j"] },
@@ -31,6 +36,9 @@
       { "before": ["Q"], "after": ["@", "q"] },
       { "before": ["W"], "after": ["@", "w"] },
       { "before": ["Y"], "after": ["y", "$"] },
+      { "before": ["c", "w"], "after": ["c", "i", "w"] },
+      { "before": ["d", "w"], "after": ["d", "i", "w"] },
+      { "before": ["y", "w"], "after": ["y", "i", "w"] },
       { "before": ["g", "d"], "commands": ["editor.action.revealDefinition"] },
       { "before": ["g", "r"], "commands": ["editor.action.rename"] },
       { "before": ["Z", "Q"], "commands": [":q"] },
@@ -64,5 +72,19 @@
     "insertModeKeyBindings": [
     ],
   },
-  "window.zoomLevel": -1,
+
+  "C_Cpp.updateChannel": "Insiders",
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+
+  "workbench.editorAssociations": [
+    {
+      "viewType": "jupyter.notebook.ipynb",
+      "filenamePattern": "*.ipynb"
+    }
+  ],
 }

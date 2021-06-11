@@ -6,8 +6,8 @@
 # General UI/UX
 ##############################################################################
 
-# Set sidebar icon size to large
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 3
+# Set sidebar icon size to medium
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 
 ##############################################################################
@@ -35,12 +35,29 @@ defaults write com.apple.dock show-recents -bool false
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
+killall Dock
+
+
+##############################################################################
+# Launchpad
+##############################################################################
+
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.1
+
+# Grouping windows by application in Mission Control
+defaults write com.apple.dock expose-group-by-app -bool true
+
 
 ##############################################################################
 # Finder
 ##############################################################################
-# Display the file extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+# Do not show the file extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool false
+
+# Do not show hidden files by default
+defaults write com.apple.finder AppleShowAllFiles FALSE
 
 # Show status & path bar
 defaults write com.apple.finder ShowStatusBar -bool true
@@ -48,6 +65,12 @@ defaults write com.apple.finder ShowPathbar -bool true
 
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
 
 # Warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool true
@@ -58,6 +81,9 @@ killall Finder
 ##############################################################################
 # Safari
 ##############################################################################
+
+# Update extensions automatically
+defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
 
 ##############################################################################
