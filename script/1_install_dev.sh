@@ -26,6 +26,7 @@ done < <(cat << EOF
     git
     git-flow
     ack
+    bat
     tmux
     wget
     curl
