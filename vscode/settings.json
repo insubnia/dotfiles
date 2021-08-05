@@ -2,7 +2,12 @@
   "window.zoomLevel": -1,
   "workbench.colorTheme": "Dracula",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
-  "editor.wordWrap": "off",
+
+  "editor": {
+    "insertSpaces": true,
+    "wordWrap": "off",
+    "cursorStyle": "line",
+  },
 
   "files.exclude": {
     "**/.git": true,
