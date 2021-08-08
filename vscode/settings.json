@@ -57,6 +57,7 @@
       { "before": ["<S-tab>"], "after": ["g", "T"] },
       { "before": ["<leader>", "<space>"], "commands": ["workbench.action.files.saveAll"] },
       { "before": ["<leader>", "f"], "commands": ["workbench.action.findInFiles"] },
+      { "before": ["<leader>", "g"], "commands": ["gitlens.compareWith"] },
       { "before": ["<leader>", "h"], "commands": ["editor.action.startFindReplaceAction"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
     ],
@@ -85,11 +86,4 @@
   "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
-
-  "workbench.editorAssociations": [
-    {
-      "viewType": "jupyter.notebook.ipynb",
-      "filenamePattern": "*.ipynb"
-    }
-  ],
 }
