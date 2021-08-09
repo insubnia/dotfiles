@@ -221,7 +221,7 @@ noremap <F15> <nop>
 noremap \1 :diffget LO<cr>
 noremap \2 :diffget BA<cr>
 noremap \3 :diffget RE<cr>
-noremap <C-/> :call NERDComment(0, "toggle")<cr>
+noremap <C-/> :call nerdcommenter#Comment(0, "toggle")<cr>
 noremap <expr> <leader>g &diff ? ":diffget<cr>" : ":Gdiff<space>"
 noremap <expr> <leader>p &diff ? ":diffput<cr>" : ":PlugAction<cr>"
 noremap <expr> <leader>h (mode()=='n' ? ":%" : ":") . "s//g<left><left>"
