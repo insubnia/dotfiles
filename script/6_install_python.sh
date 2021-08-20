@@ -32,6 +32,7 @@ done < <(cat << EOF
     argparse
     beautifulsoup4
     requests
+    pyjwt
 EOF
 )
 
