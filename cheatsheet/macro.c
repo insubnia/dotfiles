@@ -4,9 +4,9 @@
 // #define DEBUG 0
 
 #ifdef DEBUG
-#define DEBUG_PRINT(...) printf(__VA_ARGS__)
+#define debug_print printf
 #else
-#define DEBUG_PRINT(...) do {} while (0)
+#define debug_print(...) /**/
 #endif
 
 #define _BV(bit) (1UL << (bit))
