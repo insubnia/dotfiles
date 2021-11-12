@@ -25,7 +25,9 @@ done < <(cat << EOF
     neovim
     git
     git-flow
+    tig
     ack
+    bat
     tmux
     wget
     curl

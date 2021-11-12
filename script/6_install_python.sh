@@ -21,8 +21,10 @@ done < <(cat << EOF
     numpy
     scipy
     matplotlib
+    mplfinance
     pyqt5
     pyinstaller
+    pandas
     python-language-server
     pynvim
     compiledb
@@ -32,6 +34,7 @@ done < <(cat << EOF
     argparse
     beautifulsoup4
     requests
+    pyjwt
 EOF
 )
 
