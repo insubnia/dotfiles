@@ -7,7 +7,7 @@
 while read line
 do
     brew install --cask $line
-done < <(cat << EOF
+done << EOF
     karabiner-elements
     scroll-reverser
     appcleaner
@@ -22,17 +22,15 @@ done < <(cat << EOF
     visual-studio-code
     wireshark
 EOF
-)
 
 # Install fonts
 brew tap homebrew/cask-fonts
 while read line
 do
     brew cask install $line
-done < <(cat << EOF
+done << EOF
     font-d2coding
     font-hack-nerd-font-mono
 EOF
-)
 
 echo -e "\nComplete\n"
