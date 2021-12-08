@@ -16,21 +16,22 @@ done << EOF
     onedrive
     vlc
     folx
-    transmission
     mounty
     sourcetree
     visual-studio-code
     wireshark
 EOF
 
+mas install 869223134  # kakaotalk
+
 # Install fonts
 brew tap homebrew/cask-fonts
 while read line
 do
-    brew cask install $line
+    brew install --cask $line
 done << EOF
     font-d2coding
-    font-hack-nerd-font-mono
+    font-hack-nerd-font
 EOF
 
 echo -e "\nComplete\n"

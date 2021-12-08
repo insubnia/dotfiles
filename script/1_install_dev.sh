@@ -43,6 +43,7 @@ done << EOF
     autojump
     unrar
     p7zip
+    node
     nodejs
     jq
     npm
@@ -60,9 +61,11 @@ EOF
 # Install list depending on OS
 macos_list=(
     iterm2
+    github
     binutils
     coreutils
     fd
+    mas
 )
 
 linux_list=(
