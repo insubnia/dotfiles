@@ -25,6 +25,7 @@ done << EOF
     pyqt5
     pyinstaller
     pandas
+    pandas_ta
     python-language-server
     pynvim
     compiledb
