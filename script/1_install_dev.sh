@@ -66,6 +66,7 @@ macos_list=(
     coreutils
     fd
     mas
+    autojump
 )
 
 linux_list=(

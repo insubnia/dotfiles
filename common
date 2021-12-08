@@ -22,6 +22,7 @@ alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
 
 case "$OSTYPE" in
     darwin*)
+        export PATH=/opt/homebrew/bin:$PATH
         ;;
     linux*)
         if grep -q -Irin microsoft /proc/version; then
