@@ -23,6 +23,7 @@ done << EOF
 EOF
 
 mas install 869223134  # kakaotalk
+mas install 441258766  # magnet
 
 # Install fonts
 brew tap homebrew/cask-fonts
