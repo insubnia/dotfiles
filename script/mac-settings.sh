@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Tips taken from: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 ##############################################################################
 # General UI/UX

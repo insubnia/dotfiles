@@ -28,6 +28,7 @@ done << EOF
     pandas_ta
     python-language-server
     pynvim
+    torch
     compiledb
     cmake_format
     tqdm
