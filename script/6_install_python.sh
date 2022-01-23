@@ -13,7 +13,7 @@ while read line
 do
     echo -e "\n[Install & Upgrade $line]"
     python3 -m pip install -U --user $line
-done < <(cat << EOF
+done << EOF
     pip
     flake8
     pep8-naming
@@ -25,8 +25,10 @@ done < <(cat << EOF
     pyqt5
     pyinstaller
     pandas
+    pandas_ta
     python-language-server
     pynvim
+    torch
     compiledb
     cmake_format
     tqdm
@@ -36,6 +38,5 @@ done < <(cat << EOF
     requests
     pyjwt
 EOF
-)
 
 echo -e "\nComplete\n"

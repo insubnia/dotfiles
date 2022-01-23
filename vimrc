@@ -343,6 +343,15 @@ augroup XML
     nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
 augroup END
 
+function! CMM()
+    let t32_vim_dir="C:/T32/demo/practice/syntaxhighlighting/vim/"
+    if isdirectory(t32_vim_dir)
+        exec "source " . t32_vim_dir . "practice.vim"
+        exec "source " . t32_vim_dir . "practice_autocomplete.vim"
+    endif
+endfunction
+autocmd FileType cmm call CMM()
+
 function! AUTOSAR()
     syn keyword cType boolean
     syn keyword cType sint8 sint16 sint32
@@ -351,6 +360,7 @@ function! AUTOSAR()
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 
+autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm

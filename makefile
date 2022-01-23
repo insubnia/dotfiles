@@ -13,11 +13,12 @@ LD		= $(CXX)
 SIZE	= $(CROSS)size
 OBJCOPY	= $(CROSS)objcopy
 OBJDUMP	= $(CROSS)objdump
-RM		= rm -f
 
 ifeq ($(OS),Windows_NT)
+	RM = del /Q /F
 	MKDIR := md
 else
+	RM = rm -f
 	MKDIR := mkdir -p
 endif
 
@@ -75,6 +76,7 @@ OUTPUT += $(OBJS) $(DEPS)
 TREE := $(sort $(dir $(OUTPUT)))
 
 ifeq ($(OS),Windows_NT)
+	OUTPUT := $(subst /,\,$(OUTPUT))
 	TREE := $(subst /,\\,$(TREE))
 endif
 

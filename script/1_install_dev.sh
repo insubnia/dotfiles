@@ -21,7 +21,7 @@ while read line
 do
     echo -e "\n[Installing $line]"
     eval $pm install $line
-done < <(cat << EOF
+done << EOF
     neovim
     git
     git-flow
@@ -43,6 +43,7 @@ done < <(cat << EOF
     autojump
     unrar
     p7zip
+    node
     nodejs
     jq
     npm
@@ -53,16 +54,19 @@ done < <(cat << EOF
     htop
     tcpdump
 EOF
-)
 
 # echo -e "\n[Cloning color schemes]"
 # git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colorschemes
 
 # Install list depending on OS
 macos_list=(
+    iterm2
+    github
     binutils
     coreutils
     fd
+    mas
+    autojump
 )
 
 linux_list=(

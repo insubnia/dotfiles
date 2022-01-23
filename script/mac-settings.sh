@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Tips taken from: https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 ##############################################################################
 # General UI/UX
@@ -23,6 +23,11 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Clicking w/o pressing
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write 'Apple Global Domain' com.apple.mouse.tapBehavior 1
+
+# Swipe down with three/four fingers
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 
 
 ##############################################################################
