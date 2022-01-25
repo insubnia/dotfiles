@@ -1,25 +1,31 @@
 #!/bin/zsh
 
-# Start oh my zsh
-export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
+source ~/.zplug/init.zsh
 
-source $HOME/workspace/dotfiles/common
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting"
+
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/autojump", from:oh-my-zsh, frozen:1
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/extract", from:oh-my-zsh
+
+zplug "djui/alias-tips"
+zplug "supercrabtree/k"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    zplug "romkatv/powerlevel10k", as:theme, depth:1
     # type "p10k configure" to reconfigure
-    ZSH_THEME="powerlevel10k/powerlevel10k"
-
     # Customize by editing ~/.p10k.zsh
     # In order to show user@hostname, remove below line
     # typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
 elif [[ "$OSTYPE" == "linux"* ]]; then
     if grep -q -Irin microsoft /proc/version; then
         # WSL (Windows Subsystem for Linux)
-        # ZSH_THEME="agnoster"
+        zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh"
     else
         # Native Linux System
-        ZSH_THEME="powerlevel9k/powerlevel9k"
+        zplug "bhilburn/powerlevel9k", use:"powerlevel9k.zsh-theme"
 
         # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs background_jobs)
         POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user dir vcs background_jobs)
@@ -31,22 +37,17 @@ elif [[ "$OSTYPE" == "linux"* ]]; then
     fi
 else
     echo $OSTYPE
+    zplug "themes/agnoster", from:oh-my-zsh
 fi
 
-plugins+=(
-    git
-    colored-man-pages
-    autojump
-    extract
-)
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+zplug load
 
-# custom
-plugins+=(
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    alias-tips
-    k
-)
+source $HOME/workspace/dotfiles/common
 
-source $ZSH/oh-my-zsh.sh
 unsetopt BG_NICE
