@@ -53,6 +53,7 @@ done << EOF
     iperf3
     htop
     tcpdump
+    meld
 EOF
 
 # echo -e "\n[Cloning color schemes]"
