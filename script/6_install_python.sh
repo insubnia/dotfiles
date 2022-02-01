@@ -9,11 +9,7 @@ fi
 
 echo -e "\nInstall python packages"
 
-while read line
-do
-    echo -e "\n[Install & Upgrade $line]"
-    python3 -m pip install -U --user $line
-done << EOF
+list=(
     pip
     flake8
     pep8-naming
@@ -37,6 +33,12 @@ done << EOF
     beautifulsoup4
     requests
     pyjwt
-EOF
+)
+
+for item in $list
+do
+    # echo -e "\n[Install & Upgrade $item]"
+    python3 -m pip install -U --user $item
+done
 
 echo -e "\nComplete\n"
