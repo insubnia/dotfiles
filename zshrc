@@ -6,7 +6,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting"
 
 zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/autojump", from:oh-my-zsh, frozen:1
+zplug "plugins/autojump", from:oh-my-zsh
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/extract", from:oh-my-zsh
 

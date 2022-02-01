@@ -5,6 +5,9 @@ if [[ $PWD == $HOME ]]; then
     cd ~/workspace
 fi
 
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -hl'
+alias k='k -h'
 alias vi='vim'
 alias python='python3'
 alias pip='pip3'
