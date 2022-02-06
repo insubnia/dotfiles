@@ -36,16 +36,13 @@ list=(
     cmake
     scons
     python3
-    pyenv
     autojump
     p7zip
-    node
     nodejs
     jq
     npm
     dos2unix
     libxml2
-    java
     iperf3
     htop
     tcpdump
@@ -59,7 +56,8 @@ macos=(
     coreutils
     fd
     mas
-    autojump
+    node
+    pyenv
 )
 
 linux=(
