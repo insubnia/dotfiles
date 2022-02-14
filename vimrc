@@ -467,6 +467,8 @@ if !exists('*Run')
             exe has('nvim') ? '!make all run' : 'make all run'
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
+        elseif &filetype == 'lua'
+            !lua %
         elseif &filetype == 'markdown'
             MarkdownPreview
         else

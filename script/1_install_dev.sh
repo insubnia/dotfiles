@@ -41,6 +41,7 @@ list=(
     nodejs
     jq
     npm
+    lua
     dos2unix
     libxml2
     iperf3
