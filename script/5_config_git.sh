@@ -8,6 +8,7 @@ git config --global core.autocrlf input  # https://director-joe.kr/89
 git config --global core.eol lf
 git config --global core.safecrlf false
 git config --global core.excludesfile "~/workspace/dotfiles/conf/gitignore"
+git config --global core.ignorecase false
 
 git config --global diff.tool vimdiff
 git config --global difftool.prompt true
