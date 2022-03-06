@@ -26,6 +26,7 @@ local SID = {
     [0x34] = "RequestDownload"      ,
     [0x36] = "TransferData"         ,
     [0x37] = "RequestTransferExit"  ,
+    [0x20] = "???"                  ,
 }
 local SID_copy = {}
 for k, v in pairs(SID) do SID_copy[k] = v end  -- deep copy
@@ -107,7 +108,9 @@ function protocol.dissector(buffer, pinfo, tree)
     pt = subtree:add(f.PayloadType, buffer(2, 2))
     subtree:add(f.PayloadLength, buffer(4, 4))
 
-    payload = subtree:add(f.Payload, buffer(8, length-8))
+    if buffer(4,4):uint() > 0 then
+        payload = subtree:add(f.Payload, buffer(8))
+    end
 
     local payload_type = buffer(2, 2):uint()
     local toECU = (tostring(pinfo.src)=="10.0.5.0") or (tostring(pinfo.src)=="10.0.6.0")
@@ -131,8 +134,12 @@ function protocol.dissector(buffer, pinfo, tree)
                 payload:add(f.SF_DL, buffer(10, 1))
                 if sid ~=0x7F then
                     payload:add(f.SID, buffer(11, 1)):append_text(parenthesis(SID[sid]))
-                    payload:add(f.Data, buffer(12, data_length-1))
-                    payload:add(f.Padding, buffer(11+data_length))
+                    if data_length > 1 then
+                        payload:add(f.Data, buffer(12, data_length-1))
+                    end
+                    if length > 11 + data_length then
+                        payload:add(f.Padding, buffer(11+data_length))
+                    end
                 else
                     local fail_sid = buffer(12, 1):uint()
                     local nrc = buffer(13, 1):uint()
@@ -185,10 +192,10 @@ function protocol.dissector(buffer, pinfo, tree)
         end
 
 
+    elseif payload_type == 0x0007 then
+        pt:append_text(" (Alive Check Message)")
     else
         pt:append_text(" (Unknown Payload Type)")
-        payload:add(f.Data, buffer(8))
-        return
     end
 end
 
