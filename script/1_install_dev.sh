@@ -59,6 +59,7 @@ macos=(
     mas
     node
     pyenv
+    ta-lib
 )
 
 linux=(

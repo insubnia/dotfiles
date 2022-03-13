@@ -22,6 +22,7 @@ list=(
     pyinstaller
     pandas
     pandas_ta
+    ta-lib
     python-language-server
     pynvim
     torch
