@@ -1,5 +1,6 @@
 -- Author: Insub Song
 -- https://mika-s.github.io/wireshark/lua/dissector/2017/11/04/creating-a-wireshark-dissector-in-lua-1.html
+-- https://github.com/Cisco-Talos/Winbox_Protocol_Dissector/blob/master/Winbox_Dissector.lua
 
 protocol = Proto("EthNM", "EthNM Protocol") -- name, description
 
@@ -25,13 +26,14 @@ local SRC_ID = {
 }
 
 local NM_STATE = {
-    [0x00] = "DEFAULT"  ,
-    [0x01] = "RMS_BSM"  ,
-    [0x02] = "RMS_PBSM" ,
-    [0x04] = "NS_RMS"   ,
-    [0x08] = "NS_RSS"   ,
-    [0x10] = "RMS_RSS"  ,
-    [0x20] = "RMS_NS"   ,
+    [0x00] = "DEFAULT"                         ,
+    [0x01] = "RepeatMessage - BusSleep"        ,
+    [0x02] = "RepeatMessage - PrepareBusSleep" ,
+    [0x04] = "Normal - RepeatMessage"          ,
+    [0x08] = "Normal - ReadySleep"             ,
+    [0x10] = "RepeatMessage - ReadySleep"      ,
+    [0x20] = "RepeatMessage - Normal"          ,
+    [0xFF] = "??"
 }
 
 
@@ -52,14 +54,14 @@ f.NMState = ProtoField.uint8("protocol.NMState", "NM State (Current - Previous)"
 f.UserData = ProtoField.bytes("protocol.UserData", "User Data", base.SPACE)
 
 f.PNI = ProtoField.bytes("protocol.PNI", "PNI", base.SPACE)
-f.PNC_21 = ProtoField.uint32("protocol.PNC_21", "DVRS", base.DEC, nil, 0x00100000)
-f.PNC_20 = ProtoField.uint32("protocol.PNC_20", "ccIC", base.DEC, nil, 0x00080000)
-f.PNC_19 = ProtoField.uint32("protocol.PNC_19", "HDM", base.DEC, nil, 0x00040000)
-f.PNC_18 = ProtoField.uint32("protocol.PNC_18", "ADAS_PRK", base.DEC, nil, 0x00020000)
-f.PNC_17 = ProtoField.uint32("protocol.PNC_17", "ADAS_DRV", base.DEC, nil, 0x00010000)
-f.PNC_16 = ProtoField.uint32("protocol.PNC_16", "ADAS_VP", base.DEC, nil, 0x00008000)
-f.PNC_2 = ProtoField.uint32("protocol.PNC_2", "OTA ECUs", base.DEC, nil, 0x00000002)
 f.PNC_1 = ProtoField.uint32("protocol.PNC_1", "All ECUs", base.DEC, nil, 0x00000001)
+f.PNC_2 = ProtoField.uint32("protocol.PNC_2", "OTA ECUs", base.DEC, nil, 0x00000002)
+f.PNC_16 = ProtoField.uint32("protocol.PNC_16", "ADAS_VP", base.DEC, nil, 0x00008000)
+f.PNC_17 = ProtoField.uint32("protocol.PNC_17", "ADAS_DRV", base.DEC, nil, 0x00010000)
+f.PNC_18 = ProtoField.uint32("protocol.PNC_18", "ADAS_PRK", base.DEC, nil, 0x00020000)
+f.PNC_19 = ProtoField.uint32("protocol.PNC_19", "HDM", base.DEC, nil, 0x00040000)
+f.PNC_20 = ProtoField.uint32("protocol.PNC_20", "ccIC", base.DEC, nil, 0x00080000)
+f.PNC_21 = ProtoField.uint32("protocol.PNC_21", "DVRS", base.DEC, nil, 0x00100000)
 
 
 -- Mandatory: dissector function
@@ -85,14 +87,14 @@ function protocol.dissector(buffer, pinfo, tree)
         subtree:add(f.UserData, buffer(4, length-4))
     else
         subtree:add(f.PNI, buffer(4, length-4))
-        subtree:add(f.PNC_21, buffer(4, 4))
-        subtree:add(f.PNC_20, buffer(4, 4))
-        subtree:add(f.PNC_19, buffer(4, 4))
-        subtree:add(f.PNC_18, buffer(4, 4))
-        subtree:add(f.PNC_17, buffer(4, 4))
-        subtree:add(f.PNC_16, buffer(4, 4))
-        subtree:add(f.PNC_2, buffer(4, 4))
-        subtree:add(f.PNC_1, buffer(4, 4))
+        subtree:add_le(f.PNC_1, buffer(4, 4))
+        subtree:add_le(f.PNC_2, buffer(4, 4))
+        subtree:add_le(f.PNC_16, buffer(4, 4))
+        subtree:add_le(f.PNC_17, buffer(4, 4))
+        subtree:add_le(f.PNC_18, buffer(4, 4))
+        subtree:add_le(f.PNC_19, buffer(4, 4))
+        subtree:add_le(f.PNC_20, buffer(4, 4))
+        subtree:add_le(f.PNC_21, buffer(4, 4))
     end
 end
 
