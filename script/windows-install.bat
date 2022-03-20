@@ -39,6 +39,7 @@ choco install -y yarn
 choco install -y jq
 choco install -y wget
 choco install -y dos2unix
+choco install -y visualcpp-build-tools
 choco install -y microsoft-windows-terminal
 REM  choco install -y vcxsrv
 
