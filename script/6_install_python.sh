@@ -11,7 +11,9 @@ echo -e "\nInstall python packages"
 
 list=(
     pip
+    pyright
     flake8
+    pep8
     pep8-naming
     autopep8
     numpy

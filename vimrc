@@ -246,7 +246,7 @@ if has('nvim')
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-    " nmap <leader>l <plug>(coc-format)
+    nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
@@ -552,7 +552,7 @@ let g:coc_global_extensions = [
             \'coc-cmake',
             \'coc-json',
             \'coc-prettier',
-            \'coc-python',
+            \'coc-pyright',
             \'coc-snippets',
             \'coc-ultisnips',
             \'coc-tsserver',
