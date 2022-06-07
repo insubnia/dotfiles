@@ -84,6 +84,7 @@ call plug#end()
 " BASIC SETTINGS {{{
 syntax on
 set nocp
+set ffs=unix
 set noswf nobk noudf
 set autoread autowrite
 set backspace=2
@@ -360,7 +361,8 @@ function! AUTOSAR()
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 
-autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
+" resolved by adding set ffs=unix
+" autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
