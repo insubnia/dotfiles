@@ -1,3 +1,5 @@
+:: replace 'choco' with 'winget' later
+
 :: tool
 choco install -y chocolateygui
 choco install -y googlechrome
