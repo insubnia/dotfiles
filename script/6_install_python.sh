@@ -36,6 +36,7 @@ list=(
     beautifulsoup4
     requests
     pyjwt
+    selenium
 )
 
 for item in $list
