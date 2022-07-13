@@ -1,6 +1,7 @@
 :: replace 'choco' with 'winget' later
 
 :: tool
+choco install -y powertoys
 choco install -y chocolateygui
 choco install -y googlechrome
 choco install -y onedrive
