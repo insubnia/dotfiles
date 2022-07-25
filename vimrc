@@ -13,8 +13,9 @@ endif
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
+    " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    " Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
@@ -330,8 +331,12 @@ autocmd FileType python setlocal tabstop=4
 autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 function! OperatorHL()
-    syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-    exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
+    if has('nvim')
+        :
+    else
+        syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
+        exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
+    endif
 endfunction
 autocmd ColorScheme c,cpp,python call OperatorHL()
 autocmd Syntax c,cpp,python call OperatorHL()
@@ -567,6 +572,25 @@ if has('nvim')
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 endif
+
+" treesitter
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "c", "lua", "rust", "python" },
+
+  sync_install = false,
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+    disable = { "rust" },
+    additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = { enable = true },
+  textobjects = { enable = true },
+}
+EOF
 
 " chromatica
 let g:chromatica#enable_at_startup = 1
