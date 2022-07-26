@@ -11,22 +11,22 @@ choco install -y neovim
 choco install -y foxe
 choco install -y sourcetree
 choco install -y vscode
-choco install -y tortoisegit
 choco install -y caffeine
 choco install -y everything
 choco install -y winpcap
 choco install -y wireshark
 choco install -y iperf3
 choco install -y ntop
+@REM choco install -y tortoisegit
 REM  choco install -y flashplayerplugin
 
 :: server-client
 choco install -y openssh
-choco install -y winscp
 choco install -y telnet
 choco install -y mobaxterm
-REM  choco install -y putty
+choco install -y putty
 REM  choco install -y teraterm
+REM  choco install -y winscp
 
 :: dev
 choco install -y git
@@ -48,3 +48,10 @@ REM  choco install -y vcxsrv
 
 :: font
 choco install -y d2codingfont
+
+:: git
+iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
+    ni $HOME/vimfiles/autoload/plug.vim -Force
+
+iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
+    ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
