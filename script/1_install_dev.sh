@@ -74,11 +74,11 @@ linux=(
 )
 
 case "$OSTYPE" in
-    darwin*) list+=($macos) ;;
-    linux*) list+=($linux) ;;
+    darwin*) list+=(${macos[@]}) ;;
+    linux*) list+=(${linux[@]}) ;;
 esac
 
-for item in $list
+for item in ${list[@]}
 do
     echo -e "\n[Installing $item]"
     eval $pm install $item

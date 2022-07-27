@@ -39,7 +39,7 @@ list=(
     selenium
 )
 
-for item in $list
+for item in ${list[@]}
 do
     # echo -e "\n[Install & Upgrade $item]"
     python3 -m pip install -U --user $item
