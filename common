@@ -23,6 +23,7 @@ alias gitflow='git flow'
 alias uomz='omz update'
 alias cmakefile='ln -sf ~/workspace/dotfiles/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
+alias dos2unixr='find . -type f -print0 | xargs -0 dos2unix'
 
 case "$OSTYPE" in
     darwin*)
