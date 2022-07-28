@@ -125,8 +125,8 @@ if has('gui_win32') " Windows vim
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
-    set pythonthreehome=C:\Python39
-    set pythonthreedll=C:\Python39\python39.dll
+    set pythonthreehome=C:\Python310
+    set pythonthreedll=C:\Python310\python310.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
@@ -203,6 +203,7 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
+vnoremap <C-r> "+p
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
