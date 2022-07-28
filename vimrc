@@ -203,7 +203,7 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <C-r> "+p
+vnoremap <C-r> ""p
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>

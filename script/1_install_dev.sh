@@ -58,6 +58,7 @@ macos=(
     fd
     mas
     node
+    nvm
     pyenv
     ta-lib
 )

@@ -38,6 +38,7 @@ choco install -y ctags
 choco install -y cmake
 choco install -y python3
 choco install -y lua
+choco install -y nvm
 choco install -y nodejs
 choco install -y yarn
 choco install -y jq
