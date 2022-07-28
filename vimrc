@@ -574,11 +574,10 @@ if has('nvim')
 endif
 
 " treesitter
+if has('nvim')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
   ensure_installed = { "c", "lua", "rust", "python" },
-
   sync_install = false,
   auto_install = true,
 
@@ -591,6 +590,7 @@ require'nvim-treesitter.configs'.setup {
   textobjects = { enable = true },
 }
 EOF
+endif
 
 " chromatica
 let g:chromatica#enable_at_startup = 1
