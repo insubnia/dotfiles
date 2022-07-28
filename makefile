@@ -1,4 +1,10 @@
-# omni makefile
+#############################################################################
+# Author: Insub Song
+#############################################################################
+
+# Recursive wildcard - https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
+rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
 
 TARGET	= $(notdir $(CURDIR))
 

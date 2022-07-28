@@ -13,8 +13,9 @@ endif
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
+    " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    " Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
@@ -84,6 +85,7 @@ call plug#end()
 " BASIC SETTINGS {{{
 syntax on
 set nocp
+set ffs=unix
 set noswf nobk noudf
 set autoread autowrite
 set backspace=2
@@ -123,8 +125,8 @@ if has('gui_win32') " Windows vim
     set guifont=Consolas_NF:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
-    set pythonthreehome=C:\Python39
-    set pythonthreedll=C:\Python39\python39.dll
+    set pythonthreehome=C:\Python310
+    set pythonthreedll=C:\Python310\python310.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
@@ -201,6 +203,7 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
+vnoremap <C-r> ""p
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
@@ -246,7 +249,7 @@ if has('nvim')
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-    " nmap <leader>l <plug>(coc-format)
+    nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
@@ -329,8 +332,12 @@ autocmd FileType python setlocal tabstop=4
 autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 function! OperatorHL()
-    syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-    exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
+    if has('nvim')
+        :
+    else
+        syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
+        exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
+    endif
 endfunction
 autocmd ColorScheme c,cpp,python call OperatorHL()
 autocmd Syntax c,cpp,python call OperatorHL()
@@ -360,7 +367,8 @@ function! AUTOSAR()
 endfunction
 autocmd Syntax c,cpp call AUTOSAR()
 
-autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
+" resolved by adding set ffs=unix
+" autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
@@ -467,6 +475,8 @@ if !exists('*Run')
             exe has('nvim') ? '!make all run' : 'make all run'
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
+        elseif &filetype == 'lua'
+            !lua %
         elseif &filetype == 'markdown'
             MarkdownPreview
         else
@@ -550,7 +560,7 @@ let g:coc_global_extensions = [
             \'coc-cmake',
             \'coc-json',
             \'coc-prettier',
-            \'coc-python',
+            \'coc-pyright',
             \'coc-snippets',
             \'coc-ultisnips',
             \'coc-tsserver',
@@ -562,6 +572,25 @@ if has('nvim')
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+endif
+
+" treesitter
+if has('nvim')
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "lua", "rust", "python" },
+  sync_install = false,
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+    disable = { "rust" },
+    additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = { enable = true },
+  textobjects = { enable = true },
+}
+EOF
 endif
 
 " chromatica

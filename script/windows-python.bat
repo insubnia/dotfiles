@@ -20,3 +20,4 @@ python -m pip install colorama
 python -m pip install argparse
 python -m pip install beautifulsoup4
 python -m pip install requests
+python -m pip install selenium

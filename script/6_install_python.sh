@@ -9,13 +9,11 @@ fi
 
 echo -e "\nInstall python packages"
 
-while read line
-do
-    echo -e "\n[Install & Upgrade $line]"
-    python3 -m pip install -U --user $line
-done << EOF
+list=(
     pip
+    pyright
     flake8
+    pep8
     pep8-naming
     autopep8
     numpy
@@ -26,6 +24,7 @@ done << EOF
     pyinstaller
     pandas
     pandas_ta
+    ta-lib
     python-language-server
     pynvim
     torch
@@ -37,6 +36,13 @@ done << EOF
     beautifulsoup4
     requests
     pyjwt
-EOF
+    selenium
+)
+
+for item in ${list[@]}
+do
+    # echo -e "\n[Install & Upgrade $item]"
+    python3 -m pip install -U --user $item
+done
 
 echo -e "\nComplete\n"

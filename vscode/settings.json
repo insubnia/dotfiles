@@ -1,5 +1,4 @@
 {
-  "window.zoomLevel": -1,
   "workbench.colorTheme": "Dracula",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 
@@ -86,4 +85,5 @@
   "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
+  "window.zoomLevel": -1,
 }

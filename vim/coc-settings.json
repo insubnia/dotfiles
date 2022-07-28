@@ -1,17 +1,20 @@
 {
+  "languageserver": {},
   "diagnostic": {
     "enable": true,
     "displayByAle": false
   },
-  "languageserver": {
-  },
   "python": {
+    "pyright.enable": true,
+    "formatting": {
+      "provider": "autopep8",
+      "autopep8Path": "/opt/homebrew/bin/autopep8"
+    },
     "linting": {
       "flake8Enabled": true,
       "pylintEnalbed": false
     }
   },
-  // "pyls.enable": false
   "xml": {
     "java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home" // "echo $JAVA_HOME" and get this
   }

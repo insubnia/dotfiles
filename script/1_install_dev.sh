@@ -14,14 +14,11 @@ case "$OSTYPE" in
 esac
 
 echo -e "\n[Update & upgrade packages]"
-eval $pm update
-eval $pm upgrade
+# eval $pm update
+# eval $pm upgrade
 
-while read line
-do
-    echo -e "\n[Installing $line]"
-    eval $pm install $line
-done << EOF
+# common=(
+list=(
     neovim
     git
     git-flow
@@ -39,37 +36,34 @@ done << EOF
     cmake
     scons
     python3
-    pyenv
     autojump
-    unrar
     p7zip
-    node
     nodejs
     jq
     npm
+    lua
     dos2unix
     libxml2
-    java
     iperf3
     htop
     tcpdump
-EOF
+    meld
+)
 
-# echo -e "\n[Cloning color schemes]"
-# git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/workspace/colorschemes
-
-# Install list depending on OS
-macos_list=(
+macos=(
     iterm2
     github
     binutils
     coreutils
     fd
     mas
-    autojump
+    node
+    nvm
+    pyenv
+    ta-lib
 )
 
-linux_list=(
+linux=(
     vim-gtk
     xclip
     python3-pip
@@ -81,11 +75,11 @@ linux_list=(
 )
 
 case "$OSTYPE" in
-    darwin*) list=${macos_list[@]} ;;
-    linux*) list=${linux_list[@]} ;;
+    darwin*) list+=(${macos[@]}) ;;
+    linux*) list+=(${linux[@]}) ;;
 esac
 
-for item in $list
+for item in ${list[@]}
 do
     echo -e "\n[Installing $item]"
     eval $pm install $item
