@@ -21,6 +21,7 @@ done << EOF
     visual-studio-code
     wireshark
     mas
+    gcc-arm-embedded
 EOF
 
 # https://github.com/mas-cli/mas

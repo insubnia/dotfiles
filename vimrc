@@ -577,13 +577,13 @@ endif
 if has('nvim')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "rust", "python" },
+  ensure_installed = { 'vim', 'c', 'python', 'bash', 'lua', 'make', 'cmake', 'json', 'rust' },
   sync_install = false,
   auto_install = true,
 
   highlight = {
     enable = true,
-    disable = { "rust" },
+    disable = { 'rust' },
     additional_vim_regex_highlighting = false,
   },
   incremental_selection = { enable = true },
