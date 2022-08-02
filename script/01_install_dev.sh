@@ -79,10 +79,10 @@ case "$OSTYPE" in
     linux*) list+=(${linux[@]}) ;;
 esac
 
-for item in ${list[@]}
+for v in ${list[@]}
 do
     echo -e "\n[Installing $item]"
-    eval $pm install $item
+    eval $pm install $v
 done
 
 echo -e "\nComplete\n"
