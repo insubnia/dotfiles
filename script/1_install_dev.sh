@@ -47,20 +47,19 @@ list=(
     iperf3
     htop
     tcpdump
-    meld
+    # meld
 )
 
 macos=(
-    iterm2
+    mas
     github
     binutils
     coreutils
-    fd
-    mas
     node
     nvm
     pyenv
     ta-lib
+    fd
 )
 
 linux=(

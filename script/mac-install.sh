@@ -8,19 +8,19 @@ while read line
 do
     brew install --cask $line
 done << EOF
+    iterm2
     karabiner-elements
     scroll-reverser
     appcleaner
-    iterm2
     google-chrome
     onedrive
     vlc
     folx
     mounty
     sourcetree
+    smartgit
     visual-studio-code
     wireshark
-    mas
     gcc-arm-embedded
 EOF
 
