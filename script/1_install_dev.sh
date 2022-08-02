@@ -72,6 +72,7 @@ linux=(
     libclang-dev
     net-tools
     fd-find
+    gcc-arm-none-eabi
 )
 
 case "$OSTYPE" in
