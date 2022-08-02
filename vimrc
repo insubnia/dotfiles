@@ -566,11 +566,19 @@ let g:coc_global_extensions = [
             \'coc-xml',
             \]
 let g:coc_config_home = '~/workspace/dotfiles/vim'
-if has('nvim')
+if has('nvim')  " coc-config-suggest-floatConfig
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <TAB>
+                \ coc#pum#visible() ? coc#pum#next(1):
+                \ <SID>check_back_space() ? "\<Tab>" :
+                \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
     inoremap <silent><expr> <c-space> coc#refresh()
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 endif
 
 " treesitter

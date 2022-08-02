@@ -34,6 +34,7 @@ list=(
     clang-format
     make
     cmake
+    ctags
     scons
     python3
     autojump
