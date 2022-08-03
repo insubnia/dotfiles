@@ -566,12 +566,12 @@ let g:coc_global_extensions = [
             \'coc-xml',
             \]
 let g:coc_config_home = '~/workspace/dotfiles/vim'
-if has('nvim')  " coc-config-suggest-floatConfig
+if has('nvim')  
+    " coc-config-suggest-floatConfig
     function! s:check_back_space() abort
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction
-
     inoremap <silent><expr> <TAB>
                 \ coc#pum#visible() ? coc#pum#next(1):
                 \ <SID>check_back_space() ? "\<Tab>" :

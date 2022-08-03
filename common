@@ -17,13 +17,12 @@ alias tre2='tree -L 2'
 alias tre3='tree -L 3'
 alias iperf='iperf3'
 alias makefile='ln -sf ~/workspace/dotfiles/makefile'
+alias dos2unixr='find . -type f -print0 | xargs -0 dos2unix'
 alias ycm='python ~/.vim/plugged/youcompleteme/install.py --clang-completer'
 alias gdc='git diff --cached'
 alias gitflow='git flow'
-alias uomz='omz update'
 alias cmakefile='ln -sf ~/workspace/dotfiles/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
-alias dos2unixr='find . -type f -print0 | xargs -0 dos2unix'
 
 case "$OSTYPE" in
     darwin*)
@@ -31,9 +30,12 @@ case "$OSTYPE" in
         ;;
     linux*)
         if grep -q -Irin microsoft /proc/version; then
+            # WSL
             alias open='explorer.exe'
         else
+            # native
             alias open='xdg-open'
         fi
+        alias fd=fdfind
         ;;
 esac
