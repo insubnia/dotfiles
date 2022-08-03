@@ -419,7 +419,11 @@ function! Close()
     pclose
     helpclose
     NERDTreeClose
-    try | exe 'TagbarClose' | catch | endtry
+    if has('nvim')
+        call CocAction('hideOutline')
+    else
+        try | exe 'TagbarClose' | catch | endtry
+    endif
 endfunction
 
 command! IgnoreSpaceChange call IgnoreSpaceChange()
@@ -566,7 +570,18 @@ let g:coc_global_extensions = [
             \'coc-xml',
             \]
 let g:coc_config_home = '~/workspace/dotfiles/vim'
-if has('nvim')  
+if has('nvim')
+    " coc-outline
+    nnoremap <silent><nowait> T :call ToggleOutline()<CR>
+    function! ToggleOutline() abort
+        let winid = coc#window#find('cocViewId', 'OUTLINE')
+        if winid == -1
+            call CocActionAsync('showOutline', 1)
+        else
+            call coc#window#close(winid)
+        endif
+    endfunction
+
     " coc-config-suggest-floatConfig
     function! s:check_back_space() abort
         let col = col('.') - 1
@@ -629,7 +644,7 @@ function! AirlineInit()
     if g:os == 'Darwin'
         let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
-        let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= ' 🐧 %#__accent_bold#%{$USER}'
     elseif has('win32')
         let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} from MANDO'
     endif
@@ -755,15 +770,15 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let ayucolor='mirage'
-    colo ayu
-    let g:airline_theme = 'ayu_mirage'
+    colo deus
+    let g:airline_theme = 'deus'
 elseif has("win32")
     colo jellybeans
     let g:airline_theme = 'jellybeans'
 elseif has("win32unix")
-    colo iceberg
-    let g:airline_theme = 'iceberg'
+    let ayucolor='mirage'
+    colo ayu
+    let g:airline_theme = 'ayu_mirage'
 endif
 " }}}
 " ============================================================================
