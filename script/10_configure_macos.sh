@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+# https://github.com/tkareine/dotfiles/blob/master/.macos
 
 ##############################################################################
 # General UI/UX
@@ -11,7 +12,7 @@ defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 
 ##############################################################################
-# HIDs
+# Keyboad / Text
 ##############################################################################
 
 # Fast keyboard repeat rate
@@ -20,6 +21,17 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 20
 
 # Enable full keyboard access for all controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Use smart quotes
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool true
+
+# Don't use smart dashes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+
+##############################################################################
+# Trackpad / Mouse
+##############################################################################
 
 # Clicking w/o pressing
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
@@ -80,6 +92,10 @@ chflags nohidden ~/Library
 # Warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool true
 
+# Avoid creating .DS_Store files on network and USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
 killall Finder
 
 
@@ -89,6 +105,9 @@ killall Finder
 
 # Update extensions automatically
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+
+# Enable develop menu
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
 
 
 ##############################################################################

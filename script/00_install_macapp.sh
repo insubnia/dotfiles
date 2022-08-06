@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Install Homebrew first
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Install Homebrew🍺
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 apps=(
     iterm2
