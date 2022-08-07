@@ -5,13 +5,8 @@
 # Recursive wildcard - https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
-ifeq ($(OS),Windows_NT)
-	RM = del /Q /F
-	MKDIR := md
-else
-	RM = rm -f
-	MKDIR := mkdir -p
-endif
+RM    := rm -f
+MKDIR := mkdir -p
 
 # CPU      := cortex-m0
 # ARCH     := native
@@ -33,8 +28,10 @@ BIN = $(BLD_DIR)/$(TARGET).bin
 HEX = $(BLD_DIR)/$(TARGET).hex
 SO  = $(TAR_DIR)/$(TARGET).so
 
-ifneq ($(OS),Windows_NT)
-	SO := $(SO:%.so=%.dll)
+ifeq ($(OS),Windows_NT)
+	RM    := del /Q /F
+	MKDIR := md
+	SO    := $(SO:%.so=%.dll)
 endif
 
 OUTPUT = $(ELF) $(BIN) $(HEX) $(MAP) $(SO)
