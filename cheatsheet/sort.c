@@ -12,7 +12,7 @@ DTYPE data[] = { 17, 3, 5, 11, 9, 1 };
 void print_arr(DTYPE *arr, size_t n)
 {
     printf("arr: ");
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         printf("%d, ", arr[i]);
     }
     printf("\n");
@@ -22,7 +22,7 @@ void insertion_sort(DTYPE *in, DTYPE *out, size_t n)
 {
     memcpy(out, in, sizeof(DTYPE) * n);
 
-    for (int j, i = 1; i < n; i++) {
+    for (size_t j, i = 1; i < n; i++) {
         DTYPE val = out[(j=i)];
         while (--j >= 0 && val < out[j])
             out[j + 1] = out[j];

@@ -39,6 +39,7 @@ list=(
     python3
     autojump
     p7zip
+    rar
     nodejs
     jq
     npm
@@ -49,6 +50,7 @@ list=(
     htop
     tcpdump
     # meld
+    lsusb
 )
 
 macos=(
