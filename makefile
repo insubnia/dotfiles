@@ -2,25 +2,43 @@
 # Author: Insub Song
 #############################################################################
 
+#############################################################################
+# Functions
+#############################################################################
 # Recursive wildcard - https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
-RM    := rm -f
-MKDIR := mkdir -p
+#############################################################################
+# Toolchain
+#############################################################################
+# CPU     := cortex-m0
+# ARCH    := native
+# CROSS   := i686-w64-mingw32-
 
-# CPU      := cortex-m0
-# ARCH     := native
-# CROSS    := i686-w64-mingw32-
+CC      := $(CROSS)gcc
+LD      := $(CROSS)ld
+SIZE    := $(CROSS)size
+OBJCOPY := $(CROSS)objcopy
+OBJDUMP := $(CROSS)objdump
+RM      := rm -f
+MKDIR   := mkdir -p
+
+#############################################################################
+# Flags
+#############################################################################
+OPT	     = -O2 -g3
+CFLAGS   = $(CPU) $(ARCH) -W -Wall -MMD \
+		   $(OPT) \
+		   -std=c99
+CXXFLAGS = $(CPU) $(ARCH) -W -Wall -MMD \
+		   $(OPT) -fpermissive
+LDFLAGS  = $(CPU) $(ARCH) \
+		   $(LDSCRIPT) \
+		   -Wl,-map,$(MAP)
 
 TARGET   := $(notdir $(CURDIR))
 ARTIFACT := $(notdir $(CURDIR))
 # LDSCRIPT := $(TARGET).ld
-
-CC		:= $(CROSS)gcc
-LD		:= $(CROSS)ld
-SIZE	:= $(CROSS)size
-OBJCOPY := $(CROSS)objcopy
-OBJDUMP := $(CROSS)objdump
 
 ELF = $(TAR_DIR)/$(TARGET).elf
 MAP = $(BLD_DIR)/$(TARGET).map
@@ -72,6 +90,9 @@ OUTPUT += $(OBJS) $(DEPS)
 TREE   = $(sort $(dir $(OUTPUT)))
 
 
+#############################################################################
+# Post-processing
+#############################################################################
 CPU      := $(if $(CPU), -mcpu=$(CPU),)
 ARCH     := $(if $(ARCH), -march=$(ARCH),)
 LDSCRIPT := $(if $(LDSCRIPT), -T$(LDSCRIPT),)
@@ -79,8 +100,19 @@ INCDIRS  := $(addprefix -I, $(INCDIRS))
 LIBDIRS  := $(addprefix -L, $(LIBDIRS))
 LIBS     := $(addprefix -l, $(LIBS))
 
+#############################################################################
+# verbose
+#############################################################################
+ifeq ($(verbose),1)
+ECHO :=
+else
+ECHO := @
+endif
 
-PHONY := all build clean run test
+#############################################################################
+# Rules
+#############################################################################
+PHONY := all build clean run show test
 
 all: build
 
@@ -91,11 +123,14 @@ build: $(ELF) #$(BIN) $(HEX)
 
 clean:
 	@echo Removing Files
-	@$(RM) $(OUTPUT)
+	$(ECHO) $(RM) $(OUTPUT)
 
 run:
 	@echo Run $(notdir $(ELF)); echo
 	@$(ELF)
+
+show:
+	@echo show
 
 test:
 	@echo $(TREE)
@@ -142,16 +177,16 @@ cdb:
 
 $(BIN): $(ELF)
 	@echo Making Binary from $(<F)
-	@$(OBJCOPY) -O binary $< $@
+	$(ECHO) $(OBJCOPY) -O binary $< $@
 
 $(HEX): $(ELF)
 	@echo Making Intel hex from $(<F)
-	@$(OBJCOPY) -O ihex $< $@
+	$(ECHO) $(OBJCOPY) -O ihex $< $@
 
-$(ELF): $(OBJS)
+$(ELF): $(OBJS) $(LDSCRIPT)
 	@$(MKDIR) $(TAR_DIR)
 	@echo Linking $(@F)
-	@$(CC) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
+	$(ECHO) $(CC) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(SO): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
@@ -161,11 +196,11 @@ $(SO): $(OBJS)
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
 	@$(MKDIR) $(TREE)
 	@echo Compiling $(<F)
-	@$(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
+	$(ECHO) $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
 	@$(MKDIR) $(TREE)
 	@echo Compiling $(<F)
-	@$(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
+	$(ECHO) $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
