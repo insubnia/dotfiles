@@ -35,14 +35,17 @@ endif
 
 OPT	     := -O2 -g3
 
-CFLAGS   = $(CPU) $(ARCH) -W -Wall -MMD \
+CFLAGS   = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
 		   $(OPT) \
 		   -std=c99
-CXXFLAGS = $(CPU) $(ARCH) -W -Wall -MMD \
-		   $(OPT) -fpermissive
-LDFLAGS  = $(CPU) $(ARCH) \
-		   $(LDFILE) \
-		   -Wl,-map,$(MAP)
+
+CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
+		   $(OPT) \
+		   -fpermissive
+
+LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
+		   $(LDFILE_OPT) \
+		   $(MAP_OPT)
 
 #############################################################################
 # artifact
@@ -86,9 +89,18 @@ OUTDIRS := $(sort $(dir $(OUTPUT)))
 #############################################################################
 # post-processing
 #############################################################################
-CPU     := $(if $(CPU), -mcpu=$(CPU),)
-ARCH    := $(if $(ARCH), -march=$(ARCH),)
-LDFILE  := $(if $(LDFILE), -T$(LDFILE),)
+LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
+CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
+ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
+
+ifeq ($(CC),clang)
+	MAP_OPT := -Wl,-map,$(MAP)
+else ifeq ($(CC),gcc)
+	MAP_OPT := -Wl,-map=$(MAP)
+else
+	MAP_OPT :=
+endif
+
 INCDIRS := $(addprefix -I, $(INCDIRS))
 LIBDIRS := $(addprefix -L, $(LIBDIRS))
 LIBS    := $(addprefix -l, $(LIBS))
