@@ -89,6 +89,8 @@ OUTDIRS := $(sort $(dir $(OUTPUT)))
 #############################################################################
 # post-processing
 #############################################################################
+include $(wildcard *.mk)
+
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
@@ -104,8 +106,6 @@ endif
 INCDIRS := $(addprefix -I, $(INCDIRS))
 LIBDIRS := $(addprefix -L, $(LIBDIRS))
 LIBS    := $(addprefix -l, $(LIBS))
-
-include $(wildcard *.mk)
 
 #############################################################################
 # verbose

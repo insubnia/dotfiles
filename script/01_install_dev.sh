@@ -32,6 +32,7 @@ list=(
     gcc
     llvm
     clang-format
+    lld
     make
     cmake
     ctags
