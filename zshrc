@@ -30,7 +30,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 elif [[ "$OSTYPE" == "linux"* ]]; then
     if grep -q -Irin microsoft /proc/version; then
         # WSL (Windows Subsystem for Linux)
-        zplug "themes/candy", from:oh-my-zsh, as:theme
+        zplug "themes/blinks", from:oh-my-zsh
     else
         # Native Linux System
         zplug "bhilburn/powerlevel9k", use:"powerlevel9k.zsh-theme"
