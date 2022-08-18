@@ -5,16 +5,19 @@ if [[ $PWD == $HOME ]]; then
     cd ~/workspace
 fi
 
+alias ..='cd ..'
+alias ...='cd ../..'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -hl'
 alias k='k -h'
-alias vi='vim'
+alias vi='nvim'
 alias python='python3'
 alias pip='pip3'
 alias gdf='git difftool -t vimdiff'
 alias ff='find . -type f -iname'
-alias tre2='tree -L 2'
-alias tre3='tree -L 3'
+alias tl1='tree -L 1'
+alias tl2='tree -L 2'
+alias tl3='tree -L 3'
 alias iperf='iperf3'
 alias makefile='ln -sf ~/workspace/dotfiles/makefile'
 alias makefile2='cp ~/workspace/dotfiles/makefile makefile'
