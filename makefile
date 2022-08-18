@@ -3,10 +3,17 @@
 #############################################################################
 
 #############################################################################
-# functions
+# preset
 #############################################################################
 # Recursive wildcard - https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
+# OS detection - https://stackoverflow.com/questions/714100/os-detecting-makefile
+ifeq ($(OS),Windows_NT)
+	UNAME := Windows
+else
+	UNAME := $(shell uname)
+endif
 
 #############################################################################
 # toolchain
@@ -69,8 +76,8 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(SO)
 # LDFILE  := $(TARGET).ld
 
 SRCROOT := .
-OBJROOT := debug
-INCDIRS := include
+OBJROOT := build
+INCDIRS :=
 LIBDIRS :=
 LIBS    :=
 
@@ -126,14 +133,14 @@ all: build
 build: $(ELF) #$(BIN) $(HEX)
 	@echo Size of image
 	@$(SIZE) $<
-	@echo MAKE COMPLETE!!; echo
+	@echo build complete; echo
 
 clean:
 	@echo cleaning
 	$(ECHO) $(RM) $(OUTPUT)
 
 run:
-	@echo Run $(notdir $(ELF)); echo
+	@echo run $(notdir $(ELF)); echo
 	@$(ELF)
 
 show:
@@ -205,22 +212,22 @@ $(HEX): $(ELF)
 
 $(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(TAR_DIR)
-	@echo Linking $(@F)
+	@echo linking $(@F)
 	$(ECHO) $(CC) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(SO): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
-	@echo Making dynamic library
+	@echo making dynamic library
 	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
 	@$(MKDIR) $(OUTDIRS)
-	@echo Compiling $(<F)
+	@echo compiling $(<F)
 	$(ECHO) $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
 	@$(MKDIR) $(OUTDIRS)
-	@echo Compiling $(<F)
+	@echo compiling $(<F)
 	$(ECHO) $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
