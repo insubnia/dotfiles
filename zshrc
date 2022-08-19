@@ -31,6 +31,10 @@ elif [[ "$OSTYPE" == "linux"* ]]; then
     if grep -q -Irin microsoft /proc/version; then
         # WSL (Windows Subsystem for Linux)
         zplug "themes/blinks", from:oh-my-zsh
+
+        # https://stackoverflow.com/questions/12765344/oh-my-zsh-slow-but-only-for-certain-git-repo
+        git config --global oh-my-zsh.hide-status 1
+        git config --global oh-my-zsh.hide-dirty 1
     else
         # Native Linux System
         zplug "bhilburn/powerlevel9k", use:"powerlevel9k.zsh-theme"
