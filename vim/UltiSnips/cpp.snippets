@@ -39,14 +39,16 @@ snippet "#if (\w+)([ !=]*)" "(snippet) #if MACRO ... #endif /* MACRO */" r
 endsnippet
 
 
-snippet mando "(snippet) MANDO" b
-/*
- * Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.
- *
- * Author: Insub Song (insub.song@halla.com)
- *
- */
-${2}
+snippet cext "(snippet) extern C" b
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+$0
+
+#ifdef __cplusplus
+}
+#endif
 endsnippet
 
 

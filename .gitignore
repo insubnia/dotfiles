@@ -1,2 +1,4 @@
 .clang-format
 .vscode
+
+cheatsheet/**/*.elf

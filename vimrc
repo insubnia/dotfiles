@@ -203,7 +203,6 @@ vnoremap () s()<esc>P
 vnoremap <> s<><esc>P
 vnoremap [] s[]<esc>P
 vnoremap {} s{}<esc>P
-vnoremap <C-r> ""p
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
@@ -420,7 +419,11 @@ function! Close()
     pclose
     helpclose
     NERDTreeClose
-    try | exe 'TagbarClose' | catch | endtry
+    if has('nvim')
+        call CocAction('hideOutline')
+    else
+        try | exe 'TagbarClose' | catch | endtry
+    endif
 endfunction
 
 command! IgnoreSpaceChange call IgnoreSpaceChange()
@@ -568,23 +571,42 @@ let g:coc_global_extensions = [
             \]
 let g:coc_config_home = '~/workspace/dotfiles/vim'
 if has('nvim')
+    " coc-outline
+    nnoremap <silent><nowait> T :call ToggleOutline()<CR>
+    function! ToggleOutline() abort
+        let winid = coc#window#find('cocViewId', 'OUTLINE')
+        if winid == -1
+            call CocActionAsync('showOutline', 1)
+        else
+            call coc#window#close(winid)
+        endif
+    endfunction
+
+    " coc-config-suggest-floatConfig
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+    inoremap <silent><expr> <TAB>
+                \ coc#pum#visible() ? coc#pum#next(1):
+                \ <SID>check_back_space() ? "\<Tab>" :
+                \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
     inoremap <silent><expr> <c-space> coc#refresh()
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 endif
 
 " treesitter
 if has('nvim')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "rust", "python" },
+  ensure_installed = { 'vim', 'c', 'python', 'bash', 'lua', 'make', 'cmake', 'json', 'rust' },
   sync_install = false,
   auto_install = true,
 
   highlight = {
     enable = true,
-    disable = { "rust" },
+    disable = { 'rust' },
     additional_vim_regex_highlighting = false,
   },
   incremental_selection = { enable = true },
@@ -622,7 +644,7 @@ function! AirlineInit()
     if g:os == 'Darwin'
         let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
-        let g:airline_section_c .= ' 👻 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= ' 🐧 %#__accent_bold#%{$USER}'
     elseif has('win32')
         let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} from MANDO'
     endif
@@ -748,15 +770,15 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let ayucolor='mirage'
-    colo ayu
-    let g:airline_theme = 'ayu_mirage'
+    colo deus
+    let g:airline_theme = 'deus'
 elseif has("win32")
     colo jellybeans
     let g:airline_theme = 'jellybeans'
 elseif has("win32unix")
-    colo iceberg
-    let g:airline_theme = 'iceberg'
+    let ayucolor='mirage'
+    colo ayu
+    let g:airline_theme = 'ayu_mirage'
 endif
 " }}}
 " ============================================================================

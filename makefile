@@ -2,111 +2,166 @@
 # Author: Insub Song
 #############################################################################
 
+#############################################################################
+# preset
+#############################################################################
 # Recursive wildcard - https://stackoverflow.com/questions/2483182/recursive-wildcards-in-gnu-make
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
+# OS detection - https://stackoverflow.com/questions/714100/os-detecting-makefile
+ifeq ($(OS),Windows_NT)
+	UNAME := Windows
+else
+	UNAME := $(shell uname)
+endif
 
-TARGET	= $(notdir $(CURDIR))
+#############################################################################
+# toolchain
+#############################################################################
+# CROSS   := i686-w64-mingw32-
 
-# Type "objcopy --help | tail, to show available architecture"
-ARCH	= native
-CROSS	= # i686-w64-mingw32-
-
-CC		= $(CROSS)gcc
-CXX		= $(CROSS)g++
-# LD		= $(CROSS)ld
-LD		= $(CXX)
-SIZE	= $(CROSS)size
-OBJCOPY	= $(CROSS)objcopy
-OBJDUMP	= $(CROSS)objdump
+CC      := $(CROSS)gcc
+LD      := $(CROSS)ld
+SIZE    := $(CROSS)size
+OBJCOPY := $(CROSS)objcopy
+OBJDUMP := $(CROSS)objdump
+RM      := rm -f
+MKDIR   := mkdir -p
 
 ifeq ($(OS),Windows_NT)
-	RM = del /Q /F
+	RM    := del /Q /F
 	MKDIR := md
-else
-	RM = rm -f
-	MKDIR := mkdir -p
+	SO    := $(SO:%.so=%.dll)
 endif
 
-ELF	= $(TAR_DIR)/$(TARGET).elf
-BIN	= $(BLD_DIR)/$(TARGET).bin
-HEX	= $(BLD_DIR)/$(TARGET).hex
-MAP	= $(BLD_DIR)/$(TARGET).map
-ifeq ($(OS),Windows_NT)
-	SO = $(TAR_DIR)/$(TARGET).dll
-else
-	SO = $(TAR_DIR)/$(TARGET).so
-endif
+#############################################################################
+# flags
+#############################################################################
+# CPU      := cortex-m0
+# ARCH     := native
 
-OUTPUT = $(ELF) $(BIN) $(HEX) $(MAP) $(SO)
+OPT	     := -O2 -g3
 
-OPT	= -O2 -g3
+CFLAGS   = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
+		   $(OPT) \
+		   -std=c99
 
-CFLAGS   = -march=$(ARCH) -W -Wall -MMD $(OPT) -std=c99
-CXXFLAGS = -march=$(ARCH) -W -Wall -MMD $(OPT) -fpermissive
-# LDFLAGS  = -v
-LDFLAGS  = -Wl,-map,$(MAP)
+CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
+		   $(OPT) \
+		   -fpermissive
 
-SRCROOT = .
-OBJROOT = debug
+LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
+		   $(LDFILE_OPT) \
+		   $(MAP_OPT)
 
-INCDIRS = include
-LIBDIRS = .
-BLD_DIR = build
-TAR_DIR = .
+#############################################################################
+# artifact
+#############################################################################
+TARGET   := $(notdir $(CURDIR))
+ARTIFACT := $(notdir $(CURDIR))
+BLD_DIR  := build
+TAR_DIR  := .
 
-ifeq ($(OS),Windows_NT)
-	LIBS =
-else
-	LIBS = ncurses
-endif
+ELF = $(TAR_DIR)/$(TARGET).elf
+MAP = $(BLD_DIR)/$(TARGET).map
+BIN = $(BLD_DIR)/$(TARGET).bin
+HEX = $(BLD_DIR)/$(TARGET).hex
+SO  = $(TAR_DIR)/$(TARGET).so
 
+OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(SO)
 
-include $(wildcard *.mk)
+#############################################################################
+# source & output
+#############################################################################
+# LDFILE  := $(TARGET).ld
 
-ifeq ($(OS),Windows_NT)
-	SUBDIRS := $(dir $(wildcard $(SRCROOT)/*/.)) $(SRCROOT)/
-	CSRCS   := $(wildcard $(addsuffix *.c, $(SUBDIRS)))
-	CXXSRCS := $(wildcard $(addsuffix *.cpp, $(SUBDIRS)))
-else
-	CSRCS   := $(shell find $(SRCROOT) -name "*.c" -not -path "./.*")
-	CXXSRCS := $(shell find $(SRCROOT) -name "*.cpp" -not -path "./.*")
-endif
+SRCROOT := .
+OBJROOT := build
+INCDIRS :=
+LIBDIRS :=
+LIBS    :=
+
+CSRCS   := $(call rwildcard,.,*.c)
+CXXSRCS := $(call rwildcard,.,*.cpp)
 COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
 CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
 
-OUTPUT += $(OBJS) $(DEPS)
-
-TREE := $(sort $(dir $(OUTPUT)))
-
-ifeq ($(OS),Windows_NT)
-	OUTPUT := $(subst /,\,$(OUTPUT))
-	TREE := $(subst /,\\,$(TREE))
-endif
-
 -include $(DEPS)
 
-INCDIRS	:= $(addprefix -I, $(INCDIRS))
-LIBDIRS	:= $(addprefix -L, $(LIBDIRS))
-LIBS	:= $(addprefix -l, $(LIBS))
+OUTPUT  += $(OBJS) $(DEPS)
+OUTDIRS := $(sort $(dir $(OUTPUT)))
 
-PHONY += all
-all: $(ELF) #$(BIN) $(HEX)
+#############################################################################
+# post-processing
+#############################################################################
+include $(wildcard *.mk)
+
+LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
+CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
+ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
+
+ifeq ($(CC),clang)
+	MAP_OPT := -Wl,-map,$(MAP)
+else ifeq ($(CC),gcc)
+	MAP_OPT := -Wl,-map=$(MAP)
+else
+	MAP_OPT :=
+endif
+
+INCDIRS := $(addprefix -I, $(INCDIRS))
+LIBDIRS := $(addprefix -L, $(LIBDIRS))
+LIBS    := $(addprefix -l, $(LIBS))
+
+#############################################################################
+# verbose
+#############################################################################
+ifeq ($(verbose),1)
+ECHO :=
+else
+ECHO := @
+endif
+
+#############################################################################
+# rules
+#############################################################################
+PHONY := all build clean run show test
+
+all: build
+
+build: $(ELF) #$(BIN) $(HEX)
 	@echo Size of image
 	@$(SIZE) $<
-	@echo MAKE COMPLETE!!; echo
+	@echo build complete; echo
 
-PHONY += clean
 clean:
-	@echo Removing Files
-	@$(RM) $(OUTPUT)
+	@echo cleaning
+	$(ECHO) $(RM) $(OUTPUT)
 
-PHONY += run
 run:
-	@echo Run $(notdir $(ELF)); echo
+	@echo run $(notdir $(ELF)); echo
 	@$(ELF)
+
+show:
+	@echo "\nSRCROOT = $(SRCROOT)"
+	@echo "\nINCDIRS"
+	@(for v in $(INCDIRS); do echo "\t$$v"; done)
+	@echo "\nLIBDIRS"
+	@(for v in $(LIBDIRS); do echo "\t$$v"; done)
+	@echo "\nLIBS"
+	@(for v in $(LIBS); do echo "\t$$v"; done)
+	@echo "\nCFLAGS"
+	@(for v in $(CFLAGS); do echo "\t$$v"; done)
+	@echo "\nLDFLAGS"
+	@(for v in $(LDFLAGS); do echo "\t$$v"; done)
+	@echo "\nCSRCS"
+	@(for v in $(CSRCS); do echo "\t$$v"; done)
+	@echo
+
+test:
+	@echo $(OUTDIRS)
+	@echo $(LDFILE)
 
 PHONY += so
 so: $(SO)
@@ -123,7 +178,7 @@ dev:
 
 PHONY += clang-format
 clang-format:
-	@echo Create .clang-format; echo
+	@echo create .clang-format
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
@@ -146,38 +201,33 @@ cdb:
 	@echo "Making compilation database (=compile_commands.json)"
 	@compiledb make clean all
 
-PHONY += test
-test:
-	@echo $(TREE)
-	@echo $(CSRCS)
-
 
 $(BIN): $(ELF)
 	@echo Making Binary from $(<F)
-	@$(OBJCOPY) -O binary $< $@
+	$(ECHO) $(OBJCOPY) -O binary $< $@
 
 $(HEX): $(ELF)
 	@echo Making Intel hex from $(<F)
-	@$(OBJCOPY) -O ihex $< $@
+	$(ECHO) $(OBJCOPY) -O ihex $< $@
 
-$(ELF): $(OBJS)
+$(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(TAR_DIR)
-	@echo Linking $(@F)
-	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
+	@echo linking $(@F)
+	$(ECHO) $(CC) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(SO): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
-	@echo Making dynamic library
+	@echo making dynamic library
 	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
-	@$(MKDIR) $(TREE)
-	@echo Compiling $(<F)
-	@$(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
+	@$(MKDIR) $(OUTDIRS)
+	@echo compiling $(<F)
+	$(ECHO) $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
-	@$(MKDIR) $(TREE)
-	@echo Compiling $(<F)
-	@$(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
+	@$(MKDIR) $(OUTDIRS)
+	@echo compiling $(<F)
+	$(ECHO) $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)

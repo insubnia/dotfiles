@@ -39,11 +39,36 @@ snippet "#if (\w+)([ !=]*)" "(snippet) #if MACRO ... #endif /* MACRO */" r
 endsnippet
 
 
+snippet cext "(snippet) extern C" b
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+$0
+
+#ifdef __cplusplus
+}
+#endif
+endsnippet
+
+
+
 snippet mando "(snippet) MANDO" b
 /*
  * Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.
  *
  * Author: Insub Song (insub.song@halla.com)
+ *
+ */
+${2}
+endsnippet
+
+
+snippet skai "(snippet) SKAIChips" b
+/*
+ * Copyright (c) ${1:--- YEAR ---} SKAIChips Co., Ltd. ALL RIGHTS RESERVED.
+ *
+ * Author: Insub Song (sis@skaichips.co.kr)
  *
  */
 ${2}

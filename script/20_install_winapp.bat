@@ -46,10 +46,12 @@ choco install -y wget
 choco install -y dos2unix
 choco install -y visualcpp-build-tools
 choco install -y microsoft-windows-terminal
+choco install -y gcc-arm-embedded
 REM  choco install -y vcxsrv
 
 :: font
 choco install -y d2codingfont
+choco install -y nerdfont-hack
 
 :: git
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`

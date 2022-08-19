@@ -32,12 +32,15 @@ list=(
     gcc
     llvm
     clang-format
+    lld
     make
     cmake
+    ctags
     scons
     python3
     autojump
     p7zip
+    rar
     nodejs
     jq
     npm
@@ -47,20 +50,20 @@ list=(
     iperf3
     htop
     tcpdump
-    meld
+    # meld
+    lsusb
 )
 
 macos=(
-    iterm2
+    mas
     github
     binutils
     coreutils
-    fd
-    mas
     node
     nvm
     pyenv
     ta-lib
+    fd
 )
 
 linux=(
@@ -72,6 +75,7 @@ linux=(
     libclang-dev
     net-tools
     fd-find
+    gcc-arm-none-eabi
 )
 
 case "$OSTYPE" in
@@ -79,10 +83,10 @@ case "$OSTYPE" in
     linux*) list+=(${linux[@]}) ;;
 esac
 
-for item in ${list[@]}
+for v in ${list[@]}
 do
     echo -e "\n[Installing $item]"
-    eval $pm install $item
+    eval $pm install $v
 done
 
 echo -e "\nComplete\n"
