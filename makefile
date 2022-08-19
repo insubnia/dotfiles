@@ -144,6 +144,7 @@ run:
 	@$(ELF)
 
 show:
+	@echo "\nCC = $(CC)"
 	@echo "\nSRCROOT = $(SRCROOT)"
 	@echo "\nINCDIRS"
 	@(for v in $(INCDIRS); do echo "\t$$v"; done)

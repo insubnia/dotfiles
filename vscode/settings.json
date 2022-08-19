@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Dracula",
+  "workbench.colorTheme": "Solarized Dark+",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 
   "editor": {
@@ -86,5 +86,4 @@
     "editor.defaultFormatter": "xaver.clang-format"
   },
   "files.eol": "\n",
-  "window.zoomLevel": -1,
 }
