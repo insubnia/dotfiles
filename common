@@ -7,6 +7,7 @@ fi
 
 alias ..='cd ..'
 alias ...='cd ../..'
+alias cls='clear'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -hl'
 alias k='k -h'
