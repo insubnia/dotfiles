@@ -29,9 +29,9 @@ RM      := rm -f
 MKDIR   := mkdir -p
 
 ifeq ($(OS),Windows_NT)
-	RM    := del /Q /F
-	MKDIR := md
-	SO    := $(SO:%.so=%.dll)
+	GIT_BIN_DIR := "C:/Program Files/Git/usr/bin"
+	RM    := $(GIT_BIN_DIR)/$(RM)
+	MKDIR := $(GIT_BIN_DIR)/$(MKDIR)
 endif
 
 #############################################################################
