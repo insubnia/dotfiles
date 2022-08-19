@@ -5,14 +5,17 @@ choco install -y powertoys
 choco install -y chocolateygui
 choco install -y googlechrome
 choco install -y onedrive
-choco install -y vlc
+REM  choco install -y vlc
+choco install -y adobereader
+choco install -y bandizip
 choco install -y vim
 choco install -y neovim
-choco install -y foxe
+choco install -y smartgit
 choco install -y sourcetree
 choco install -y vscode
 choco install -y caffeine
 choco install -y everything
+choco install -y foxe
 choco install -y winpcap
 choco install -y wireshark
 choco install -y iperf3
