@@ -21,6 +21,7 @@ endif
 # CROSS   := i686-w64-mingw32-
 
 CC      := $(CROSS)gcc
+CXX     := $(CROSS)g++
 LD      := $(CROSS)ld
 SIZE    := $(CROSS)size
 OBJCOPY := $(CROSS)objcopy
@@ -103,14 +104,14 @@ CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
 
 CC_VERSION = $(shell $(CC) --version)
-ifneq ($(findstring clang,$(CC_VERSION)),)  # use ifneq to prevent double typing of string
+ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word
 	MAP_OPT := -Wl,-map,$(MAP)
-else ifneq ($(findstring arm-none-eabi-gcc,$(CC_VERSION)),)
+else ifneq (,$(findstring arm-none-eabi-gcc,$(CC_VERSION)))
 	MAP_OPT := -Wl,-Map=$(MAP)
-else ifneq ($(findstring gcc,$(CC_VERSION)),)
+else ifneq (,$(findstring gcc,$(CC_VERSION)))
 	MAP_OPT := -Wl,-map=$(MAP)
 else
-	MAP_OPT :=
+	MAP_OPT :=\
 	$(warning undefined compiler: $(CC))
 endif
 
@@ -165,8 +166,8 @@ show:
 	@echo
 
 test:
+	@echo $(TEST)
 	@echo $(OUTDIRS)
-	@echo $(LDFILE)
 
 PHONY += so
 so: $(SO)
