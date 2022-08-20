@@ -29,11 +29,14 @@ OBJDUMP := $(CROSS)objdump
 RM      := rm -f
 MKDIR   := mkdir -p
 
-ifeq ($(OS),Windows_NT)
+ifeq ($(UNAME),Windows)
 	GIT_BIN_DIR := "C:/Program Files/Git/usr/bin"
 	RM    := $(GIT_BIN_DIR)/$(RM)
 	MKDIR := $(GIT_BIN_DIR)/$(MKDIR)
 endif
+
+CC_VERSION  = $(shell $(CC) --version)
+CXX_VERSION = $(shell $(CC) --version)
 
 ################################################################################
 # flags
@@ -43,12 +46,12 @@ endif
 
 OPTIMIZE := -O2 -g3
 
-CFLAGS   = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
-		   $(OPTIMIZE) \
+CFLAGS   = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   -W -Wall -MMD \
 		   -std=c99
 
-CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
-		   $(OPTIMIZE) \
+CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   -W -Wall -MMD \
 		   -fpermissive
 
 LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
@@ -103,7 +106,6 @@ LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
 
-CC_VERSION = $(shell $(CC) --version)
 ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word
 	MAP_OPT := -Wl,-map,$(MAP)
 else ifneq (,$(findstring arm-none-eabi-gcc,$(CC_VERSION)))
@@ -149,7 +151,7 @@ run:
 	@$(ELF)
 
 show:
-	@echo "\nCC = $(CC)"
+	@echo "\nCC_VERSION = $(CC_VERSION)"
 	@echo "\nSRCROOT = $(SRCROOT)"
 	@echo "\nINCDIRS"
 	@(for v in $(INCDIRS); do echo "\t$$v"; done)
