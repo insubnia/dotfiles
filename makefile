@@ -40,14 +40,14 @@ endif
 # CPU      := cortex-m0
 # ARCH     := native
 
-OPT	     := -O2 -g3
+OPTIMIZE := -O2 -g3
 
 CFLAGS   = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
-		   $(OPT) \
+		   $(OPTIMIZE) \
 		   -std=c99
 
 CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) -W -Wall -MMD \
-		   $(OPT) \
+		   $(OPTIMIZE) \
 		   -fpermissive
 
 LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
@@ -102,12 +102,16 @@ LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
 
-ifeq ($(CC),clang)
+CC_VERSION = $(shell $(CC) --version)
+ifneq ($(findstring clang,$(CC_VERSION)),)
 	MAP_OPT := -Wl,-map,$(MAP)
-else ifeq ($(CC),gcc)
+else ifneq ($(findstring arm-none-eabi-gcc,$(CC_VERSION)),)
+	MAP_OPT := -Wl,-Map=$(MAP)
+else ifneq ($(findstring gcc,$(CC_VERSION)),)
 	MAP_OPT := -Wl,-map=$(MAP)
 else
 	MAP_OPT :=
+	$(warning undefined compiler: $(CC))
 endif
 
 INCDIRS := $(addprefix -I, $(INCDIRS))
@@ -133,7 +137,7 @@ all: build
 build: $(ELF) #$(BIN) $(HEX)
 	@echo Size of image
 	@$(SIZE) $<
-	@echo build complete; echo
+	@echo "\nbuild complete\n"
 
 clean:
 	@echo cleaning
