@@ -1,10 +1,5 @@
 #!/bin/sh
 
-if [[ $PWD == $HOME ]]; then
-    mkdir -p ~/workspace
-    cd ~/workspace
-fi
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias cls='clear'
@@ -46,3 +41,6 @@ case "$OSTYPE" in
         alias fd=fdfind
         ;;
 esac
+
+WORKSPACE=$HOME/workspace
+if [ -d $WORKSPACE ]; then cd $WORKSPACE; fi
