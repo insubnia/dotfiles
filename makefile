@@ -68,13 +68,25 @@ ARTIFACT := $(notdir $(CURDIR))
 BLD_DIR  := build
 TAR_DIR  := .
 
+ifeq ($(UNAME), Darwin)
+	DL_EXT = dylib
+	SL_EXT = a
+else ifeq ($(UNAME), Linux)
+	DL_EXT = so
+	SL_EXT = a
+else ifeq ($(UNAME), Windows)
+	DL_EXT = dll
+	SL_EXT = lib
+else
+endif
+
 ELF = $(TAR_DIR)/$(TARGET).elf
 MAP = $(BLD_DIR)/$(TARGET).map
 BIN = $(BLD_DIR)/$(TARGET).bin
 HEX = $(BLD_DIR)/$(TARGET).hex
-SO  = $(TAR_DIR)/$(TARGET).so
+DL  = $(TAR_DIR)/$(TARGET).$(DL_EXT)
 
-OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(SO)
+OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 
 ################################################################################
 # source & output
@@ -173,8 +185,8 @@ test:
 	@echo $(TEST)
 	@echo $(OUTDIRS)
 
-PHONY += so
-so: $(SO)
+PHONY += DL
+so: $(DL)
 	@echo COMPLETE!!
 
 PHONY += dump
@@ -225,7 +237,7 @@ $(ELF): $(OBJS) $(LDFILE)
 	@echo linking $(@F)
 	$(ECHO) $(CC) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
-$(SO): $(OBJS)
+$(DL): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
 	@echo making dynamic library
 	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
