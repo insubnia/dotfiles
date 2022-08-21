@@ -1,4 +1,4 @@
-" vim: set foldmethod=manual:
+" vim: filetype=vim foldmethod=manual
 " ============================================================================
 " INTRO {{{
 " Get OS informaion (:help feature-list)

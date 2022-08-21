@@ -1,3 +1,4 @@
+# vim: filetype=make noexpandtab
 ################################################################################
 # Author: Insub Song
 ################################################################################
@@ -18,6 +19,7 @@ endif
 ################################################################################
 # toolchain
 ################################################################################
+# CROSS   := arm-none-eabi-
 # CROSS   := i686-w64-mingw32-
 
 CC      := $(CROSS)gcc
@@ -35,8 +37,8 @@ ifeq ($(UNAME),Windows)
 	MKDIR := $(GIT_BIN_DIR)/$(MKDIR)
 endif
 
-CC_VERSION  = $(shell $(CC) --version)
-CXX_VERSION = $(shell $(CC) --version)
+CC_VERSION  = $(shell $(CC) --version | head -n 1)
+CXX_VERSION = $(shell $(CC) --version | head -n 1)
 
 ################################################################################
 # flags
