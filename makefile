@@ -235,7 +235,7 @@ $(HEX): $(ELF)
 $(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(TAR_DIR)
 	@echo linking $(@F)
-	$(ECHO) $(CC) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS)
+	$(ECHO) $(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(DL): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
