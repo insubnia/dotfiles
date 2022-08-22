@@ -35,10 +35,13 @@ ifeq ($(UNAME),Windows)
 	GIT_BIN_DIR := "C:/Program Files/Git/usr/bin"
 	RM    := $(GIT_BIN_DIR)/$(RM)
 	MKDIR := $(GIT_BIN_DIR)/$(MKDIR)
-endif
 
-CC_VERSION  = $(shell $(CC) --version | head -n 1)
-CXX_VERSION = $(shell $(CC) --version | head -n 1)
+	CC_VERSION  := $(shell $(CC) --version)
+	CXX_VERSION := $(shell $(CC) --version)
+else
+	CC_VERSION  := $(shell $(CC) --version | head -n 1)
+	CXX_VERSION := $(shell $(CC) --version | head -n 1)
+endif
 
 ################################################################################
 # flags
@@ -122,10 +125,8 @@ ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
 
 ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word
 	MAP_OPT := -Wl,-map,$(MAP)
-else ifneq (,$(findstring arm-none-eabi-gcc,$(CC_VERSION)))
-	MAP_OPT := -Wl,-Map=$(MAP)
 else ifneq (,$(findstring gcc,$(CC_VERSION)))
-	MAP_OPT := -Wl,-map=$(MAP)
+	MAP_OPT := -Wl,-Map=$(MAP)
 else
 	MAP_OPT :=\
 	$(warning undefined compiler: $(CC))
@@ -183,7 +184,8 @@ show:
 
 test:
 	@echo $(TEST)
-	@echo $(OUTDIRS)
+	@echo $(MAP_OPT)
+	@echo $(CC_VERSION)
 
 PHONY += DL
 so: $(DL)
