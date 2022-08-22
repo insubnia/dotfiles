@@ -109,7 +109,7 @@ CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
 
-include $(DEPS)
+-include $(DEPS)
 
 OUTPUT  += $(OBJS) $(DEPS)
 # OUTDIRS = $(sort $(dir $(OUTPUT)))
@@ -117,7 +117,7 @@ OUTPUT  += $(OBJS) $(DEPS)
 ################################################################################
 # post-processing
 ################################################################################
--include $(wildcard *.mk)
+include $(wildcard *.mk)
 
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
