@@ -1,2 +1,3 @@
 .clang-format
 .vscode
+compile_commands.json
