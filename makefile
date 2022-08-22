@@ -109,15 +109,15 @@ CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
 
--include $(DEPS)
+include $(DEPS)
 
 OUTPUT  += $(OBJS) $(DEPS)
-OUTDIRS := $(sort $(dir $(OUTPUT)))
+# OUTDIRS = $(sort $(dir $(OUTPUT)))
 
 ################################################################################
 # post-processing
 ################################################################################
-include $(wildcard *.mk)
+-include $(wildcard *.mk)
 
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
@@ -245,13 +245,13 @@ $(DL): $(OBJS)
 	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
-	@$(MKDIR) $(OUTDIRS)
 	@echo compiling $(<F)
+	@$(MKDIR) $(@D)
 	$(ECHO) $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
-	@$(MKDIR) $(OUTDIRS)
 	@echo compiling $(<F)
+	@$(MKDIR) $(@D)
 	$(ECHO) $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
