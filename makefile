@@ -30,18 +30,19 @@ OBJCOPY := $(CROSS)objcopy
 OBJDUMP := $(CROSS)objdump
 RM      := rm -f
 MKDIR   := mkdir -p
+ECHO    := echo
+HEAD    := head
 
 ifeq ($(UNAME),Windows)
-	GIT_BIN_DIR := "C:/Program Files/Git/usr/bin"
+	GIT_BIN_DIR := C:/Program Files/Git/usr/bin
 	RM    := $(GIT_BIN_DIR)/$(RM)
 	MKDIR := $(GIT_BIN_DIR)/$(MKDIR)
-
-	CC_VERSION  := $(shell $(CC) --version)
-	CXX_VERSION := $(shell $(CC) --version)
-else
-	CC_VERSION  := $(shell $(CC) --version | head -n 1)
-	CXX_VERSION := $(shell $(CC) --version | head -n 1)
+	ECHO  := $(GIT_BIN_DIR)/$(ECHO) -e
+	HEAD  := $(GIT_BIN_DIR)/$(HEAD)
 endif
+
+CC_VERSION  := $(shell $(CC) --version | "$(HEAD)" -n 1)
+CXX_VERSION := $(shell $(CC) --version | "$(HEAD)" -n 1)
 
 ################################################################################
 # flags
@@ -140,9 +141,9 @@ LIBS    := $(addprefix -l, $(LIBS))
 # verbose
 ################################################################################
 ifeq ($(verbose),1)
-ECHO :=
+V :=
 else
-ECHO := @
+V := @
 endif
 
 ################################################################################
@@ -155,19 +156,20 @@ all: build
 build: $(ELF) #$(BIN) $(HEX)
 	@echo Size of image
 	@$(SIZE) $<
-	@echo "\nbuild complete\n"
+	@$(ECHO) "\nbuild complete\n"
 
 clean:
 	@echo cleaning
-	$(ECHO) $(RM) $(OUTPUT)
+	$V $(RM) $(OUTPUT)
 
 run:
-	@echo run $(notdir $(ELF)); echo
+	@$(ECHO) "run $(notdir $(ELF))\n"
 	@$(ELF)
 
 show:
-	@echo "\nCC_VERSION = $(CC_VERSION)"
-	@echo "\nSRCROOT = $(SRCROOT)"
+	@$(ECHO) "\nCC_VERSION = $(CC_VERSION)"
+	@$(ECHO) "\nSRCROOT = $(SRCROOT)"
+ifneq ($(UNAME),Windows)
 	@echo "\nINCDIRS"
 	@(for v in $(INCDIRS); do echo "\t$$v"; done)
 	@echo "\nLIBDIRS"
@@ -181,14 +183,15 @@ show:
 	@echo "\nCSRCS"
 	@(for v in $(CSRCS); do echo "\t$$v"; done)
 	@echo
+endif
 
 test:
 	@echo $(TEST)
 	@echo $(MAP_OPT)
-	@echo $(CC_VERSION)
+	@$(ECHO) "$(CC_VERSION)"
 
-PHONY += DL
-so: $(DL)
+PHONY += dl
+dl: $(DL)
 	@echo COMPLETE!!
 
 PHONY += dump
@@ -222,37 +225,37 @@ clang-format:
 
 PHONY += cdb
 cdb:
-	@echo "generate compilation database as compile_commands.json"
+	@echo generate compilation database as compile_commands.json
 	@bear -- make clean all
 # @compiledb make clean all
 
 
 $(BIN): $(ELF)
 	@echo Making Binary from $(<F)
-	$(ECHO) $(OBJCOPY) -O binary $< $@
+	$V $(OBJCOPY) -O binary $< $@
 
 $(HEX): $(ELF)
 	@echo Making Intel hex from $(<F)
-	$(ECHO) $(OBJCOPY) -O ihex $< $@
+	$V $(OBJCOPY) -O ihex $< $@
 
 $(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(TAR_DIR)
 	@echo linking $(@F)
-	$(ECHO) $(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
+	$V $(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(DL): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
 	@echo making dynamic library
-	@$(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
+	$V $(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
 	@echo compiling $(<F)
 	@$(MKDIR) $(@D)
-	$(ECHO) $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
+	$V $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
 	@echo compiling $(<F)
 	@$(MKDIR) $(@D)
-	$(ECHO) $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
+	$V $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
