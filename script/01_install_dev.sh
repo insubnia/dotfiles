@@ -34,6 +34,7 @@ list=(
     clang-format
     lld
     make
+    bear  # C/C++ compilation database generater
     cmake
     ctags
     scons

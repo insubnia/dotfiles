@@ -223,7 +223,8 @@ clang-format:
 PHONY += cdb
 cdb:
 	@echo "generate compilation database as compile_commands.json"
-	@compiledb make clean all
+	@bear -- make clean all
+# @compiledb make clean all
 
 
 $(BIN): $(ELF)
