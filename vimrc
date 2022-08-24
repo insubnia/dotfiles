@@ -181,7 +181,7 @@ nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>d :Diff<cr>
-nnoremap <leader>e :Trim<cr>
+nnoremap <leader>e :call Trim()<cr>
 nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
@@ -407,11 +407,17 @@ command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
-command! Trim set expandtab | %retab | %s/\s\+$//e | %s/$//e
 command! RO set ro
 command! RW set noro
 
 command! Preproc Silent gcc -E % | less
+
+function! Trim()
+    if &filetype != 'make'
+        TS
+    endif
+    %s/\s\+$//e | %s/$//e
+endfunction
 
 command! Close call Close()
 function! Close()
