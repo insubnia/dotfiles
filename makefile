@@ -154,9 +154,9 @@ PHONY := all build clean run show test
 all: build
 
 build: $(ELF) #$(BIN) $(HEX)
-	@echo Size of image
+	@$(ECHO) "build complete\n"
 	@$(SIZE) $<
-	@$(ECHO) "\nbuild complete\n"
+	@$(ECHO) "---------------------------------------------------------------\n"
 
 clean:
 	@echo cleaning
@@ -167,27 +167,27 @@ run:
 	@$(ELF)
 
 show:
+	@$(ECHO) "\nUNAME = $(UNAME)"
 	@$(ECHO) "\nCC_VERSION = $(CC_VERSION)"
 	@$(ECHO) "\nSRCROOT = $(SRCROOT)"
 ifneq ($(UNAME),Windows)
 	@echo "\nINCDIRS"
-	@(for v in $(INCDIRS); do echo "\t$$v"; done)
+	@(for v in $(INCDIRS); do $(ECHO) "\t$$v"; done)
 	@echo "\nLIBDIRS"
-	@(for v in $(LIBDIRS); do echo "\t$$v"; done)
+	@(for v in $(LIBDIRS); do $(ECHO) "\t$$v"; done)
 	@echo "\nLIBS"
-	@(for v in $(LIBS); do echo "\t$$v"; done)
+	@(for v in $(LIBS); do $(ECHO) "\t$$v"; done)
 	@echo "\nCFLAGS"
-	@(for v in $(CFLAGS); do echo "\t$$v"; done)
+	@(for v in $(CFLAGS); do $(ECHO) "\t$$v"; done)
 	@echo "\nLDFLAGS"
-	@(for v in $(LDFLAGS); do echo "\t$$v"; done)
+	@(for v in $(LDFLAGS); do $(ECHO) "\t$$v"; done)
 	@echo "\nCSRCS"
-	@(for v in $(CSRCS); do echo "\t$$v"; done)
+	@(for v in $(CSRCS); do $(ECHO) "\t$$v"; done)
 	@echo
 endif
 
 test:
-	@echo $(TEST)
-	@echo $(MAP_OPT)
+	@$(ECHO) $(TEST)
 	@$(ECHO) "$(CC_VERSION)"
 
 PHONY += dl
