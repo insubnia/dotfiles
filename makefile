@@ -58,6 +58,7 @@ CFLAGS   = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 
 CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
+		   -std=c++20 \
 		   -fpermissive
 
 LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
@@ -246,7 +247,7 @@ $(ELF): $(OBJS) $(LDFILE)
 $(DL): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
 	@echo making dynamic library
-	$V $(LD) -o $@ $^ $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
+	$V $(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
 	@echo compiling $(<F)

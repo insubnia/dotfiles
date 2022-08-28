@@ -46,11 +46,12 @@ Thumbs.db
 *.bin
 *.lst
 *.hex
-# *.elf
+*.elf
 *.map
 *.stackdump
 *.ini
 *.log
+compile_commands.json
 
 # compression extension
 *.zip

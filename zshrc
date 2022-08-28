@@ -62,4 +62,4 @@ zplug load
 
 source $HOME/workspace/dotfiles/common
 
-unsetopt BG_NICE
+# unsetopt BG_NICE
