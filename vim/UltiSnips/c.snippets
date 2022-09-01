@@ -82,3 +82,14 @@ snippet cinc "(snippet) C include set" b
 #include <string.h>
 $0
 endsnippet
+
+
+snippet minmax "(snippet) MIN/MAX macro" b
+#ifndef MIN
+#define MIN(a, b) (((a)<(b))?(a):(b))
+#endif /* MIN */
+#ifndef MAX
+#define MAX(a, b) (((a)>(b))?(a):(b))
+#endif /* MAX */
+$0
+endsnippet

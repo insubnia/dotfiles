@@ -62,11 +62,23 @@ endsnippet
 
 
 snippet cppinc "(snippet) C include set" b
+#include <iostream>
+#include <format>
 #include <cstdio>
 #include <cstdint>
 #include <cstdbool>
-#include <iostream>
+#include <cstring>
 
 using namespace std;
+$0
+endsnippet
+
+snippet minmax "(snippet) MIN/MAX macro" b
+#ifndef MIN
+#define MIN(a, b) (((a)<(b))?(a):(b))
+#endif /* MIN */
+#ifndef MAX
+#define MAX(a, b) (((a)>(b))?(a):(b))
+#endif /* MAX */
 $0
 endsnippet
