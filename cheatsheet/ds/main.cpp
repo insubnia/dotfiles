@@ -21,11 +21,16 @@ typedef struct {
     uint16_t rd_seq;
 } circ_buf_t;
 
-uint8_t _uart4_rx_buf[512];
-circ_buf_t uart4_rx_buf = {
-    .pbuf = _uart4_rx_buf,
-    .capacity = sizeof(_uart4_rx_buf),
-};
+#define CIRC_BUF_DEF(name, size) \
+    uint8_t _##name[size]; \
+    circ_buf_t name = { \
+        .pbuf = _##name, \
+        .capacity = size, \
+        .wr_seq = 0, \
+        .rd_seq = 0, \
+    }
+
+CIRC_BUF_DEF(cbuf, 512);
 
 int circ_buf_push(circ_buf_t *c, uint8_t *src, uint16_t len);
 int circ_buf_pop(circ_buf_t *c, uint8_t *dst, uint16_t len);
