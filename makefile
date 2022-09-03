@@ -121,6 +121,8 @@ OUTPUT  += $(OBJS) $(DEPS)
 ################################################################################
 include $(wildcard *.mk)
 
+LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
+
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
@@ -180,10 +182,14 @@ ifneq ($(UNAME),Windows)
 	@(for v in $(LIBS); do $(ECHO) "\t$$v"; done)
 	@echo "\nCFLAGS"
 	@(for v in $(CFLAGS); do $(ECHO) "\t$$v"; done)
+	@echo "\nCXXFLAGS"
+	@(for v in $(CXXFLAGS); do $(ECHO) "\t$$v"; done)
 	@echo "\nLDFLAGS"
 	@(for v in $(LDFLAGS); do $(ECHO) "\t$$v"; done)
 	@echo "\nCSRCS"
 	@(for v in $(CSRCS); do $(ECHO) "\t$$v"; done)
+	@echo "\nCXXSRCS"
+	@(for v in $(CXXSRCS); do $(ECHO) "\t$$v"; done)
 	@echo
 endif
 
@@ -242,12 +248,12 @@ $(HEX): $(ELF)
 $(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(TAR_DIR)
 	@echo linking $(@F)
-	$V $(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
+	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(DL): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
 	@echo making dynamic library
-	$V $(CC) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
+	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
 	@echo compiling $(<F)
