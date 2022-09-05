@@ -4,7 +4,9 @@
 #include <cstdbool>
 #include <cstring>
 #include <unistd.h>
+
 #include <thread>
+#include <queue>
 
 using namespace std;
 
@@ -12,21 +14,15 @@ inline void msleep(int mseconds) { usleep(mseconds * 1000); }
 
 volatile bool loop = true;
 
-#define NEXT_INPUT_INTERVAL 1000 // useconds
-
-volatile bool wait_for_input = true;
-string input;
+queue<string> input_queue;
 
 void user_input(void)
 {
     while (loop) {
-        wait_for_input = true;
-
-        input.clear();
-        getline(cin, input);
-
-        wait_for_input = false;
-        usleep(NEXT_INPUT_INTERVAL);
+        string buf_in;
+        getline(cin, buf_in);
+        input_queue.push(buf_in);
+        usleep(50);
     }
     pthread_exit(NULL);
 }
@@ -38,23 +34,21 @@ int main(void)
     while (loop) {
         cout << "sis > ";
         fflush(stdout);
-        while (wait_for_input)
-            usleep(100);
 
+        while (input_queue.empty())
+            usleep(50);
+
+        string input = input_queue.front();
+        input_queue.pop();
+        
         if (input.length() == 0) {
-            usleep(NEXT_INPUT_INTERVAL + 10);
-            continue;
-        }
-
-        if (!input.compare("exit")) {
+        } else if (!input.compare("exit")) {
             loop = false;
-        } else if (!input.compare("test")) {
-            cout << "this is test " << endl;
         } else {
             cout << input << endl;
         }
 
-        msleep(100);
+        msleep(10);
     }
 
     user_input_thread.join();

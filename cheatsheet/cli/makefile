@@ -1,2 +1,2 @@
-include /Users/sis/workspace/dotfiles/makefile
+include ../../makefile
 LDFLAGS += -lpthread
