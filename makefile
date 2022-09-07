@@ -58,8 +58,8 @@ CFLAGS   = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 
 CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
-		   -std=c++20 \
-		   -fpermissive
+		   -fpermissive \
+		   -std=c++20
 
 LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
 		   $(LDFILE_OPT) \

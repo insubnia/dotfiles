@@ -373,13 +373,18 @@ autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
 autocmd BufRead,BufNewFile *.cmm set filetype=cmm
 autocmd BufRead,BufNewFile CMakeLists* set filetype=cmake
 
-function! NewHeader()
+function! NewCHeader()
     if 0
         let name = "_" . toupper(substitute(expand("%:t"), "\\.", "_", "g")) . "_"
         exe "norm! i#ifndef " . name . "\n#define " . name . "\n\n\n\n#endif /* ". name . " */\e4G"
     else
         exe "norm! i#pragma once\n\n\e"
     endif
+endfunction
+
+function! NewCppHeader()
+    exe "norm! i#pragma once\n#ifdef __cplusplus\nextern \"C\" {\n#endif\n\n\n\n\e"
+    exe "norm! i#ifdef __cplusplus\n}\n#endif\ekkkk"
 endfunction
 
 function! NewPy()
@@ -391,7 +396,8 @@ endfunction
 
 augroup NewFile
     autocmd!
-    autocmd BufNewFile *.{h,hpp} call NewHeader()
+    autocmd BufNewFile *.h call NewCHeader()
+    autocmd BufNewFile *.hpp call NewCppHeader()
     autocmd BufNewFile *.py call NewPy()
 augroup END
 " }}}
