@@ -12,6 +12,7 @@ apps=(
     onedrive
     vlc
     folx
+    adobe-acrobat-reader
     mounty
     sourcetree
     smartgit
