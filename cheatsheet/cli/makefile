@@ -1,0 +1,2 @@
+include ../../makefile
+LDFLAGS += -lpthread

@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-const uint32_t input[] = {3, 1, 2, 5};
+const uint32_t input[] = {1, 2, 3, 4};
 
 #define N ((int)(sizeof(input) / sizeof(input[0])))
 
@@ -28,16 +28,6 @@ void print_buf(int *ptr)
 void next(int pos, bool _used[N], int _data[N])
 {
     if (pos == N) {
-#if 0
-        int prev = _data[1] >= _data[0] ? 1 : -1;
-
-        for (int i = 1; i < N - 1; i++) {
-            int curr = _data[i + 1] >= _data[i] ? 1 : -1;
-            if (prev == curr)
-                return;
-            prev = curr;
-        }
-#endif
         cnt++;
         print_buf(_data);
         return;

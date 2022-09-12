@@ -29,8 +29,6 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
-*.dll
-*.lib
 *.sbr
 
 # vscode
@@ -46,11 +44,17 @@ Thumbs.db
 *.bin
 *.lst
 *.hex
-# *.elf
+*.elf
 *.map
 *.stackdump
 *.ini
 *.log
+compile_commands.json
+# *.dylib
+# *.so
+# *.dll
+# *.a
+# *.lib
 
 # compression extension
 *.zip

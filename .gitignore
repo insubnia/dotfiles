@@ -1,4 +1,3 @@
 .clang-format
 .vscode
-
-cheatsheet/**/*.elf
+compile_commands.json
