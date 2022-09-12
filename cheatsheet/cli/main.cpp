@@ -13,7 +13,7 @@ using namespace std;
 volatile bool loop = true;
 queue<string> input_queue;
 
-int input_handler(string input);
+int user_input_handler(string input);
 
 inline void msleep(int mseconds) { usleep(mseconds * 1000); }
 
@@ -42,7 +42,7 @@ int main(void)
         string input = input_queue.front();
         input_queue.pop();
 
-        input_handler(input);
+        user_input_handler(input);
         msleep(10);
     }
     user_input_thread.join();
@@ -50,15 +50,18 @@ int main(void)
     return 0;
 }
 
-int input_handler(string input)
+int user_input_handler(string input)
 {
     if (input.length() == 0) {
         /* do nothing */
     } else if (input.length() == 1) {
         char ch = input.c_str()[0];
         switch (ch) {
+        case 'q':
+            loop = false;
+            break;
         default:
-            cout << "ch: " << ch << endl;
+            cout << " ch: " << ch << endl;
             break;
         }
     } else if (input == "exit") {
