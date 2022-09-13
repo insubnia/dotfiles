@@ -20,10 +20,10 @@ endif
 # toolchain
 ################################################################################
 ifeq ($(OS),Windows_NT)
-	TC_ROOT := G:/ProgramData/chocolatey/bin/
+	TOOLCHAIN_ROOT := G:/ProgramData/chocolatey/bin/
 endif
-# CROSS   := $(TC_ROOT)arm-none-eabi-
-# CROSS   := $(TC_ROOT)i686-w64-mingw32-
+# CROSS   := $(TOOLCHAIN_ROOT)arm-none-eabi-
+# CROSS   := $(TOOLCHAIN_ROOT)i686-w64-mingw32-
 
 CC      := $(CROSS)gcc
 CXX     := $(CROSS)g++
@@ -37,11 +37,11 @@ ECHO    := echo
 HEAD    := head
 
 ifeq ($(UNAME),Windows)
-	GIT_BIN_DIR := C:/Program Files/Git/usr/bin
-	RM    := $(GIT_BIN_DIR)/$(RM)
-	MKDIR := $(GIT_BIN_DIR)/$(MKDIR)
-	ECHO  := $(GIT_BIN_DIR)/$(ECHO) -e
-	HEAD  := $(GIT_BIN_DIR)/$(HEAD)
+	GIT_BIN_DIR := C:/Program Files/Git/usr/bin/
+	RM    := $(GIT_BIN_DIR)$(RM)
+	MKDIR := $(GIT_BIN_DIR)$(MKDIR)
+	ECHO  := $(GIT_BIN_DIR)$(ECHO) -e
+	HEAD  := $(GIT_BIN_DIR)$(HEAD)
 endif
 
 CC_VERSION  := $(shell "$(CC)" --version | "$(HEAD)" -n 1)
@@ -200,10 +200,8 @@ test:
 	@$(ECHO) $(TEST)
 	@$(ECHO) "$(CC_VERSION)"
 
-PHONY += dl
 dl: $(DL)
 	@$(ECHO) "complete\n"
-	@echo COMPLETE!!
 
 PHONY += dump
 dump: $(ELF)
@@ -243,20 +241,22 @@ cdb:
 
 $(BIN): $(ELF)
 	@$(ECHO) "converting format $(<F) to $(@F)"
+	@$(MKDIR) $(@D)
 	$V $(OBJCOPY) -O binary $< $@
 
 $(HEX): $(ELF)
 	@$(ECHO) "converting format $(<F) to $(@F)"
+	@$(MKDIR) $(@D)
 	$V $(OBJCOPY) -O ihex $< $@
 
 $(ELF): $(OBJS) $(LDFILE)
-	@$(MKDIR) $(TAR_DIR)
 	@$(ECHO) "linking $(@F)"
+	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(DL): $(OBJS)
-	@$(MKDIR) $(TAR_DIR)
-	@$(ECHO) making dynamic library
+	@$(ECHO) "making dynamic library"
+	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
