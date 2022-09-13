@@ -19,8 +19,11 @@ endif
 ################################################################################
 # toolchain
 ################################################################################
-# CROSS   := arm-none-eabi-
-# CROSS   := i686-w64-mingw32-
+ifeq ($(OS),Windows_NT)
+	TC_ROOT := G:/ProgramData/chocolatey/bin/
+endif
+# CROSS   := $(TC_ROOT)arm-none-eabi-
+# CROSS   := $(TC_ROOT)i686-w64-mingw32-
 
 CC      := $(CROSS)gcc
 CXX     := $(CROSS)g++
@@ -41,8 +44,8 @@ ifeq ($(UNAME),Windows)
 	HEAD  := $(GIT_BIN_DIR)/$(HEAD)
 endif
 
-CC_VERSION  := $(shell $(CC) --version | "$(HEAD)" -n 1)
-CXX_VERSION := $(shell $(CC) --version | "$(HEAD)" -n 1)
+CC_VERSION  := $(shell "$(CC)" --version | "$(HEAD)" -n 1)
+CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 
 ################################################################################
 # flags
