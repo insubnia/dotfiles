@@ -158,11 +158,11 @@ all: build
 
 build: $(ELF) #$(BIN) $(HEX)
 	@$(ECHO) "build complete\n"
-	@$(SIZE) $<
+	$V $(SIZE) $<
 	@$(ECHO) "------------------------------------------------------------------\n"
 
 clean:
-	@echo cleaning
+	@$(ECHO) cleaning
 	$V $(RM) $(OUTPUT)
 
 run:
@@ -199,6 +199,7 @@ test:
 
 PHONY += dl
 dl: $(DL)
+	@$(ECHO) "complete\n"
 	@echo COMPLETE!!
 
 PHONY += dump
@@ -238,30 +239,30 @@ cdb:
 
 
 $(BIN): $(ELF)
-	@echo Making Binary from $(<F)
+	@$(ECHO) "converting format $(<F) to $(@F)"
 	$V $(OBJCOPY) -O binary $< $@
 
 $(HEX): $(ELF)
-	@echo Making Intel hex from $(<F)
+	@$(ECHO) "converting format $(<F) to $(@F)"
 	$V $(OBJCOPY) -O ihex $< $@
 
 $(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(TAR_DIR)
-	@echo linking $(@F)
+	@$(ECHO) "linking $(@F)"
 	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
 
 $(DL): $(OBJS)
 	@$(MKDIR) $(TAR_DIR)
-	@echo making dynamic library
+	@$(ECHO) making dynamic library
 	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
-	@echo compiling $(<F)
+	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
 	$V $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
-	@echo compiling $(<F)
+	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
 	$V $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
