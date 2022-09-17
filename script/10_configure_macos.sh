@@ -28,6 +28,8 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool true
 # Don't use smart dashes
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
+# Disalbe Apple's press & hold only for VSCode
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 ##############################################################################
 # Trackpad / Mouse

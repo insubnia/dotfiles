@@ -20,7 +20,7 @@ list=(
     scipy
     matplotlib
     mplfinance
-    pyqt5
+    pyqt6
     pyinstaller
     pandas
     pandas_ta

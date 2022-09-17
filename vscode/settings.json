@@ -34,7 +34,7 @@
 
     "normalModeKeyBindingsNonRecursive": [
       { "before": [";"], "commands": ["editor.action.showHover"] },
-      { "before": ["?"], "commands": ["workbench.action.gotoSymbol"] },
+      { "before": ["?"], "commands": ["workbench.action.showAllSymbols"] },
       { "before": ["j"], "after": ["g", "j"] },
       { "before": ["k"], "after": ["g", "k"] },
       { "before": ["T"], "commands": ["outline.focus"] },
