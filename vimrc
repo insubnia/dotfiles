@@ -427,6 +427,7 @@ endfunction
 
 command! Close call Close()
 function! Close()
+    if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
     cclose
     pclose
     helpclose
@@ -495,7 +496,7 @@ if !exists('*Run')
         elseif &filetype == 'markdown'
             MarkdownPreview
         else
-            echom "There's nothing to do"
+            echom "No operation"
         endif
     endfunction
 endif
@@ -676,6 +677,7 @@ nnoremap <leader>9 9gt
 autocmd StdinReadPre * let s:std_in = 1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd CursorHold * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
 let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeRespectWildIgnore = 1
