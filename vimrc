@@ -112,7 +112,7 @@ set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=tags,.DS_Store,*.stackdump
+set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
 
 if has('nvim')
     if has('win32') " Windows nvim-qt
@@ -418,6 +418,11 @@ command! RW set noro
 
 command! Preproc Silent gcc -E % | less
 
+function! MyHandler(id)
+    " if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot | endif
+endfunction
+call timer_start(1000, 'MyHandler', {'repeat': -1})  " -1 means forever
+
 function! Trim()
     if &filetype != 'make'
         TS
@@ -677,7 +682,7 @@ nnoremap <leader>9 9gt
 autocmd StdinReadPre * let s:std_in = 1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd CursorHold * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
+" autocmd CursorHold * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot  " FIXME: conflict with gitgutter autocmd
 let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeRespectWildIgnore = 1
@@ -718,7 +723,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
-autocmd VimEnter * if g:os=='Windows' | let g:ackprg = 'ack -His --smart-case --column --nocolor --nogroup' | endif
+let g:ack_default_options = " -HS --nocolor --nogroup --column"
 let g:ack_apply_qmappings = 0
 let g:ack_qhandler = 'botright cwindow'
 let g:ackhighlight = 1
@@ -763,6 +768,7 @@ let g:peekaboo_window = 'vert botright 40new'
 
 " devicon
 let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ' '
 let g:WebDevIconsNerdTreeAfterGlyphPadding = (has("gui_running") ? '' : ' ')
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -777,6 +783,10 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+
+" nerdtree-git-plugin
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusConcealBrackets = 1
 " }}}
 " ============================================================================
 " OUTRO {{{
