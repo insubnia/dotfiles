@@ -419,9 +419,8 @@ command! RW set noro
 command! Preproc Silent gcc -E % | less
 
 function! MyHandler(id)
-    " if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot | endif
 endfunction
-call timer_start(1000, 'MyHandler', {'repeat': -1})  " -1 means forever
+" call timer_start(100, 'MyHandler', {'repeat': -1})
 
 function! Trim()
     if &filetype != 'make'
@@ -682,7 +681,7 @@ nnoremap <leader>9 9gt
 autocmd StdinReadPre * let s:std_in = 1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" autocmd CursorHold * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot  " FIXME: conflict with gitgutter autocmd
+autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
 let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeRespectWildIgnore = 1
