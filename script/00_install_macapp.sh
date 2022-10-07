@@ -24,6 +24,7 @@ apps=(
 fonts=(
     font-d2coding
     font-hack-nerd-font
+    font-meslo-lg-nerd-font
 )
 
 # https://github.com/mas-cli/mas
