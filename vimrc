@@ -44,9 +44,9 @@ Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+Plug 'ryanoasis/vim-devicons'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -790,14 +790,14 @@ let g:NERDTreeGitStatusConcealBrackets = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo dracula
-    let g:airline_theme = 'dracula'
+    colo onedark
+    let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
-    colo deus
-    let g:airline_theme = 'deus'
-elseif has("win32")
     colo jellybeans
     let g:airline_theme = 'jellybeans'
+elseif has("win32")
+    colo deus
+    let g:airline_theme = 'deus'
 elseif has("win32unix")
     let ayucolor='mirage'
     colo ayu
