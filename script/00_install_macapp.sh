@@ -23,7 +23,7 @@ apps=(
 
 fonts=(
     font-d2coding
-    font-hack-nerd-font
+    font-dejavusansmono-nerd-font-mono
     font-meslo-lg-nerd-font
 )
 

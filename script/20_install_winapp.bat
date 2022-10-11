@@ -54,7 +54,7 @@ REM  choco install -y vcxsrv
 
 :: font
 choco install -y d2codingfont
-choco install -y nerdfont-hack
+choco install -y font-nerd-dejavusansmono
 
 :: git
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`

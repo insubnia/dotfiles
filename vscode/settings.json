@@ -87,4 +87,5 @@
     "editor.defaultFormatter": "xaver.clang-format"
   },
   "files.eol": "\n",
+  "window.zoomLevel": -1,
 }
