@@ -699,7 +699,8 @@ let g:NERDCustomDelimiters = {
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'json': {'left': '/*', 'right': '*/'},
             \'cmm': {'left': ';'},
-            \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}
+            \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \'dosbatch': {'left': '::', 'leftAlt': 'REM'}
             \}
 
 " AutoPairs
