@@ -222,14 +222,18 @@ clang-format:
 		AlignOperands                     : true,\
 		AlignTrailingComments             : true,\
 		AllowShortCaseLabelsOnASingleLine : true,\
+		BitFieldColonSpacing              : Both,\
 		BreakBeforeBinaryOperators        : None,\
 		BreakBeforeTernaryOperators       : false,\
 		Cpp11BracedListStyle              : false,\
 		KeepEmptyLinesAtTheStartOfBlocks  : false,\
 		MaxEmptyLinesToKeep               : 2,\
-		PointerAlignment                  : Right,\
+		PointerAlignment                  : Left,\
+		ReferenceAlignment                : Left,\
 		SortIncludes                      : false,\
 		SortUsingDeclarations             : false,\
+		SpaceBeforeRangeBasedForLoopColon : true,\
+		SpacesBeforeTrailingComments      : 2,\
 	}" -dump-config > .clang-format
 
 PHONY += cdb
