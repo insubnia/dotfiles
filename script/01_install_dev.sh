@@ -17,7 +17,6 @@ echo -e "\n[Update & upgrade packages]"
 # eval $pm update
 # eval $pm upgrade
 
-# common=(
 list=(
     neovim
     git
@@ -53,6 +52,7 @@ list=(
     tcpdump
     # meld
     lsusb
+    qt
 )
 
 macos=(
