@@ -57,10 +57,12 @@ OPTIMIZE := -O2 -g3
 
 CFLAGS   = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
+		   -Wno-sign-compare \
 		   -std=c99
 
 CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
+		   -Wno-sign-compare \
 		   -fpermissive \
 		   -std=c++20
 
