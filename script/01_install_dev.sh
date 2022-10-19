@@ -22,7 +22,6 @@ list=(
     git
     git-flow
     tig
-    ack
     bat
     tmux
     wget
@@ -56,6 +55,7 @@ list=(
 )
 
 macos=(
+    the_silver_searcher
     mas
     github
     binutils
@@ -68,6 +68,7 @@ macos=(
 )
 
 linux=(
+    silversearcher-ag
     vim-gtk
     xclip
     python3-pip

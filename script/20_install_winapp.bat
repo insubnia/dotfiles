@@ -35,7 +35,7 @@ REM  choco install -y winscp
 
 :: dev
 choco install -y git
-choco install -y ack
+choco install -y ag
 choco install -y fd
 choco install -y fzf
 choco install -y llvm

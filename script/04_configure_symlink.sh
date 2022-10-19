@@ -4,7 +4,6 @@ DOTFILES=~/workspace/dotfiles
 CONF=$DOTFILES/conf
 VSCODE=$DOTFILES/vscode
 
-ln -sf $CONF/ackrc ~/.ackrc
 ln -sf $CONF/flake8 ~/.flake8
 ln -sf $CONF/tmux.conf ~/.tmux.conf
 
