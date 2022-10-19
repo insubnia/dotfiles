@@ -28,6 +28,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -36,7 +38,6 @@ Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
@@ -110,7 +111,7 @@ set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.gitignore,.svn
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
-set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
 
@@ -169,6 +170,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
+nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 " nnoremap <C-w>] :vert stj <cr>
@@ -252,7 +254,7 @@ if has('nvim')
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
-    tnoremap <esc> <C-\><C-n>
+    tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
 else
     nmap J <plug>(ale_next_wrap)zz
     nmap K <plug>(ale_previous_wrap)zz
@@ -702,6 +704,9 @@ let g:NERDCustomDelimiters = {
             \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'dosbatch': {'left': '::', 'leftAlt': 'REM'}
             \}
+
+" fzf
+
 
 " AutoPairs
 let g:AutoPairsFlyMode = 0

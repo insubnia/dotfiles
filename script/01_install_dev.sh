@@ -28,6 +28,7 @@ list=(
     wget
     curl
     tree
+    fzf
     gcc
     llvm
     clang-format
@@ -35,7 +36,6 @@ list=(
     make
     bear  # C/C++ compilation database generater
     cmake
-    ctags
     scons
     python3
     autojump

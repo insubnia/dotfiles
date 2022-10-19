@@ -37,6 +37,7 @@ REM  choco install -y winscp
 choco install -y git
 choco install -y ack
 choco install -y fd
+choco install -y fzf
 choco install -y llvm
 choco install -y make
 choco install -y ctags
