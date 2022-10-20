@@ -28,6 +28,8 @@ alias gitflow='git flow'
 alias cmakefile='ln -sf ~/workspace/dotfiles/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
 
+export FZF_DEFAULT_COMMAND="fd --type f"
+
 case "$OSTYPE" in
     darwin*)
         export PATH=/opt/homebrew/bin:$PATH
@@ -40,7 +42,6 @@ case "$OSTYPE" in
             # native
             alias open='xdg-open'
         fi
-        alias fd=fdfind
         ;;
 esac
 
