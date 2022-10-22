@@ -45,7 +45,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -180,6 +180,7 @@ nnoremap <M-Down> ddp
 nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
+nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
 " nnoremap <leader>f :Ack!<space>
