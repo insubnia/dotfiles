@@ -25,16 +25,19 @@ endif
 # CROSS   := $(TOOLCHAIN_ROOT)arm-none-eabi-
 # CROSS   := $(TOOLCHAIN_ROOT)i686-w64-mingw32-
 
-CC      := $(CROSS)gcc
-CXX     := $(CROSS)g++
-LD      := $(CROSS)ld
-SIZE    := $(CROSS)size
-OBJCOPY := $(CROSS)objcopy
-OBJDUMP := $(CROSS)objdump
-RM      := rm -f
-MKDIR   := mkdir -p
-ECHO    := echo
-HEAD    := head
+CC       := $(CROSS)gcc
+CXX      := $(CROSS)g++
+LD       := $(CROSS)ld
+SIZE     := $(CROSS)size
+OBJCOPY  := $(CROSS)objcopy
+OBJDUMP  := $(CROSS)objdump
+RM       := rm -f
+MKDIR    := mkdir -p
+ECHO     := echo
+HEAD     := head
+SYMLINK  := ln -sf
+TAR      := tar -cf
+COMPRESS := gzip -9f
 
 ifeq ($(UNAME),Windows)
 	GIT_BIN_DIR := C:/Program Files/Git/usr/bin/
@@ -55,18 +58,21 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 
 OPTIMIZE := -O2 -g3
 
-CFLAGS   = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+CFLAGS   = \
+		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -std=c99
 
-CXXFLAGS = $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+CXXFLAGS = \
+		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -fpermissive \
 		   -std=c++20
 
-LDFLAGS  = $(CPU_OPT) $(ARCH_OPT) \
+LDFLAGS  = \
+		   $(CPU_OPT) $(ARCH_OPT) \
 		   $(LDFILE_OPT) \
 		   $(MAP_OPT)
 
@@ -105,9 +111,12 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 
 SRCROOT := .
 OBJROOT := build
-INCDIRS :=
-LIBDIRS :=
-LIBS    :=
+
+INCDIRS := \
+
+LIBDIRS := \
+
+LIBS    := \
 
 CSRCS   := $(call rwildcard,.,*.c)
 CXXSRCS := $(call rwildcard,.,*.cpp)
@@ -130,7 +139,7 @@ LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
-ARCH_OPT   = $(if $(ARCH),-march=$(ARCH),)
+ARCH_OPT   = $(if $(ARCH),-arch $(ARCH),)
 
 ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word
 	MAP_OPT := -Wl,-map,$(MAP)
