@@ -3,7 +3,6 @@
 #include <cstring>
 #include <thread>
 #include <queue>
-
 #include <unistd.h>
 
 #include "app.hpp"
@@ -78,3 +77,4 @@ int user_input_handler(string input)
     }
     return 0;
 }
+

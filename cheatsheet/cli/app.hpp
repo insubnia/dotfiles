@@ -1,8 +1,6 @@
 #pragma once
 #include <queue>
 #include <string>
-#include <chrono>
-#include <thread>
 
 using namespace std;
 
@@ -21,24 +19,13 @@ public:
     void Init(void);
     void Process(void);
 
-    void ClearScreen(void)
+    int ClearScreen(void)
     {
 #ifdef __WIN32
-        system("cls");
+        return system("cls");
 #else
-        system("clear");
+        return system("clear");
 #endif
     }
 };
-
-__attribute__((weak)) int usleep(unsigned int usec)
-{
-    this_thread::sleep_for(chrono::microseconds(usec));
-    return 0;
-}
-
-__attribute__((weak)) void msleep(unsigned int msec)
-{
-    this_thread::sleep_for(chrono::milliseconds(msec));
-}
 

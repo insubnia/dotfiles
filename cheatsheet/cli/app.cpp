@@ -1,4 +1,6 @@
 #include <iostream>
+#include <thread>
+#include <unistd.h>
 
 #include "app.hpp"
 
@@ -14,12 +16,11 @@ void Application::Process(void)
     while (loop) {
         cout << name + "@MBP$ " << flush;
         while (qin.empty())
-            usleep(10);
+            usleep(100);
 
         string input = qin.front();
         qin.pop();
         InputHandler(input);
-        usleep(10);
     }
     _t.join();
 }
@@ -30,7 +31,7 @@ void Application::InputThread(void)
         string buf;
         getline(cin, buf);
         qin.push(buf);
-        usleep(10);
+        usleep(100);
     }
 }
 
