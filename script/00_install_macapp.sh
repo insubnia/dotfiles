@@ -19,6 +19,7 @@ apps=(
     visual-studio-code
     wireshark
     gcc-arm-embedded
+    qt-creator
 )
 
 fonts=(

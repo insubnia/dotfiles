@@ -57,19 +57,21 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 # ARCH     := native
 
 OPTIMIZE := -O2 -g3
+CC_STD   := c99
+CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
 CFLAGS   = \
 		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
-		   -std=c99
+		   -std=$(CC_STD)
 
 CXXFLAGS = \
 		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -fpermissive \
-		   -std=c++20
+		   -std=$(CXX_STD)
 
 LDFLAGS  = \
 		   $(CPU_OPT) $(ARCH_OPT) \
