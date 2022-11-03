@@ -19,5 +19,6 @@ case "$OSTYPE" in
         ;;
 esac
 
+mkdir -p $VSCODE_USER
 ln -sf $VSCODE/settings.json $VSCODE_USER/settings.json
 ln -sf $VSCODE/keybindings.json $VSCODE_USER/keybindings.json

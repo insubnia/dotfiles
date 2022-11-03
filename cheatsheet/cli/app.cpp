@@ -59,5 +59,8 @@ void Application::InputHandler(string input)
     } else {
         cout << " " << input << endl;
     }
+
+    if (!loop)
+        cout << "\nTerminate program" << endl;
 }
 
