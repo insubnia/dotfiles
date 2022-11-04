@@ -78,6 +78,7 @@ linux=(
     net-tools
     fd-find
     gcc-arm-none-eabi
+    wireshark
 )
 
 case "$OSTYPE" in

@@ -11,6 +11,8 @@ void Application::Init(void)
 
 void Application::Process(void)
 {
+    ClearScreen();
+
     // thread _t(&Application::InputThread, this);
     thread _t([this]{ InputThread(); });
     while (loop) {

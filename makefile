@@ -83,7 +83,7 @@ LDFLAGS  = \
 ################################################################################
 TARGET   := $(notdir $(CURDIR))
 ARTIFACT := $(notdir $(CURDIR))
-BLD_DIR  := build
+OUT_DIR  := build
 TAR_DIR  := .
 
 ifeq ($(UNAME), Darwin)
@@ -99,9 +99,9 @@ else
 endif
 
 ELF = $(TAR_DIR)/$(TARGET).elf
-MAP = $(BLD_DIR)/$(TARGET).map
-BIN = $(BLD_DIR)/$(TARGET).bin
-HEX = $(BLD_DIR)/$(TARGET).hex
+MAP = $(OUT_DIR)/$(TARGET).map
+BIN = $(OUT_DIR)/$(TARGET).bin
+HEX = $(OUT_DIR)/$(TARGET).hex
 DL  = $(TAR_DIR)/$(TARGET).$(DL_EXT)
 
 OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
@@ -111,8 +111,8 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 ################################################################################
 # LDFILE  := $(TARGET).ld
 
-SRCROOT := .
-OBJROOT := build
+SRCDIRS := \
+		   .
 
 INCDIRS := \
 
@@ -120,10 +120,11 @@ LIBDIRS := \
 
 LIBS    := \
 
-CSRCS   := $(call rwildcard,.,*.c)
-CXXSRCS := $(call rwildcard,.,*.cpp)
-COBJS   := $(CSRCS:$(SRCROOT)/%.c=$(OBJROOT)/%.o)
-CXXOBJS := $(CXXSRCS:$(SRCROOT)/%.cpp=$(OBJROOT)/%.o)
+
+CSRCS   := $(foreach dir,$(SRCDIRS),$(call rwildcard,./$(dir),*.c))
+CXXSRCS := $(foreach dir,$(SRCDIRS),$(call rwildcard,./$(dir),*.cpp))
+COBJS   := $(CSRCS:%.c=$(OUT_DIR)/%.o)
+CXXOBJS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
 
@@ -135,7 +136,7 @@ OUTPUT  += $(OBJS) $(DEPS)
 ################################################################################
 # post-processing
 ################################################################################
-include $(wildcard *.mk)
+include $(call rwildcard,.,*.mk)
 
 LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
@@ -276,14 +277,15 @@ $(DL): $(OBJS)
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
 
-$(COBJS): $(OBJROOT)%.o: $(SRCROOT)%.c
+$(COBJS): $(OUT_DIR)/%.o: %.c
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
 	$V $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
 
-$(CXXOBJS): $(OBJROOT)%.o: $(SRCROOT)%.cpp
+$(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
 	$V $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
+
