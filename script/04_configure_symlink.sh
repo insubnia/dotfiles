@@ -16,9 +16,11 @@ case "$OSTYPE" in
         ;;
     linux*)
         VSCODE_USER=~/.config/Code/User
+        sudo ln -sf $(which fdfind) /usr/bin/fd
         ;;
 esac
 
 mkdir -p $VSCODE_USER
 ln -sf $VSCODE/settings.json $VSCODE_USER/settings.json
 ln -sf $VSCODE/keybindings.json $VSCODE_USER/keybindings.json
+
