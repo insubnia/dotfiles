@@ -111,18 +111,17 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 ################################################################################
 # LDFILE  := $(TARGET).ld
 
-SRCDIRS := \
-		   .
+SRC_ROOTS := .\
 
-INCDIRS := \
+INC_DIRS  := \
 
-LIBDIRS := \
+LIB_DIRS  := \
 
-LIBS    := \
+LIBS      := \
 
 
-CSRCS   := $(foreach dir,$(SRCDIRS),$(call rwildcard,./$(dir),*.c))
-CXXSRCS := $(foreach dir,$(SRCDIRS),$(call rwildcard,./$(dir),*.cpp))
+CSRCS   := $(foreach dir,$(SRC_ROOTS),$(wildcard $(dir)/*.c))
+CXXSRCS := $(foreach dir,$(SRC_ROOTS),$(wildcard $(dir)/*.cpp))
 COBJS   := $(CSRCS:%.c=$(OUT_DIR)/%.o)
 CXXOBJS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
@@ -153,9 +152,9 @@ else
 	$(warning undefined compiler: $(CC))
 endif
 
-INCDIRS := $(addprefix -I, $(INCDIRS))
-LIBDIRS := $(addprefix -L, $(LIBDIRS))
-LIBS    := $(addprefix -l, $(LIBS))
+INC_DIRS := $(addprefix -I, $(INC_DIRS))
+LIB_DIRS := $(addprefix -L, $(LIB_DIRS))
+LIBS     := $(addprefix -l, $(LIBS))
 
 ################################################################################
 # verbose
@@ -188,13 +187,14 @@ run:
 
 show:
 	@$(ECHO) "\nUNAME = $(UNAME)"
-	@$(ECHO) "\nCC_VERSION = $(CC_VERSION)"
-	@$(ECHO) "\nSRCROOT = $(SRCROOT)"
+	@$(ECHO) "\nCOMPILER = $(CC_VERSION)"
 ifneq ($(UNAME),Windows)
-	@echo "\nINCDIRS"
-	@(for v in $(INCDIRS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLIBDIRS"
-	@(for v in $(LIBDIRS); do $(ECHO) "\t$$v"; done)
+	@echo "\nSRC_ROOTS"
+	@(for v in $(SRC_ROOTS); do $(ECHO) "\t$$v"; done)
+	@echo "\nINC_DIRS"
+	@(for v in $(INC_DIRS); do $(ECHO) "\t$$v"; done)
+	@echo "\nLIB_DIRS"
+	@(for v in $(LIB_DIRS); do $(ECHO) "\t$$v"; done)
 	@echo "\nLIBS"
 	@(for v in $(LIBS); do $(ECHO) "\t$$v"; done)
 	@echo "\nCFLAGS"
@@ -270,22 +270,22 @@ $(HEX): $(ELF)
 $(ELF): $(OBJS) $(LDFILE)
 	@$(ECHO) "linking $(@F)"
 	@$(MKDIR) $(@D)
-	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS)
+	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS)
 
 $(DL): $(OBJS)
 	@$(ECHO) "making dynamic library"
 	@$(MKDIR) $(@D)
-	$V $(LD) -o $@ $(OBJS) $(LIBDIRS) $(LIBS) $(LDFLAGS) -shared
+	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS) -shared
 
 $(COBJS): $(OUT_DIR)/%.o: %.c
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
-	$V $(CC) -o $@ -c $< $(INCDIRS) $(CFLAGS)
+	$V $(CC) -o $@ -c $< $(INC_DIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
-	$V $(CXX) -o $@ -c $< $(INCDIRS) $(CXXFLAGS)
+	$V $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
 
