@@ -31,7 +31,8 @@ Thumbs.db
 *.log
 *.sbr
 
-# vscode
+# vs family
+.vs/
 .vscode/
 
 # vim

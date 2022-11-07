@@ -13,8 +13,6 @@ endif
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    " Plug 'arakashic/chromatica.nvim', has('unix') ? {} : {'on': []}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
@@ -28,6 +26,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -36,7 +36,6 @@ Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
 Plug 'tpope/vim-surround'
@@ -44,9 +43,9 @@ Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+Plug 'ryanoasis/vim-devicons'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -110,9 +109,9 @@ set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.gitignore,.svn
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
-set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.so,*.a,*.dll,*.lib
+set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=tags,.DS_Store,*.stackdump
+set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
 
 if has('nvim')
     if has('win32') " Windows nvim-qt
@@ -169,6 +168,7 @@ nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
 nnoremap <C-t> :JumpBack<cr>zz
+nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 " nnoremap <C-w>] :vert stj <cr>
@@ -180,9 +180,11 @@ nnoremap <M-Down> ddp
 nnoremap <M-Right> <C-i>zz
 nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
+nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
-nnoremap <leader>f :Ack!<space>
+" nnoremap <leader>f :Ack!<space>
+nnoremap <leader>f :Ag<cr>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
@@ -252,7 +254,7 @@ if has('nvim')
     vmap <leader>l <plug>(coc-format-selected)
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
-    tnoremap <esc> <C-\><C-n>
+    tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
 else
     nmap J <plug>(ale_next_wrap)zz
     nmap K <plug>(ale_previous_wrap)zz
@@ -418,6 +420,10 @@ command! RW set noro
 
 command! Preproc Silent gcc -E % | less
 
+function! MyHandler(id)
+endfunction
+" call timer_start(100, 'MyHandler', {'repeat': -1})
+
 function! Trim()
     if &filetype != 'make'
         TS
@@ -427,6 +433,7 @@ endfunction
 
 command! Close call Close()
 function! Close()
+    if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
     cclose
     pclose
     helpclose
@@ -495,7 +502,7 @@ if !exists('*Run')
         elseif &filetype == 'markdown'
             MarkdownPreview
         else
-            echom "There's nothing to do"
+            echom "No operation"
         endif
     endfunction
 endif
@@ -676,12 +683,15 @@ nnoremap <leader>9 9gt
 autocmd StdinReadPre * let s:std_in = 1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
 let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeRespectWildIgnore = 1
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
+let g:NERDTreeWinSize = 35
+let g:NERDTreeNaturalSort = 1
 
 " NERDCommenter
 let g:NERDCommentEmptyLines = 1
@@ -693,8 +703,12 @@ let g:NERDCustomDelimiters = {
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'json': {'left': '/*', 'right': '*/'},
             \'cmm': {'left': ';'},
-            \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'}
+            \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
+            \'dosbatch': {'left': '::', 'leftAlt': 'REM'}
             \}
+
+" fzf
+
 
 " AutoPairs
 let g:AutoPairsFlyMode = 0
@@ -716,7 +730,8 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
 
 " ack
-autocmd VimEnter * if g:os=='Windows' | let g:ackprg = 'ack -His --smart-case --column --nocolor --nogroup' | endif
+let g:ackprg = "ag --vimgrep"
+" let g:ack_default_options = " -HS --nocolor --nogroup --column"
 let g:ack_apply_qmappings = 0
 let g:ack_qhandler = 'botright cwindow'
 let g:ackhighlight = 1
@@ -761,6 +776,7 @@ let g:peekaboo_window = 'vert botright 40new'
 
 " devicon
 let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ' '
 let g:WebDevIconsNerdTreeAfterGlyphPadding = (has("gui_running") ? '' : ' ')
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -775,18 +791,22 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+
+" nerdtree-git-plugin
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusConcealBrackets = 1
 " }}}
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo dracula
-    let g:airline_theme = 'dracula'
+    colo onedark
+    let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
-    colo deus
-    let g:airline_theme = 'deus'
-elseif has("win32")
     colo jellybeans
     let g:airline_theme = 'jellybeans'
+elseif has("win32")
+    colo deus
+    let g:airline_theme = 'deus'
 elseif has("win32unix")
     let ayucolor='mirage'
     colo ayu

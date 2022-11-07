@@ -1,7 +1,5 @@
--Hi
+-HS
 --column
---smart-case
 --ignore-file=is:tags
 --ignore-file=ext:log
 --ignore-file=ext:bak
---ignore-file=ext:map

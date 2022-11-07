@@ -19,11 +19,13 @@ apps=(
     visual-studio-code
     wireshark
     gcc-arm-embedded
+    qt-creator
 )
 
 fonts=(
     font-d2coding
-    font-hack-nerd-font
+    font-dejavu-sans-mono-nerd-font
+    font-meslo-lg-nerd-font
 )
 
 # https://github.com/mas-cli/mas
@@ -57,3 +59,4 @@ do
 done
 
 echo -e "\nComplete\n"
+

@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Solarized Dark+",
+  "workbench.colorTheme": "Dark (Molokai)",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 
   "editor": {
@@ -34,6 +34,7 @@
 
     "normalModeKeyBindingsNonRecursive": [
       { "before": [";"], "commands": ["editor.action.showHover"] },
+      { "before": ["?"], "commands": ["workbench.action.showAllSymbols"] },
       { "before": ["j"], "after": ["g", "j"] },
       { "before": ["k"], "after": ["g", "k"] },
       { "before": ["T"], "commands": ["outline.focus"] },
@@ -86,4 +87,5 @@
     "editor.defaultFormatter": "xaver.clang-format"
   },
   "files.eol": "\n",
+  "window.zoomLevel": -1,
 }

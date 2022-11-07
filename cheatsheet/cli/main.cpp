@@ -1,37 +1,31 @@
 #include <iostream>
-#include <cstdio>
-#include <cstdint>
 #include <cstdbool>
 #include <cstring>
-#include <unistd.h>
-
 #include <thread>
 #include <queue>
+#include <unistd.h>
+
+#include "app.hpp"
 
 using namespace std;
 
 volatile bool loop = true;
 queue<string> input_queue;
 
+void user_input(void);
 int user_input_handler(string input);
 
 inline void msleep(int mseconds) { usleep(mseconds * 1000); }
 
-void user_input(void)
-{
-    while (loop) {
-        string buf_in;
-        getline(cin, buf_in);
-        input_queue.push(buf_in);
-        usleep(50);
-    }
-    pthread_exit(NULL);
-}
-
 int main(void)
 {
+#if 1
+    Application app;
+    app.Init();
+    app.Process();
+    return 0;
+#else
     std::thread user_input_thread(user_input);
-
     while (loop) {
         cout << "sis > ";
         fflush(stdout);
@@ -46,8 +40,19 @@ int main(void)
         msleep(10);
     }
     user_input_thread.join();
-
     return 0;
+#endif
+}
+
+void user_input(void)
+{
+    while (loop) {
+        string buf_in;
+        getline(cin, buf_in);
+        input_queue.push(buf_in);
+        usleep(50);
+    }
+    pthread_exit(NULL);
 }
 
 int user_input_handler(string input)
@@ -72,3 +77,4 @@ int user_input_handler(string input)
     }
     return 0;
 }
+

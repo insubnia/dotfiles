@@ -10,9 +10,11 @@ choco install -y adobereader
 choco install -y bandizip
 choco install -y vim
 choco install -y neovim
-choco install -y smartgit
-choco install -y sourcetree
 choco install -y vscode
+choco install -y smartgit
+choco install -y git-fork
+choco install -y sourcetree
+choco install -y tortoisegit
 choco install -y caffeine
 choco install -y everything
 choco install -y foxe
@@ -33,8 +35,9 @@ REM  choco install -y winscp
 
 :: dev
 choco install -y git
-choco install -y ack
+choco install -y ag
 choco install -y fd
+choco install -y fzf
 choco install -y llvm
 choco install -y make
 choco install -y ctags
@@ -54,7 +57,7 @@ REM  choco install -y vcxsrv
 
 :: font
 choco install -y d2codingfont
-choco install -y nerdfont-hack
+choco install -y font-nerd-dejavusansmono
 
 :: git
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`

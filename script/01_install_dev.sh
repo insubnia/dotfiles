@@ -17,18 +17,17 @@ echo -e "\n[Update & upgrade packages]"
 # eval $pm update
 # eval $pm upgrade
 
-# common=(
 list=(
     neovim
     git
     git-flow
     tig
-    ack
     bat
     tmux
     wget
     curl
     tree
+    fzf
     gcc
     llvm
     clang-format
@@ -36,7 +35,6 @@ list=(
     make
     bear  # C/C++ compilation database generater
     cmake
-    ctags
     scons
     python3
     autojump
@@ -53,9 +51,11 @@ list=(
     tcpdump
     # meld
     lsusb
+    qt
 )
 
 macos=(
+    the_silver_searcher
     mas
     github
     binutils
@@ -68,6 +68,7 @@ macos=(
 )
 
 linux=(
+    silversearcher-ag
     vim-gtk
     xclip
     python3-pip
@@ -77,6 +78,7 @@ linux=(
     net-tools
     fd-find
     gcc-arm-none-eabi
+    wireshark
 )
 
 case "$OSTYPE" in
