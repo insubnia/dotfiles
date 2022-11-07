@@ -22,7 +22,7 @@ choco install -y winpcap
 choco install -y wireshark
 choco install -y iperf3
 choco install -y ntop
-@REM choco install -y tortoisegit
+choco install -y terminal-icons.powershell
 REM  choco install -y flashplayerplugin
 
 :: server-client
@@ -40,8 +40,8 @@ choco install -y fd
 choco install -y fzf
 choco install -y llvm
 choco install -y make
-choco install -y ctags
 choco install -y cmake
+:: choco install -y ctags
 choco install -y python3
 choco install -y lua
 choco install -y nvm
@@ -56,8 +56,11 @@ choco install -y gcc-arm-embedded
 REM  choco install -y vcxsrv
 
 :: font
-choco install -y d2codingfont
-choco install -y font-nerd-dejavusansmono
+set list=^
+font-nerd-dejavusansmono ^
+d2codingfont
+
+for %%v in (%list%) do choco install -y %%v
 
 :: git
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
