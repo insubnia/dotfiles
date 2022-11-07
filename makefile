@@ -120,8 +120,8 @@ LIB_DIRS  := \
 LIBS      := \
 
 
-CSRCS   := $(foreach dir,$(SRC_ROOTS),$(wildcard $(dir)/*.c))
-CXXSRCS := $(foreach dir,$(SRC_ROOTS),$(wildcard $(dir)/*.cpp))
+CSRCS   := $(patsubst ./%.c,%.c,$(foreach dir,$(SRC_ROOTS),$(call rwildcard,$(dir),*.c)))
+CXXSRCS := $(patsubst ./%.cpp,%.cpp,$(foreach dir,$(SRC_ROOTS),$(call rwildcard,$(dir),*.cpp)))
 COBJS   := $(CSRCS:%.c=$(OUT_DIR)/%.o)
 CXXOBJS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
