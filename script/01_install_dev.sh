@@ -5,11 +5,11 @@ case "$OSTYPE" in
         pm="brew"
         ;;
     linux*)
+        pm='apt -y'
         if [ $EUID != 0 ]; then
-            echo -e "\nThis script must be run as root\n\nTerminate the script\n"
+            echo -e "You must run this script with sudo\n"
             return
         fi
-        pm='apt -y'
         ;;
 esac
 

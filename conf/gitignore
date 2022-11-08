@@ -50,6 +50,7 @@ Thumbs.db
 *.stackdump
 *.ini
 *.log
+.clang-format
 compile_commands.json
 # *.dylib
 # *.so
