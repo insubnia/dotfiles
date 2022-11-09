@@ -45,7 +45,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 Plug 'ryanoasis/vim-devicons'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -525,6 +525,14 @@ function! PlugAction()
     endif
 endfunction
 
+function! IsInstalled(name)
+    if match(&runtimepath, a:name) != -1
+        return 1
+    else
+        return 0
+    endif
+endfunction
+
 function! MyFormat()
     silent '<,'>retab
     silent exe "'<,'>" . 's/\([({[]\) */\1/ge'
@@ -567,14 +575,16 @@ endfunction
 " ============================================================================
 " PLUGIN SETTINGS {{{
 " youcompleteme
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_disable_for_files_larger_than_kb = 1024
-let g:ycm_key_list_select_completion = ['<down>']
-let g:ycm_key_list_previous_completion = ['<up>']
-let g:ycm_key_list_stop_completion = []
-let g:ycm_show_diagnostics_ui = 0
+if IsInstalled('youcompleteme')
+    let g:ycm_confirm_extra_conf = 0
+    let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    let g:ycm_disable_for_files_larger_than_kb = 1024
+    let g:ycm_key_list_select_completion = ['<down>']
+    let g:ycm_key_list_previous_completion = ['<up>']
+    let g:ycm_key_list_stop_completion = []
+    let g:ycm_show_diagnostics_ui = 0
+endif
 
 " coc
 let g:coc_global_extensions = [
@@ -616,7 +626,7 @@ if has('nvim')
 endif
 
 " treesitter
-if has('nvim')
+if IsInstalled('nvim-treesitter')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { 'vim', 'c', 'python', 'bash', 'lua', 'make', 'cmake', 'json', 'rust' },

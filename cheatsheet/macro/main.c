@@ -17,12 +17,18 @@
 #define	CLR(t, f)	(t) &= ~(f)
 #define	ISSET(t, f)	!!((t) & (f))
 
+// https://aticleworld.com/macros-for-bit-manipulation-c-cpp/
+#define SET_BIT(x, pos) ((x) |= (1U << pos))
+#define CLR_BIT(x, pos) ((x) &= ~(1U << pos))
+#define TEST_BIT(x, pos) !!((x) & (1U << pos))
+#define CHANGE_BIT(x, pos) x ^= (1U<< pos)
+
 typedef uint8_t five_uint8_t[5];
 
 /*
  * x = !!x // booleanize
  *
- * < refer to bitops >
+ * < refer to asm/bitops.h >
  * set_bit(nr, p)
  * clear_bit(nr, p)
  * change_bit(nr, p)
