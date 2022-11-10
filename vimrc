@@ -678,7 +678,9 @@ function! AirlineInit()
     if g:os == 'Darwin'
         let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
-        let g:airline_section_c .= ' 🐧 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= ' ⚡  %#__accent_bold#%{$USER}'
+    elseif g:os == 'WSL'
+        let g:airline_section_c .= ' 🐢 %#__accent_bold#%{$USER}'
     elseif has('win32')
         let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} from MANDO'
     endif

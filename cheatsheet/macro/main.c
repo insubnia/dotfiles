@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include "def.h"
 
 // #define DEBUG 0
 
@@ -10,18 +11,12 @@
 #endif
 
 #define _BV(bit) (1UL << (bit))
-#define BIT(nr) (1UL << (nr))
+// #define BIT(nr) (1UL << (nr))
 
 /* Macros to clear/set/test flags. */
 #define	SET(t, f)	(t) |= (f)
 #define	CLR(t, f)	(t) &= ~(f)
 #define	ISSET(t, f)	!!((t) & (f))
-
-// https://aticleworld.com/macros-for-bit-manipulation-c-cpp/
-#define SET_BIT(x, pos) ((x) |= (1U << pos))
-#define CLR_BIT(x, pos) ((x) &= ~(1U << pos))
-#define TEST_BIT(x, pos) !!((x) & (1U << pos))
-#define CHANGE_BIT(x, pos) x ^= (1U<< pos)
 
 typedef uint8_t five_uint8_t[5];
 
