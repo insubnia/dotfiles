@@ -50,7 +50,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -675,14 +675,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
+    let g:airline_section_c .= '  | '
     if g:os == 'Darwin'
-        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🪬 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
-        let g:airline_section_c .= ' ⚡  %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🔥 %#__accent_bold#%{$USER}'
     elseif g:os == 'WSL'
-        let g:airline_section_c .= ' 🐢 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🐢 %#__accent_bold#%{$USER}'
     elseif has('win32')
-        let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} from MANDO'
+        let g:airline_section_c .= '🚗 %#__accent_bold#%{$USERNAME} @ MANDO'
     endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
