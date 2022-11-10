@@ -5,7 +5,12 @@
 if has('win32') || has('win32unix')
     let g:os='Windows'
 else
-    let g:os=substitute(system('uname'), '\n', '', '')
+    let uname_a = system('uname -a')
+    if match(uname_a, 'microsoft') != -1
+        let g:os='WSL'
+    else
+        let g:os=substitute(system('uname'), '\n', '', '')
+    endif
 endif
 " }}}
 " ============================================================================
@@ -812,8 +817,11 @@ if g:os == "Darwin"
     colo onedark
     let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
-    colo jellybeans
-    let g:airline_theme = 'jellybeans'
+    colo violet
+    let g:airline_theme = 'violet'
+elseif g:os == "WSL"
+    colo codedark
+    let g:airline_theme = 'codedark'
 elseif has("win32")
     colo deus
     let g:airline_theme = 'deus'
