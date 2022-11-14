@@ -63,3 +63,9 @@ zplug load
 source $HOME/workspace/dotfiles/common
 
 # unsetopt BG_NICE
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
