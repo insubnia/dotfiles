@@ -5,6 +5,7 @@ apps=(
     gitkraken
     office365webdesktop
     skype
+    emote
 )
 
 for v in ${apps[@]}

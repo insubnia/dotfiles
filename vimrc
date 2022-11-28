@@ -729,11 +729,13 @@ let g:NERDCustomDelimiters = {
 
 
 " AutoPairs
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutFastWrap = '<C-l>'
-autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
-autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
-autocmd FileType python inoremap f' f''<left>
+if IsInstalled('auto-pairs')
+    let g:AutoPairsFlyMode = 0
+    let g:AutoPairsShortcutFastWrap = '<C-l>'
+    autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
+    autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
+    autocmd FileType python inoremap f' f''<left>
+endif
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger = "<C-s>"
@@ -820,8 +822,8 @@ if g:os == "Darwin"
     colo onedark
     let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
-    colo violet
-    let g:airline_theme = 'violet'
+    colo hybrid
+    let g:airline_theme = 'hybrid'
 elseif g:os == "WSL"
     colo codedark
     let g:airline_theme = 'codedark'
