@@ -675,9 +675,9 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
-    let g:airline_section_c .= '  | '
+    let g:airline_section_c .= '¦  '
     if g:os == 'Darwin'
-        let g:airline_section_c .= '🪬 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🫧 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
         let g:airline_section_c .= '🔥 %#__accent_bold#%{$USER}'
     elseif g:os == 'WSL'
@@ -822,8 +822,8 @@ if g:os == "Darwin"
     colo onedark
     let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
-    colo hybrid
-    let g:airline_theme = 'hybrid'
+    colo dracula
+    let g:airline_theme = 'dracula'
 elseif g:os == "WSL"
     colo codedark
     let g:airline_theme = 'codedark'
