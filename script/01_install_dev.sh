@@ -43,15 +43,13 @@ list=(
     nodejs
     jq
     npm
-    lua
     dos2unix
+    imagemagick
     libxml2
     iperf3
     htop
     tcpdump
     # meld
-    lsusb
-    qt
 )
 
 macos=(
@@ -64,7 +62,10 @@ macos=(
     nvm
     pyenv
     ta-lib
+    lua
     fd
+    qt
+    lsusb
 )
 
 linux=(
@@ -79,11 +80,25 @@ linux=(
     fd-find
     gcc-arm-none-eabi
     wireshark
+    peek
+)
+
+apt_repos=(
+    ppa:peek-developers/stable
 )
 
 case "$OSTYPE" in
-    darwin*) list+=(${macos[@]}) ;;
-    linux*) list+=(${linux[@]}) ;;
+    darwin*)
+        list+=(${macos[@]})
+        ;;
+    linux*)
+        list+=(${linux[@]})
+        for v in ${apt_repos[@]}
+        do
+            eval add-apt-repository $v
+        done
+        eval $pm update
+        ;;
 esac
 
 for v in ${list[@]}
