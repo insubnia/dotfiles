@@ -85,6 +85,7 @@ linux=(
 
 apt_repos=(
     ppa:peek-developers/stable
+    ppa:neovim-ppa/stable
 )
 
 case "$OSTYPE" in

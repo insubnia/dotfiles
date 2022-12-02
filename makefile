@@ -184,7 +184,11 @@ clean:
 
 run:
 	@$(ECHO) "run $(notdir $(ELF))\n"
+ifeq ($(UNAME),Linux)
+	@sudo $(ELF)
+else
 	@$(ELF)
+endif
 
 show:
 	@$(ECHO) "\nUNAME = $(UNAME)"
@@ -254,8 +258,11 @@ clang-format:
 PHONY += cdb
 cdb:
 	@echo generate compilation database as compile_commands.json
+ifeq (true,true)
 	@bear -- make clean all
-# @compiledb make clean all
+else
+	@compiledb make clean all
+endif
 
 
 $(BIN): $(ELF)
