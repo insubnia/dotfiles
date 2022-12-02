@@ -258,10 +258,10 @@ clang-format:
 PHONY += cdb
 cdb:
 	@echo generate compilation database as compile_commands.json
-ifeq (true,true)
-	@bear -- make clean all
-else
+ifeq ($(UNAME),Darwin)
 	@compiledb make clean all
+else
+	@bear -- make clean all
 endif
 
 
