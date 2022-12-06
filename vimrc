@@ -169,6 +169,7 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
+nnoremap <C-g> :GitGutterUndoHunk<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
@@ -422,6 +423,8 @@ command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 command! RO set ro
 command! RW set noro
+
+command! Unstage silent !git reset --mixed HEAD -- %
 
 command! Preproc Silent gcc -E % | less
 
