@@ -3,89 +3,86 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define BUF_SIZE 8
+#define NAME my
 
+#define TYPE int8_t
+#define SIZE 8
 
 typedef struct {
-    uint8_t* const pbuf;
+    TYPE buf[SIZE];
     const uint16_t capacity;
+    uint16_t size;
     uint16_t wr_seq;
     uint16_t rd_seq;
 } circ_buf_t;
 
 struct queue {
-    int (*push)(uint8_t data);
+    int (*push)(TYPE data);
     int (*pop)(void);
-    uint8_t (*front)(void);
-    // uint8_t (*back)(void);
+    TYPE (*front)(void);
+    // TYPE (*back)(void);
     uint16_t (*size)(void);
+    bool (*full)(void);
     bool (*empty)(void);
 };
 
-uint16_t size(circ_buf_t* c)
-{
-    // printf("\nwr: %d / rd: %d\n", c->wr_seq, c->rd_seq);
-    return (c->capacity + c->wr_seq - c->rd_seq) % c->capacity;
-}
 
-int push(circ_buf_t* c, uint8_t data)
+int push(circ_buf_t* c, TYPE data)
 {
-    if ((c->wr_seq + 1) % c->capacity == c->rd_seq) {
+    if (c->size == c->capacity) {
         printf("buffer full\n");
         return -1;
     }
-    c->pbuf[c->wr_seq] = data;
+    c->size++;
+    c->buf[c->wr_seq] = data;
     c->wr_seq = (c->wr_seq + 1) % c->capacity;
     return 0;
 }
 
 int pop(circ_buf_t* c)
 {
-    if (size(c) == 0) {
+    if (c->size == 0) {
         printf("buffer empty\n");
         return -1;
     }
+    c->size--;
     c->rd_seq = (c->rd_seq + 1) % c->capacity;
     return 0;
 }
 
-uint8_t front(circ_buf_t* c)
+TYPE front(circ_buf_t* c)
 {
-    return c->pbuf[c->rd_seq];
+    return c->buf[c->rd_seq];
+}
+
+uint16_t size(circ_buf_t* c)
+{
+    return c->size;
 }
 
 
-uint8_t _buf[BUF_SIZE] = {};
 circ_buf_t buf = {
-    .pbuf = _buf,
-    .capacity = BUF_SIZE,
+    .buf = { 0, },
+    .capacity = SIZE,
     .rd_seq = 0,
     .wr_seq = 0,
 };
 
+
 void print_buf(circ_buf_t* c)
 {
     printf("[BUF] :");
-    for (int i = 0; i < BUF_SIZE; i++) {
-        printf("%6d, ", c->pbuf[i]);
+    for (int i = 0; i < SIZE; i++) {
+        printf("%6d, ", c->buf[i]);
     }
     printf("\n");
 
-#if 1
-    printf("      :");
-    for (int i = 0; i < BUF_SIZE; i++) {
+#if 0
+    printf("      ");
+    for (int i = 0; i < SIZE; i++) {
         printf("     ");
-
-        if (i == c->rd_seq)
-            printf("<");
-        else
-            printf(" ");
-
-        if (i == c->wr_seq)
-            printf(">");
-        else
-            printf(" ");
-
+        printf("%s", (i == c->rd_seq ? "<" : " "));
+        printf("%s", (i == c->wr_seq ? ">" : " "));
         printf("|");
     }
     printf("\n");
@@ -95,18 +92,20 @@ void print_buf(circ_buf_t* c)
 
 int main(void)
 {
-    for (int i = 0; i < 10; i++) {
+#if 1
+    for (int i = 0; i < 9; i++) {
+        printf("push\n");
         push(&buf, i + 1);
         print_buf(&buf);
-        // pop(&buf);
         // printf("front: %d\n", front(&buf));
     }
-
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 8; i++) {
+        printf("pop\n");
+        // printf("front: %d\n", front(&buf));
         pop(&buf);
         print_buf(&buf);
-        printf("front: %d\n", front(&buf));
     }
+#endif
 
     printf("\nComplete!\n\n");
     return 0;
