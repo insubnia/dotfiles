@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include "queue.h"
 
 #define NAME my
 
@@ -58,7 +59,7 @@ uint16_t size(circ_buf_t* c)
 }
 bool full(circ_buf_t* c)
 {
-    return !!(c->size == c->capacity);
+    return c->size == c->capacity;
 }
 bool empty(circ_buf_t* c)
 {
@@ -110,10 +111,20 @@ void print_buf(circ_buf_t* c)
 #endif
 }
 
+QUEUE(my, uint16_t, 16);
 
 int main(void)
 {
-#if 1
+    printf("size of my: %d\n", my_cbuf.capacity);
+    my.push(18);
+    my.push(19);
+    printf("front: %d\n", my.front());
+    my.pop();
+    printf("front: %d\n", my.front());
+    my.pop();
+    my.pop();
+
+#if 0
     for (int i = 0; i < 10; i++) {
         printf("push\n");
         if (!q.full()) {
