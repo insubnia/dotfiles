@@ -38,7 +38,6 @@ int push(circ_buf_t* c, TYPE data)
     c->wr_seq = (c->wr_seq + 1) % c->capacity;
     return 0;
 }
-
 int pop(circ_buf_t* c)
 {
     if (c->size == 0) {
@@ -49,23 +48,45 @@ int pop(circ_buf_t* c)
     c->rd_seq = (c->rd_seq + 1) % c->capacity;
     return 0;
 }
-
 TYPE front(circ_buf_t* c)
 {
     return c->buf[c->rd_seq];
 }
-
 uint16_t size(circ_buf_t* c)
 {
     return c->size;
 }
+bool full(circ_buf_t* c)
+{
+    return !!(c->size == c->capacity);
+}
+bool empty(circ_buf_t* c)
+{
+    return c->size == 0;
+}
 
 
-circ_buf_t buf = {
+circ_buf_t q_cbuf = {
     .buf = { 0, },
     .capacity = SIZE,
     .rd_seq = 0,
     .wr_seq = 0,
+};
+
+int q_push(TYPE data) { return push(&q_cbuf, data); }
+int q_pop(void) { return pop(&q_cbuf); }
+TYPE q_front(void) { return front(&q_cbuf); }
+uint16_t q_size(void) { return size(&q_cbuf); }
+bool q_full(void) { return full(&q_cbuf); }
+bool q_empty(void) { return empty(&q_cbuf); }
+
+struct queue q = {
+    .push = q_push,
+    .pop = q_pop,
+    .size = q_size,
+    .front = q_front,
+    .full = q_full,
+    .empty = q_empty,
 };
 
 
@@ -93,17 +114,21 @@ void print_buf(circ_buf_t* c)
 int main(void)
 {
 #if 1
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 10; i++) {
         printf("push\n");
-        push(&buf, i + 1);
-        print_buf(&buf);
-        // printf("front: %d\n", front(&buf));
+        if (!q.full()) {
+            q.push(i + 1);
+            print_buf(&q_cbuf);
+            printf("front: %d\n", q.front());
+        }
     }
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 10; i++) {
         printf("pop\n");
-        // printf("front: %d\n", front(&buf));
-        pop(&buf);
-        print_buf(&buf);
+        if (!q.empty()) {
+            printf("front: %d\n", q.front());
+            q.pop();
+            print_buf(&q_cbuf);
+        }
     }
 #endif
 
