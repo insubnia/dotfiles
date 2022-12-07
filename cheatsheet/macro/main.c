@@ -30,22 +30,6 @@ typedef uint8_t five_uint8_t[5];
  * test_bit(nr, p)
  */
 
-/* Macros for min/max. */
-#ifndef MIN
-#define MIN(a, b) (((a)<(b))?(a):(b))
-#endif /* MIN */
-#ifndef MAX
-#define MAX(a, b) (((a)>(b))?(a):(b))
-#endif /* MAX */
-
-#define ABS(x) (((x)<0)?-(x):(x))
-
-#define ARRAY_SIZE(x) (sizeof((x))/sizeof((x)[0])) 
-
-#define FIELD_SIZEOF(t, f) (sizeof(((t*)0)->f))
-
-#define offsetof(s,m) (size_t)&(((s *)0)->m)
-
 #define PP_NARG(...) \
     PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
 #define PP_NARG_(...) \
