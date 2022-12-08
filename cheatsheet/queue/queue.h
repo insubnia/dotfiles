@@ -5,6 +5,7 @@
         int (*push)(TYPE data); \
         int (*pop)(void); \
         TYPE (*front)(void); \
+        TYPE (*back)(void); \
         uint16_t (*size)(void); \
         bool (*full)(void); \
         bool (*empty)(void); \
@@ -14,7 +15,7 @@
 #define QUEUE_TYPE(TYPE) queue_##TYPE
 
 
-#define QUEUE(NAME, TYPE, SIZE) \
+#define QUEUE_INIT(NAME, TYPE, SIZE) \
     typedef struct { \
         TYPE buf[SIZE]; \
         const uint16_t capacity; \
@@ -33,7 +34,6 @@
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         if (p->size == p->capacity) { \
-            printf("buffer full\n"); \
             return -1; \
         } \
         p->size++; \
@@ -45,7 +45,6 @@
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         if (p->size == 0) { \
-            printf("buffer empty\n"); \
             return -1; \
         } \
         p->size--; \
@@ -54,29 +53,32 @@
     } \
     static TYPE NAME##_front(void) \
     { \
+        return NAME##_cbuf.buf[NAME##_cbuf.rd_seq]; \
+    } \
+    static TYPE NAME##_back(void) \
+    { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
-        return p->buf[p->rd_seq]; \
+        uint16_t idx = (p->capacity + p->wr_seq - 1) % p->capacity;\
+        return NAME##_cbuf.buf[idx]; \
     } \
     static uint16_t NAME##_size(void) \
     { \
-        NAME##_cbuf_t* p = &NAME##_cbuf; \
-        return p->size; \
+        return NAME##_cbuf.size; \
     } \
     static bool NAME##_full(void) \
     { \
-        NAME##_cbuf_t* p = &NAME##_cbuf; \
-        return p->size == p->capacity; \
+        return NAME##_cbuf.size == NAME##_cbuf.capacity; \
     } \
     static bool NAME##_empty(void) \
     { \
-        NAME##_cbuf_t* p = &NAME##_cbuf; \
-        return p->size == 0; \
+        return NAME##_cbuf.size == 0; \
     } \
     \
     QUEUE_TYPE(TYPE) NAME = { \
         .push = NAME##_push, \
         .pop = NAME##_pop, \
         .front = NAME##_front, \
+        .back = NAME##_back, \
         .size = NAME##_size, \
         .full = NAME##_full, \
         .empty = NAME##_empty, \

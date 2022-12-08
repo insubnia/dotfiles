@@ -113,8 +113,8 @@ void print_buf(circ_buf_t* c)
 }
 
 QUEUE_TYPEDEF(uint16_t);
-QUEUE(my, uint16_t, 32);
-QUEUE(dup, uint16_t, 16);
+QUEUE_INIT(my, uint16_t, 32);
+QUEUE_INIT(dup, uint16_t, 16);
 
 int main(void)
 {
@@ -123,7 +123,7 @@ int main(void)
     my.push(100);
 
     while (!my.empty()) {
-        printf("front: %d\n", my.front());
+        printf("front: %3d / back: %3d\n", my.front(), my.back());
         my.pop();
     }
 
