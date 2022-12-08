@@ -2,13 +2,13 @@
 
 #define QUEUE_TYPEDEF(TYPE) \
     typedef struct { \
-        int (*push)(TYPE data); \
-        int (*pop)(void); \
-        TYPE (*front)(void); \
-        TYPE (*back)(void); \
-        uint16_t (*size)(void); \
-        bool (*full)(void); \
-        bool (*empty)(void); \
+        int (*const push)(TYPE data); \
+        int (*const pop)(void); \
+        TYPE (*const front)(void); \
+        TYPE (*const back)(void); \
+        uint16_t (*const size)(void); \
+        bool (*const full)(void); \
+        bool (*const empty)(void); \
     } queue_##TYPE;
 
 
@@ -24,10 +24,8 @@
         uint16_t rd_seq; \
     } NAME##_cbuf_t; \
     \
-    NAME##_cbuf_t NAME##_cbuf = { \
+    static NAME##_cbuf_t NAME##_cbuf = { \
         .capacity = SIZE, \
-        .wr_seq = 0, \
-        .rd_seq = 0, \
     }; \
     \
     static int NAME##_push(TYPE data) \
