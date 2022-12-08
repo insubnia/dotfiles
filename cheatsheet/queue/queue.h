@@ -1,5 +1,19 @@
 #pragma once
 
+#define QUEUE_TYPEDEF(TYPE) \
+    typedef struct { \
+        int (*push)(TYPE data); \
+        int (*pop)(void); \
+        TYPE (*front)(void); \
+        uint16_t (*size)(void); \
+        bool (*full)(void); \
+        bool (*empty)(void); \
+    } queue_##TYPE;
+
+
+#define QUEUE_TYPE(TYPE) queue_##TYPE
+
+
 #define QUEUE(NAME, TYPE, SIZE) \
     typedef struct { \
         TYPE buf[SIZE]; \
@@ -9,23 +23,13 @@
         uint16_t rd_seq; \
     } NAME##_cbuf_t; \
     \
-    typedef struct { \
-        int (*push)(TYPE data); \
-        int (*pop)(void); \
-        TYPE (*front)(void); \
-        uint16_t (*size)(void); \
-        bool (*full)(void); \
-        bool (*empty)(void); \
-    } NAME##_queue_t; \
-    \
-    \
     NAME##_cbuf_t NAME##_cbuf = { \
         .capacity = SIZE, \
         .wr_seq = 0, \
         .rd_seq = 0, \
     }; \
     \
-    int _NAME##_push(TYPE data) \
+    static int NAME##_push(TYPE data) \
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         if (p->size == p->capacity) { \
@@ -37,7 +41,7 @@
         p->wr_seq = (p->wr_seq + 1) % p->capacity; \
         return 0; \
     } \
-    int _NAME##_pop(void) \
+    static int NAME##_pop(void) \
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         if (p->size == 0) { \
@@ -48,32 +52,32 @@
         p->rd_seq = (p->rd_seq + 1) % p->capacity; \
         return 0; \
     } \
-    TYPE _NAME##_front(void) \
+    static TYPE NAME##_front(void) \
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         return p->buf[p->rd_seq]; \
     } \
-    uint16_t _NAME##_size(void) \
+    static uint16_t NAME##_size(void) \
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         return p->size; \
     } \
-    bool _NAME##_full(void) \
+    static bool NAME##_full(void) \
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         return p->size == p->capacity; \
     } \
-    bool _NAME##_empty(void) \
+    static bool NAME##_empty(void) \
     { \
         NAME##_cbuf_t* p = &NAME##_cbuf; \
         return p->size == 0; \
     } \
     \
-    NAME##_queue_t NAME = { \
-        .push = _NAME##_push, \
-        .pop = _NAME##_pop, \
-        .front = _NAME##_front, \
-        .size = _NAME##_size, \
-        .full = _NAME##_full, \
-        .empty = _NAME##_empty, \
+    QUEUE_TYPE(TYPE) NAME = { \
+        .push = NAME##_push, \
+        .pop = NAME##_pop, \
+        .front = NAME##_front, \
+        .size = NAME##_size, \
+        .full = NAME##_full, \
+        .empty = NAME##_empty, \
     };

@@ -9,6 +9,8 @@
 #define TYPE int8_t
 #define SIZE 8
 
+extern void external_test(void);
+
 typedef struct {
     TYPE buf[SIZE];
     const uint16_t capacity;
@@ -26,7 +28,6 @@ struct queue {
     bool (*full)(void);
     bool (*empty)(void);
 };
-
 
 int push(circ_buf_t* c, TYPE data)
 {
@@ -111,18 +112,20 @@ void print_buf(circ_buf_t* c)
 #endif
 }
 
-QUEUE(my, uint16_t, 16);
+QUEUE_TYPEDEF(uint16_t);
+QUEUE(my, uint16_t, 32);
+QUEUE(dup, uint16_t, 16);
 
 int main(void)
 {
-    printf("size of my: %d\n", my_cbuf.capacity);
-    my.push(18);
-    my.push(19);
-    printf("front: %d\n", my.front());
-    my.pop();
-    printf("front: %d\n", my.front());
-    my.pop();
-    my.pop();
+    my.push(10);
+    external_test();
+    my.push(100);
+
+    while (!my.empty()) {
+        printf("front: %d\n", my.front());
+        my.pop();
+    }
 
 #if 0
     for (int i = 0; i < 10; i++) {
