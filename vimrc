@@ -595,19 +595,20 @@ if IsInstalled('youcompleteme')
 endif
 
 " coc
-let g:coc_global_extensions = [
-            \'coc-clangd',
-            \'coc-cmake',
-            \'coc-json',
-            \'coc-prettier',
-            \'coc-pyright',
-            \'coc-snippets',
-            \'coc-ultisnips',
-            \'coc-tsserver',
-            \'coc-xml',
-            \]
-let g:coc_config_home = '~/workspace/dotfiles/vim'
-if has('nvim')
+if IsInstalled('coc.nvim')
+    let g:coc_global_extensions = [
+                \'coc-clangd',
+                \'coc-cmake',
+                \'coc-json',
+                \'coc-prettier',
+                \'coc-pyright',
+                \'coc-snippets',
+                \'coc-ultisnips',
+                \'coc-tsserver',
+                \'coc-xml',
+                \]
+    let g:coc_config_home = '~/workspace/dotfiles/vim'
+
     " coc-outline
     nnoremap <silent><nowait> T :call ToggleOutline()<CR>
     function! ToggleOutline() abort
@@ -652,17 +653,6 @@ require'nvim-treesitter.configs'.setup {
 EOF
 endif
 
-" chromatica
-let g:chromatica#enable_at_startup = 1
-if g:os == 'Darwin'
-    let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-elseif g:os == 'Linux'
-    let g:chromatica#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-10.so'
-endif
-let g:chromatica#global_args = []
-let g:chromatica#responsive_mode = 1
-let g:chromatica#delay_ms = 500
-
 " gitgutter
 set updatetime=100
 set signcolumn=yes
@@ -702,7 +692,7 @@ nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
 let g:NERDTreeMapOpenVSplit = 'v'
@@ -766,16 +756,6 @@ let g:qf_mapping_ack_style = 1
 " tagbar
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
-
-" CtrlP
-let g:ctrlp_by_filename = 1
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_match_window = 'results:100'
-if has('win32')
-    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
-else
-    let g:ctrlp_user_command = 'find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
-endif
 
 " ale
 let g:ale_linters = {
