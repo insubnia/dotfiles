@@ -4,7 +4,6 @@
 #include <string.h>
 #include "queue.h"
 
-QUEUE_TYPEDEF(uint16_t);
 extern QUEUE_TYPE(uint16_t) my;
 
 void external_test(void)

@@ -1,4 +1,6 @@
 #pragma once
+#include <stdint.h>
+#include <stdbool.h>
 
 #define QUEUE_TYPEDEF(TYPE) \
     typedef struct { \
@@ -10,6 +12,13 @@
         bool (*const full)(void); \
         bool (*const empty)(void); \
     } queue_##TYPE;
+
+QUEUE_TYPEDEF(int32_t);
+QUEUE_TYPEDEF(uint32_t);
+QUEUE_TYPEDEF(int16_t);
+QUEUE_TYPEDEF(uint16_t);
+QUEUE_TYPEDEF(int8_t);
+QUEUE_TYPEDEF(uint8_t);
 
 
 #define QUEUE_TYPE(TYPE) queue_##TYPE

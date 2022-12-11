@@ -41,7 +41,6 @@ void print_buf(circ_buf_t* c)
 #endif
 }
 
-QUEUE_TYPEDEF(uint16_t);
 QUEUE_INIT(my, uint16_t, 32);
 QUEUE_INIT(dup, uint16_t, 16);
 
