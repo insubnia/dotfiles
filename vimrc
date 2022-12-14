@@ -19,6 +19,7 @@ if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
@@ -649,6 +650,14 @@ require'nvim-treesitter.configs'.setup {
   },
   incremental_selection = { enable = true },
   textobjects = { enable = true },
+
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+    -- colors = {},
+    -- termcolors = {},
+  }
 }
 EOF
 endif
