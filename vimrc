@@ -728,7 +728,7 @@ let g:NERDCustomDelimiters = {
             \}
 
 " fzf
-
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call timer_start(10, {->execute('FZF')}) | endif
 
 " AutoPairs
 if IsInstalled('auto-pairs')
