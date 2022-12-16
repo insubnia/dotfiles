@@ -123,14 +123,19 @@ LIBS      := \
 
 CSRCS   := $(patsubst ./%.c,%.c,$(foreach dir,$(SRC_ROOTS),$(call rwildcard,$(dir),*.c)))
 CXXSRCS := $(patsubst ./%.cpp,%.cpp,$(foreach dir,$(SRC_ROOTS),$(call rwildcard,$(dir),*.cpp)))
+
 COBJS   := $(CSRCS:%.c=$(OUT_DIR)/%.o)
 CXXOBJS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
 
+CASMS   := $(CSRCS:%.c=$(OUT_DIR)/%.s)
+CXXASMS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.s)
+ASMS    := $(CASMS) $(CXXASMS)
+
 -include $(DEPS)
 
-OUTPUT  += $(OBJS) $(DEPS)
+OUTPUT  += $(OBJS) $(DEPS) $(ASMS)
 # OUTDIRS = $(sort $(dir $(OUTPUT)))
 
 ################################################################################
@@ -219,6 +224,9 @@ test:
 	@$(ECHO) $(TEST)
 	@$(ECHO) "$(CC_VERSION)"
 
+asm: $(ASMS)
+	@$(ECHO) "complete\n"
+
 dl: $(DL)
 	@$(ECHO) "complete\n"
 
@@ -294,6 +302,16 @@ $(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
 	$V $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
+
+$(CASMS): $(OUT_DIR)/%.s: %.c
+	@$(ECHO) "generating assembly $(@F)"
+	@$(MKDIR) $(@D)
+	$V $(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
+
+$(CXXASMS): $(OUT_DIR)/%.s: %.cpp
+	@$(ECHO) "generating assembly $(@F)"
+	@$(MKDIR) $(@D)
+	$V $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
 

@@ -42,6 +42,7 @@ Thumbs.db
 *.swp
 *.d
 *.o
+*.s
 *.bin
 *.lst
 *.hex
@@ -52,11 +53,6 @@ Thumbs.db
 *.log
 .clang-format
 compile_commands.json
-# *.dylib
-# *.so
-# *.dll
-# *.a
-# *.lib
 
 # compression extension
 *.zip
