@@ -598,6 +598,7 @@ endif
 " coc
 if IsInstalled('coc.nvim')
     let g:coc_global_extensions = [
+                \'coc-vimlsp',
                 \'coc-clangd',
                 \'coc-cmake',
                 \'coc-json',
