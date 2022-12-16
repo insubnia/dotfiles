@@ -1,4 +1,5 @@
 #pragma once
+#include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -8,7 +9,7 @@
         int (*const pop)(void); \
         TYPE (*const front)(void); \
         TYPE (*const back)(void); \
-        uint16_t (*const size)(void); \
+        size_t (*const size)(void); \
         bool (*const full)(void); \
         bool (*const empty)(void); \
     } queue_##TYPE;
@@ -27,19 +28,19 @@ QUEUE_TYPEDEF(uint8_t);
 #define QUEUE_INIT(NAME, TYPE, SIZE) \
     typedef struct { \
         TYPE buf[SIZE]; \
-        const uint16_t capacity; \
-        uint16_t size; \
-        uint16_t wr_seq; \
-        uint16_t rd_seq; \
-    } NAME##_cbuf_t; \
+        const size_t capacity; \
+        size_t size; \
+        size_t wr_seq; \
+        size_t rd_seq; \
+    } _##NAME##_cbuf_t; \
     \
-    static NAME##_cbuf_t NAME##_cbuf = { \
+    static _##NAME##_cbuf_t _##NAME##_cbuf = { \
         .capacity = SIZE, \
     }; \
     \
-    static int NAME##_push(TYPE data) \
+    static int _##NAME##_push(TYPE data) \
     { \
-        NAME##_cbuf_t* p = &NAME##_cbuf; \
+        _##NAME##_cbuf_t* p = &_##NAME##_cbuf; \
         if (p->size == p->capacity) { \
             return -1; \
         } \
@@ -48,9 +49,9 @@ QUEUE_TYPEDEF(uint8_t);
         p->wr_seq = (p->wr_seq + 1) % p->capacity; \
         return 0; \
     } \
-    static int NAME##_pop(void) \
+    static int _##NAME##_pop(void) \
     { \
-        NAME##_cbuf_t* p = &NAME##_cbuf; \
+        _##NAME##_cbuf_t* p = &_##NAME##_cbuf; \
         if (p->size == 0) { \
             return -1; \
         } \
@@ -58,35 +59,35 @@ QUEUE_TYPEDEF(uint8_t);
         p->rd_seq = (p->rd_seq + 1) % p->capacity; \
         return 0; \
     } \
-    static TYPE NAME##_front(void) \
+    static TYPE _##NAME##_front(void) \
     { \
-        return NAME##_cbuf.buf[NAME##_cbuf.rd_seq]; \
+        return _##NAME##_cbuf.buf[_##NAME##_cbuf.rd_seq]; \
     } \
-    static TYPE NAME##_back(void) \
+    static TYPE _##NAME##_back(void) \
     { \
-        NAME##_cbuf_t* p = &NAME##_cbuf; \
+        _##NAME##_cbuf_t* p = &_##NAME##_cbuf; \
         uint16_t idx = (p->capacity + p->wr_seq - 1) % p->capacity;\
-        return NAME##_cbuf.buf[idx]; \
+        return p->buf[idx]; \
     } \
-    static uint16_t NAME##_size(void) \
+    static size_t _##NAME##_size(void) \
     { \
-        return NAME##_cbuf.size; \
+        return _##NAME##_cbuf.size; \
     } \
-    static bool NAME##_full(void) \
+    static bool _##NAME##_full(void) \
     { \
-        return NAME##_cbuf.size == NAME##_cbuf.capacity; \
+        return _##NAME##_cbuf.size == _##NAME##_cbuf.capacity; \
     } \
-    static bool NAME##_empty(void) \
+    static bool _##NAME##_empty(void) \
     { \
-        return NAME##_cbuf.size == 0; \
+        return _##NAME##_cbuf.size == 0; \
     } \
     \
     QUEUE_TYPE(TYPE) NAME = { \
-        .push = NAME##_push, \
-        .pop = NAME##_pop, \
-        .front = NAME##_front, \
-        .back = NAME##_back, \
-        .size = NAME##_size, \
-        .full = NAME##_full, \
-        .empty = NAME##_empty, \
+        .push = _##NAME##_push, \
+        .pop = _##NAME##_pop, \
+        .front = _##NAME##_front, \
+        .back = _##NAME##_back, \
+        .size = _##NAME##_size, \
+        .full = _##NAME##_full, \
+        .empty = _##NAME##_empty, \
     };
