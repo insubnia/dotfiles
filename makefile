@@ -31,7 +31,7 @@ LD       := $(CROSS)ld
 SIZE     := $(CROSS)size
 OBJCOPY  := $(CROSS)objcopy
 OBJDUMP  := $(CROSS)objdump
-RM       := rm -f
+RM       := rm -rf
 MKDIR    := mkdir -p
 ECHO     := echo
 HEAD     := head
@@ -128,15 +128,14 @@ COBJS   := $(CSRCS:%.c=$(OUT_DIR)/%.o)
 CXXOBJS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
+-include $(DEPS)
 
 CASMS   := $(CSRCS:%.c=$(OUT_DIR)/%.s)
 CXXASMS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.s)
 ASMS    := $(CASMS) $(CXXASMS)
 
--include $(DEPS)
-
 OUTPUT  += $(OBJS) $(DEPS) $(ASMS)
-# OUTDIRS = $(sort $(dir $(OUTPUT)))
+OUTDIRS := $(filter-out ./,$(sort $(dir $(OUTPUT))))
 
 ################################################################################
 # post-processing
@@ -186,6 +185,7 @@ build: $(ELF) #$(BIN) $(HEX)
 clean:
 	@$(ECHO) cleaning
 	$V $(RM) $(OUTPUT)
+	$V $(RM) $(addsuffix *,$(OUTDIRS))
 
 run:
 	@$(ECHO) "run $(notdir $(ELF))\n"
@@ -222,6 +222,7 @@ endif
 
 test:
 	@$(ECHO) $(TEST)
+	@$(ECHO) $(OUTDIRS)
 	@$(ECHO) "$(CC_VERSION)"
 
 asm: $(ASMS)
