@@ -51,10 +51,6 @@ list=(
     tcpdump
     # meld
     caffeine
-
-    # For Fun (https://velog.io/@timcodejs/Homebrew-%EC%9E%AC%EB%AF%B8%EC%9E%88%EB%8A%94-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%93%A4Funny-Linux)
-    nyancat
-    cmatrix
 )
 
 macos=(
@@ -71,6 +67,10 @@ macos=(
     fd
     qt
     lsusb
+    # for fun
+    nyancat
+    cmatrix
+    asciiquarium
 )
 
 linux=(
@@ -86,6 +86,9 @@ linux=(
     gcc-arm-none-eabi
     wireshark
     peek
+    # for fun
+    nyancat
+    cmatrix
 )
 
 apt_repos=(

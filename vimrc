@@ -720,13 +720,16 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCustomDelimiters = {
-            \'python': {'left': '#'},
+            \'python': {'left': '# ', 'leftAlt': '"""', 'rightAlt': '"""'},
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'json': {'left': '/*', 'right': '*/'},
             \'cmm': {'left': ';'},
             \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'dosbatch': {'left': '::', 'leftAlt': 'REM'}
             \}
+autocmd FileType python
+            \ let g:NERDDisableTabsInBlockComm = 1 |
+            \ let g:NERDSpaceDelims = 0
 
 " fzf
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call timer_start(10, {->execute('FZF')}) | endif
@@ -737,7 +740,10 @@ if IsInstalled('auto-pairs')
     let g:AutoPairsShortcutFastWrap = '<C-l>'
     autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
     autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
-    autocmd FileType python inoremap f' f''<left>
+    autocmd FileType python
+                \ let g:AutoPairs["f'"] = "'" |
+                \ let g:AutoPairs['"""'] = ''
+
 endif
 
 " UltiSnips
