@@ -354,8 +354,8 @@ augroup XML
     autocmd!
     autocmd FileType xml setlocal fdm=indent
     autocmd FileType xml setlocal fdl=2
-    nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
-    nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
+    autocmd FileType xml nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
+    autocmd FileType xml nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
 augroup END
 
 function! CMM()
@@ -487,7 +487,7 @@ endfunction
 
 command! Build call Build()
 function! Build()
-    if &filetype == 'c' || &filetype == 'cpp'
+    if index(['c', 'cpp', 'make'], &filetype) >= 0
         exe has('nvim') ? '!make all' : 'make all'
     endif
 endfunction
@@ -500,18 +500,18 @@ if !exists('*Run')
 
         if &filetype == 'vim'
             source %
-        elseif &filetype == 'sh'
-            !source %
-        elseif &filetype == 'c' || &filetype == 'cpp'
+        elseif index(['c', 'cpp', 'make'], &filetype) >= 0
             exe has('nvim') ? '!make all run' : 'make all run'
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
+        elseif &filetype == 'sh'
+            !source %
         elseif &filetype == 'lua'
             !lua %
         elseif &filetype == 'markdown'
             MarkdownPreview
         else
-            echom "No operation"
+            echom "No Operation"
         endif
     endfunction
 endif
