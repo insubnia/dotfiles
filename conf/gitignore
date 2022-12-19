@@ -43,11 +43,13 @@ Thumbs.db
 *.d
 *.o
 *.s
+*.i
+*.su
 *.bin
-*.lst
 *.hex
 *.elf
 *.map
+*.lst
 *.stackdump
 *.ini
 *.log

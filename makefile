@@ -75,8 +75,7 @@ CXXFLAGS = \
 
 LDFLAGS  = \
 		   $(CPU_OPT) $(ARCH_OPT) $(MAP_OPT) \
-		   $(LDFILE_OPT) \
-		   -Wl,--gc-sections,--cref
+		   $(LDFILE_OPT)
 
 ################################################################################
 # artifact
