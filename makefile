@@ -53,7 +53,7 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 ################################################################################
 # flags
 ################################################################################
-# CPU      := cortex-m0
+# CPU_OPT  := -mcpu=cortex-m0 -mthumb
 # ARCH     := native
 
 OPTIMIZE := -O2 -g3
@@ -62,21 +62,21 @@ CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
 CFLAGS   = \
 		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
-		   -Wno-sign-compare \
-		   -std=$(CC_STD)
+		   -Wno-sign-compare
 
 CXXFLAGS = \
 		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   -std=$(CXX_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
-		   -fpermissive \
-		   -std=$(CXX_STD)
+		   -fpermissive
 
 LDFLAGS  = \
-		   $(CPU_OPT) $(ARCH_OPT) \
+		   $(CPU_OPT) $(ARCH_OPT) $(MAP_OPT) \
 		   $(LDFILE_OPT) \
-		   $(MAP_OPT)
+		   -Wl,--gc-sections,--cref
 
 ################################################################################
 # artifact
@@ -145,7 +145,6 @@ include $(call rwildcard,.,*.mk)
 LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
-CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-arch $(ARCH),)
 
 ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word

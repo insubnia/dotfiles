@@ -743,7 +743,6 @@ if IsInstalled('auto-pairs')
     autocmd FileType python
                 \ let g:AutoPairs["f'"] = "'" |
                 \ let g:AutoPairs['"""'] = ''
-
 endif
 
 " UltiSnips
