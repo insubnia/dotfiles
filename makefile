@@ -171,7 +171,7 @@ endif
 ################################################################################
 # rules
 ################################################################################
-PHONY := all build clean run show test
+PHONY := all build clean run show cdb clang-format test
 
 all: build
 
@@ -218,29 +218,16 @@ ifneq ($(UNAME),Windows)
 	@echo
 endif
 
-test:
-	@$(ECHO) $(TEST)
-	@$(ECHO) $(OUTDIRS)
-	@$(ECHO) "$(CC_VERSION)"
+cdb: clean
+	@$(ECHO) "generating compilation database as compile_commands.json\n"
+ifneq (,$(findstring $(UNAME),Darwin Windows))
+	@compiledb make -j20 all
+else
+	@bear -- make -j20 all
+endif
 
-asm: $(ASMS)
-	@$(ECHO) "complete\n"
-
-dl: $(DL)
-	@$(ECHO) "complete\n"
-
-PHONY += dump
-dump: $(ELF)
-	@echo Information from $<
-	@$(OBJDUMP) -S -D $<
-
-PHONY += dev
-dev:
-	@echo Configuring Development Environment
-
-PHONY += clang-format
 clang-format:
-	@echo create .clang-format
+	@$(ECHO) "generating .clang-format"
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
@@ -262,14 +249,26 @@ clang-format:
 		SpacesBeforeTrailingComments      : 2,\
 	}" -dump-config > .clang-format
 
-PHONY += cdb
-cdb:
-	@echo generating compilation database as compile_commands.json
-ifneq (,$(findstring $(UNAME),Darwin Windows))
-	@compiledb make clean all
-else
-	@bear -- make clean all
-endif
+test:
+	@$(ECHO) $(TEST)
+	@$(ECHO) $(OUTDIRS)
+	@$(ECHO) "$(CC_VERSION)"
+
+
+asm: $(ASMS)
+	@$(ECHO) "complete\n"
+
+dl: $(DL)
+	@$(ECHO) "complete\n"
+
+PHONY += dump
+dump: $(ELF)
+	@echo Information from $<
+	@$(OBJDUMP) -S -D $<
+
+PHONY += dev
+dev:
+	@echo Configuring Development Environment
 
 
 $(BIN): $(ELF)
