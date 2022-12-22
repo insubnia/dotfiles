@@ -339,6 +339,13 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
 autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
+" :help highlight-groups
+" :source $VIMRUNTIME/syntax/hitest.vim
+autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(TODO\|FIXME\|XXX\|HACK\)')
+autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(NOTE\|INFO\|IDEA\)')
+autocmd Syntax * call matchadd('WildMenu', '\W\zs\(HELP\|DEBUG\)')
+autocmd Syntax * call matchadd('IncSearch', '\W\zs\(ERROR\|FATAL\)')
+
 function! OperatorHL()
     if has('nvim')
         :
