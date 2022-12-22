@@ -146,7 +146,7 @@ LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
 ARCH_OPT   = $(if $(ARCH),-arch $(ARCH),)
 
-ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word
+ifneq (,$(findstring clang,$(CC_VERSION)))
 	MAP_OPT := -Wl,-map,$(MAP)
 else ifneq (,$(findstring gcc,$(CC_VERSION)))
 	MAP_OPT := -Wl,-Map=$(MAP)
@@ -264,8 +264,8 @@ clang-format:
 
 PHONY += cdb
 cdb:
-	@echo generate compilation database as compile_commands.json
-ifeq ($(UNAME),Darwin)
+	@echo generating compilation database as compile_commands.json
+ifneq (,$(findstring $(UNAME),Darwin Windows))
 	@compiledb make clean all
 else
 	@bear -- make clean all

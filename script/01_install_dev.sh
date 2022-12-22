@@ -86,6 +86,8 @@ linux=(
     gcc-arm-none-eabi
     wireshark
     peek
+    samba
+    ufw
     # for fun
     nyancat
     cmatrix
