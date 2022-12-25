@@ -366,10 +366,10 @@ augroup XML
 augroup END
 
 function! CMM()
-    if g:os == 'Darwin'
-        let t32_vim_dir="/Users/sis/t32/demo/practice/syntaxhighlighting/vim/"
+    if index(['Darwin', 'Linux'], g:os) >= 0
+        let t32_vim_dir = $HOME . "/t32/demo/practice/syntaxhighlighting/vim/"
     elseif g:os == 'Windows'
-        let t32_vim_dir="C:/T32/demo/practice/syntaxhighlighting/vim/"
+        let t32_vim_dir = "C:/T32/demo/practice/syntaxhighlighting/vim/"
     else
         return
     endif

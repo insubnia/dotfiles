@@ -55,4 +55,6 @@ case "$OSTYPE" in
 esac
 
 WORKSPACE=$HOME/workspace
-if [ -d $WORKSPACE ]; then cd $WORKSPACE; fi
+if [ -d $WORKSPACE ] && [ $PWD = $HOME ]; then
+    cd $WORKSPACE
+fi
