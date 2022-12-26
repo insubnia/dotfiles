@@ -57,6 +57,7 @@ REM  choco install -y vcxsrv
 
 :: font
 set list=^
+jetbrainsmononf ^
 font-nerd-dejavusansmono ^
 d2codingfont
 

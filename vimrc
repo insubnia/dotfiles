@@ -119,19 +119,17 @@ set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
 
-if has('nvim')
-    if has('win32') " Windows nvim-qt
-        let g:python3_host_prog = 'C:/Python39/python'
-    endif
+if has('nvim') && has('win32') " nvim-qt(Windows)
+    let g:python3_host_prog = 'C:/Python311/python'
 endif
 
-if has('gui_win32') " Windows vim
+if has('gui_win32') " GUI settings on Windows
     set omnifunc=syntaxcomplete#Complete
-    set guifont=Consolas_NF:h10,D2Coding:h10
+    set guifont=JetBrainsMono_NFM:h10,D2Coding:h10
     set guioptions+=k guioptions+=r
     set guioptions-=L guioptions-=T guioptions-=m
-    set pythonthreehome=C:\Python310
-    set pythonthreedll=C:\Python310\python310.dll
+    set pythonthreehome=C:\Python311
+    set pythonthreedll=C:\Python311\python311.dll
 endif
 
 let &grepprg='grep -Irin --exclude={tags,"*".{log,bak}} --exclude-dir={.git,.svn} $* .'
