@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include "def.h"
 
 // #define DEBUG 0
 
@@ -10,7 +11,7 @@
 #endif
 
 #define _BV(bit) (1UL << (bit))
-#define BIT(nr) (1UL << (nr))
+// #define BIT(nr) (1UL << (nr))
 
 /* Macros to clear/set/test flags. */
 #define	SET(t, f)	(t) |= (f)
@@ -22,28 +23,12 @@ typedef uint8_t five_uint8_t[5];
 /*
  * x = !!x // booleanize
  *
- * < refer to bitops >
+ * < refer to asm/bitops.h >
  * set_bit(nr, p)
  * clear_bit(nr, p)
  * change_bit(nr, p)
  * test_bit(nr, p)
  */
-
-/* Macros for min/max. */
-#ifndef MIN
-#define MIN(a, b) (((a)<(b))?(a):(b))
-#endif /* MIN */
-#ifndef MAX
-#define MAX(a, b) (((a)>(b))?(a):(b))
-#endif /* MAX */
-
-#define ABS(x) (((x)<0)?-(x):(x))
-
-#define ARRAY_SIZE(x) (sizeof((x))/sizeof((x)[0])) 
-
-#define FIELD_SIZEOF(t, f) (sizeof(((t*)0)->f))
-
-#define offsetof(s,m) (size_t)&(((s *)0)->m)
 
 #define PP_NARG(...) \
     PP_NARG_(__VA_ARGS__,PP_RSEQ_N())

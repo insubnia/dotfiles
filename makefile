@@ -31,7 +31,7 @@ LD       := $(CROSS)ld
 SIZE     := $(CROSS)size
 OBJCOPY  := $(CROSS)objcopy
 OBJDUMP  := $(CROSS)objdump
-RM       := rm -f
+RM       := rm -rf
 MKDIR    := mkdir -p
 ECHO     := echo
 HEAD     := head
@@ -53,7 +53,7 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 ################################################################################
 # flags
 ################################################################################
-# CPU      := cortex-m0
+# CPU_OPT  := -mcpu=cortex-m0 -mthumb
 # ARCH     := native
 
 OPTIMIZE := -O2 -g3
@@ -62,21 +62,20 @@ CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
 CFLAGS   = \
 		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
-		   -Wno-sign-compare \
-		   -std=$(CC_STD)
+		   -Wno-sign-compare
 
 CXXFLAGS = \
 		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   -std=$(CXX_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
-		   -fpermissive \
-		   -std=$(CXX_STD)
+		   -fpermissive
 
 LDFLAGS  = \
-		   $(CPU_OPT) $(ARCH_OPT) \
-		   $(LDFILE_OPT) \
-		   $(MAP_OPT)
+		   $(CPU_OPT) $(ARCH_OPT) $(MAP_OPT) \
+		   $(LDFILE_OPT)
 
 ################################################################################
 # artifact
@@ -111,7 +110,8 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 ################################################################################
 # LDFILE  := $(TARGET).ld
 
-SRC_ROOTS := .\
+SRC_ROOTS := \
+			 .
 
 INC_DIRS  := \
 
@@ -122,15 +122,19 @@ LIBS      := \
 
 CSRCS   := $(patsubst ./%.c,%.c,$(foreach dir,$(SRC_ROOTS),$(call rwildcard,$(dir),*.c)))
 CXXSRCS := $(patsubst ./%.cpp,%.cpp,$(foreach dir,$(SRC_ROOTS),$(call rwildcard,$(dir),*.cpp)))
+
 COBJS   := $(CSRCS:%.c=$(OUT_DIR)/%.o)
 CXXOBJS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.o)
 OBJS    := $(COBJS) $(CXXOBJS)
 DEPS    := $(OBJS:.o=.d)
-
 -include $(DEPS)
 
-OUTPUT  += $(OBJS) $(DEPS)
-# OUTDIRS = $(sort $(dir $(OUTPUT)))
+CASMS   := $(CSRCS:%.c=$(OUT_DIR)/%.s)
+CXXASMS := $(CXXSRCS:%.cpp=$(OUT_DIR)/%.s)
+ASMS    := $(CASMS) $(CXXASMS)
+
+OUTPUT  += $(OBJS) $(DEPS) $(ASMS)
+OUTDIRS := $(filter-out ./,$(sort $(dir $(OUTPUT))))
 
 ################################################################################
 # post-processing
@@ -140,10 +144,9 @@ include $(call rwildcard,.,*.mk)
 LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
 LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
-CPU_OPT    = $(if $(CPU),-mcpu=$(CPU),)
 ARCH_OPT   = $(if $(ARCH),-arch $(ARCH),)
 
-ifneq (,$(findstring clang,$(CC_VERSION)))  # use ifneq to prevent double typing of finding word
+ifneq (,$(findstring clang,$(CC_VERSION)))
 	MAP_OPT := -Wl,-map,$(MAP)
 else ifneq (,$(findstring gcc,$(CC_VERSION)))
 	MAP_OPT := -Wl,-Map=$(MAP)
@@ -168,7 +171,7 @@ endif
 ################################################################################
 # rules
 ################################################################################
-PHONY := all build clean run show test
+PHONY := all build clean run show cdb clang-format test
 
 all: build
 
@@ -180,10 +183,15 @@ build: $(ELF) #$(BIN) $(HEX)
 clean:
 	@$(ECHO) cleaning
 	$V $(RM) $(OUTPUT)
+	$V $(RM) $(addsuffix *,$(OUTDIRS))
 
 run:
 	@$(ECHO) "run $(notdir $(ELF))\n"
+ifeq ($(UNAME),Linux)
+	@sudo $(ELF)
+else
 	@$(ELF)
+endif
 
 show:
 	@$(ECHO) "\nUNAME = $(UNAME)"
@@ -210,25 +218,16 @@ ifneq ($(UNAME),Windows)
 	@echo
 endif
 
-test:
-	@$(ECHO) $(TEST)
-	@$(ECHO) "$(CC_VERSION)"
+cdb: clean
+	@$(ECHO) "generating compilation database as compile_commands.json\n"
+ifneq (,$(findstring $(UNAME),Darwin Windows))
+	@compiledb make -j20 all
+else
+	@bear -- make -j20 all
+endif
 
-dl: $(DL)
-	@$(ECHO) "complete\n"
-
-PHONY += dump
-dump: $(ELF)
-	@echo Information from $<
-	@$(OBJDUMP) -S -D $<
-
-PHONY += dev
-dev:
-	@echo Configuring Development Environment
-
-PHONY += clang-format
 clang-format:
-	@echo create .clang-format
+	@$(ECHO) "generating .clang-format"
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
@@ -250,11 +249,26 @@ clang-format:
 		SpacesBeforeTrailingComments      : 2,\
 	}" -dump-config > .clang-format
 
-PHONY += cdb
-cdb:
-	@echo generate compilation database as compile_commands.json
-	@bear -- make clean all
-# @compiledb make clean all
+test:
+	@$(ECHO) $(TEST)
+	@$(ECHO) $(OUTDIRS)
+	@$(ECHO) "$(CC_VERSION)"
+
+
+asm: $(ASMS)
+	@$(ECHO) "complete\n"
+
+dl: $(DL)
+	@$(ECHO) "complete\n"
+
+PHONY += dump
+dump: $(ELF)
+	@echo Information from $<
+	@$(OBJDUMP) -S -D $<
+
+PHONY += dev
+dev:
+	@echo Configuring Development Environment
 
 
 $(BIN): $(ELF)
@@ -286,6 +300,16 @@ $(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
 	$V $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
+
+$(CASMS): $(OUT_DIR)/%.s: %.c
+	@$(ECHO) "generating assembly $(@F)"
+	@$(MKDIR) $(@D)
+	$V $(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
+
+$(CXXASMS): $(OUT_DIR)/%.s: %.cpp
+	@$(ECHO) "generating assembly $(@F)"
+	@$(MKDIR) $(@D)
+	$V $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
 

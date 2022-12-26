@@ -5,7 +5,12 @@
 if has('win32') || has('win32unix')
     let g:os='Windows'
 else
-    let g:os=substitute(system('uname'), '\n', '', '')
+    let uname_a = system('uname -a')
+    if match(uname_a, 'microsoft') != -1
+        let g:os='WSL'
+    else
+        let g:os=substitute(system('uname'), '\n', '', '')
+    endif
 endif
 " }}}
 " ============================================================================
@@ -14,6 +19,7 @@ if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
@@ -45,7 +51,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 Plug 'ryanoasis/vim-devicons'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -164,6 +170,7 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
+nnoremap <C-g> :GitGutterUndoHunk<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
@@ -332,6 +339,13 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
 autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
+" :help highlight-groups
+" :source $VIMRUNTIME/syntax/hitest.vim
+autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\)')
+autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(HACK\|OPTIMIZE\|HELP\)')
+autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(NOTE\|INFO\|IDEA\)')
+autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\)')
+
 function! OperatorHL()
     if has('nvim')
         :
@@ -347,12 +361,18 @@ augroup XML
     autocmd!
     autocmd FileType xml setlocal fdm=indent
     autocmd FileType xml setlocal fdl=2
-    nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
-    nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
+    autocmd FileType xml nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
+    autocmd FileType xml nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
 augroup END
 
 function! CMM()
-    let t32_vim_dir="C:/T32/demo/practice/syntaxhighlighting/vim/"
+    if index(['Darwin', 'Linux'], g:os) >= 0
+        let t32_vim_dir = $HOME . "/t32/demo/practice/syntaxhighlighting/vim/"
+    elseif g:os == 'Windows'
+        let t32_vim_dir = "C:/T32/demo/practice/syntaxhighlighting/vim/"
+    else
+        return
+    endif
     if isdirectory(t32_vim_dir)
         exec "source " . t32_vim_dir . "practice.vim"
         exec "source " . t32_vim_dir . "practice_autocomplete.vim"
@@ -418,6 +438,8 @@ command! ST set noexpandtab | %retab!
 command! RO set ro
 command! RW set noro
 
+command! Unstage silent !git reset --mixed HEAD -- %
+
 command! Preproc Silent gcc -E % | less
 
 function! MyHandler(id)
@@ -478,7 +500,7 @@ endfunction
 
 command! Build call Build()
 function! Build()
-    if &filetype == 'c' || &filetype == 'cpp'
+    if index(['c', 'cpp', 'make'], &filetype) >= 0
         exe has('nvim') ? '!make all' : 'make all'
     endif
 endfunction
@@ -491,18 +513,18 @@ if !exists('*Run')
 
         if &filetype == 'vim'
             source %
-        elseif &filetype == 'sh'
-            !source %
-        elseif &filetype == 'c' || &filetype == 'cpp'
+        elseif index(['c', 'cpp', 'make'], &filetype) >= 0
             exe has('nvim') ? '!make all run' : 'make all run'
         elseif &filetype == 'python'
             exe has('win32') ? '!python %' : '!python3 %'
+        elseif &filetype == 'sh'
+            !source %
         elseif &filetype == 'lua'
             !lua %
         elseif &filetype == 'markdown'
             MarkdownPreview
         else
-            echom "No operation"
+            echom "No Operation"
         endif
     endfunction
 endif
@@ -522,6 +544,14 @@ function! PlugAction()
         PlugUpdate
     else
         echo "Invalid input"
+    endif
+endfunction
+
+function! IsInstalled(name)
+    if match(&runtimepath, a:name) != -1
+        return 1
+    else
+        return 0
     endif
 endfunction
 
@@ -567,29 +597,33 @@ endfunction
 " ============================================================================
 " PLUGIN SETTINGS {{{
 " youcompleteme
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_disable_for_files_larger_than_kb = 1024
-let g:ycm_key_list_select_completion = ['<down>']
-let g:ycm_key_list_previous_completion = ['<up>']
-let g:ycm_key_list_stop_completion = []
-let g:ycm_show_diagnostics_ui = 0
+if IsInstalled('youcompleteme')
+    let g:ycm_confirm_extra_conf = 0
+    let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
+    let g:ycm_collect_identifiers_from_tags_files = 1
+    let g:ycm_disable_for_files_larger_than_kb = 1024
+    let g:ycm_key_list_select_completion = ['<down>']
+    let g:ycm_key_list_previous_completion = ['<up>']
+    let g:ycm_key_list_stop_completion = []
+    let g:ycm_show_diagnostics_ui = 0
+endif
 
 " coc
-let g:coc_global_extensions = [
-            \'coc-clangd',
-            \'coc-cmake',
-            \'coc-json',
-            \'coc-prettier',
-            \'coc-pyright',
-            \'coc-snippets',
-            \'coc-ultisnips',
-            \'coc-tsserver',
-            \'coc-xml',
-            \]
-let g:coc_config_home = '~/workspace/dotfiles/vim'
-if has('nvim')
+if IsInstalled('coc.nvim')
+    let g:coc_global_extensions = [
+                \'coc-vimlsp',
+                \'coc-clangd',
+                \'coc-cmake',
+                \'coc-json',
+                \'coc-prettier',
+                \'coc-pyright',
+                \'coc-snippets',
+                \'coc-ultisnips',
+                \'coc-tsserver',
+                \'coc-xml',
+                \]
+    let g:coc_config_home = '~/workspace/dotfiles/vim'
+
     " coc-outline
     nnoremap <silent><nowait> T :call ToggleOutline()<CR>
     function! ToggleOutline() abort
@@ -616,7 +650,7 @@ if has('nvim')
 endif
 
 " treesitter
-if has('nvim')
+if IsInstalled('nvim-treesitter')
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { 'vim', 'c', 'python', 'bash', 'lua', 'make', 'cmake', 'json', 'rust' },
@@ -630,20 +664,17 @@ require'nvim-treesitter.configs'.setup {
   },
   incremental_selection = { enable = true },
   textobjects = { enable = true },
+
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+    -- colors = {},
+    -- termcolors = {},
+  }
 }
 EOF
 endif
-
-" chromatica
-let g:chromatica#enable_at_startup = 1
-if g:os == 'Darwin'
-    let g:chromatica#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-elseif g:os == 'Linux'
-    let g:chromatica#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-10.so'
-endif
-let g:chromatica#global_args = []
-let g:chromatica#responsive_mode = 1
-let g:chromatica#delay_ms = 500
 
 " gitgutter
 set updatetime=100
@@ -660,12 +691,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
+    let g:airline_section_c .= '¦  '
     if g:os == 'Darwin'
-        let g:airline_section_c .= ' 🧿 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🫧 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
-        let g:airline_section_c .= ' 🐧 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🔥 %#__accent_bold#%{$USER}'
+    elseif g:os == 'WSL'
+        let g:airline_section_c .= '🐢 %#__accent_bold#%{$USER}'
     elseif has('win32')
-        let g:airline_section_c .= ' 🚗 %#__accent_bold#%{$USERNAME} from MANDO'
+        let g:airline_section_c .= '🚗 %#__accent_bold#%{$USERNAME} @ MANDO'
     endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
@@ -681,7 +715,7 @@ nnoremap <leader>9 9gt
 
 " NERDTree
 autocmd StdinReadPre * let s:std_in = 1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
 let g:NERDTreeMapOpenVSplit = 'v'
@@ -699,23 +733,30 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCustomDelimiters = {
-            \'python': {'left': '#'},
+            \'python': {'left': '# ', 'leftAlt': '"""', 'rightAlt': '"""'},
             \'c': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'json': {'left': '/*', 'right': '*/'},
             \'cmm': {'left': ';'},
             \'lsl': {'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'},
             \'dosbatch': {'left': '::', 'leftAlt': 'REM'}
             \}
+autocmd FileType python
+            \ let g:NERDDisableTabsInBlockComm = 1 |
+            \ let g:NERDSpaceDelims = 0
 
 " fzf
-
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call timer_start(10, {->execute('FZF')}) | endif
 
 " AutoPairs
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutFastWrap = '<C-l>'
-autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
-autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
-autocmd FileType python inoremap f' f''<left>
+if IsInstalled('auto-pairs')
+    let g:AutoPairsFlyMode = 0
+    let g:AutoPairsShortcutFastWrap = '<C-l>'
+    autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
+    autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
+    autocmd FileType python
+                \ let g:AutoPairs["f'"] = "'" |
+                \ let g:AutoPairs['"""'] = ''
+endif
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger = "<C-s>"
@@ -743,16 +784,6 @@ let g:qf_mapping_ack_style = 1
 " tagbar
 let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
-
-" CtrlP
-let g:ctrlp_by_filename = 1
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_match_window = 'results:100'
-if has('win32')
-    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | findstr /v /l ".git .xls .ppt .doc"'
-else
-    let g:ctrlp_user_command = 'find %s -type f | grep -v -e .git -e .o\$ -e .xls -e .ppt -e .doc'
-endif
 
 " ale
 let g:ale_linters = {
@@ -802,8 +833,11 @@ if g:os == "Darwin"
     colo onedark
     let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
-    colo jellybeans
-    let g:airline_theme = 'jellybeans'
+    colo dracula
+    let g:airline_theme = 'dracula'
+elseif g:os == "WSL"
+    colo codedark
+    let g:airline_theme = 'codedark'
 elseif has("win32")
     colo deus
     let g:airline_theme = 'deus'

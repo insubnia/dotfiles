@@ -42,20 +42,19 @@ Thumbs.db
 *.swp
 *.d
 *.o
+*.s
+*.i
+*.su
 *.bin
-*.lst
 *.hex
 *.elf
 *.map
+*.lst
 *.stackdump
 *.ini
 *.log
+.clang-format
 compile_commands.json
-# *.dylib
-# *.so
-# *.dll
-# *.a
-# *.lib
 
 # compression extension
 *.zip

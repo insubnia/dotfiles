@@ -2,6 +2,7 @@
 #include <thread>
 #include <unistd.h>
 
+#include "def.h"
 #include "app.hpp"
 
 void Application::Init(void)
@@ -16,7 +17,7 @@ void Application::Process(void)
     // thread _t(&Application::InputThread, this);
     thread _t([this]{ InputThread(); });
     while (loop) {
-        cout << name + "@MBP$ " << flush;
+        cout << GREEN + name + "@MBP$ " + RESET << flush;
         while (qin.empty())
             usleep(100);
 
@@ -63,6 +64,6 @@ void Application::InputHandler(string input)
     }
 
     if (!loop)
-        cout << "\nTerminate program" << endl;
+        cout << YELLOW "\nTerminate program\n" RESET << endl;
 }
 

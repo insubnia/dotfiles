@@ -37,6 +37,7 @@ list=(
     requests
     pyjwt
     selenium
+    pyautogui
 )
 
 for item in ${list[@]}

@@ -11,6 +11,7 @@ alias nvim.='nvim .'
 alias python='python3'
 alias pip='pip3'
 alias gdf='git difftool -t vimdiff'
+alias gsp='git stash && git pull && git stash pop'
 alias ff='find . -type f -iname'
 alias tl1='tree -L 1'
 alias tl2='tree -L 2'
@@ -54,4 +55,6 @@ case "$OSTYPE" in
 esac
 
 WORKSPACE=$HOME/workspace
-if [ -d $WORKSPACE ]; then cd $WORKSPACE; fi
+if [ -d $WORKSPACE ] && [ $PWD = $HOME ]; then
+    cd $WORKSPACE
+fi

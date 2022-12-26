@@ -5,11 +5,11 @@ case "$OSTYPE" in
         pm="brew"
         ;;
     linux*)
+        pm='apt -y'
         if [ $EUID != 0 ]; then
-            echo -e "\nThis script must be run as root\n\nTerminate the script\n"
+            echo -e "You must run this script with sudo\n"
             return
         fi
-        pm='apt -y'
         ;;
 esac
 
@@ -43,15 +43,14 @@ list=(
     nodejs
     jq
     npm
-    lua
     dos2unix
+    imagemagick
     libxml2
     iperf3
     htop
     tcpdump
     # meld
-    lsusb
-    qt
+    caffeine
 )
 
 macos=(
@@ -64,7 +63,14 @@ macos=(
     nvm
     pyenv
     ta-lib
+    lua
     fd
+    qt
+    lsusb
+    # for fun
+    nyancat
+    cmatrix
+    asciiquarium
 )
 
 linux=(
@@ -79,11 +85,31 @@ linux=(
     fd-find
     gcc-arm-none-eabi
     wireshark
+    peek
+    samba
+    ufw
+    # for fun
+    nyancat
+    cmatrix
+)
+
+apt_repos=(
+    ppa:peek-developers/stable
+    ppa:neovim-ppa/stable
 )
 
 case "$OSTYPE" in
-    darwin*) list+=(${macos[@]}) ;;
-    linux*) list+=(${linux[@]}) ;;
+    darwin*)
+        list+=(${macos[@]})
+        ;;
+    linux*)
+        list+=(${linux[@]})
+        for v in ${apt_repos[@]}
+        do
+            eval add-apt-repository $v
+        done
+        eval $pm update
+        ;;
 esac
 
 for v in ${list[@]}

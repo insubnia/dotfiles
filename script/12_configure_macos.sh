@@ -45,7 +45,7 @@ defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 
 
 ##############################################################################
-# Dock
+# Dock / MenuBar
 ##############################################################################
 
 # Don't show recent application in Dock
@@ -53,6 +53,17 @@ defaults write com.apple.dock show-recents -bool false
 
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
+
+# Set <Recent documents, applications, and servers> to 0
+osascript << EOF
+  tell application "System Events"
+    tell appearance preferences
+      set recent documents limit to 0
+      set recent applications limit to 0
+      set recent servers limit to 0
+    end tell
+  end tell
+EOF
 
 killall Dock
 
