@@ -51,7 +51,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
 Plug 'ryanoasis/vim-devicons'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -341,10 +341,10 @@ autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim
-autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(TODO\|FIXME\|XXX\|HACK\)')
-autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(NOTE\|INFO\|IDEA\)')
-autocmd Syntax * call matchadd('WildMenu', '\W\zs\(HELP\|DEBUG\)')
-autocmd Syntax * call matchadd('IncSearch', '\W\zs\(ERROR\|FATAL\)')
+autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\)\c')
+autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(HACK\|OPTIMIZE\|HELP\)\c')
+autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(NOTE\|INFO\|IDEA\)\c')
+autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\)\c')
 
 function! OperatorHL()
     if has('nvim')
