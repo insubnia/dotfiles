@@ -10,6 +10,7 @@ apps=(
     appcleaner
     google-chrome
     onedrive
+    notion
     vlc
     folx
     adobe-acrobat-reader
@@ -19,6 +20,7 @@ apps=(
     visual-studio-code
     wireshark
     gcc-arm-embedded
+    coolterm
     qt-creator
 )
 
