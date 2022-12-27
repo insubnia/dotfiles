@@ -388,10 +388,21 @@ autocmd Syntax c,cpp call AUTOSAR()
 
 " resolved by adding set ffs=unix
 " autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
+
+function! DetectFiletype()
+    if @% =~# 'makefile\c'
+        set filetype=make
+    elseif @% =~# 'CMakeLists\C'
+        set filetype=cmake
+    elseif @% =~# '\.cmm$'
+        set filetype=cmm
+    else
+    endif
+endfunction
+autocmd BufRead,BufNewFile * call DetectFiletype()
+
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
-autocmd BufRead,BufNewFile *.cmm set filetype=cmm
-autocmd BufRead,BufNewFile CMakeLists* set filetype=cmake
 
 function! NewHeader()
     if 0
