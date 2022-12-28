@@ -17,14 +17,13 @@ endif
 " PLUGINS {{{
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
-    Plug 'valloric/youcompleteme', has('unix') ? {} : {'on': []}
-    Plug 'chiel92/vim-autoformat', {'on': ['Autoformat']}
-    " Plug 'jeaye/color_coded', has('unix') ? {} : {'on': []}
+    Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
+    Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -41,17 +40,17 @@ Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
-Plug 'majutsushi/tagbar', {'on': ['TagbarToggle']}
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'dense-analysis/ale'
-Plug 'tpope/vim-dispatch', {'on': ['Dispatch']}
+Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
-Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : {'on': []}
+Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', g:os=='Darwin' ? {} : { 'on': [] }
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
