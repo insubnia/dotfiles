@@ -48,13 +48,17 @@ mas_list=(
 
 for v in ${apps[@]}
 do
-    brew install --cask $v
+    echo -n "Installing $v... "
+    brew install --cask $v > /dev/null
+    echo -e "Done"
 done
 
 brew tap homebrew/cask-fonts
 for v in ${fonts[@]}
 do
-    brew install --cask $v
+    echo -n "Installing $v... "
+    brew install --cask $v > /dev/null
+    echo -e "Done"
 done
 
 for v in ${mas_list[@]}
@@ -63,4 +67,3 @@ do
 done
 
 echo -e "\nComplete\n"
-
