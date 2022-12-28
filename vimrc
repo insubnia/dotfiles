@@ -396,7 +396,9 @@ function! DetectFiletype()
         set filetype=cmake
     elseif @% =~# '\.cmm$'
         set filetype=cmm
+    " elseif @% =~# ''
     else
+        " no operation
     endif
 endfunction
 autocmd BufRead,BufNewFile * call DetectFiletype()

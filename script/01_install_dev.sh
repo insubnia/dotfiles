@@ -33,7 +33,7 @@ list=(
     clang-format
     lld
     make
-    bear  # C/C++ compilation database generater
+    bear
     cmake
     scons
     python3
@@ -53,6 +53,7 @@ list=(
     caffeine
 )
 
+# OS variant
 macos=(
     the_silver_searcher
     mas
@@ -72,7 +73,6 @@ macos=(
     cmatrix
     asciiquarium
 )
-
 linux=(
     silversearcher-ag
     vim-gtk
