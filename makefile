@@ -53,29 +53,29 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 ################################################################################
 # flags
 ################################################################################
-# CPU_OPT  := -mcpu=cortex-m0 -mthumb
-# ARCH     := native
+# CPU   := -mcpu=cortex-m0 -mthumb
+# ARCH  := -arch native
+OPTIM := -O2 -g3
 
-OPTIMIZE := -O2 -g3
 CC_STD   := c99
 CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
 CFLAGS   = \
-		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   $(CPU) $(ARCH) $(OPTIM) \
 		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare
 
 CXXFLAGS = \
-		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+		   $(CPU) $(ARCH) $(OPTIM) \
 		   -std=$(CXX_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -fpermissive
 
 LDFLAGS  = \
-		   $(CPU_OPT) $(ARCH_OPT) $(MAP_OPT) \
-		   $(LDFILE_OPT)
+		   $(CPU) $(ARCH) \
+		   $(MAP_OPT) $(LDFILE_OPT)
 
 ################################################################################
 # artifact
@@ -108,7 +108,7 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 ################################################################################
 # source & output
 ################################################################################
-# LDFILE  := $(TARGET).ld
+# LDFILE := $(TARGET).ld
 
 SRC_ROOTS := \
 			 .
@@ -143,8 +143,7 @@ include $(call rwildcard,.,*.mk)
 
 LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
-LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
-ARCH_OPT   = $(if $(ARCH),-arch $(ARCH),)
+LDFILE_OPT := $(if $(LDFILE),-T$(LDFILE),)
 
 ifneq (,$(findstring clang,$(CC_VERSION)))
 	MAP_OPT := -Wl,-map,$(MAP)
@@ -286,7 +285,7 @@ $(ELF): $(OBJS) $(LDFILE)
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS)
 
-$(DL): $(OBJS)
+$(DL): $(OBJS) $(LDFILE)
 	@$(ECHO) "making dynamic library"
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS) -shared
