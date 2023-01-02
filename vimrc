@@ -50,7 +50,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
 Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', g:os=='Darwin' ? {} : { 'on': [] }
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -304,7 +303,7 @@ endif
 " <C-o> is dummy to invalidate inserting space
 
 " Timestamp
-iabbrev xdate <C-r>=strftime("%m/%d/%Y")<cr><C-o>
+iabbrev xdate <C-r>=strftime("%Y.%m.%d")<cr><C-o>
 
 " Fix typo
 abbrev hlep help

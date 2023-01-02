@@ -73,6 +73,7 @@ linux=(  # https://packages.ubuntu.com/
     peek
     samba
     ufw
+    beep
     # for fun
     nyancat
     cmatrix
