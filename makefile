@@ -59,22 +59,29 @@ OPTIM := -O2 -g3
 CC_STD   := c99
 CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
-CFLAGS   = \
-		   $(CPU) $(OPTIM) \
+CFLAGS   =  $(CPU) $(OPTIM) \
 		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare
 
-CXXFLAGS = \
-		   $(CPU) $(OPTIM) \
+CXXFLAGS = $(CPU) $(OPTIM) \
 		   -std=$(CXX_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -fpermissive
 
-LDFLAGS  = \
-		   $(CPU) $(OPTIM) \
-		   -Wl,--gc-sections
+LDFLAGS  = $(CPU) $(OPTIM)
+
+# append compiler specific flags
+ifneq (,$(findstring clang,$(CC_VERSION)))
+	LDFLAGS += -Wl,-map,$(MAP) \
+			   -Wl,-dead_strip
+else ifneq (,$(findstring gcc,$(CC_VERSION)))
+	LDFLAGS += -Wl,-Map=$(MAP) \
+			   -Wl,--gc-sections
+else
+	LDFLAGS += $(warning undefined compiler: $(CC))
+endif
 
 ################################################################################
 # artifact
@@ -144,14 +151,6 @@ LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
 ifdef LINKER_SCRIPT
 	LDFLAGS += -T$(LINKER_SCRIPT)
-endif
-
-ifneq (,$(findstring clang,$(CC_VERSION)))
-	LDFLAGS += -Wl,-map,$(MAP)
-else ifneq (,$(findstring gcc,$(CC_VERSION)))
-	LDFLAGS += -Wl,-Map=$(MAP)
-else
-	LDFLAGS += $(warning undefined compiler: $(CC))
 endif
 
 INC_DIRS := $(addprefix -I, $(INC_DIRS))
