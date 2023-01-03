@@ -54,28 +54,27 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 # flags
 ################################################################################
 # CPU   := -mcpu=cortex-m0 -mthumb
-# ARCH  := -arch native
 OPTIM := -O2 -g3
 
 CC_STD   := c99
 CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
 CFLAGS   = \
-		   $(CPU) $(ARCH) $(OPTIM) \
+		   $(CPU) $(OPTIM) \
 		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare
 
 CXXFLAGS = \
-		   $(CPU) $(ARCH) $(OPTIM) \
+		   $(CPU) $(OPTIM) \
 		   -std=$(CXX_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -fpermissive
 
 LDFLAGS  = \
-		   $(CPU) $(ARCH) \
-		   $(MAP_OPT) $(LDFILE_OPT)
+		   $(CPU) $(OPTIM) \
+		   -Wl,--gc-sections
 
 ################################################################################
 # artifact
@@ -108,7 +107,7 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 ################################################################################
 # source & output
 ################################################################################
-# LDFILE := $(TARGET).ld
+# LINKER_SCRIPT := $(TARGET).ld
 
 SRC_ROOTS := \
 			 .
@@ -143,15 +142,16 @@ include $(call rwildcard,.,*.mk)
 
 LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
-LDFILE_OPT := $(if $(LDFILE),-T$(LDFILE),)
+ifdef LINKER_SCRIPT
+	LDFLAGS += -T$(LINKER_SCRIPT)
+endif
 
 ifneq (,$(findstring clang,$(CC_VERSION)))
-	MAP_OPT := -Wl,-map,$(MAP)
+	LDFLAGS += -Wl,-map,$(MAP)
 else ifneq (,$(findstring gcc,$(CC_VERSION)))
-	MAP_OPT := -Wl,-Map=$(MAP)
+	LDFLAGS += -Wl,-Map=$(MAP)
 else
-	MAP_OPT :=\
-	$(warning undefined compiler: $(CC))
+	LDFLAGS += $(warning undefined compiler: $(CC))
 endif
 
 INC_DIRS := $(addprefix -I, $(INC_DIRS))
@@ -260,11 +260,6 @@ asm: $(ASMS)
 dl: $(DL)
 	@$(ECHO) "complete\n"
 
-PHONY += dump
-dump: $(ELF)
-	@echo Information from $<
-	@$(OBJDUMP) -S -D $<
-
 PHONY += dev
 dev:
 	@echo Configuring Development Environment
@@ -280,12 +275,12 @@ $(HEX): $(ELF)
 	@$(MKDIR) $(@D)
 	$V $(OBJCOPY) -O ihex $< $@
 
-$(ELF): $(OBJS) $(LDFILE)
+$(ELF): $(OBJS) $(LINKER_SCRIPT)
 	@$(ECHO) "linking $(@F)"
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS)
 
-$(DL): $(OBJS) $(LDFILE)
+$(DL): $(OBJS) $(LINKER_SCRIPT)
 	@$(ECHO) "making dynamic library"
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS) -shared
@@ -311,4 +306,3 @@ $(CXXASMS): $(OUT_DIR)/%.s: %.cpp
 	$V $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
-
