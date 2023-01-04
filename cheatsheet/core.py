@@ -1,7 +1,9 @@
 #!usr/bin/python3
 import os
 import sys
+import time
 import signal
+from threading import Thread
 from colorama import Fore
 
 def resource_path(relpath):
@@ -11,9 +13,18 @@ def resource_path(relpath):
         cwd = os.getcwd()
     return os.path.abspath(os.path.join(cwd, relpath))
 
+
+_loop = True
+
+def loop():
+    return _loop
+
 def signal_handler(signum, frame):
+    global _loop
+    _loop = False
     print(f"{Fore.RED}Terminate program!{Fore.RESET}\n")
-    sys.exit()
+    Thread(target=lambda:(time.sleep(3), os._exit(0)), daemon=True).start()
+
 signal.signal(signal.SIGINT, signal_handler)
 
 
@@ -21,7 +32,6 @@ signal.signal(signal.SIGINT, signal_handler)
 if os.name == 'nt':
     import msvcrt
 else:  # UNIX
-    import sys
     import termios
     import atexit
     from select import select
@@ -79,7 +89,7 @@ if __name__ == "__main__":
 
     print(f"{Fore.BLUE}\nHit any key or ESC to exit{Fore.RESET}")
     kb = KBHIT()
-    while True:
+    while loop():
         if kb.kbhit():
             ch = kb.getch()
             if ord(ch) == 27:  # ESC
