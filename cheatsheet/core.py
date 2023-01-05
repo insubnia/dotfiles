@@ -4,6 +4,7 @@ import sys
 import time
 import signal
 from threading import Thread
+from datetime import datetime
 from colorama import Fore
 
 def resource_path(relpath):
@@ -28,6 +29,14 @@ def signal_handler(signum, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 
+def xdatetime(_datetime=None):
+    if _datetime is None:
+        _datetime = datetime.now().astimezone()
+    elif not isinstance(_datetime, datetime):
+        return ""
+    return _datetime.strftime("%Y-%m-%d %H:%M:%S")
+
+
 # https://gist.github.com/michelbl/efda48b19d3e587685e3441a74457024
 if os.name == 'nt':
     import msvcrt
@@ -36,7 +45,7 @@ else:  # UNIX
     import atexit
     from select import select
 
-class KBHIT:
+class Conio:
     def __init__(self):
         if os.name != 'nt':
             # backup terminal settings
@@ -54,6 +63,13 @@ class KBHIT:
     def set_normal_term(self):
         if os.name != 'nt':
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.old_term)
+
+    def kbhit(self):
+        if os.name == 'nt':
+            return msvcrt.kbhit()
+        else:
+            dr, dw, de = select([sys.stdin], [], [], 0)
+            return dr != []
 
     def getch(self):
         if os.name == 'nt':
@@ -76,25 +92,19 @@ class KBHIT:
             vals = [65, 67, 66, 68]
         return vals.index(ord(c.decode('utf-8')))
 
-    def kbhit(self):
-        if os.name == 'nt':
-            return msvcrt.kbhit()
-        else:
-            dr, dw, de = select([sys.stdin], [], [], 0)
-            return dr != []
-
 
 if __name__ == "__main__":
     print(resource_path('./core.py'))
+    print(xdatetime())
 
     print(f"{Fore.BLUE}\nHit any key or ESC to exit{Fore.RESET}")
-    kb = KBHIT()
+    conio = Conio()
     while loop():
-        if kb.kbhit():
-            ch = kb.getch()
+        if conio.kbhit():
+            ch = conio.getch()
             if ord(ch) == 27:  # ESC
                 print("ESC pressed\n")
                 break
             else:
                 print(ch)
-    kb.set_normal_term()
+    # conio.set_normal_term()
