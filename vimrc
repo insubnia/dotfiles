@@ -53,6 +53,7 @@ Plug 'ryanoasis/vim-devicons'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
+Plug 'hzchirs/vim-material' " light, dark, palenight, oceanic
 Plug 'ayu-theme/ayu-vim' " light, dark, mirage
 Plug 'ajmwagar/vim-deus'
 Plug 'joshdick/onedark.vim'
@@ -174,6 +175,7 @@ nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
+nnoremap <C-w>t <C-w>T
 " nnoremap <C-w>] :vert stj <cr>
 nnoremap <C-w>] :vs<cr>:GoTo<cr>
 nnoremap <tab> gt
@@ -337,9 +339,9 @@ autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim
-autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\)')
-autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(HACK\|OPTIMIZE\|HELP\)')
-autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(NOTE\|INFO\|IDEA\)')
+autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\)')
+autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\)')
+autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\)')
 autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\)')
 
 function! OperatorHL()
@@ -839,8 +841,9 @@ let g:NERDTreeGitStatusConcealBrackets = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo onedark
-    let g:airline_theme = 'onedark'
+    let g:material_style='palenight'
+    colo vim-material
+    let g:airline_theme = 'material'
 elseif g:os == "Linux"
     colo dracula
     let g:airline_theme = 'dracula'
