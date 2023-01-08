@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import signal
+import requests
 from threading import Thread
 from datetime import datetime
 from colorama import Fore
@@ -28,6 +29,9 @@ def signal_handler(signum, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
+
+def get_public_ip():
+    return requests.get("https://api.ipify.org").text
 
 def xdatetime(_datetime=None):
     if _datetime is None:

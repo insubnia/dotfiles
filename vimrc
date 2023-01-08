@@ -247,16 +247,18 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
+    " CoC key mappings
     nnoremap ; :call CocAction('doHover')<cr>
     nnoremap ? :CocList -I symbols<cr>
-
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
+    nmap gR <plug>(coc-references)
     nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
+
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
