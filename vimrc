@@ -473,7 +473,7 @@ function! Close()
     pclose
     helpclose
     NERDTreeClose
-    if has('nvim')
+    if IsInstalled('coc.nvim')
         call CocAction('hideOutline')
     else
         try | exe 'TagbarClose' | catch | endtry
@@ -496,10 +496,16 @@ endfunction
 
 command! GoTo call GoTo()
 function! GoTo()
+    " TODO: optimize jump command depending on filetype
+    if index(['vim', 'help'], &filetype) >= 0
+        exe "tjump " . expand("<cword>")
+        return
+    endif
+
     try
         exe "tjump " . expand("<cword>")
     catch /E426:\|E433:/
-        if has('nvim')
+        if IsInstalled('coc.nvim')
             call CocAction('jumpDefinition')
         else
             try
