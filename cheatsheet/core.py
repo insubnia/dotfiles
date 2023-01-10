@@ -24,7 +24,7 @@ def loop():
 def signal_handler(signum, frame):
     global _loop
     _loop = False
-    print(f"\n{Fore.RED}Terminate program!{Fore.RESET}\n")
+    print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
     Thread(target=lambda:(time.sleep(3), os._exit(0)), daemon=True).start()
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -35,7 +35,7 @@ def lapse(func):
         start_time = time.perf_counter()
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
-        print(f"{Fore.WHITE}⏱️  {func.__name__} took {end_time - start_time:.4f} secs{Fore.RESET}\n")
+        print(f"{Fore.WHITE} ⏱️  {func.__name__} took {end_time - start_time:.4f} secs{Fore.RESET}\n")
         return result
     return wrapper
 
