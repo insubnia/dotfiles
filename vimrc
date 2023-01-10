@@ -53,8 +53,8 @@ Plug 'ryanoasis/vim-devicons'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
-Plug 'hzchirs/vim-material' " light, dark, palenight, oceanic
-Plug 'ayu-theme/ayu-vim' " light, dark, mirage
+Plug 'hzchirs/vim-material' " material_style = (light, dark, palenight, oceanic)
+Plug 'ayu-theme/ayu-vim' " ayucolor = (light, dark, mirage)
 Plug 'ajmwagar/vim-deus'
 Plug 'joshdick/onedark.vim'
 " Dark
@@ -218,7 +218,9 @@ vnoremap <leader><space> :retab<cr>gv :Tab /\s\zs\S/l1r0<cr>
 inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
+inoremap <C-l> <end><cr>
 inoremap <C-v> <F19>*<F19>
+" inoremap <C-z>
 cnoremap <C-a> <home>
 cnoremap <C-v> <C-r>*
 noremap! <C-b> <left>
@@ -769,7 +771,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call timer_start(10, 
 " AutoPairs
 if IsInstalled('auto-pairs')
     let g:AutoPairsFlyMode = 0
-    let g:AutoPairsShortcutFastWrap = '<C-l>'
+    let g:AutoPairsShortcutFastWrap = '<C-]>'
     autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
     autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
     autocmd FileType python
@@ -849,22 +851,21 @@ let g:NERDTreeGitStatusConcealBrackets = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    let g:material_style='palenight'
+    colo molokai
+    let g:airline_theme = 'molokai'
+elseif g:os == "Linux"
+    let g:material_style = 'dark'
     colo vim-material
     let g:airline_theme = 'material'
-elseif g:os == "Linux"
-    colo dracula
-    let g:airline_theme = 'dracula'
 elseif g:os == "WSL"
-    colo codedark
-    let g:airline_theme = 'codedark'
+    colo badwolf
+    let g:airline_theme = 'badwolf'
 elseif has("win32")
-    colo deus
-    let g:airline_theme = 'deus'
+    colo biogoo
+    let g:airline_theme = 'biogoo'
 elseif has("win32unix")
-    let ayucolor='mirage'
-    colo ayu
-    let g:airline_theme = 'ayu_mirage'
+    colo fairyfloss
+    let g:airline_theme = 'fairyfloss'
 endif
 " }}}
 " ============================================================================

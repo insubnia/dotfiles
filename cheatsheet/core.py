@@ -35,7 +35,7 @@ def lapse(func):
         start_time = time.perf_counter()
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
-        print(f"{Fore.WHITE} ⏱️  {func.__name__} took {end_time - start_time:.4f} secs{Fore.RESET}\n")
+        print(f"{Fore.WHITE} ⏱️  {func.__name__} took {end_time - start_time:.4f} secs{Fore.RESET}")
         return result
     return wrapper
 
