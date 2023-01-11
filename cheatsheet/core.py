@@ -16,18 +16,21 @@ def resource_path(relpath):
     return os.path.abspath(os.path.join(cwd, relpath))
 
 
-_loop = True
+class Loop():
+    def __init__(self):
+        self.loop = True
+        signal.signal(signal.SIGINT, self.signal_handler)
+    def __bool__(self):
+        return self.loop
+    def __str__(self):
+        return "True" if self.loop else "False"
 
-def loop():
-    return _loop
+    def signal_handler(self, signum, frame):
+        self.loop = False
+        print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
+        Thread(target=lambda:(time.sleep(3), os._exit(0)), daemon=True).start()
 
-def signal_handler(signum, frame):
-    global _loop
-    _loop = False
-    print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
-    Thread(target=lambda:(time.sleep(3), os._exit(0)), daemon=True).start()
-
-signal.signal(signal.SIGINT, signal_handler)
+loop = Loop()
 
 
 def lapse(func):
@@ -112,12 +115,12 @@ if __name__ == "__main__":
 
     print(f"{Fore.BLUE}\nHit any key or ESC to exit{Fore.RESET}")
     conio = Conio()
-    while loop():
+    while loop:
         if conio.kbhit():
             ch = conio.getch()
             if ord(ch) == 27:  # ESC
                 print("ESC pressed\n")
                 break
             else:
-                print(ch)
+                print(f" {ch}")
     # conio.set_normal_term()
