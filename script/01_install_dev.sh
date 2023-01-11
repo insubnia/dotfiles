@@ -45,12 +45,14 @@ macos=(
     coreutils
     node
     nvm
-    pyenv
     ta-lib
     lua
     fd
     qt
     lsusb
+    # python
+    autopep8
+    pyenv
     # for fun
     nyancat
     cmatrix
@@ -60,7 +62,6 @@ linux=(  # https://packages.ubuntu.com/
     silversearcher-ag
     vim-gtk
     xclip
-    python3-pip
     clang
     clangd
     libclang-dev
@@ -74,6 +75,9 @@ linux=(  # https://packages.ubuntu.com/
     samba
     ufw
     beep
+    # python
+    python3-pip
+    python3-autopep8
     # for fun
     nyancat
     cmatrix

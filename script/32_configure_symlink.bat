@@ -5,11 +5,10 @@ pushd .
 
 :: ~
 cd %USERPROFILE%
-del /f _vimrc .ackrc .flake8
+del /f _vimrc .ackrc
 
 mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
 mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
-mklink "%USERPROFILE%/.flake8" "%DOTFILES%/conf/flake8"
 mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"
 ::mklink "%USERPROFILE%/Desktop/ip-shift.bat" "%DOTFILES%/script/windows-ip-shift.bat"
 
