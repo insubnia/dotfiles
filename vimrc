@@ -323,6 +323,7 @@ abbrev celan clean
 abbrev lamda lambda
 abbrev swtich switch
 abbrev sturct struct
+abbrev puase pause
 " }}}
 " ============================================================================
 " AUTOCMD {{{

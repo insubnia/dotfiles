@@ -10,6 +10,7 @@ apps=(
 fonts=(
     fonts-naver-d2coding
     fonts-jetbrains-mono
+    fonts-nanum
 )
 
 
