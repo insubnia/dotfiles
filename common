@@ -1,4 +1,5 @@
 #!/bin/sh
+export DOTFILES="$HOME/workspace/dotfiles"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -17,22 +18,21 @@ alias tl1='tree -L 1'
 alias tl2='tree -L 2'
 alias tl3='tree -L 3'
 alias tl4='tree -L 4'
-alias makefile='ln -sf ~/workspace/dotfiles/makefile'
-alias makefile2='cp ~/workspace/dotfiles/makefile makefile'
-alias makefile3='echo include ~/workspace/dotfiles/makefile >> makefile'
+alias makefile='ln -sf $DOTFILES/makefile'
+alias makefile2='cp $DOTFILES/makefile makefile'
+alias makefile3='echo include $DOTFILES/makefile >> makefile'
+alias flake88='ln -sf $DOTFILES/conf/flake8 .flake8'
 # alias dos2unixr='find . -type f -print0 | xargs -0 dos2unix'
 alias dos2unixr='dos2unix $(find . -type f -not -path "*.git/*")'
 alias iperf='iperf3'
 alias ycm='python ~/.vim/plugged/youcompleteme/install.py --clang-completer'
 alias gdc='git diff --cached'
 alias gitflow='git flow'
-alias cmakefile='ln -sf ~/workspace/dotfiles/CMakeLists.txt'
+alias cmakefile='ln -sf $DOTFILES/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
-
 alias mar='make all run'
 
 export FZF_DEFAULT_COMMAND="fd --type f"
-
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9

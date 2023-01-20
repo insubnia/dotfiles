@@ -1,4 +1,13 @@
 {
+  "list": {
+    "normalMappings": {
+      "<C-c>": "do:exit"
+    },
+    "insertMappings": {
+      "<C-c>": "do:exit"
+    }
+  },
+
   "languageserver": {},
   "diagnostic": {
     "enable": true,
@@ -13,6 +22,9 @@
     "linting": {
       "flake8Enabled": true,
       "pylintEnalbed": false
+    },
+    "analysis": {
+      "autoImportCompletions": false
     }
   },
   "xml": {

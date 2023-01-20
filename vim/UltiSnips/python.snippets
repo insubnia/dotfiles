@@ -4,10 +4,19 @@ $0
 """
 endsnippet
 
-snippet class "(snippet) class" b
+snippet printf "(snippet) formatted print" bA
+print(f"$0")
+endsnippet
+
+snippet "class " "(snippet) class" brA
 class ${1:NAME}():
 	def __init__(self):
 		return
+endsnippet
+
+snippet "def " "(snippet) def" brA
+def ${1:NAME}($2):
+	$3
 endsnippet
 
 

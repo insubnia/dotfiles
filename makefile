@@ -53,29 +53,35 @@ CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 ################################################################################
 # flags
 ################################################################################
-# CPU_OPT  := -mcpu=cortex-m0 -mthumb
-# ARCH     := native
+# CPU   := -mcpu=cortex-m0 -mthumb
+OPTIM := -O2 -g3
 
-OPTIMIZE := -O2 -g3
 CC_STD   := c99
 CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
-CFLAGS   = \
-		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+CFLAGS   =  $(CPU) $(OPTIM) \
 		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare
 
-CXXFLAGS = \
-		   $(CPU_OPT) $(ARCH_OPT) $(OPTIMIZE) \
+CXXFLAGS = $(CPU) $(OPTIM) \
 		   -std=$(CXX_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare \
 		   -fpermissive
 
-LDFLAGS  = \
-		   $(CPU_OPT) $(ARCH_OPT) $(MAP_OPT) \
-		   $(LDFILE_OPT)
+LDFLAGS  = $(CPU) $(OPTIM)
+
+# append compiler specific flags
+ifneq (,$(findstring clang,$(CC_VERSION)))
+	LDFLAGS += -Wl,-map,$(MAP) \
+			   -Wl,-dead_strip
+else ifneq (,$(findstring gcc,$(CC_VERSION)))
+	LDFLAGS += -Wl,-Map=$(MAP) \
+			   -Wl,--gc-sections
+else
+	LDFLAGS += $(warning undefined compiler: $(CC))
+endif
 
 ################################################################################
 # artifact
@@ -108,7 +114,7 @@ OUTPUT = $(ELF) $(MAP) $(BIN) $(HEX) $(DL)
 ################################################################################
 # source & output
 ################################################################################
-# LDFILE  := $(TARGET).ld
+# LINKER_SCRIPT := $(TARGET).ld
 
 SRC_ROOTS := \
 			 .
@@ -143,16 +149,8 @@ include $(call rwildcard,.,*.mk)
 
 LD := $(if $(strip $(CXXSRCS)),$(CXX),$(CC))
 
-LDFILE_OPT = $(if $(LDFILE),-T$(LDFILE),)
-ARCH_OPT   = $(if $(ARCH),-arch $(ARCH),)
-
-ifneq (,$(findstring clang,$(CC_VERSION)))
-	MAP_OPT := -Wl,-map,$(MAP)
-else ifneq (,$(findstring gcc,$(CC_VERSION)))
-	MAP_OPT := -Wl,-Map=$(MAP)
-else
-	MAP_OPT :=\
-	$(warning undefined compiler: $(CC))
+ifdef LINKER_SCRIPT
+	LDFLAGS += -T$(LINKER_SCRIPT)
 endif
 
 INC_DIRS := $(addprefix -I, $(INC_DIRS))
@@ -261,11 +259,6 @@ asm: $(ASMS)
 dl: $(DL)
 	@$(ECHO) "complete\n"
 
-PHONY += dump
-dump: $(ELF)
-	@echo Information from $<
-	@$(OBJDUMP) -S -D $<
-
 PHONY += dev
 dev:
 	@echo Configuring Development Environment
@@ -281,12 +274,12 @@ $(HEX): $(ELF)
 	@$(MKDIR) $(@D)
 	$V $(OBJCOPY) -O ihex $< $@
 
-$(ELF): $(OBJS) $(LDFILE)
+$(ELF): $(OBJS) $(LINKER_SCRIPT)
 	@$(ECHO) "linking $(@F)"
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS)
 
-$(DL): $(OBJS)
+$(DL): $(OBJS) $(LINKER_SCRIPT)
 	@$(ECHO) "making dynamic library"
 	@$(MKDIR) $(@D)
 	$V $(LD) -o $@ $(OBJS) $(LIB_DIRS) $(LIBS) $(LDFLAGS) -shared
@@ -312,4 +305,3 @@ $(CXXASMS): $(OUT_DIR)/%.s: %.cpp
 	$V $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
-

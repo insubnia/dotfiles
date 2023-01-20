@@ -1,22 +1,5 @@
 #!/bin/bash
 
-case "$OSTYPE" in
-    darwin*)
-        pm="brew"
-        ;;
-    linux*)
-        pm='apt -y'
-        if [ $EUID != 0 ]; then
-            echo -e "You must run this script with sudo\n"
-            return
-        fi
-        ;;
-esac
-
-echo -e "\n[Update & upgrade packages]"
-# eval $pm update
-# eval $pm upgrade
-
 list=(
     neovim
     git
@@ -33,7 +16,7 @@ list=(
     clang-format
     lld
     make
-    bear  # C/C++ compilation database generater
+    bear
     cmake
     scons
     python3
@@ -53,6 +36,7 @@ list=(
     caffeine
 )
 
+# OS variant
 macos=(
     the_silver_searcher
     mas
@@ -61,23 +45,23 @@ macos=(
     coreutils
     node
     nvm
-    pyenv
     ta-lib
     lua
     fd
     qt
     lsusb
+    # python
+    autopep8
+    pyenv
     # for fun
     nyancat
     cmatrix
     asciiquarium
 )
-
-linux=(
+linux=(  # https://packages.ubuntu.com/
     silversearcher-ag
     vim-gtk
     xclip
-    python3-pip
     clang
     clangd
     libclang-dev
@@ -85,37 +69,60 @@ linux=(
     fd-find
     gcc-arm-none-eabi
     wireshark
+    minicom
+    cutecom
     peek
     samba
     ufw
+    beep
+    # python
+    python3-pip
+    python3-autopep8
     # for fun
     nyancat
     cmatrix
 )
-
 apt_repos=(
     ppa:peek-developers/stable
     ppa:neovim-ppa/stable
 )
 
+
 case "$OSTYPE" in
     darwin*)
+        pm="brew"
         list+=(${macos[@]})
         ;;
+
     linux*)
+        pm='apt-get -y'
         list+=(${linux[@]})
+        if [ $EUID != 0 ]; then
+            echo -e "You must run this script with sudo\n"
+            return
+        fi
+
+        echo -ne "\nAdding PPAs(Personal Package Archive)... "
         for v in ${apt_repos[@]}
         do
-            eval add-apt-repository $v
+            eval add-apt-repository -y $v > /dev/null
         done
-        eval $pm update
+        echo -e "Done\n"
         ;;
 esac
 
+
+echo -ne "\nUpdating & Upgrading packages... "
+eval $pm update > /dev/null
+eval $pm upgrade > /dev/null
+echo -e "Done\n"
+
+
 for v in ${list[@]}
 do
-    echo -e "\n[Installing $item]"
-    eval $pm install $v
+    echo -n "Installing $v... "
+    eval $pm install $v > /dev/null
+    echo -e "Done"
 done
 
 echo -e "\nComplete\n"
