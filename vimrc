@@ -162,6 +162,7 @@ nnoremap _ <
 nnoremap 0 <C-i>zz
 nnoremap R :GitGutterEn<cr>:GitGutterAll<cr>
 nnoremap T :TagbarToggle<cr>
+nnoremap cd :lcd %:p:h<cr>
 nnoremap cw ciw
 nnoremap dw diw
 nnoremap yw yiw
@@ -176,8 +177,8 @@ nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>t <C-w>T
-" nnoremap <C-w>] :vert stj <cr>
-nnoremap <C-w>] :vs<cr>:GoTo<cr>
+nnoremap <C-w>[ :vs\|GoTo<cr><C-w>T
+nnoremap <C-w>] :vs\|GoTo<cr>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 nnoremap <M-Up> kddpk
@@ -245,6 +246,7 @@ nmap <C-q> <plug>(qf_qf_toggle)
 nmap <leader>l <plug>(ale_fix)
 nmap <leader>j <Plug>(qf_qf_next)zz
 nmap <leader>k <Plug>(qf_qf_previous)zz
+nmap <C-w><C-[> <C-w>[
 nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
