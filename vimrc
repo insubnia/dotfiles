@@ -826,6 +826,16 @@ let g:ale_xml_xmllint_options = '--format'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = ''
 
+" surround
+if IsInstalled('surround')
+    nmap ys" ysiw"
+    nmap ys' ysiw'
+    nmap ys) ysiw)
+    nmap ys> ysiw>
+    nmap ys] ysiw]
+    nmap ys} ysiw}
+endif
+
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
 
