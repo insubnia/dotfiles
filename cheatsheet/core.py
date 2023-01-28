@@ -3,10 +3,16 @@ import os
 import sys
 import time
 import signal
+import logging
 import requests
 from threading import Thread
 from datetime import datetime
 from colorama import Fore
+
+logging.basicConfig(format=f"{Fore.CYAN}(%(levelname)s)(%(asctime)s) %(message)s{Fore.RESET}",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+                    level=logging.WARNING)
+
 
 def resource_path(relpath):
     if hasattr(sys, '_MEIPASS'):
