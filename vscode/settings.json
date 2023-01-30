@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Dark (Molokai)",
+  "workbench.colorTheme": "Night Owl",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 
   "editor": {
@@ -60,6 +60,7 @@
       { "before": ["<leader>", "g"], "commands": ["gitlens.compareWith"] },
       { "before": ["<leader>", "h"], "commands": ["editor.action.startFindReplaceAction"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
+      { "before": ["<leader>", "enter"], "commands": ["editor.action.insertLineAfter"] },
     ],
     "visualModeKeyBindingsNonRecursive": [
       { "before": ["<"], "after": ["<", "g", "v"] },
@@ -70,6 +71,7 @@
     "insertModeKeyBindingsNonRecursive": [
       { "before": ["<C-a>"], "commands": ["cursorHome"] },
       { "before": ["<C-e>"], "commands": ["cursorEnd"] },
+      { "before": ["<C-l>"], "commands": ["editor.action.insertLineAfter"] },
     ],
     "normalModeKeyBindings": [
     ],
