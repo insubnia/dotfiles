@@ -5,6 +5,7 @@ import time
 import signal
 import logging
 import requests
+import pandas as pd
 from threading import Thread
 from datetime import datetime
 from colorama import Fore
@@ -51,12 +52,16 @@ def lapse(func):
 def get_public_ip():
     return requests.get("https://api.ipify.org").text
 
+
 def xdatetime(_datetime=None):
     if _datetime is None:
         _datetime = datetime.now().astimezone()
     elif not isinstance(_datetime, datetime):
         return ""
     return _datetime.strftime("%Y-%m-%d %H:%M:%S")
+
+def to_datetime(t):
+    return pd.to_datetime(t).to_pydatetime().astimezone()
 
 
 # https://gist.github.com/michelbl/efda48b19d3e587685e3441a74457024
