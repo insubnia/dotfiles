@@ -9,6 +9,7 @@ import pandas as pd
 from threading import Thread
 from datetime import datetime
 from colorama import Fore
+from functools import partial
 
 logging.basicConfig(format=f"{Fore.CYAN}(%(levelname)s)(%(asctime)s) %(message)s{Fore.RESET}",
                     datefmt="%Y-%m-%d %H:%M:%S",
@@ -62,6 +63,20 @@ def xdatetime(_datetime=None):
 
 def to_datetime(t):
     return pd.to_datetime(t).to_pydatetime().astimezone()
+
+
+def _print(color, /, *args, **kwargs):
+    print(color, end="")
+    print(*args, **kwargs)
+    print(Fore.RESET, end="")
+printk = partial(_print, Fore.BLACK)
+printr = partial(_print, Fore.RED)
+printg = partial(_print, Fore.GREEN)
+printy = partial(_print, Fore.YELLOW)
+printb = partial(_print, Fore.BLUE)
+printm = partial(_print, Fore.MAGENTA)
+printc = partial(_print, Fore.CYAN)
+printw = partial(_print, Fore.WHITE)
 
 
 # https://gist.github.com/michelbl/efda48b19d3e587685e3441a74457024
@@ -121,8 +136,8 @@ class Conio:
 
 
 if __name__ == "__main__":
-    print(resource_path('./core.py'))
-    print(xdatetime())
+    printy(resource_path('./core.py'))
+    printg(xdatetime())
 
     print(f"{Fore.BLUE}\nHit any key or ESC to exit{Fore.RESET}")
     conio = Conio()
