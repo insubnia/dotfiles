@@ -346,10 +346,10 @@ autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim
-autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\)')
-autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\)')
-autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\)')
-autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\)')
+autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\):')
+autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\):')
+autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\):')
+autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\):')
 
 function! OperatorHL()
     if has('nvim')
@@ -864,10 +864,10 @@ let g:NERDTreeGitStatusConcealBrackets = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo molokai
-    let g:airline_theme = 'molokai'
+    colo dracula
+    let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let g:material_style = 'dark'
+    let g:material_style = 'palenight'
     colo vim-material
     let g:airline_theme = 'material'
 elseif g:os == "WSL"
