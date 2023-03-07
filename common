@@ -58,3 +58,5 @@ WORKSPACE=$HOME/workspace
 if [ -d $WORKSPACE ] && [ $PWD = $HOME ]; then
     cd $WORKSPACE
 fi
+
+export USE_CCACHE=1

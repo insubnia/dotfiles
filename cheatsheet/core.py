@@ -5,6 +5,7 @@ import time
 import signal
 import logging
 import requests
+import numpy as np
 import pandas as pd
 from threading import Thread
 from datetime import datetime
@@ -51,7 +52,8 @@ def lapse(func):
     return wrapper
 
 def get_public_ip():
-    return requests.get("https://api.ipify.org").text
+    # return requests.get("https://api.ipify.org").text
+    return requests.get('https://ipapi.co/ip/').text
 
 
 def xdatetime(_datetime=None):
@@ -63,6 +65,12 @@ def xdatetime(_datetime=None):
 
 def to_datetime(t):
     return pd.to_datetime(t).to_pydatetime().astimezone()
+
+def get_elapsed_minutes(since):
+    if since is None:
+        return np.inf
+    since = to_datetime(since)
+    return int((datetime.now().astimezone() - since).total_seconds()) // 60
 
 
 def _print(color, /, *args, **kwargs):

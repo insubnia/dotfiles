@@ -16,6 +16,7 @@ list=(
     clang-format
     lld
     make
+    ccache
     bear
     cmake
     scons
