@@ -50,7 +50,7 @@ endif
 CC_VERSION  := $(shell "$(CC)" --version | "$(HEAD)" -n 1)
 CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 
-CCACHE := $(if $(wildcard /usr/bin/ccache),ccache)
+CCACHE := $(if $(shell which ccache), ccache)
 
 ################################################################################
 # flags
@@ -251,6 +251,7 @@ clang-format:
 
 test:
 	@$(ECHO) $(TEST)
+	@$(ECHO) $(CCACHE)
 	@$(ECHO) $(OUTDIRS)
 	@$(ECHO) "$(CC_VERSION)"
 
@@ -289,21 +290,21 @@ $(DL): $(OBJS) $(LINKER_SCRIPT)
 $(COBJS): $(OUT_DIR)/%.o: %.c
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
-	$V $(CC) -o $@ -c $< $(INC_DIRS) $(CFLAGS)
+	$V$(CCACHE) $(CC) -o $@ -c $< $(INC_DIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
-	$V $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
+	$V$(CCACHE) $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
 
 $(CASMS): $(OUT_DIR)/%.s: %.c
 	@$(ECHO) "generating assembly $(@F)"
 	@$(MKDIR) $(@D)
-	$V$(CCACHE) $(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
+	$V$(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
 
 $(CXXASMS): $(OUT_DIR)/%.s: %.cpp
 	@$(ECHO) "generating assembly $(@F)"
 	@$(MKDIR) $(@D)
-	$V$(CCACHE) $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
+	$V$(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
