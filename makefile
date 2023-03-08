@@ -50,6 +50,8 @@ endif
 CC_VERSION  := $(shell "$(CC)" --version | "$(HEAD)" -n 1)
 CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
 
+CCACHE := $(if $(wildcard /usr/bin/ccache),ccache)
+
 ################################################################################
 # flags
 ################################################################################
@@ -297,11 +299,11 @@ $(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 $(CASMS): $(OUT_DIR)/%.s: %.c
 	@$(ECHO) "generating assembly $(@F)"
 	@$(MKDIR) $(@D)
-	$V $(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
+	$V$(CCACHE) $(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
 
 $(CXXASMS): $(OUT_DIR)/%.s: %.cpp
 	@$(ECHO) "generating assembly $(@F)"
 	@$(MKDIR) $(@D)
-	$V $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
+	$V$(CCACHE) $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)
