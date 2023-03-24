@@ -883,7 +883,7 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let g:material_style = 'palenight'
+    let g:material_style = 'dark'
     colo vim-material
     let g:airline_theme = 'material'
 elseif g:os == "WSL"

@@ -5,6 +5,7 @@
 
 # Windows
 Thumbs.db
+*.lnk
 
 # MS Office
 *.doc*
