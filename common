@@ -64,8 +64,8 @@ export USE_CCACHE=1
 # API Key
 case "$OSTYPE" in
     darwin*)
-        export ACCESS_KEY='aQjv2aNU9uLN7rwzA9mzAA766aNEfREpjItP6plq'
-        export SECRET_KEY='86MD4IykpHZ0otlANh2ARgOAp0Jqld3U9VB5Ssyi'
+        export ACCESS_KEY='hmCpEbHz9GVK2LfTkxWY7A8PgCJUs7TjgqwSsUEH'
+        export SECRET_KEY='9uaCZwQ2Bp4cIXaz5jp1CvGg4Ury4UT3GN77LGl0'
         ;;
     linux*)
         export ACCESS_KEY='oyoSSj4IagMUWSLIo8wPMpfxpqE79HWxEF3IswOV'
