@@ -51,6 +51,8 @@ macos=(
     fd
     qt
     lsusb
+    # C/C++
+    boost
     # python
     autopep8
     pyenv
@@ -63,12 +65,8 @@ linux=(  # https://packages.ubuntu.com/
     silversearcher-ag
     vim-gtk
     xclip
-    clang
-    clangd
-    libclang-dev
     net-tools
     fd-find
-    gcc-arm-none-eabi
     wireshark
     minicom
     cutecom
@@ -76,6 +74,12 @@ linux=(  # https://packages.ubuntu.com/
     samba
     ufw
     beep
+    # C/C++
+    gcc-arm-none-eabi
+    clang
+    clangd
+    libclang-dev
+    libboost-all-dev
     # python
     python3-pip
     python3-autopep8
