@@ -85,6 +85,14 @@ printb = partial(_print, Fore.BLUE)
 printm = partial(_print, Fore.MAGENTA)
 printc = partial(_print, Fore.CYAN)
 printw = partial(_print, Fore.WHITE)
+printlk = partial(_print, Fore.LIGHTBLACK_EX)
+printlr = partial(_print, Fore.LIGHTRED_EX)
+printlg = partial(_print, Fore.LIGHTGREEN_EX)
+printly = partial(_print, Fore.LIGHTYELLOW_EX)
+printlb = partial(_print, Fore.LIGHTBLUE_EX)
+printlm = partial(_print, Fore.LIGHTMAGENTA_EX)
+printlc = partial(_print, Fore.LIGHTCYAN_EX)
+printlw = partial(_print, Fore.LIGHTWHITE_EX)
 
 
 # https://gist.github.com/michelbl/efda48b19d3e587685e3441a74457024

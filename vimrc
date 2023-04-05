@@ -20,8 +20,6 @@ if has('nvim')
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'p00f/nvim-ts-rainbow'
-    Plug 'ggandor/leap.nvim'
-    Plug 'ggandor/flit.nvim'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
@@ -861,21 +859,6 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-
-" flit
-if IsInstalled('flit')
-lua << EOF
-require('flit').setup {
-  keys = { f = 'f', F = 'F', t = 't', T = 'T' },
-  -- A string like "nv", "nvo", "o", etc.
-  labeled_modes = "v",
-  multiline = true,
-  -- Like `leap`s similar argument (call-specific overrides).
-  -- E.g.: opts = { equivalence_classes = {} }
-  opts = {}
-}
-EOF
-endif
 " }}}
 " ============================================================================
 " OUTRO {{{
