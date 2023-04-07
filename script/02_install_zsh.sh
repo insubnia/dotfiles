@@ -1,20 +1,17 @@
 #!/bin/bash
 
-# install zsh
 case "$OSTYPE" in
     darwin*)
         brew install zsh
         ;;
     linux*)
-        sudo apt-get install zsh
+        sudo apt install zsh
         ;;
 esac
 
-# zplug
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 source ~/.zplug/init.zsh
 
-# Append source line
 LINE="source ~/workspace/dotfiles/zshrc"
 if ! grep -q $LINE ~/.zshrc; then
     echo "Append line"

@@ -61,6 +61,13 @@ fi
 
 export USE_CCACHE=1
 
+# unsetopt BG_NICE
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
 # API Key
 case "$OSTYPE" in
     darwin*)
