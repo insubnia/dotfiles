@@ -66,6 +66,12 @@ def xdatetime(_datetime=None):
 def to_datetime(t):
     return pd.to_datetime(t).to_pydatetime().astimezone()
 
+def get_interval(df_or_index):
+    index = df_or_index.index if isinstance(df_or_index, pd.DataFrame) else df_or_index
+    assert isinstance(index, pd.Index)
+    td = to_datetime(index[1]) - to_datetime(index[0])
+    return int(td.total_seconds()) // 60
+
 def get_elapsed_minutes(since):
     if since is None:
         return np.inf

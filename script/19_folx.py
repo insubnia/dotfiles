@@ -16,7 +16,9 @@ for d in dirs:
 
     for path in paths:
         old = os.path.basename(path)
-        new = re.sub(r'^.+\.com@', r'', old)
+        if any(ord(v) > 127 for v in old):
+            continue
+        new = re.sub(r'^.+\.\w+@', r'', old)
         print(f"\t{old} ➡️  {new}")
 
         new_path = f"{d}{new}"
