@@ -80,12 +80,19 @@
     ]
   },
 
-  "C_Cpp.updateChannel": "Insiders",
+  "git": {
+    "openRepositoryInParentFolders": "always"
+  },
+
   "[c]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
   "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
-  "files.eol": ""
+  "[python]": {
+    "editor.formatOnType": true
+  },
+
+  "files.eol": "EOL"
 }
