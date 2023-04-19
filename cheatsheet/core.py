@@ -8,7 +8,7 @@ import requests
 import numpy as np
 import pandas as pd
 from threading import Thread
-from datetime import datetime
+from datetime import datetime, timedelta
 from colorama import Fore
 from functools import partial
 
@@ -42,6 +42,22 @@ class Loop():
 loop = Loop()
 
 
+class timeout():
+    """ https://stackoverflow.com/questions/2281850/timeout-function-if-it-takes-too-long-to-finish
+        with timeout(3):
+            time.sleep(4)
+    """
+    def __init__(self, seconds=10):
+        self.seconds = seconds
+    def __enter__(self):
+        signal.signal(signal.SIGALRM, self.timeout_handler)
+        signal.alarm(self.seconds)
+    def __exit__(self, type, value, traceback):
+        signal.alarm(0)
+    def timeout_handler(self, signum, frame):
+        raise TimeoutError("User Timeout")
+
+
 def lapse(func):
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
@@ -57,14 +73,18 @@ def get_public_ip():
 
 
 def xdatetime(_datetime=None):
-    if _datetime is None:
-        _datetime = datetime.now().astimezone()
-    elif not isinstance(_datetime, datetime):
-        return ""
+    _datetime = _datetime or datetime.now().astimezone()
+    assert isinstance(_datetime, datetime)
     return _datetime.strftime("%Y-%m-%d %H:%M:%S")
 
 def to_datetime(t):
     return pd.to_datetime(t).to_pydatetime().astimezone()
+
+def trim_usec(input):
+    if isinstance(input, datetime):
+        return input - timedelta(microseconds=input.microsecond)
+    elif isinstance(input, timedelta):
+        return input - timedelta(microseconds=input.microseconds)
 
 def get_interval(df_or_index):
     index = df_or_index.index if isinstance(df_or_index, pd.DataFrame) else df_or_index
