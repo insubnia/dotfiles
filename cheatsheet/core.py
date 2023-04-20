@@ -55,7 +55,7 @@ class timeout():
     def __exit__(self, type, value, traceback):
         signal.alarm(0)
     def timeout_handler(self, signum, frame):
-        raise TimeoutError("User Timeout")
+        raise TimeoutError("User-Defined Timeout")
 
 
 def lapse(func):
@@ -86,17 +86,18 @@ def trim_usec(input):
     elif isinstance(input, timedelta):
         return input - timedelta(microseconds=input.microseconds)
 
-def get_interval(df_or_index):
-    index = df_or_index.index if isinstance(df_or_index, pd.DataFrame) else df_or_index
-    assert isinstance(index, pd.Index)
-    td = to_datetime(index[1]) - to_datetime(index[0])
-    return int(td.total_seconds()) // 60
+def now():
+    return trim_usec(datetime.now().astimezone())
 
-def get_elapsed_minutes(since):
+def get_interval(input):
+    if type(input) in (pd.DataFrame, pd.Series):
+        input = input.index
+    return int((to_datetime(input[1]) - to_datetime(input[0])).total_seconds()) // 60
+
+def get_elapsed_minutes(since=None):
     if since is None:
         return np.inf
-    since = to_datetime(since)
-    return int((datetime.now().astimezone() - since).total_seconds()) // 60
+    return int((now() - to_datetime(since)).total_seconds()) // 60
 
 
 def _print(color, /, *args, **kwargs):
