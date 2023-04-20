@@ -40,8 +40,8 @@ choco install -y fd
 choco install -y fzf
 choco install -y llvm
 choco install -y make
+choco install -y ccache
 choco install -y cmake
-:: choco install -y ctags
 choco install -y python3
 choco install -y lua
 choco install -y nvm

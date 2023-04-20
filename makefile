@@ -39,18 +39,19 @@ SYMLINK  := ln -sf
 TAR      := tar -cf
 COMPRESS := gzip -9f
 
-ifeq ($(UNAME),Windows)
+ifeq ($(OS),Windows_NT)
 	GIT_BIN_DIR := C:/Program Files/Git/usr/bin/
-	RM    := $(GIT_BIN_DIR)$(RM)
-	MKDIR := $(GIT_BIN_DIR)$(MKDIR)
-	ECHO  := $(GIT_BIN_DIR)$(ECHO) -e
-	HEAD  := $(GIT_BIN_DIR)$(HEAD)
+	RM     := $(GIT_BIN_DIR)$(RM)
+	MKDIR  := $(GIT_BIN_DIR)$(MKDIR)
+	ECHO   := $(GIT_BIN_DIR)$(ECHO) -e
+	HEAD   := $(GIT_BIN_DIR)$(HEAD)
+	CCACHE := $(if $(shell where ccache), ccache)
+else
+	CCACHE := $(if $(shell which ccache), ccache)
 endif
 
 CC_VERSION  := $(shell "$(CC)" --version | "$(HEAD)" -n 1)
 CXX_VERSION := $(shell "$(CXX)" --version | "$(HEAD)" -n 1)
-
-CCACHE := $(if $(shell which ccache), ccache)
 
 ################################################################################
 # flags
@@ -106,6 +107,7 @@ else
 endif
 
 ELF = $(TAR_DIR)/$(TARGET).elf
+LST = $(TAR_DIR)/$(TARGET).lst
 MAP = $(OUT_DIR)/$(TARGET).map
 BIN = $(OUT_DIR)/$(TARGET).bin
 HEX = $(OUT_DIR)/$(TARGET).hex
@@ -175,7 +177,7 @@ PHONY := all build clean run show cdb clang-format test
 
 all: build
 
-build: $(ELF) #$(BIN) $(HEX)
+build: $(ELF) $(LST) #$(BIN) $(HEX)
 	@$(ECHO) "build complete\n"
 	$V $(SIZE) $<
 	@$(ECHO) "------------------------------------------------------------------\n"
@@ -250,10 +252,10 @@ clang-format:
 	}" -dump-config > .clang-format
 
 test:
-	@$(ECHO) $(TEST)
 	@$(ECHO) $(CCACHE)
 	@$(ECHO) $(OUTDIRS)
 	@$(ECHO) "$(CC_VERSION)"
+	@$(ECHO) $(TEST)
 
 
 asm: $(ASMS)
@@ -266,6 +268,10 @@ PHONY += dev
 dev:
 	@echo Configuring Development Environment
 
+$(LST): $(ELF)
+	@$(ECHO) "generating disassembly $(@F)"
+	@$(MKDIR) $(@D)
+	$V $(OBJDUMP) -h -S $< > $@
 
 $(BIN): $(ELF)
 	@$(ECHO) "converting format $(<F) to $(@F)"
