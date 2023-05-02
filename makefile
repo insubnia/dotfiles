@@ -62,7 +62,7 @@ OPTIM := -O2 -g3
 CC_STD   := c99
 CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
-CFLAGS   =  $(CPU) $(OPTIM) \
+CFLAGS   = $(CPU) $(OPTIM) \
 		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare
@@ -199,25 +199,25 @@ show:
 	@$(ECHO) "\nUNAME = $(UNAME)"
 	@$(ECHO) "\nCOMPILER = $(CC_VERSION)"
 ifneq ($(UNAME),Windows)
-	@echo "\nSRC_ROOTS"
+	@$(ECHO) "\nSRC_ROOTS"
 	@(for v in $(SRC_ROOTS); do $(ECHO) "\t$$v"; done)
-	@echo "\nINC_DIRS"
+	@$(ECHO) "\nINC_DIRS"
 	@(for v in $(INC_DIRS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLIB_DIRS"
+	@$(ECHO) "\nLIB_DIRS"
 	@(for v in $(LIB_DIRS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLIBS"
+	@$(ECHO) "\nLIBS"
 	@(for v in $(LIBS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCFLAGS"
+	@$(ECHO) "\nCFLAGS"
 	@(for v in $(CFLAGS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCXXFLAGS"
+	@$(ECHO) "\nCXXFLAGS"
 	@(for v in $(CXXFLAGS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLDFLAGS"
+	@$(ECHO) "\nLDFLAGS"
 	@(for v in $(LDFLAGS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCSRCS"
+	@$(ECHO) "\nCSRCS"
 	@(for v in $(CSRCS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCXXSRCS"
+	@$(ECHO) "\nCXXSRCS"
 	@(for v in $(CXXSRCS); do $(ECHO) "\t$$v"; done)
-	@echo
+	@$(ECHO)
 endif
 
 cdb: clean
@@ -266,7 +266,7 @@ dl: $(DL)
 
 PHONY += dev
 dev:
-	@echo Configuring Development Environment
+	@$(ECHO) "configuring development environment"
 
 PHONY += sim _sim
 sim: _sim clean all
