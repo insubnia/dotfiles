@@ -177,7 +177,7 @@ PHONY := all build clean run show cdb clang-format test
 
 all: build
 
-build: $(ELF) $(LST) #$(BIN) $(HEX)
+build: $(ELF) #$(LST) $(BIN) $(HEX)
 	@$(ECHO) "build complete\n"
 	$V $(SIZE) $<
 	@$(ECHO) "------------------------------------------------------------------\n"
@@ -267,6 +267,11 @@ dl: $(DL)
 PHONY += dev
 dev:
 	@echo Configuring Development Environment
+
+PHONY += sim _sim
+sim: _sim clean all
+_sim:
+	@$(eval CFLAGS+=-D__SIM)
 
 $(LST): $(ELF)
 	@$(ECHO) "generating disassembly $(@F)"
