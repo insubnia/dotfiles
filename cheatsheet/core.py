@@ -5,6 +5,7 @@ import time
 import signal
 import logging
 import requests
+import platform
 import numpy as np
 import pandas as pd
 from threading import Thread
@@ -58,6 +59,18 @@ class timeout():
         raise TimeoutError("User-Defined Timeout")
 
 
+def alarm(string="가즈아"):
+    freq, duration = 2000, 1000
+    if platform.system() == 'Darwin':
+        os.system(f"say -v Yuna {string}")
+        sys.stdout.write("\a")
+    elif platform.system() == 'Linux':
+        # os.system(f"beep -f {freq} -l {duration}")
+        os.system("printf '\007'")
+    elif os.name == 'nt':
+        import winsound as ws
+        ws.Beep(freq, duration)
+
 def lapse(func):
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
@@ -92,7 +105,11 @@ def now():
 def get_interval(input):
     if type(input) in (pd.DataFrame, pd.Series):
         input = input.index
-    return int((to_datetime(input[1]) - to_datetime(input[0])).total_seconds()) // 60
+    intervals = []
+    for i in range(len(input) - 1)[::10]:  # 1/10 sampling and then return median value
+        interval = int((to_datetime(input[i + 1]) - to_datetime(input[i])).total_seconds()) // 60
+        intervals.append(interval)
+    return sorted(intervals)[len(intervals) // 2]
 
 def get_elapsed_minutes(since=None):
     if since is None:

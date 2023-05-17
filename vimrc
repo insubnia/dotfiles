@@ -866,9 +866,8 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let g:material_style = 'dark'
-    colo vim-material
-    let g:airline_theme = 'material'
+    colo PaperColor
+    let g:airline_theme = 'papercolor'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'
