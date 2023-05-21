@@ -716,7 +716,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
     let g:airline_section_c .= '¦  '
     if g:os == 'Darwin'
-        let g:airline_section_c .= '🫧 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🤑 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
         let g:airline_section_c .= '🔥 %#__accent_bold#%{$USER}'
     elseif g:os == 'WSL'

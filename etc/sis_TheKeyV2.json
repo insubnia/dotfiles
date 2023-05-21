@@ -60,7 +60,7 @@
         "row": 0,
         "col": 1,
         "keycodes": [
-          { "id": "KC_C", "fields": [] },
+          { "id": "LGUI(KC_C)", "fields": [] },
           { "id": "KC_TRNS", "fields": [] },
           { "id": "KC_TRNS", "fields": [] },
           { "id": "KC_TRNS", "fields": [] },
@@ -98,7 +98,7 @@
         "row": 0,
         "col": 2,
         "keycodes": [
-          { "id": "KC_V", "fields": [] },
+          { "id": "LGUI(KC_V)", "fields": [] },
           { "id": "KC_TRNS", "fields": [] },
           { "id": "KC_TRNS", "fields": [] },
           { "id": "KC_TRNS", "fields": [] },
