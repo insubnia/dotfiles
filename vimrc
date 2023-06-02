@@ -167,10 +167,11 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-nnoremap <C-g> :GitGutterUndoHunk<cr>
+" nnoremap <C-g>
 nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
+nnoremap <C-s> :GitGutterUndoHunk<cr>
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
@@ -188,8 +189,8 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
-" nnoremap <leader>f :Ack!<space>
 nnoremap <leader>f :Ag<cr>
+" nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
 nnoremap <leader>r :Run<cr>

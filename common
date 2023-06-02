@@ -35,13 +35,6 @@ alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
 alias mar='make all run'
 alias goaws='ssh -i $DOTFILES/key.pem ubuntu@aws'
 
-export FZF_DEFAULT_COMMAND="fd --type f"
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
---color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
---color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
---color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-
 case "$OSTYPE" in
     darwin*)
         export PATH=/opt/homebrew/bin:$PATH
@@ -82,3 +75,6 @@ case "$OSTYPE" in
         export SECRET_KEY='QRNhzgU9gH2wBFI5xVG57YRq4o7pSW5xUnxXVPQr'
         ;;
 esac
+
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
