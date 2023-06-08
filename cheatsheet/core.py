@@ -12,6 +12,7 @@ from threading import Thread
 from datetime import datetime, timedelta
 from colorama import Fore
 from functools import partial
+from typing import Union
 
 logging.basicConfig(format=f"{Fore.CYAN}(%(levelname)s)(%(asctime)s) %(message)s{Fore.RESET}",
                     datefmt="%Y-%m-%d %H:%M:%S",
@@ -38,7 +39,7 @@ class Loop():
     def signal_handler(self, signum, frame):
         self.loop = False
         print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
-        Thread(target=lambda:(time.sleep(3), os._exit(0)), daemon=True).start()
+        Thread(target=lambda: (time.sleep(3), os._exit(0)), daemon=True).start()
 
 loop = Loop()
 
@@ -67,7 +68,7 @@ def alarm(string="가즈아"):
     elif platform.system() == 'Linux':
         # os.system(f"beep -f {freq} -l {duration}")
         os.system("printf '\007'")
-    elif os.name == 'nt':
+    elif getattr(os, 'name') == 'nt':
         import winsound as ws
         ws.Beep(freq, duration)
 
@@ -85,35 +86,45 @@ def get_public_ip():
     return requests.get('https://ipapi.co/ip/').text
 
 
-def xdatetime(_datetime=None):
+def xdatetime(_datetime=None) -> str:
     _datetime = _datetime or datetime.now().astimezone()
     assert isinstance(_datetime, datetime)
     return _datetime.strftime("%Y-%m-%d %H:%M:%S")
 
-def to_datetime(t):
+def to_datetime(t) -> datetime:
     return pd.to_datetime(t).to_pydatetime().astimezone()
 
-def trim_usec(input):
+def trim_usec(input: Union[datetime, timedelta]) -> Union[datetime, timedelta]:
     if isinstance(input, datetime):
         return input - timedelta(microseconds=input.microsecond)
     elif isinstance(input, timedelta):
         return input - timedelta(microseconds=input.microseconds)
 
-def now():
+def now() -> datetime:
     return trim_usec(datetime.now().astimezone())
 
-def get_interval(input):
+def epoch() -> datetime:
+    return datetime(1970, 1, 1).astimezone()
+
+def get_interval(input) -> int:
     if type(input) in (pd.DataFrame, pd.Series):
         input = input.index
+    """
     intervals = []
     for i in range(len(input) - 1)[::10]:  # 1/10 sampling and then return median value
         interval = int((to_datetime(input[i + 1]) - to_datetime(input[i])).total_seconds()) // 60
         intervals.append(interval)
     return sorted(intervals)[len(intervals) // 2]
+    """
+    intervals = pd.Series(np.nan, input)
+    for i in range(1, len(input)):
+        intervals[i] = (to_datetime(input[i]) - to_datetime(input[i - 1])).total_seconds() // 60
+    return int(intervals.value_counts().idxmax())
 
-def get_elapsed_minutes(since=None):
+
+def get_elapsed_minutes(since=None) -> int:
     if since is None:
-        return np.inf
+        since = epoch()
     return int((now() - to_datetime(since)).total_seconds()) // 60
 
 
@@ -140,7 +151,7 @@ printlw = partial(_print, Fore.LIGHTWHITE_EX)
 
 
 # https://gist.github.com/michelbl/efda48b19d3e587685e3441a74457024
-if os.name == 'nt':
+if getattr(os, 'name') == 'nt':
     import msvcrt
 else:  # UNIX
     import termios
@@ -149,7 +160,7 @@ else:  # UNIX
 
 class Conio:
     def __init__(self):
-        if os.name != 'nt':
+        if getattr(os, 'name') != 'nt':
             # backup terminal settings
             self.fd = sys.stdin.fileno()
             self.new_term = termios.tcgetattr(self.fd)
@@ -166,15 +177,15 @@ class Conio:
         if os.name != 'nt':
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.old_term)
 
-    def kbhit(self):
-        if os.name == 'nt':
+    def kbhit(self) -> bool:
+        if getattr(os, 'name') == 'nt':
             return msvcrt.kbhit()
         else:
-            dr, dw, de = select([sys.stdin], [], [], 0)
+            dr, _, _ = select([sys.stdin], [], [], 0)
             return dr != []
 
-    def getch(self):
-        if os.name == 'nt':
+    def getch(self) -> Union[str, None]:
+        if getattr(os, 'name') == 'nt':
             ch = msvcrt.getch()
             try:
                 ch = ch.decode('utf-8')
@@ -185,7 +196,7 @@ class Conio:
         return ch
 
     def getarrow(self):
-        if os.name == 'nt':
+        if getattr(os, 'name') == 'nt':
             msvcrt.getch()  # skip 0xE0
             c = msvcrt.getch()
             vals = [72, 77, 80, 75]
