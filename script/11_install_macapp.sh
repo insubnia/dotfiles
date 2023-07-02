@@ -16,7 +16,6 @@ apps=(
     adobe-acrobat-reader
     mounty
     sourcetree
-    smartgit
     visual-studio-code
     wireshark
     gcc-arm-embedded
@@ -33,10 +32,12 @@ fonts=(
 )
 
 # https://github.com/mas-cli/mas
+# mas search {AppName}
 mas_list=(
     869223134  # KakaoTalk
     1236050766 # Melon
     441258766  # Magnet
+    418073146  # Snap
     1471801525 # polyglot
     1231935892 # Unicorn
     1475628500 # Unicorn HTTPS
