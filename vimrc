@@ -256,10 +256,10 @@ if has('nvim')
     nnoremap ? :CocList -I symbols<cr>
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
+    nmap ge <plug>(coc-references)
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-    nmap gR <plug>(coc-references)
     nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
 
@@ -647,6 +647,9 @@ if IsInstalled('coc.nvim')
                 \'coc-xml',
                 \]
     let g:coc_config_home = '~/workspace/dotfiles/vim'
+
+    " essential
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " coc-outline
     nnoremap <silent><nowait> T :call ToggleOutline()<CR>
