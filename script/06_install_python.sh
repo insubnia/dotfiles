@@ -21,6 +21,7 @@ list=(
     mplfinance
     pyqt6
     pyinstaller
+    polars
     pandas
     pandas_ta
     ta-lib

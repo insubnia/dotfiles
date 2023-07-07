@@ -18,6 +18,7 @@ apps=(
     sourcetree
     visual-studio-code
     wireshark
+    cron
     gcc-arm-embedded
     coolterm
     qt-creator
