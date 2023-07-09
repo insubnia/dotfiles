@@ -39,12 +39,15 @@ SYMLINK  := ln -sf
 TAR      := tar -cf
 COMPRESS := gzip -9f
 
-ifeq ($(UNAME),Windows)
+ifeq ($(OS),Windows_NT)
 	GIT_BIN_DIR := C:/Program Files/Git/usr/bin/
-	RM    := $(GIT_BIN_DIR)$(RM)
-	MKDIR := $(GIT_BIN_DIR)$(MKDIR)
-	ECHO  := $(GIT_BIN_DIR)$(ECHO) -e
-	HEAD  := $(GIT_BIN_DIR)$(HEAD)
+	RM     := $(GIT_BIN_DIR)$(RM)
+	MKDIR  := $(GIT_BIN_DIR)$(MKDIR)
+	ECHO   := $(GIT_BIN_DIR)$(ECHO) -e
+	HEAD   := $(GIT_BIN_DIR)$(HEAD)
+	CCACHE := $(if $(shell where ccache), ccache)
+else
+	CCACHE := $(if $(shell which ccache), ccache)
 endif
 
 CC_VERSION  := $(shell "$(CC)" --version | "$(HEAD)" -n 1)
@@ -59,7 +62,7 @@ OPTIM := -O2 -g3
 CC_STD   := c99
 CXX_STD  := $(if $(filter clang,$(CC_VERSION)),c++20,c++2a)
 
-CFLAGS   =  $(CPU) $(OPTIM) \
+CFLAGS   = $(CPU) $(OPTIM) \
 		   -std=$(CC_STD) \
 		   -W -Wall -MMD \
 		   -Wno-sign-compare
@@ -104,6 +107,7 @@ else
 endif
 
 ELF = $(TAR_DIR)/$(TARGET).elf
+LST = $(TAR_DIR)/$(TARGET).lst
 MAP = $(OUT_DIR)/$(TARGET).map
 BIN = $(OUT_DIR)/$(TARGET).bin
 HEX = $(OUT_DIR)/$(TARGET).hex
@@ -173,7 +177,7 @@ PHONY := all build clean run show cdb clang-format test
 
 all: build
 
-build: $(ELF) #$(BIN) $(HEX)
+build: $(ELF) #$(LST) $(BIN) $(HEX)
 	@$(ECHO) "build complete\n"
 	$V $(SIZE) $<
 	@$(ECHO) "------------------------------------------------------------------\n"
@@ -195,25 +199,25 @@ show:
 	@$(ECHO) "\nUNAME = $(UNAME)"
 	@$(ECHO) "\nCOMPILER = $(CC_VERSION)"
 ifneq ($(UNAME),Windows)
-	@echo "\nSRC_ROOTS"
+	@$(ECHO) "\nSRC_ROOTS"
 	@(for v in $(SRC_ROOTS); do $(ECHO) "\t$$v"; done)
-	@echo "\nINC_DIRS"
+	@$(ECHO) "\nINC_DIRS"
 	@(for v in $(INC_DIRS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLIB_DIRS"
+	@$(ECHO) "\nLIB_DIRS"
 	@(for v in $(LIB_DIRS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLIBS"
+	@$(ECHO) "\nLIBS"
 	@(for v in $(LIBS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCFLAGS"
+	@$(ECHO) "\nCFLAGS"
 	@(for v in $(CFLAGS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCXXFLAGS"
+	@$(ECHO) "\nCXXFLAGS"
 	@(for v in $(CXXFLAGS); do $(ECHO) "\t$$v"; done)
-	@echo "\nLDFLAGS"
+	@$(ECHO) "\nLDFLAGS"
 	@(for v in $(LDFLAGS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCSRCS"
+	@$(ECHO) "\nCSRCS"
 	@(for v in $(CSRCS); do $(ECHO) "\t$$v"; done)
-	@echo "\nCXXSRCS"
+	@$(ECHO) "\nCXXSRCS"
 	@(for v in $(CXXSRCS); do $(ECHO) "\t$$v"; done)
-	@echo
+	@$(ECHO)
 endif
 
 cdb: clean
@@ -248,9 +252,10 @@ clang-format:
 	}" -dump-config > .clang-format
 
 test:
-	@$(ECHO) $(TEST)
+	@$(ECHO) $(CCACHE)
 	@$(ECHO) $(OUTDIRS)
 	@$(ECHO) "$(CC_VERSION)"
+	@$(ECHO) $(TEST)
 
 
 asm: $(ASMS)
@@ -261,8 +266,17 @@ dl: $(DL)
 
 PHONY += dev
 dev:
-	@echo Configuring Development Environment
+	@$(ECHO) "configuring development environment"
 
+PHONY += sim _sim
+sim: _sim clean all
+_sim:
+	@$(eval CFLAGS+=-D__SIM)
+
+$(LST): $(ELF)
+	@$(ECHO) "generating disassembly $(@F)"
+	@$(MKDIR) $(@D)
+	$V $(OBJDUMP) -h -S $< > $@
 
 $(BIN): $(ELF)
 	@$(ECHO) "converting format $(<F) to $(@F)"
@@ -287,21 +301,21 @@ $(DL): $(OBJS) $(LINKER_SCRIPT)
 $(COBJS): $(OUT_DIR)/%.o: %.c
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
-	$V $(CC) -o $@ -c $< $(INC_DIRS) $(CFLAGS)
+	$V$(CCACHE) $(CC) -o $@ -c $< $(INC_DIRS) $(CFLAGS)
 
 $(CXXOBJS): $(OUT_DIR)/%.o: %.cpp
 	@$(ECHO) "compiling $(<F)"
 	@$(MKDIR) $(@D)
-	$V $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
+	$V$(CCACHE) $(CXX) -o $@ -c $< $(INC_DIRS) $(CXXFLAGS)
 
 $(CASMS): $(OUT_DIR)/%.s: %.c
 	@$(ECHO) "generating assembly $(@F)"
 	@$(MKDIR) $(@D)
-	$V $(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
+	$V$(CC) -o $@ -S $< $(INC_DIRS) $(CFLAGS)
 
 $(CXXASMS): $(OUT_DIR)/%.s: %.cpp
 	@$(ECHO) "generating assembly $(@F)"
 	@$(MKDIR) $(@D)
-	$V $(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
+	$V$(CXX) -o $@ -S $< $(INC_DIRS) $(CXXFLAGS)
 
 .PHONY: $(PHONY)

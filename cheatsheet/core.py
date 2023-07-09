@@ -3,10 +3,21 @@ import os
 import sys
 import time
 import signal
+import logging
 import requests
+import platform
+import numpy as np
+import pandas as pd
 from threading import Thread
-from datetime import datetime
+from datetime import datetime, timedelta
 from colorama import Fore
+from functools import partial
+from typing import Union
+
+logging.basicConfig(format=f"{Fore.CYAN}(%(levelname)s)(%(asctime)s) %(message)s{Fore.RESET}",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+                    level=logging.WARNING)
+
 
 def resource_path(relpath):
     if hasattr(sys, '_MEIPASS'):
@@ -28,10 +39,38 @@ class Loop():
     def signal_handler(self, signum, frame):
         self.loop = False
         print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
-        Thread(target=lambda:(time.sleep(3), os._exit(0)), daemon=True).start()
+        Thread(target=lambda: (time.sleep(3), os._exit(0)), daemon=True).start()
 
 loop = Loop()
 
+
+class timeout():
+    """ https://stackoverflow.com/questions/2281850/timeout-function-if-it-takes-too-long-to-finish
+        with timeout(3):
+            time.sleep(4)
+    """
+    def __init__(self, seconds=10):
+        self.seconds = seconds
+    def __enter__(self):
+        signal.signal(signal.SIGALRM, self.timeout_handler)
+        signal.alarm(self.seconds)
+    def __exit__(self, type, value, traceback):
+        signal.alarm(0)
+    def timeout_handler(self, signum, frame):
+        raise TimeoutError("User-Defined Timeout")
+
+
+def alarm(string="가즈아"):
+    freq, duration = 2000, 1000
+    if platform.system() == 'Darwin':
+        os.system(f"say -v Yuna {string}")
+        sys.stdout.write("\a")
+    elif platform.system() == 'Linux':
+        # os.system(f"beep -f {freq} -l {duration}")
+        os.system("printf '\007'")
+    elif getattr(os, 'name') == 'nt':
+        import winsound as ws
+        ws.Beep(freq, duration)
 
 def lapse(func):
     def wrapper(*args, **kwargs):
@@ -43,18 +82,76 @@ def lapse(func):
     return wrapper
 
 def get_public_ip():
-    return requests.get("https://api.ipify.org").text
+    # return requests.get("https://api.ipify.org").text
+    return requests.get('https://ipapi.co/ip/').text
 
-def xdatetime(_datetime=None):
-    if _datetime is None:
-        _datetime = datetime.now().astimezone()
-    elif not isinstance(_datetime, datetime):
-        return ""
+
+def xdatetime(_datetime=None) -> str:
+    _datetime = _datetime or datetime.now().astimezone()
+    assert isinstance(_datetime, datetime)
     return _datetime.strftime("%Y-%m-%d %H:%M:%S")
+
+def to_datetime(t) -> datetime:
+    return pd.to_datetime(t).to_pydatetime().astimezone()
+
+def trim_usec(input: Union[datetime, timedelta]) -> Union[datetime, timedelta]:
+    if isinstance(input, datetime):
+        return input - timedelta(microseconds=input.microsecond)
+    elif isinstance(input, timedelta):
+        return input - timedelta(microseconds=input.microseconds)
+
+def now() -> datetime:
+    return trim_usec(datetime.now().astimezone())
+
+def epoch() -> datetime:
+    return datetime.utcfromtimestamp(0).astimezone()
+
+def get_interval(input: Union[pd.Index, pd.DataFrame, pd.Series]) -> int:
+    if type(input) in (pd.DataFrame, pd.Series):
+        input = input.index
+    """
+    itvs = []
+    for i in range(len(input) - 1)[::10]:  # 1/10 sampling and then return median value
+        itv = int((to_datetime(input[i + 1]) - to_datetime(input[i])).total_seconds()) // 60
+        itvs.append(itv)
+    return sorted(itvs)[len(itvs) // 2]
+    """
+    itvs = pd.Series(np.nan, input)
+    for i in range(1, len(input)):
+        itvs[i] = (to_datetime(input[i]) - to_datetime(input[i - 1])).total_seconds() // 60
+    return int(itvs.value_counts().idxmax())
+
+
+def get_elapsed_minutes(since=None) -> int:
+    if since is None:
+        since = epoch()
+    return int((now() - to_datetime(since)).total_seconds()) // 60
+
+
+def _print(color, /, *args, **kwargs):
+    print(color, end="")
+    print(*args, **kwargs)
+    print(Fore.RESET, end="")
+printk = partial(_print, Fore.BLACK)
+printr = partial(_print, Fore.RED)
+printg = partial(_print, Fore.GREEN)
+printy = partial(_print, Fore.YELLOW)
+printb = partial(_print, Fore.BLUE)
+printm = partial(_print, Fore.MAGENTA)
+printc = partial(_print, Fore.CYAN)
+printw = partial(_print, Fore.WHITE)
+printlk = partial(_print, Fore.LIGHTBLACK_EX)
+printlr = partial(_print, Fore.LIGHTRED_EX)
+printlg = partial(_print, Fore.LIGHTGREEN_EX)
+printly = partial(_print, Fore.LIGHTYELLOW_EX)
+printlb = partial(_print, Fore.LIGHTBLUE_EX)
+printlm = partial(_print, Fore.LIGHTMAGENTA_EX)
+printlc = partial(_print, Fore.LIGHTCYAN_EX)
+printlw = partial(_print, Fore.LIGHTWHITE_EX)
 
 
 # https://gist.github.com/michelbl/efda48b19d3e587685e3441a74457024
-if os.name == 'nt':
+if getattr(os, 'name') == 'nt':
     import msvcrt
 else:  # UNIX
     import termios
@@ -63,7 +160,7 @@ else:  # UNIX
 
 class Conio:
     def __init__(self):
-        if os.name != 'nt':
+        if getattr(os, 'name') != 'nt':
             # backup terminal settings
             self.fd = sys.stdin.fileno()
             self.new_term = termios.tcgetattr(self.fd)
@@ -80,15 +177,15 @@ class Conio:
         if os.name != 'nt':
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.old_term)
 
-    def kbhit(self):
-        if os.name == 'nt':
+    def kbhit(self) -> bool:
+        if getattr(os, 'name') == 'nt':
             return msvcrt.kbhit()
         else:
-            dr, dw, de = select([sys.stdin], [], [], 0)
+            dr, _, _ = select([sys.stdin], [], [], 0)
             return dr != []
 
-    def getch(self):
-        if os.name == 'nt':
+    def getch(self) -> Union[str, None]:
+        if getattr(os, 'name') == 'nt':
             ch = msvcrt.getch()
             try:
                 ch = ch.decode('utf-8')
@@ -99,7 +196,7 @@ class Conio:
         return ch
 
     def getarrow(self):
-        if os.name == 'nt':
+        if getattr(os, 'name') == 'nt':
             msvcrt.getch()  # skip 0xE0
             c = msvcrt.getch()
             vals = [72, 77, 80, 75]
@@ -110,8 +207,8 @@ class Conio:
 
 
 if __name__ == "__main__":
-    print(resource_path('./core.py'))
-    print(xdatetime())
+    printy(resource_path('./core.py'))
+    printg(xdatetime())
 
     print(f"{Fore.BLUE}\nHit any key or ESC to exit{Fore.RESET}")
     conio = Conio()

@@ -1,35 +1,31 @@
 snippet cc "(snippet) comment" b
-/*
+/**
  * $0
  */
 endsnippet
 
-
 snippet "struct\s*" "(snippet) struct NAME { ... }" br
-struct ${1:/* NAME */} {
+struct ${1:❓} {
 	$0
 };
 endsnippet
-
 
 snippet "union\s*" "(snippet) union NAME { ... }" br
-union ${1:/* NAME */} {
+union ${1:❓} {
 	$0
 };
 endsnippet
-
 
 snippet "enum\s*" "(snippet) enum { ... }" br
 enum {
-	${1:/* LIST */}
+	${1:❓}
 };
 endsnippet
-
 
 snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } TYPE" brA
 typedef `!p snip.rv = match.group(1)` {
 	$0
-} ${1:/* TYPE */};
+} ${1:❓};
 endsnippet
 
 
@@ -53,7 +49,7 @@ endsnippet
 
 
 snippet mando "(snippet) MANDO" b
-/*
+/**
  * Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.
  *
  * Author: Insub Song (insub.song@halla.com)
@@ -64,7 +60,7 @@ endsnippet
 
 
 snippet skai "(snippet) SKAIChips" b
-/*
+/**
  * `!v expand('%:t')` -
  *
  * Copyright (c) `!v strftime("%Y")` SKAIChips Co., Ltd. ALL RIGHTS RESERVED.

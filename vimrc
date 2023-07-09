@@ -81,7 +81,6 @@ Plug 'fxn/vim-monochrome'
 Plug 'bdesham/biogoo'
 Plug 'tssm/fairyfloss.vim'
 " Others
-Plug 'ajh17/spacegray.vim'
 Plug 'chriskempson/base16-vim'
 call plug#end()
 " }}}
@@ -168,10 +167,11 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-nnoremap <C-g> :GitGutterUndoHunk<cr>
+" nnoremap <C-g>
 nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
+nnoremap <C-s> :GitGutterUndoHunk<cr>
 nnoremap <C-t> :JumpBack<cr>zz
 nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
@@ -189,8 +189,8 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
-" nnoremap <leader>f :Ack!<space>
 nnoremap <leader>f :Ag<cr>
+" nnoremap <leader>f :Ack!<space>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
@@ -220,13 +220,11 @@ inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
 inoremap <C-l> <end><cr>
-inoremap <C-v> <F19>*<F19>
-" inoremap <C-z>
 cnoremap <C-a> <home>
-cnoremap <C-v> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
 noremap! <C-j> <del>
+noremap! <C-v> <C-r>*
 noremap! <C-y> <C-v>
 noremap! <F15> <nop>
 noremap <F15> <nop>
@@ -256,10 +254,10 @@ if has('nvim')
     nnoremap ? :CocList -I symbols<cr>
     nmap J <plug>(coc-diagnostic-next)
     nmap K <plug>(coc-diagnostic-prev)
+    nmap ge <plug>(coc-references)
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-    nmap gR <plug>(coc-references)
     nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
 
@@ -346,10 +344,10 @@ autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim
-autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\)')
-autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\)')
-autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\)')
-autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\)')
+autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\):')
+autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\):')
+autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\):')
+autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\):')
 
 function! OperatorHL()
     if has('nvim')
@@ -648,6 +646,9 @@ if IsInstalled('coc.nvim')
                 \]
     let g:coc_config_home = '~/workspace/dotfiles/vim'
 
+    " essential
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
     " coc-outline
     nnoremap <silent><nowait> T :call ToggleOutline()<CR>
     function! ToggleOutline() abort
@@ -717,7 +718,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
     let g:airline_section_c .= '¦  '
     if g:os == 'Darwin'
-        let g:airline_section_c .= '🫧 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🤑 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
         let g:airline_section_c .= '🔥 %#__accent_bold#%{$USER}'
     elseif g:os == 'WSL'
@@ -826,8 +827,22 @@ let g:ale_xml_xmllint_options = '--format'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = ''
 
+" surround
+if IsInstalled('surround')
+    nmap ys" ysiw"
+    nmap ys' ysiw'
+    nmap ys) ysiw)
+    nmap ys> ysiw>
+    nmap ys] ysiw]
+    nmap ys} ysiw}
+endif
+
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
+
+" nerdtree-git-plugin
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusConcealBrackets = 1
 
 " devicon
 let g:webdevicons_enable = 1
@@ -846,20 +861,15 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
-
-" nerdtree-git-plugin
-let g:NERDTreeGitStatusUseNerdFonts = 1
-let g:NERDTreeGitStatusConcealBrackets = 1
 " }}}
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo molokai
-    let g:airline_theme = 'molokai'
+    colo dracula
+    let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    let g:material_style = 'dark'
-    colo vim-material
-    let g:airline_theme = 'material'
+    colo PaperColor
+    let g:airline_theme = 'papercolor'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'

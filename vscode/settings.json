@@ -1,11 +1,11 @@
 {
-  "workbench.colorTheme": "Dark (Molokai)",
+  "workbench.colorTheme": "Night Owl",
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 
   "editor": {
     "insertSpaces": true,
     "wordWrap": "off",
-    "cursorStyle": "line",
+    "cursorStyle": "line"
   },
 
   "files.exclude": {
@@ -14,12 +14,11 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    // Added by me
     "**/__pycache__": true,
-    "**/*.pyc": true,
+    "**/*.pyc": true
   },
   "search.exclude": {
-    "**/*.a2l": true,
+    "**/*.a2l": true
   },
 
   "vim": {
@@ -60,31 +59,40 @@
       { "before": ["<leader>", "g"], "commands": ["gitlens.compareWith"] },
       { "before": ["<leader>", "h"], "commands": ["editor.action.startFindReplaceAction"] },
       { "before": ["<leader>", "l"], "commands": ["editor.action.formatDocument"] },
+      { "before": ["<leader>", "enter"], "commands": ["editor.action.insertLineAfter"] }
     ],
     "visualModeKeyBindingsNonRecursive": [
       { "before": ["<"], "after": ["<", "g", "v"] },
       { "before": [">"], "after": [">", "g", "v"] },
       { "before": ["<leader>", "h"], "commands": ["editor.action.startFindReplaceAction"] },
-      { "before": ["<leader>", "l"], "commands": ["editor.action.formatSelection"] },
+      { "before": ["<leader>", "l"], "commands": ["editor.action.formatSelection"] }
     ],
     "insertModeKeyBindingsNonRecursive": [
       { "before": ["<C-a>"], "commands": ["cursorHome"] },
       { "before": ["<C-e>"], "commands": ["cursorEnd"] },
+      { "before": ["<C-l>"], "commands": ["editor.action.insertLineAfter"] }
     ],
     "normalModeKeyBindings": [
     ],
     "visualModeKeyBindings": [
     ],
     "insertModeKeyBindings": [
-    ],
+    ]
   },
 
-  "C_Cpp.updateChannel": "Insiders",
+  "git": {
+    "openRepositoryInParentFolders": "always"
+  },
+
   "[c]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
   "[cpp]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },
-  "files.eol": "\n",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+
+  "files.eol": "EOL"
 }

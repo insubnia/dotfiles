@@ -5,6 +5,7 @@
 
 # Windows
 Thumbs.db
+*.lnk
 
 # MS Office
 *.doc*
@@ -67,6 +68,7 @@ compile_commands.json
 __pycache__/
 *.pyc
 *.pyo
+*.flake8
 
 # ctags
 tags

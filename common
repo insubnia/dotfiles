@@ -5,7 +5,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias cls='clear'
 alias ls='ls --color=auto'
-alias ll='ls --color=auto -hl'
+alias ll='ls --color=auto -ahl'
 alias k='k -h'
 alias vi='nvim'
 alias nvim.='nvim .'
@@ -27,17 +27,13 @@ alias dos2unixr='dos2unix $(find . -type f -not -path "*.git/*")'
 alias iperf='iperf3'
 alias ycm='python ~/.vim/plugged/youcompleteme/install.py --clang-completer'
 alias gdc='git diff --cached'
+alias gfomm='git fetch origin master:master'
+alias gfodd='git fetch origin develop:develop'
 alias gitflow='git flow'
 alias cmakefile='ln -sf $DOTFILES/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
 alias mar='make all run'
-
-export FZF_DEFAULT_COMMAND="fd --type f"
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
---color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
---color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
---color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
---color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+alias goaws='ssh -i $DOTFILES/key.pem ubuntu@aws'
 
 case "$OSTYPE" in
     darwin*)
@@ -58,3 +54,27 @@ WORKSPACE=$HOME/workspace
 if [ -d $WORKSPACE ] && [ $PWD = $HOME ]; then
     cd $WORKSPACE
 fi
+
+export USE_CCACHE=1
+
+# unsetopt BG_NICE
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+# API Key
+case "$OSTYPE" in
+    darwin*)
+        export ACCESS_KEY='hmCpEbHz9GVK2LfTkxWY7A8PgCJUs7TjgqwSsUEH'
+        export SECRET_KEY='9uaCZwQ2Bp4cIXaz5jp1CvGg4Ury4UT3GN77LGl0'
+        ;;
+    linux*)
+        export ACCESS_KEY='oyoSSj4IagMUWSLIo8wPMpfxpqE79HWxEF3IswOV'
+        export SECRET_KEY='QRNhzgU9gH2wBFI5xVG57YRq4o7pSW5xUnxXVPQr'
+        ;;
+esac
+
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
