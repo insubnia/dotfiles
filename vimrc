@@ -220,13 +220,11 @@ inoremap <C-a> <esc>I
 inoremap <C-e> <end>
 inoremap <C-k> <C-o>D
 inoremap <C-l> <end><cr>
-inoremap <C-v> <F19>*<F19>
-" inoremap <C-z>
 cnoremap <C-a> <home>
-cnoremap <C-v> <C-r>*
 noremap! <C-b> <left>
 noremap! <C-f> <right>
 noremap! <C-j> <del>
+noremap! <C-v> <C-r>*
 noremap! <C-y> <C-v>
 noremap! <F15> <nop>
 noremap <F15> <nop>

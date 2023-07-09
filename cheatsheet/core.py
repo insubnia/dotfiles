@@ -104,22 +104,22 @@ def now() -> datetime:
     return trim_usec(datetime.now().astimezone())
 
 def epoch() -> datetime:
-    return datetime(1970, 1, 1).astimezone()
+    return datetime.utcfromtimestamp(0).astimezone()
 
-def get_interval(input) -> int:
+def get_interval(input: Union[pd.Index, pd.DataFrame, pd.Series]) -> int:
     if type(input) in (pd.DataFrame, pd.Series):
         input = input.index
     """
-    intervals = []
+    itvs = []
     for i in range(len(input) - 1)[::10]:  # 1/10 sampling and then return median value
-        interval = int((to_datetime(input[i + 1]) - to_datetime(input[i])).total_seconds()) // 60
-        intervals.append(interval)
-    return sorted(intervals)[len(intervals) // 2]
+        itv = int((to_datetime(input[i + 1]) - to_datetime(input[i])).total_seconds()) // 60
+        itvs.append(itv)
+    return sorted(itvs)[len(itvs) // 2]
     """
-    intervals = pd.Series(np.nan, input)
+    itvs = pd.Series(np.nan, input)
     for i in range(1, len(input)):
-        intervals[i] = (to_datetime(input[i]) - to_datetime(input[i - 1])).total_seconds() // 60
-    return int(intervals.value_counts().idxmax())
+        itvs[i] = (to_datetime(input[i]) - to_datetime(input[i - 1])).total_seconds() // 60
+    return int(itvs.value_counts().idxmax())
 
 
 def get_elapsed_minutes(since=None) -> int:
