@@ -31,15 +31,14 @@ class Loop():
     def __init__(self):
         self.loop = True
         signal.signal(signal.SIGINT, self.signal_handler)
-    def __bool__(self):
-        return self.loop
-    def __str__(self):
-        return "True" if self.loop else "False"
+    __bool__ = lambda self: self.loop
+    __str__ = lambda self: "True" if getattr(self, 'loop') else "False"
 
-    def signal_handler(self, signum, frame):
+    def signal_handler(self, *_):
         self.loop = False
         print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
         Thread(target=lambda: (time.sleep(3), os._exit(0)), daemon=True).start()
+
 
 loop = Loop()
 
@@ -50,13 +49,12 @@ class timeout():
             time.sleep(4)
     """
     def __init__(self, seconds=10):
-        self.seconds = seconds
-    def __enter__(self):
         signal.signal(signal.SIGALRM, self.timeout_handler)
-        signal.alarm(self.seconds)
-    def __exit__(self, type, value, traceback):
-        signal.alarm(0)
-    def timeout_handler(self, signum, frame):
+        signal.alarm(seconds)
+    __enter__ = lambda self: None
+    __exit__ = lambda self, *_: signal.alarm(0)
+
+    def timeout_handler(self, *_):
         raise TimeoutError("User-Defined Timeout")
 
 
