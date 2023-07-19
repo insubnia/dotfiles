@@ -58,6 +58,9 @@ class timeout():
         raise TimeoutError("User-Defined Timeout")
 
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def alarm(string="가즈아"):
     freq, duration = 2000, 1000
     if platform.system() == 'Darwin':

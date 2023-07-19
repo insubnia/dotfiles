@@ -46,7 +46,7 @@ class Beacon():
 
     @property
     def coord(self):
-        return f"({self.x:.1f}, {self.y:.1f})"
+        return f"({self.x:3.1f}, {self.y:3.1f})"
 
     @property
     def rssi(self):
@@ -65,7 +65,7 @@ class Beacon():
     def print_info(self):
         s = f"[{self.nr}]{self.addr} {self.coord} {Fore.GREEN}{self.name:>6}{Fore.RESET} »"
         s += f" RSSIs: {self.rssis} →"
-        s += f" {Fore.CYAN}{self.rssi:.2f}dB{Fore.RESET}"
+        s += f" {Fore.CYAN}{self.rssi:6.2f}dB{Fore.RESET}"
         s += f" → {Fore.RED}{self.r:.1f}m{Fore.RESET}"
         print(s)
 
@@ -86,10 +86,10 @@ class Localizer():
 
 
 _beacons = [
-    Beacon('D0:15:CE:BB:7A:98', x=0, y=0, rssi_1m=-50, name='sis'),
-    Beacon('FB:D5:7C:CA:BD:CE', x=0, y=1, rssi_1m=-50, name='iron'),
-    Beacon('F7:E7:CD:96:B5:6B', x=1, y=0, rssi_1m=-50, name='table'),
-    Beacon('78:46:7D:00:C2:1F', x=1, y=1, rssi_1m=-46, name='iris'),
+    Beacon('D0:15:CE:BB:7A:98', x=4, y=2, rssi_1m=-50, name='sis'),
+    Beacon('FB:D5:7C:CA:BD:CE', x=7, y=0, rssi_1m=-50, name='iron'),
+    Beacon('F7:E7:CD:96:B5:6B', x=1, y=3, rssi_1m=-50, name='table'),
+    Beacon('78:46:7D:00:C2:1F', x=3, y=4, rssi_1m=-46, name='iris'),
 ]
 localizer = Localizer(_beacons)
 
@@ -97,6 +97,10 @@ localizer = Localizer(_beacons)
 def now():
     _now = datetime.now()
     return _now - timedelta(microseconds=_now.microsecond)
+
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def detection_callback(dev, data):
@@ -114,9 +118,9 @@ async def main():
 
     loop = Loop()
     while loop:
+        # clear_screen()
         print(f"{Fore.BLUE}({now()}){Fore.RESET}")
-        for beacon in localizer.beacons:
-            beacon.print_info()
+        [b.print_info() for b in localizer.beacons]
         await asyncio.sleep(1)
         print()
 
