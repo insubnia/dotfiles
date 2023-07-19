@@ -8,15 +8,9 @@ from datetime import datetime, timedelta
 from threading import Thread
 from bleak import BleakScanner
 from colorama import Fore
+from typing import List
 
 MAX_WINDOW_LEN = 10
-ADDRS = (
-    # '--:--:--:--:--:--',
-    # 'C0:C5:42:91:6A:23',
-    'D0:15:CE:BB:7A:98',
-    'F7:E7:CD:96:B5:6B',
-    'FB:D5:7C:CA:BD:CE',
-)
 
 
 class Loop():
@@ -35,21 +29,27 @@ class Loop():
 class Beacon():
     num = 0
 
-    def __init__(self, addr, x=0, y=0):
+    def __init__(self, addr, x=0.0, y=0.0, rssi_1m=-45, name=''):
         self.addr = addr
         self.x, self.y = x, y
+        self.name = name
+        self.rssi_1m = rssi_1m
         self.rssis = []
 
         self.nr = Beacon.num
         Beacon.num += 1
 
-    def put_rssi(self, rssi):
+    def put_rssi(self, rssi_raw):
         if len(self.rssis) > MAX_WINDOW_LEN:
             self.rssis.pop(0)
-        self.rssis.append(rssi)
+        self.rssis.append(rssi_raw)
 
     @property
-    def filtered_rssi(self):
+    def coord(self):
+        return f"({self.x:.1f}, {self.y:.1f})"
+
+    @property
+    def rssi(self):
         if len(self.rssis):
             # INFO: put filter here
             arr = np.array(self.rssis)
@@ -58,18 +58,40 @@ class Beacon():
 
     @property
     def r(self):
-        # INFO: put rssi to distance transformation here
-        d = 100 - self.filtered_rssi
+        n = 4
+        d = 10 ** ((self.rssi_1m - self.rssi) / (10 * n))
         return d
 
     def print_info(self):
-        s = f"[{self.nr}]{self.addr} »"
-        s += f" RSSIs: {self.rssis} ➡ {self.filtered_rssi:.2f}dB"
-        s += f" ➡ {self.r:.2f}m"
+        s = f"[{self.nr}]{self.addr} {self.coord} {Fore.GREEN}{self.name:>6}{Fore.RESET} »"
+        s += f" RSSIs: {self.rssis} →"
+        s += f" {Fore.CYAN}{self.rssi:.2f}dB{Fore.RESET}"
+        s += f" → {Fore.RED}{self.r:.1f}m{Fore.RESET}"
         print(s)
 
 
-beacons = {addr: Beacon(addr) for addr in ADDRS}
+class Localizer():
+    def __init__(self, beacons: List[Beacon]):
+        self.beacons = beacons
+
+    def find_beacon(self, addr: str):
+        for beacon in self.beacons:
+            if beacon.addr == addr:
+                return beacon
+        return None
+
+    @property
+    def beacon_num(self):
+        return len(self.beacons)
+
+
+_beacons = [
+    Beacon('D0:15:CE:BB:7A:98', x=0, y=0, rssi_1m=-50, name='sis'),
+    Beacon('FB:D5:7C:CA:BD:CE', x=0, y=1, rssi_1m=-50, name='iron'),
+    Beacon('F7:E7:CD:96:B5:6B', x=1, y=0, rssi_1m=-50, name='table'),
+    Beacon('78:46:7D:00:C2:1F', x=1, y=1, rssi_1m=-46, name='iris'),
+]
+localizer = Localizer(_beacons)
 
 
 def now():
@@ -78,9 +100,9 @@ def now():
 
 
 def detection_callback(dev, data):
-    if dev.address not in beacons:
+    beacon = localizer.find_beacon(dev.address)
+    if beacon is None:
         return
-    beacon = beacons[dev.address]
     beacon.put_rssi(data.rssi)
     # print(f"{Fore.GREEN}[{beacon.nr}] {dev.address} > RSSI: {data.rssi}dB{Fore.RESET}")
     # print(f"\t{Fore.BLUE}{data}{Fore.RESET}")
@@ -93,7 +115,7 @@ async def main():
     loop = Loop()
     while loop:
         print(f"{Fore.BLUE}({now()}){Fore.RESET}")
-        for beacon in beacons.values():
+        for beacon in localizer.beacons:
             beacon.print_info()
         await asyncio.sleep(1)
         print()
