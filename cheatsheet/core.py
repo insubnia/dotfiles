@@ -3,15 +3,16 @@ import os
 import sys
 import time
 import signal
+import asyncio
 import logging
 import requests
 import platform
 import numpy as np
 import pandas as pd
-from threading import Thread
 from datetime import datetime, timedelta
+from functools import partial, wraps
+from threading import Thread
 from colorama import Fore
-from functools import partial
 from typing import Union
 
 logging.basicConfig(format=f"{Fore.CYAN}(%(levelname)s)(%(asctime)s) %(message)s{Fore.RESET}",
@@ -60,6 +61,18 @@ class timeout():
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# https://dev.to/0xbf/turn-sync-function-to-async-python-tips-58nn
+def async_wrap(func):
+    @wraps(func)
+    async def run(*args, loop=None, executor=None, **kwargs):
+        if loop is None:
+            loop = asyncio.get_event_loop()
+        pfunc = partial(func, *args, **kwargs)
+        return await loop.run_in_executor(executor, pfunc)
+    return run
+
 
 def alarm(string="가즈아"):
     freq, duration = 2000, 1000
@@ -117,7 +130,7 @@ def get_interval(input: Union[pd.Index, pd.DataFrame, pd.Series]) -> int:
         itvs.append(itv)
     return sorted(itvs)[len(itvs) // 2]
     """
-    itvs = pd.Series(np.nan, input)
+    itvs = pd.Series(np.NaN, input)
     for i in range(1, len(input)):
         itvs[i] = (to_datetime(input[i]) - to_datetime(input[i - 1])).total_seconds() // 60
     return int(itvs.value_counts().idxmax())
