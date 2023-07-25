@@ -19,6 +19,7 @@ list=(
     scipy
     matplotlib
     mplfinance
+    plotly
     pyqt6
     pyinstaller
     polars

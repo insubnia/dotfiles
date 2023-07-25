@@ -4,13 +4,15 @@ import time
 import signal
 import asyncio
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from threading import Thread
 from bleak import BleakScanner
 from colorama import Fore
-from typing import List
 
 MAX_WINDOW_LEN = 10
+CIRCLE_COLORS = ['b', 'g', 'r', 'c', 'm', 'y']
 
 
 class Loop():
@@ -34,18 +36,30 @@ class Beacon():
         self.x, self.y = x, y
         self.name = name
         self.rssi_1m = rssi_1m
-        self.rssis = []
+        self.rssis = pd.Series()
+        self.sr = pd.Series(name=self.name)
 
         self.nr = Beacon.num
         Beacon.num += 1
 
+        # for future use
+        self.circle = plt.Circle(self.xy, radius=0, alpha=0.3, color=CIRCLE_COLORS[self.nr])
+
     def put_rssi(self, rssi_raw):
+        self.sr[len(self.sr)] = rssi_raw
+        self.rssis = self.sr[-MAX_WINDOW_LEN:]
+        """
         if len(self.rssis) > MAX_WINDOW_LEN:
             self.rssis.pop(0)
         self.rssis.append(rssi_raw)
+        """
 
     def get_info(self):
         return self.x, self.y, self.r
+
+    @property
+    def xy(self):
+        return (self.x, self.y)
 
     @property
     def coord_text(self):
@@ -60,29 +74,48 @@ class Beacon():
         return 0
 
     @property
-    def r(self):
-        n = 4
-        d = 10 ** ((self.rssi_1m - self.rssi) / (10 * n))
+    def r(self) -> float:
+        # n = 3
+        # d = 10 ** ((self.rssi_1m - self.rssi) / (10 * n))
+        rssi = self.rssi
+        if rssi > self.rssi_1m:
+            d = 10 ** (rssi / self.rssi_1m)
+        else:
+            d = 0.9 * 7.71 ** (rssi / self.rssi_1m) + 0.11
         return d
 
     def print_info(self):
         s = f"[{self.nr}]{self.addr} {self.coord_text}<{self.rssi_1m}dB> {Fore.GREEN}{self.name:>6}{Fore.RESET} »"
-        s += f" RSSIs: {self.rssis} →"
+        s += f" RSSIs: {self.rssis.tolist()} →"
         s += f" {Fore.CYAN}{self.rssi:6.2f}dB{Fore.RESET}"
         s += f" → {Fore.RED}{self.r:.1f}m{Fore.RESET}"
         print(s)
 
 
 class Localizer():
-    def __init__(self, beacons: List[Beacon]):
+    def __init__(self, beacons: list[Beacon]):
         self.beacons = beacons
         self.x, self.y = 0, 0
+        self.log_dir = './log'
+
+    def fini(self):
+        os.makedirs(self.log_dir, exist_ok=True)
+        df = pd.concat([b.sr for b in self.beacons], axis=1)
+        df.to_csv(f"{self.log_dir}/{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv")
+        self.close_plot()
 
     def find_beacon(self, addr: str):
         for beacon in self.beacons:
             if beacon.addr == addr:
                 return beacon
         return None
+
+    def process(self):
+        self.triangulation()
+        self.update_plot()
+        clear_screen()
+        print(f"\n{Fore.BLUE}({now()})  📍{self.coord_text}{Fore.RESET}")
+        [b.print_info() for b in self.beacons]
 
     def triangulation(self):
         x0, y0, r0 = self.beacons[0].get_info()
@@ -112,6 +145,35 @@ class Localizer():
     @property
     def beacon_num(self):
         return len(self.beacons)
+
+    @property
+    def xs(self):
+        return [b.x for b in self.beacons]
+
+    @property
+    def ys(self):
+        return [b.y for b in self.beacons]
+
+    def start_plot(self):
+        self.fig, self.ax = plt.subplots(figsize=(6, 6))
+        self.fig.suptitle("Iris Indoor Positioning System")
+        self.ax.scatter(self.xs, self.ys, marker='x', s=15, c=CIRCLE_COLORS[:self.beacon_num])
+        for beacon in self.beacons:
+            self.ax.add_artist(beacon.circle)
+        plt.ion()
+
+    def update_plot(self, *_):
+        if not hasattr(self, 'fig'):
+            return
+        for beacon in self.beacons:
+            beacon.circle.set_radius(beacon.r / 10)
+        plt.draw()
+        plt.pause(0.1)
+
+    def close_plot(self):
+        if not hasattr(self, 'fig'):
+            return
+        plt.close()
 
 
 _beacons = [
@@ -149,14 +211,14 @@ async def main():
     scanner = BleakScanner(detection_callback=detection_callback)
     await scanner.start()
 
+    localizer.start_plot()
+
     loop = Loop()
     while loop:
-        clear_screen()
-        localizer.triangulation()
-        print(f"\n{Fore.BLUE}({now()})  📍{localizer.coord_text}{Fore.RESET}")
-        [b.print_info() for b in localizer.beacons]
+        localizer.process()
         await asyncio.sleep(1)
 
+    localizer.fini()
     await scanner.stop()
 
 

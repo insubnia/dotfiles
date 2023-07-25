@@ -67,8 +67,7 @@ def clear_screen():
 def async_wrap(func):
     @wraps(func)
     async def run(*args, loop=None, executor=None, **kwargs):
-        if loop is None:
-            loop = asyncio.get_event_loop()
+        loop = loop or asyncio.get_event_loop()
         pfunc = partial(func, *args, **kwargs)
         return await loop.run_in_executor(executor, pfunc)
     return run
@@ -137,8 +136,7 @@ def get_interval(input: Union[pd.Index, pd.DataFrame, pd.Series]) -> int:
 
 
 def get_elapsed_minutes(since=None) -> int:
-    if since is None:
-        since = epoch()
+    since = since or epoch()
     return int((now() - to_datetime(since)).total_seconds()) // 60
 
 
