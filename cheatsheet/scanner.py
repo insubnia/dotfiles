@@ -160,10 +160,11 @@ class Localizer():
         self.ax.scatter(self.xs, self.ys, marker='x', s=15, c=CIRCLE_COLORS[:self.beacon_num])
         for beacon in self.beacons:
             self.ax.add_artist(beacon.circle)
+        self.ax.grid()
         plt.ion()
 
     def update_plot(self, *_):
-        if not hasattr(self, 'fig'):
+        if not plt.get_fignums():
             return
         for beacon in self.beacons:
             beacon.circle.set_radius(beacon.r / 10)

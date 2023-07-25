@@ -394,7 +394,7 @@ autocmd Syntax c,cpp call AUTOSAR()
 " resolved by adding set ffs=unix
 " autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
 
-function! DetectFiletype()
+function! CustomFiletype()
     if @% =~# 'makefile\c'
         set filetype=make
     elseif @% =~# 'CMakeLists\C'
@@ -406,7 +406,7 @@ function! DetectFiletype()
         " no operation
     endif
 endfunction
-autocmd BufRead,BufNewFile * call DetectFiletype()
+autocmd BufRead,BufNewFile * call CustomFiletype()
 
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
