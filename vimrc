@@ -25,6 +25,7 @@ else
     Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
+Plug 'github/copilot.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'

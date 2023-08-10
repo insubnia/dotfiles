@@ -87,8 +87,8 @@ class Beacon():
 
     def kalman_filter(self, rssi):
         # https://ahang.tistory.com/25
-        u = 0.005  # process noise
-        v = 20  # observation(measurement) noise
+        w = 0.005  # process noise
+        v = 10  # observation noise
 
         if not hasattr(self, 'filter_init'):
             setattr(self, 'filter_init', True)
@@ -96,7 +96,7 @@ class Beacon():
             self.p_prior = 1
         else:
             self.x_prior = self.x
-            self.p_prior = self.p_prior + u
+            self.p_prior = self.p + w
 
         y = rssi  # measurement
         k = self.p_prior / (self.p_prior + v)  # kalman gain
