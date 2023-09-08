@@ -14,9 +14,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 # neovim
 NVIM=~/.config/nvim
-mkdir -p $NVIM
+mkdir -p $NVIM $NVIM/lua
 ln -sf $DOTFILES/vimrc $NVIM/init.vim
-ln -sf $DOTFILES/init.lua $NVIM/init.lua
+ln -sf $DOTFILES/init.lua $NVIM/lua/init.lua
 
 # ~/.config/nvim/autoload
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \

@@ -1,3 +1,3 @@
---- init.lua
+--- ~/.config/nvim/lua/init.lua
 
 --- plugins
