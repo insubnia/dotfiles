@@ -862,6 +862,10 @@ let g:NERDTreeHighlightFoldersFullName = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+
+if has('nvim')
+    lua require('init')
+endif
 " }}}
 " ============================================================================
 " OUTRO {{{

@@ -2,7 +2,7 @@
 
 DOTFILES=~/workspace/dotfiles
 
-# Vim
+# vim
 VIM=~/.vim
 mkdir -p $VIM
 ln -sf $DOTFILES/vimrc ~/.vimrc
@@ -12,10 +12,11 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
-# NeoVim
+# neovim
 NVIM=~/.config/nvim
 mkdir -p $NVIM
 ln -sf $DOTFILES/vimrc $NVIM/init.vim
+ln -sf $DOTFILES/init.lua $NVIM/init.lua
 
 # ~/.config/nvim/autoload
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
