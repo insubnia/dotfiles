@@ -17,12 +17,22 @@ endif
 " PLUGINS {{{
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    " File Explorer
+    Plug 'nvim-tree/nvim-tree.lua'
+    Plug 'nvim-tree/nvim-web-devicons'
+    " Autocomplete
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+    " etc
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
+    " File Explorer
+    Plug 'scrooloose/nerdtree'
+    Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
+    " Autocomplete
     Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
+    " etc
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
 Plug 'github/copilot.vim'
@@ -30,7 +40,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -49,7 +58,6 @@ Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
-Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
 Plug 'ryanoasis/vim-devicons'
 " ---------- colorschemes ----------
 " Best
@@ -75,6 +83,8 @@ Plug 'freeo/vim-kalisi'
 " Pastel
 Plug 'crucerucalin/peaksea.vim'
 Plug 'sheerun/vim-wombat-scheme'
+" Comfortable
+Plug 'sainnhe/everforest' " everforest_background = (soft, medium, hard)
 " Cynical
 Plug 'cocopon/iceberg.vim'
 Plug 'fxn/vim-monochrome'
@@ -472,11 +482,17 @@ endfunction
 
 command! Close call Close()
 function! Close()
-    if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
     cclose
     pclose
     helpclose
-    NERDTreeClose
+
+    if IsInstalled('nvim-tree')
+        NvimTreeClose
+    else
+        NERDTreeClose
+        if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
+    endif
+
     if IsInstalled('coc.nvim')
         call CocAction('hideOutline')
     else
@@ -714,18 +730,24 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 " NERDTree
-autocmd StdinReadPre * let s:std_in = 1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
-let g:NERDTreeMapOpenVSplit = 'v'
-let g:NERDTreeQuitOnOpen = 0
-let g:NERDTreeRespectWildIgnore = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-let g:NERDTreeWinSize = 35
-let g:NERDTreeNaturalSort = 1
+if IsInstalled('nerdtree')
+    autocmd StdinReadPre * let s:std_in = 1
+    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
+    let g:NERDTreeMapOpenVSplit = 'v'
+    let g:NERDTreeQuitOnOpen = 0
+    let g:NERDTreeRespectWildIgnore = 1
+    let g:NERDTreeShowHidden = 1
+    let g:NERDTreeDirArrowExpandable = ''
+    let g:NERDTreeDirArrowCollapsible = ''
+    let g:NERDTreeWinSize = 35
+    let g:NERDTreeNaturalSort = 1
+
+    " nerdtree-git-plugin
+    let g:NERDTreeGitStatusUseNerdFonts = 1
+    let g:NERDTreeGitStatusConcealBrackets = 1
+endif
 
 " NERDCommenter
 let g:NERDCommentEmptyLines = 1
@@ -815,10 +837,6 @@ endif
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
 
-" nerdtree-git-plugin
-let g:NERDTreeGitStatusUseNerdFonts = 1
-let g:NERDTreeGitStatusConcealBrackets = 1
-
 " devicon
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -829,13 +847,6 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsDefaultFolderOpenSymbol = ''
 let g:DevIconsEnableNERDTreeRedraw = 1
-
-" nerdtree-syntax-highlight
-let g:NERDTreeHighlightFolders = 1
-let g:NERDTreeHighlightFoldersFullName = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
 
 if has('nvim')
     lua require('init')
