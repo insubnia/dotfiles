@@ -46,4 +46,4 @@ require("nvim-tree").setup({
 })
 
 --- nvim-web-devicons
-require("nvim-web-devicons").setup{}
+require("nvim-web-devicons").setup {}

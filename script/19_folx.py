@@ -23,6 +23,8 @@ for d in dirs:
         new_path = f"{d}{new}"
         os.rename(path, new_path)
 
+    os.system(f"rm -rf {d}/*.txt")
+
 
 if __name__ == "__main__":
     pass
