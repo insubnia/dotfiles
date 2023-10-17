@@ -46,6 +46,9 @@ require("nvim-tree").setup({
 })
 vim.api.nvim_create_autocmd('BufEnter', {
     callback = function()
+        if require("nvim-tree.view").is_visible() == true and #vim.api.nvim_list_wins() == 1 then
+            vim.cmd('quit')
+        end
     end,
 })
 
