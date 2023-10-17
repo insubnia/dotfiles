@@ -41,8 +41,12 @@ require("nvim-tree").setup({
         group_empty = true,
     },
     filters = {
-        dotfiles = true,
+        dotfiles = false,
     },
+})
+vim.api.nvim_create_autocmd('BufEnter', {
+    callback = function()
+    end,
 })
 
 --- nvim-web-devicons

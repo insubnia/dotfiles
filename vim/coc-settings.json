@@ -1,4 +1,6 @@
 {
+  "inlayHint.enable": true,
+
   "list": {
     "normalMappings": {
       "<C-c>": "do:exit"
