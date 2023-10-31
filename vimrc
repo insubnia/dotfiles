@@ -72,6 +72,7 @@ Plug 'dikiaap/minimalist'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'w0ng/vim-hybrid'
 Plug 'tomasiser/vim-code-dark'
+Plug 'markvincze/panda-vim' " AirlineTheme fruit_punch
 " Vivid
 Plug 'josuegaleas/jay'
 Plug 'tomasr/molokai'
@@ -864,8 +865,8 @@ elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'
 elseif has("win32")
-    colo biogoo
-    let g:airline_theme = 'biogoo'
+    colo panda
+    let g:airline_theme = 'fruit_punch'
 elseif has("win32unix")
     colo fairyfloss
     let g:airline_theme = 'fairyfloss'
