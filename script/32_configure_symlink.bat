@@ -15,16 +15,20 @@ mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"
 
 :: ~/AppData/Local/nvim
 set NVIM_DIR=%LOCALAPPDATA%/nvim
-mkdir "%NVIM_DIR%" & cd %NVIM_DIR%
+md "%NVIM_DIR%" & cd %NVIM_DIR%
 del /f init.vim ginit.vim
-
 mklink "%NVIM_DIR%/init.vim" "%DOTFILES%/vimrc"
 mklink "%NVIM_DIR%/ginit.vim" "%DOTFILES%/vim/ginit.vim"
+
+set NVIM_LUA_DIR=%LOCALAPPDATA%/nvim/lua
+md "%NVIM_LUA_DIR%" & cd %NVIM_LUA_DIR%
+del /f init.lua
+mklink "%NVIM_LUA_DIR%/init.lua" "%DOTFILES%/init.lua"
 
 
 :: ~/AppData/Roaming/Code/User
 set VSCODE_DIR=%APPDATA%/Code/User
-mkdir "%VSCODE_DIR%" & cd %VSCODE_DIR%
+md "%VSCODE_DIR%" & cd %VSCODE_DIR%
 del /f settings.json keybindings.json
 
 mklink "%VSCODE_DIR%/settings.json" "%DOTFILES%/vscode/settings.json"

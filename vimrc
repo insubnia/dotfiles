@@ -130,7 +130,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
 
 if has('nvim') && has('win32') " nvim-qt(Windows)
-    let g:python3_host_prog = 'C:/Python311/python'
+    let g:python3_host_prog = 'C:/Python312/python'
 endif
 
 if has('gui_win32') " GUI settings on Windows
@@ -478,7 +478,8 @@ function! Trim()
     if &filetype != 'make'
         TS
     endif
-    %s/\s\+$//e | %s/$//e
+    %s/\s\+$//e | %s/
+$//e
 endfunction
 
 command! Close call Close()

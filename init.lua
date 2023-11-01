@@ -1,4 +1,5 @@
 -- ~/.config/nvim/lua/init.lua
+-- %LOCALAPPDATA%/nvim/lua/init.lua
 
 --[[
 plugins
