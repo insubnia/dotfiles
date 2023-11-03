@@ -717,7 +717,7 @@ function! AirlineInit()
     elseif g:os == 'WSL'
         let g:airline_section_c .= '🐢 %#__accent_bold#%{$USER}'
     elseif has('win32')
-        let g:airline_section_c .= '🚗 %#__accent_bold#%{$USERNAME} @ MANDO'
+        let g:airline_section_c .= '🚗 %#__accent_bold#%{$USERNAME} @ HMC'
     endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()

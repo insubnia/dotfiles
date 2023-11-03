@@ -1,2 +1,2 @@
-GuiFont! Consolas NF:h10
+GuiFont! JetBrainsMono NFM:h10
 GuiTabline 0

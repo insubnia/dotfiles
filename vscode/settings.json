@@ -1,11 +1,19 @@
 {
   "workbench.colorTheme": "Night Owl",
+  "workbench.iconTheme": "material-icon-theme",
+
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 
   "editor": {
     "insertSpaces": true,
     "wordWrap": "off",
-    "cursorStyle": "line"
+    "cursorStyle": "line",
+    "renderFinalNewline": "off"
+  },
+
+  "files": {
+    "eol": "\n",
+    "trimFinalNewlines": true
   },
 
   "files.exclude": {
@@ -96,5 +104,5 @@
     "editor.formatOnType": true
   },
 
-  "files.eol": "EOL"
+  "security.workspace.trust.untrustedFiles": "open"
 }
