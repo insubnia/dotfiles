@@ -3,15 +3,16 @@ import os
 import sys
 import time
 import signal
+import asyncio
 import logging
 import requests
 import platform
 import numpy as np
 import pandas as pd
-from threading import Thread
 from datetime import datetime, timedelta
+from functools import partial, wraps
+from threading import Thread
 from colorama import Fore
-from functools import partial
 from typing import Union
 
 logging.basicConfig(format=f"{Fore.CYAN}(%(levelname)s)(%(asctime)s) %(message)s{Fore.RESET}",
@@ -31,15 +32,14 @@ class Loop():
     def __init__(self):
         self.loop = True
         signal.signal(signal.SIGINT, self.signal_handler)
-    def __bool__(self):
-        return self.loop
-    def __str__(self):
-        return "True" if self.loop else "False"
+    __bool__ = lambda self: self.loop
+    __str__ = lambda self: "True" if getattr(self, 'loop') else "False"
 
-    def signal_handler(self, signum, frame):
+    def signal_handler(self, *_):
         self.loop = False
         print(f"\n{Fore.RED} 🛑 Terminate program!{Fore.RESET}\n")
         Thread(target=lambda: (time.sleep(3), os._exit(0)), daemon=True).start()
+
 
 loop = Loop()
 
@@ -50,14 +50,27 @@ class timeout():
             time.sleep(4)
     """
     def __init__(self, seconds=10):
-        self.seconds = seconds
-    def __enter__(self):
         signal.signal(signal.SIGALRM, self.timeout_handler)
-        signal.alarm(self.seconds)
-    def __exit__(self, type, value, traceback):
-        signal.alarm(0)
-    def timeout_handler(self, signum, frame):
+        signal.alarm(seconds)
+    __enter__ = lambda self: None
+    __exit__ = lambda self, *_: signal.alarm(0)
+
+    def timeout_handler(self, *_):
         raise TimeoutError("User-Defined Timeout")
+
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+# https://dev.to/0xbf/turn-sync-function-to-async-python-tips-58nn
+def async_wrap(func):
+    @wraps(func)
+    async def run(*args, loop=None, executor=None, **kwargs):
+        loop = loop or asyncio.get_event_loop()
+        pfunc = partial(func, *args, **kwargs)
+        return await loop.run_in_executor(executor, pfunc)
+    return run
 
 
 def alarm(string="가즈아"):
@@ -116,15 +129,14 @@ def get_interval(input: Union[pd.Index, pd.DataFrame, pd.Series]) -> int:
         itvs.append(itv)
     return sorted(itvs)[len(itvs) // 2]
     """
-    itvs = pd.Series(np.nan, input)
+    itvs = pd.Series(np.NaN, input)
     for i in range(1, len(input)):
         itvs[i] = (to_datetime(input[i]) - to_datetime(input[i - 1])).total_seconds() // 60
     return int(itvs.value_counts().idxmax())
 
 
 def get_elapsed_minutes(since=None) -> int:
-    if since is None:
-        since = epoch()
+    since = since or epoch()
     return int((now() - to_datetime(since)).total_seconds()) // 60
 
 

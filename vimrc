@@ -17,19 +17,29 @@ endif
 " PLUGINS {{{
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    " File Explorer
+    Plug 'nvim-tree/nvim-tree.lua'
+    Plug 'nvim-tree/nvim-web-devicons'
+    " Autocomplete
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+    " etc
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
+    " File Explorer
+    Plug 'scrooloose/nerdtree'
+    Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
+    " Autocomplete
     Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
+    " etc
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
+Plug 'github/copilot.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -47,8 +57,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
-Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown', 'on': 'MarkdownPreview' }
-Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 Plug 'ryanoasis/vim-devicons'
 " ---------- colorschemes ----------
 " Best
@@ -63,6 +72,7 @@ Plug 'dikiaap/minimalist'
 Plug 'ashfinal/vim-colors-violet'
 Plug 'w0ng/vim-hybrid'
 Plug 'tomasiser/vim-code-dark'
+Plug 'markvincze/panda-vim' " AirlineTheme fruit_punch
 " Vivid
 Plug 'josuegaleas/jay'
 Plug 'tomasr/molokai'
@@ -74,6 +84,8 @@ Plug 'freeo/vim-kalisi'
 " Pastel
 Plug 'crucerucalin/peaksea.vim'
 Plug 'sheerun/vim-wombat-scheme'
+" Comfortable
+Plug 'sainnhe/everforest' " everforest_background = (soft, medium, hard)
 " Cynical
 Plug 'cocopon/iceberg.vim'
 Plug 'fxn/vim-monochrome'
@@ -118,7 +130,7 @@ set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
 
 if has('nvim') && has('win32') " nvim-qt(Windows)
-    let g:python3_host_prog = 'C:/Python311/python'
+    let g:python3_host_prog = 'C:/Python312/python'
 endif
 
 if has('gui_win32') " GUI settings on Windows
@@ -394,7 +406,7 @@ autocmd Syntax c,cpp call AUTOSAR()
 " resolved by adding set ffs=unix
 " autocmd BufRead,BufNewFile * try | exe "e ++ff=unix" | catch | endtry
 
-function! DetectFiletype()
+function! CustomFiletype()
     if @% =~# 'makefile\c'
         set filetype=make
     elseif @% =~# 'CMakeLists\C'
@@ -406,7 +418,7 @@ function! DetectFiletype()
         " no operation
     endif
 endfunction
-autocmd BufRead,BufNewFile * call DetectFiletype()
+autocmd BufRead,BufNewFile * call CustomFiletype()
 
 autocmd BufRead,BufNewFile *.arxml set filetype=xml
 autocmd BufRead,BufNewFile *.sre,*.sb1 set filetype=srec
@@ -466,16 +478,23 @@ function! Trim()
     if &filetype != 'make'
         TS
     endif
-    %s/\s\+$//e | %s/$//e
+    %s/\s\+$//e | %s/
+$//e
 endfunction
 
 command! Close call Close()
 function! Close()
-    if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
     cclose
     pclose
     helpclose
-    NERDTreeClose
+
+    if IsInstalled('nvim-tree')
+        NvimTreeClose
+    else
+        NERDTreeClose
+        if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
+    endif
+
     if IsInstalled('coc.nvim')
         call CocAction('hideOutline')
     else
@@ -641,6 +660,7 @@ if IsInstalled('coc.nvim')
                 \'coc-pyright',
                 \'coc-snippets',
                 \'coc-ultisnips',
+                \'coc-lua',
                 \'coc-tsserver',
                 \'coc-xml',
                 \]
@@ -674,33 +694,6 @@ if IsInstalled('coc.nvim')
     inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 endif
 
-" treesitter
-if IsInstalled('nvim-treesitter')
-lua << EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'vim', 'c', 'python', 'bash', 'lua', 'make', 'cmake', 'json', 'rust' },
-  sync_install = false,
-  auto_install = true,
-
-  highlight = {
-    enable = true,
-    disable = { 'rust' },
-    additional_vim_regex_highlighting = false,
-  },
-  incremental_selection = { enable = true },
-  textobjects = { enable = true },
-
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
-    -- colors = {},
-    -- termcolors = {},
-  }
-}
-EOF
-endif
-
 " gitgutter
 set updatetime=100
 set signcolumn=yes
@@ -716,15 +709,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 function! AirlineInit()
-    let g:airline_section_c .= '¦  '
+    let g:airline_section_c .= '»  '
     if g:os == 'Darwin'
-        let g:airline_section_c .= '🤑 %#__accent_bold#%{$USER}'
+        let g:airline_section_c .= '🚀 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
         let g:airline_section_c .= '🔥 %#__accent_bold#%{$USER}'
     elseif g:os == 'WSL'
         let g:airline_section_c .= '🐢 %#__accent_bold#%{$USER}'
     elseif has('win32')
-        let g:airline_section_c .= '🚗 %#__accent_bold#%{$USERNAME} @ MANDO'
+        let g:airline_section_c .= '🚗 %#__accent_bold#%{$USERNAME} @ HMC'
     endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
@@ -739,18 +732,24 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 " NERDTree
-autocmd StdinReadPre * let s:std_in = 1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
-let g:NERDTreeMapOpenVSplit = 'v'
-let g:NERDTreeQuitOnOpen = 0
-let g:NERDTreeRespectWildIgnore = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-let g:NERDTreeWinSize = 35
-let g:NERDTreeNaturalSort = 1
+if IsInstalled('nerdtree')
+    autocmd StdinReadPre * let s:std_in = 1
+    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd TextChanged * if &filetype ==# 'nerdtree' | silent! NERDTreeRefreshRoot
+    let g:NERDTreeMapOpenVSplit = 'v'
+    let g:NERDTreeQuitOnOpen = 0
+    let g:NERDTreeRespectWildIgnore = 1
+    let g:NERDTreeShowHidden = 1
+    let g:NERDTreeDirArrowExpandable = ''
+    let g:NERDTreeDirArrowCollapsible = ''
+    let g:NERDTreeWinSize = 35
+    let g:NERDTreeNaturalSort = 1
+
+    " nerdtree-git-plugin
+    let g:NERDTreeGitStatusUseNerdFonts = 1
+    let g:NERDTreeGitStatusConcealBrackets = 1
+endif
 
 " NERDCommenter
 let g:NERDCommentEmptyLines = 1
@@ -840,10 +839,6 @@ endif
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
 
-" nerdtree-git-plugin
-let g:NERDTreeGitStatusUseNerdFonts = 1
-let g:NERDTreeGitStatusConcealBrackets = 1
-
 " devicon
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
@@ -855,12 +850,9 @@ let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsDefaultFolderOpenSymbol = ''
 let g:DevIconsEnableNERDTreeRedraw = 1
 
-" nerdtree-syntax-highlight
-let g:NERDTreeHighlightFolders = 1
-let g:NERDTreeHighlightFoldersFullName = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
+if has('nvim')
+    lua require('init')
+endif
 " }}}
 " ============================================================================
 " OUTRO {{{
@@ -868,14 +860,14 @@ if g:os == "Darwin"
     colo dracula
     let g:airline_theme = 'dracula'
 elseif g:os == "Linux"
-    colo PaperColor
-    let g:airline_theme = 'papercolor'
+    colo codedark
+    let g:airline_theme = 'codedark'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'
 elseif has("win32")
-    colo biogoo
-    let g:airline_theme = 'biogoo'
+    colo panda
+    let g:airline_theme = 'fruit_punch'
 elseif has("win32unix")
     colo fairyfloss
     let g:airline_theme = 'fairyfloss'

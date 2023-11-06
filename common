@@ -18,6 +18,7 @@ alias tl1='tree -L 1'
 alias tl2='tree -L 2'
 alias tl3='tree -L 3'
 alias tl4='tree -L 4'
+alias caffe='caffeinate'
 alias makefile='ln -sf $DOTFILES/makefile'
 alias makefile2='cp $DOTFILES/makefile makefile'
 alias makefile3='echo include $DOTFILES/makefile >> makefile'
@@ -34,6 +35,11 @@ alias cmakefile='ln -sf $DOTFILES/CMakeLists.txt'
 alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
 alias mar='make all run'
 alias goaws='ssh -i $DOTFILES/key.pem ubuntu@aws'
+
+# tmux
+alias ta='tmux attach -t'
+alias tl='tmux ls'
+
 
 case "$OSTYPE" in
     darwin*)
