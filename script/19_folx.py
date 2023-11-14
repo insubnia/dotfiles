@@ -24,6 +24,7 @@ for d in dirs:
         os.rename(path, new_path)
 
     os.system(f"rm -rf {d}/*.txt")
+    os.system(f"rm -rf {d}/*.url")
 
 
 if __name__ == "__main__":
