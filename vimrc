@@ -270,7 +270,7 @@ if has('nvim')
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-    nmap <leader>l <plug>(coc-format)
+    " nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
 
     " Terminal keymappings

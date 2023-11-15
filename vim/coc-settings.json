@@ -15,6 +15,9 @@
     "enable": true,
     "displayByAle": false
   },
+  "clangd": {
+    "enabled": true
+  },
   "python": {
     "pyright.enable": true,
     "formatting": {
