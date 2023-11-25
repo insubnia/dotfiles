@@ -8,6 +8,8 @@ apps=(
     karabiner-elements
     scroll-reverser
     appcleaner
+    monitorcontrol
+    hiddenbar
     google-chrome
     onedrive
     notion
