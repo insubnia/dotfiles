@@ -48,6 +48,10 @@ defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 # Dock / MenuBar
 ##############################################################################
 
+# Set menubar item spaces
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 12
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 8
+
 # Don't show recent application in Dock
 defaults write com.apple.dock show-recents -bool false
 
