@@ -10,6 +10,7 @@ apps=(
     appcleaner
     monitorcontrol
     hiddenbar
+    stats
     google-chrome
     onedrive
     notion
