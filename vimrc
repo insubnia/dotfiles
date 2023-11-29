@@ -478,8 +478,7 @@ function! Trim()
     if &filetype != 'make'
         TS
     endif
-    %s/\s\+$//e | %s/
-$//e
+    %s/\s\+$//e | %s/$//e
 endfunction
 
 command! Close call Close()
