@@ -1,3 +1,5 @@
+:: mklink /d "%USERPROFILE%/workspace" "D:/workspace"
+
 @echo off
 set DOTFILES=%USERPROFILE%/workspace/dotfiles
 
