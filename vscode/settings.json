@@ -80,6 +80,7 @@
     "insertModeKeyBindingsNonRecursive": [
       { "before": ["<C-a>"], "commands": ["cursorHome"] },
       { "before": ["<C-e>"], "commands": ["cursorEnd"] },
+      { "before": ["<C-k>"], "commands": ["deleteAllRight"] },
       { "before": ["<C-l>"], "commands": ["editor.action.insertLineAfter"] }
     ],
     "normalModeKeyBindings": [

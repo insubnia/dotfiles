@@ -461,6 +461,7 @@ command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
 command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
+command! CWD cd %:p:h
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 command! RO set ro
