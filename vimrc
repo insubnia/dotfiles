@@ -479,7 +479,7 @@ function! Trim()
     if &filetype != 'make'
         TS
     endif
-    %s/\s\+$//e | %s/$//e
+    %s/\s\+$//e | %s/\r$//e
 endfunction
 
 command! Close call Close()
@@ -518,25 +518,22 @@ endfunction
 
 command! GoTo call GoTo()
 function! GoTo()
-    " TODO: optimize jump command depending on filetype
     if index(['vim', 'help'], &filetype) >= 0
         exe "tjump " . expand("<cword>")
         return
     endif
 
-    try
-        exe "tjump " . expand("<cword>")
-    catch /E426:\|E433:/
-        if IsInstalled('coc.nvim')
-            call CocAction('jumpDefinition')
-        else
-            try
-                YcmCompleter GoTo
-            catch /E492:/
-                echohl WarningMsg | echo "No youcompleteme" | echohl None
-            endtry
-        endif
-    endtry
+    if IsInstalled('coc.nvim')
+        call CocAction('jumpDefinition')
+    elseif IsInstalled('youcompleteme')
+        YcmCompleter GoTo
+    else
+        try
+            exe "tjump " . expand("<cword>")
+        catch /E426:\|E433:/
+            echohl ErrorMsg | echo "Error" | echohl None
+        endtry
+    endif
 endfunction
 
 command! Build call Build()
