@@ -4,27 +4,33 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 apps=(
+    # essential
     iterm2
-    karabiner-elements
-    scroll-reverser
     appcleaner
-    monitorcontrol
-    hiddenbar
-    stats
-    google-chrome
     onedrive
-    notion
+    adobe-acrobat-reader
     vlc
     folx
-    adobe-acrobat-reader
-    mounty
+    notion
+    google-chrome
+    # dev
     sourcetree
     visual-studio-code
-    wireshark
-    cron
+    qt-creator
+    # productivity
+    karabiner-elements
+    scroll-reverser
+    hiddenbar
+    stats
+    monitorcontrol
+    # embedded
     gcc-arm-embedded
     coolterm
-    qt-creator
+    # etc
+    cron
+    drawio
+    mounty
+    wireshark
 )
 
 # https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
