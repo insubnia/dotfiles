@@ -12,7 +12,7 @@ Thumbs.db
 *.xls*
 *.ppt*
 
-#Ignore files build by Visual Studio
+# Ignore files build by Visual Studio
 *.obj
 *.exe
 *.pdb
@@ -70,11 +70,10 @@ __pycache__/
 *.pyo
 *.flake8
 
-# ctags
-tags
-.ctags
-
 # Vector
 *.blf
 *.cbf
 *.stcfg
+
+# drawio
+*.bkp
