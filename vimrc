@@ -441,7 +441,7 @@ function! NewPy()
     if g:os != 'Windows'
         exe "norm! i#!".system("which python3")
     endif
-    exe "norm! i\n\nif __name__ == \"__main__\":\npass\ekkk"
+    exe "norm! i\n\nif __name__ == \'__main__\':\n...\ekkk"
 endfunction
 
 augroup NewFile
@@ -486,6 +486,7 @@ command! Close call Close()
 function! Close()
     cclose
     pclose
+    lclose
     helpclose
 
     if IsInstalled('nvim-tree')
@@ -497,6 +498,7 @@ function! Close()
 
     if IsInstalled('coc.nvim')
         call CocAction('hideOutline')
+        CocListCancel
     else
         try | exe 'TagbarClose' | catch | endtry
     endif

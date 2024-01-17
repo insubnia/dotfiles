@@ -20,7 +20,7 @@ endif
 # toolchain
 ################################################################################
 ifeq ($(OS),Windows_NT)
-	TOOLCHAIN_ROOT := G:/ProgramData/chocolatey/bin/
+	TOOLCHAIN_ROOT := "G:/ProgramData/chocolatey/bin/"
 endif
 # CROSS   := $(TOOLCHAIN_ROOT)arm-none-eabi-
 # CROSS   := $(TOOLCHAIN_ROOT)i686-w64-mingw32-
@@ -40,7 +40,7 @@ TAR      := tar -cf
 COMPRESS := gzip -9f
 
 ifeq ($(OS),Windows_NT)
-	GIT_BIN_DIR := C:/Program Files/Git/usr/bin/
+	GIT_BIN_DIR := "C:/Program Files/Git/usr/bin/"
 	RM     := $(GIT_BIN_DIR)$(RM)
 	MKDIR  := $(GIT_BIN_DIR)$(MKDIR)
 	ECHO   := $(GIT_BIN_DIR)$(ECHO) -e

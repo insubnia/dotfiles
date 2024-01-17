@@ -39,6 +39,7 @@ list=(
     pyjwt
     selenium
     pyautogui
+    pipdeptree
 )
 
 for item in ${list[@]}

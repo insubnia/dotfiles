@@ -11,7 +11,7 @@ choco install -y bandizip
 choco install -y vim
 choco install -y neovim
 choco install -y vscode
-choco install -y smartgit
+:: choco install -y smartgit
 choco install -y git-fork
 choco install -y sourcetree
 choco install -y tortoisegit
