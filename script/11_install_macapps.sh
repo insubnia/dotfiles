@@ -22,6 +22,7 @@ apps=(
     scroll-reverser
     hiddenbar
     stats
+    eqmac
     monitorcontrol
     # embedded
     gcc-arm-embedded

@@ -7,7 +7,11 @@ plugins
 
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'vim', 'c', 'python', 'bash', 'lua', 'make', 'cmake', 'json', 'rust' },
+    ensure_installed = {
+        'vim', 'python', 'c', 'make',
+        'bash', 'lua', 'cmake', 'json', 'rust',
+        'comment',
+    },
     sync_install = false,
     auto_install = true,
 
