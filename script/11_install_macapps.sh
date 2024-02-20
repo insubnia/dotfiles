@@ -13,20 +13,27 @@ apps=(
     folx
     notion
     google-chrome
+
     # dev
     sourcetree
     visual-studio-code
-    qt-creator
+    docker
+    # qt-creator
+
+    # paid
+    soundsource
+
     # productivity
     karabiner-elements
     scroll-reverser
     hiddenbar
     stats
-    eqmac
     monitorcontrol
+
     # embedded
     gcc-arm-embedded
-    coolterm
+    # coolterm
+
     # etc
     cron
     drawio
