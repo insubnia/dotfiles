@@ -189,6 +189,8 @@ nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>t <C-w>T
+nnoremap <C-w>- :sp<cr>
+nnoremap <C-w>/ :vs<cr>
 nnoremap <C-w>[ :vs\|GoTo<cr><C-w>T
 nnoremap <C-w>] :vs\|GoTo<cr>
 nnoremap <tab> gt

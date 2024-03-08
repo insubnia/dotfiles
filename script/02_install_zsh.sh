@@ -22,4 +22,4 @@ fi
 
 # If below command failed, register "/usr/local/bin/zsh" in "/etc/shells"
 # sudo permission is needed to edit "/etc/shells"
-chsh -s $(which zsh)
+# chsh -s $(which zsh)

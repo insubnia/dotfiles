@@ -4,6 +4,7 @@ list=(
     neovim
     git
     git-flow
+    fish
     tig
     bat
     tmux
@@ -130,7 +131,10 @@ do
     echo -e "Done"
 done
 
-# install tmux plugin manager
+# install tpm(tmux plugin manager)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# install ofm(oh-my-fish)
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 
 echo -e "\nComplete\n"
