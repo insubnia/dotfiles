@@ -278,6 +278,10 @@ if has('nvim')
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
+
+    if g:os == 'Darwin'
+        nmap <silent> gx :!open <cWORD><cr>
+    endif
 else
     nmap J <plug>(ale_next_wrap)zz
     nmap K <plug>(ale_previous_wrap)zz

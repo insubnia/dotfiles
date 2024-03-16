@@ -17,7 +17,7 @@ else
 endif
 
 ################################################################################
-# toolchain
+# binaries
 ################################################################################
 ifeq ($(OS),Windows_NT)
 	TOOLCHAIN_ROOT := "G:/ProgramData/chocolatey/bin/"
@@ -31,6 +31,7 @@ LD       := $(CROSS)ld
 SIZE     := $(CROSS)size
 OBJCOPY  := $(CROSS)objcopy
 OBJDUMP  := $(CROSS)objdump
+CP       := cp -r
 RM       := rm -rf
 MKDIR    := mkdir -p
 ECHO     := echo
@@ -256,6 +257,7 @@ test:
 	@$(ECHO) $(OUTDIRS)
 	@$(ECHO) "$(CC_VERSION)"
 	@$(ECHO) $(TEST)
+	@$(ECHO) $(UNAME)
 
 
 asm: $(ASMS)
