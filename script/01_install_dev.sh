@@ -11,7 +11,11 @@ list=(
     wget
     curl
     tree
+    dos2unix
+    # search
     fzf
+    ripgrep
+    # C/C++
     gcc
     llvm
     clang-format
@@ -21,6 +25,7 @@ list=(
     bear
     cmake
     scons
+    # python
     python3
     autojump
     p7zip
@@ -28,7 +33,6 @@ list=(
     nodejs
     jq
     npm
-    dos2unix
     imagemagick
     libxml2
     iperf3
