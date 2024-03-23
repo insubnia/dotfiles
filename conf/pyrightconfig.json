@@ -1,0 +1,7 @@
+{
+  "typeCheckingMode": "basic",
+
+  "__URL": " https://github.com/microsoft/pyright/blob/main/docs/configuration.md ",
+  "__typeCheckingMode": ["off", "basic", "standard", "strict"],
+  "__stringValues": ["none", "warning", "information", "error"]
+}

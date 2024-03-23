@@ -9,17 +9,23 @@
       "<C-c>": "do:exit"
     }
   },
-
-  "languageserver": {},
   "diagnostic": {
     "enable": true,
     "displayByAle": false
   },
+  "languageserver": {
+    "clangd.enable": true
+  },
+
   "clangd": {
-    "enabled": true
+    "enabled": true,
+    "formatting.enabled": true
+  },
+
+  "pyright": {
+    "enable": true,
   },
   "python": {
-    "pyright.enable": true,
     "formatting": {
       "provider": "autopep8",
       "autopep8Path": "/opt/homebrew/bin/autopep8"
@@ -32,6 +38,13 @@
       "autoImportCompletions": false
     }
   },
+
+  "json": {
+    "format.enable": true,
+    "format.keepLines": true,
+    "format.indentSize": 2
+  },
+
   "xml": {
     "java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home" // "echo $JAVA_HOME" and get this
   }

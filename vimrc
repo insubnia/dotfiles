@@ -255,7 +255,6 @@ nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
 nmap <C-q> <plug>(qf_qf_toggle)
-nmap <leader>l <plug>(ale_fix)
 nmap <leader>j <Plug>(qf_qf_next)zz
 nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <C-w><C-[> <C-w>[
@@ -272,7 +271,7 @@ if has('nvim')
     nmap gd <plug>(coc-definition)
     nmap gl <plug>(coc-codeaction)
     nmap gr <plug>(coc-rename)
-    " nmap <leader>l <plug>(coc-format)
+    nmap <leader>l <plug>(coc-format)
     vmap <leader>l <plug>(coc-format-selected)
 
     " Terminal keymappings
@@ -285,6 +284,7 @@ if has('nvim')
 else
     nmap J <plug>(ale_next_wrap)zz
     nmap K <plug>(ale_previous_wrap)zz
+    nmap <leader>l <plug>(ale_fix)
     vnoremap <leader>l :Autoformat<cr>
 endif
 
@@ -358,7 +358,7 @@ autocmd BufReadPost *
 autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
 autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
-autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim
