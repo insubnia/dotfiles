@@ -4,14 +4,15 @@ list=(
     neovim
     git
     git-flow
+    tmux
     fish
     tig
     bat
-    tmux
     wget
     curl
     tree
     dos2unix
+    tldr
     # search
     fzf
     ripgrep
@@ -25,21 +26,22 @@ list=(
     bear
     cmake
     scons
-    # python
+    # Python
     python3
+    # utilities
     autojump
+    caffeine
+    # etc
+    nodejs
+    npm
     p7zip
     rar
-    nodejs
     jq
-    npm
     imagemagick
     libxml2
     iperf3
     htop
     tcpdump
-    # meld
-    caffeine
 )
 
 # OS variant

@@ -32,6 +32,7 @@ list=(
     compiledb
     cmake_format
     tqdm
+    dill
     colorama
     argparse
     beautifulsoup4

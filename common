@@ -73,8 +73,8 @@ fi
 # API Key
 case "$OSTYPE" in
     darwin*)
-        export ACCESS_KEY='hmCpEbHz9GVK2LfTkxWY7A8PgCJUs7TjgqwSsUEH'
-        export SECRET_KEY='9uaCZwQ2Bp4cIXaz5jp1CvGg4Ury4UT3GN77LGl0'
+        export ACCESS_KEY='x9yiafsbNQiWpKm8e02rwErPkzFMV4hqxxp6bNBB'
+        export SECRET_KEY='LZknhLopdFic3VbL60SzuPsMe9HYtB7GSJEgGx10'
         ;;
     linux*)
         export ACCESS_KEY='oyoSSj4IagMUWSLIo8wPMpfxpqE79HWxEF3IswOV'
