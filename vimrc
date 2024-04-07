@@ -48,7 +48,6 @@ Plug 'sirver/ultisnips'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
-Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'dense-analysis/ale'
@@ -203,8 +202,7 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
-nnoremap <leader>f :Ag<cr>
-" nnoremap <leader>f :Ack!<space>
+nnoremap <leader>f :Rg<cr>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
