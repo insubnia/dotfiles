@@ -21,26 +21,23 @@ zplug "plugins/extract", from:oh-my-zsh
 zplug "djui/alias-tips"
 zplug "supercrabtree/k"
 
+# Choose theme depending on OS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     zplug "romkatv/powerlevel10k", as:theme, depth:1
-
 elif [[ "$OSTYPE" == "linux"* ]]; then
-    if grep -q -Irin microsoft /proc/version; then
-        # WSL (Windows Subsystem for Linux)
-        zplug "themes/blinks", from:oh-my-zsh
+    if grep -q -Irin microsoft /proc/version; then  # WSL
+        zplug 'dracula/zsh', as:theme
         # https://stackoverflow.com/questions/12765344/oh-my-zsh-slow-but-only-for-certain-git-repo
         git config --global oh-my-zsh.hide-status 1
         git config --global oh-my-zsh.hide-dirty 1
-    else
-        # Native Linux System
+    else  # Native
         zplug "romkatv/powerlevel10k", as:theme, depth:1
     fi
-
 else
     echo $OSTYPE
     zplug "themes/agnoster", from:oh-my-zsh
-
 fi
+
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -48,4 +45,5 @@ if ! zplug check --verbose; then
     echo; zplug install
   fi
 fi
+# zplug load --verbose
 zplug load

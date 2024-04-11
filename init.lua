@@ -38,6 +38,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
 vim.keymap.set('n', '<C-w>n', ':NvimTreeFocus<cr>')
+vim.keymap.set('n', '<C-w><C-n>', ':NvimTreeFocus<cr>')
 require("nvim-tree").setup({
     sort_by = "case_sensitive",
     view = {
