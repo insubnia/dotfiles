@@ -33,6 +33,7 @@ else
     " Autocomplete
     Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
     " etc
+    Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
 Plug 'github/copilot.vim'
@@ -50,7 +51,6 @@ Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'

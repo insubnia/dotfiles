@@ -37,8 +37,7 @@ alias mar='make all run'
 alias goaws='ssh -i $DOTFILES/key.pem ubuntu@aws'
 
 # tmux
-alias ta='tmux attach -t'
-alias tl='tmux ls'
+alias tat='tmux attach -t'
 
 
 case "$OSTYPE" in

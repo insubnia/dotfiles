@@ -48,7 +48,11 @@ require("nvim-tree").setup({
         group_empty = true,
     },
     filters = {
-        dotfiles = false,
+        enable = true,
+        dotfiles = true,
+        custom = {
+            'pyrightconfig.json',
+        },
     },
 })
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close

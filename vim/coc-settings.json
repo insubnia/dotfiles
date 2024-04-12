@@ -22,8 +22,9 @@
     "formatting.enabled": true
   },
 
+  // https://github.com/fannheyward/coc-pyright
   "pyright": {
-    "enable": true,
+    "enable": true
   },
   "python": {
     "formatting": {
