@@ -367,7 +367,6 @@ autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 function! OperatorHL()
     if has('nvim')
-        :
     else
         syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
         exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
@@ -375,6 +374,8 @@ function! OperatorHL()
 endfunction
 autocmd ColorScheme c,cpp,python call OperatorHL()
 autocmd Syntax c,cpp,python call OperatorHL()
+
+au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
 
 augroup XML
     autocmd!
