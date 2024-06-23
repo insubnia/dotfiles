@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.colorTheme": "Slack Theme Aubergine",
   "workbench.iconTheme": "material-icon-theme",
 
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
@@ -39,7 +39,7 @@
     "handleKeys": {
     },
 
-    "_comment": "https://demun.github.io/vscode-tutorial/shortcuts/",
+    "_1": "https://demun.github.io/vscode-tutorial/shortcuts/",
     "normalModeKeyBindingsNonRecursive": [
       { "before": [";"], "commands": ["editor.action.showHover"] },
       { "before": ["?"], "commands": ["workbench.action.showAllSymbols"] },

@@ -217,12 +217,6 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
 vnoremap vw viw
-vnoremap "" s""<esc>P
-vnoremap '' s''<esc>P
-vnoremap () s()<esc>P
-vnoremap <> s<><esc>P
-vnoremap [] s[]<esc>P
-vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
