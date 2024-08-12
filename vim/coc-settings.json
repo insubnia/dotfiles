@@ -1,6 +1,4 @@
 {
-  "inlayHint.enable": true,
-
   "list": {
     "normalMappings": {
       "<C-c>": "do:exit"
@@ -15,6 +13,10 @@
   },
   "languageserver": {
     "clangd.enable": true
+  },
+  "inlayHint": {
+    "enable": true,
+    "position": "eol"
   },
 
   "clangd": {
@@ -32,6 +34,7 @@
       "autopep8Path": "/opt/homebrew/bin/autopep8"
     },
     "linting": {
+      "enabled": true,
       "flake8Enabled": true,
       "pylintEnalbed": false
     },
