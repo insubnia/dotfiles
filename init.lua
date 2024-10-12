@@ -1,9 +1,29 @@
 -- ~/.config/nvim/lua/init.lua
 -- %LOCALAPPDATA%/nvim/lua/init.lua
+local vim = vim
+local keyset = vim.keymap.set
 
---[[
-plugins
-]]
+--[[ PLUGINS ]]
+-- NOTE: https://github.com/junegunn/vim-plug
+local Plug = vim.fn['plug#']
+vim.call('plug#begin')
+Plug('nvim-tree/nvim-tree.lua')
+Plug('nvim-tree/nvim-web-devicons')
+Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = 'TSUpdate' })
+Plug('p00f/nvim-ts-rainbow')
+vim.call('plug#end')
+
+
+-- CoC
+keyset("n", "J", "<Plug>(coc-diagnostic-next)", {silent = true})
+keyset("n", "K", "<Plug>(coc-diagnostic-prev)", {silent = true})
+keyset("n", "gd", "<Plug>(coc-definition)", {silent = true})
+keyset("n", "gr", "<Plug>(coc-references)", {silent = true})
+keyset("n", "ge", "<Plug>(coc-rename)", {silent = true})
+keyset("n", "gl", "<Plug>(coc-codeaction)", {silent = true})
+keyset("n", "<leader>l", "<Plug>(coc-format)", {silent = true})
+keyset("v", "<leader>l", "<Plug>(coc-format-selected)", {silent = true})
 
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {
@@ -36,9 +56,9 @@ require('nvim-treesitter.configs').setup {
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
-vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<cr>')
-vim.keymap.set('n', '<C-w>n', ':NvimTreeFocus<cr>')
-vim.keymap.set('n', '<C-w><C-n>', ':NvimTreeFocus<cr>')
+keyset('n', '<C-n>', ':NvimTreeToggle<cr>')
+keyset('n', '<C-w>n', ':NvimTreeFocus<cr>')
+keyset('n', '<C-w><C-n>', ':NvimTreeFocus<cr>')
 require("nvim-tree").setup({
     sort_by = "case_sensitive",
     view = {

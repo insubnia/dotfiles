@@ -31,6 +31,7 @@ list=(
     # utilities
     autojump
     caffeine
+    neofetch
     # etc
     nodejs
     npm

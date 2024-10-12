@@ -17,14 +17,6 @@ endif
 " PLUGINS {{{
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
-    " File Explorer
-    Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-tree/nvim-web-devicons'
-    " Autocomplete
-    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-    " etc
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-    Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     " File Explorer
@@ -36,7 +28,7 @@ else
     Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -257,15 +249,6 @@ if has('nvim')
     " CoC key mappings
     nnoremap ; :call CocAction('doHover')<cr>
     nnoremap ? :CocList -I symbols<cr>
-    nmap J <plug>(coc-diagnostic-next)
-    nmap K <plug>(coc-diagnostic-prev)
-    nmap ge <plug>(coc-references)
-    nmap gd <plug>(coc-definition)
-    nmap gl <plug>(coc-codeaction)
-    nmap gr <plug>(coc-rename)
-    nmap <leader>l <plug>(coc-format)
-    vmap <leader>l <plug>(coc-format-selected)
-
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
