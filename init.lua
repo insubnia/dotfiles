@@ -5,14 +5,14 @@ local keyset = vim.keymap.set
 
 --[[ PLUGINS ]]
 -- NOTE: https://github.com/junegunn/vim-plug
-local Plug = vim.fn['plug#']
-vim.call('plug#begin')
-Plug('nvim-tree/nvim-tree.lua')
-Plug('nvim-tree/nvim-web-devicons')
-Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = 'TSUpdate' })
-Plug('p00f/nvim-ts-rainbow')
-vim.call('plug#end')
+-- local Plug = vim.fn['plug#']
+-- vim.call('plug#begin')
+-- Plug('nvim-tree/nvim-tree.lua')
+-- Plug('nvim-tree/nvim-web-devicons')
+-- Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
+-- Plug('nvim-treesitter/nvim-treesitter', { ['do'] = 'TSUpdate' })
+-- Plug('p00f/nvim-ts-rainbow')
+-- vim.call('plug#end')
 
 
 -- CoC

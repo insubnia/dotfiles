@@ -17,6 +17,14 @@ endif
 " PLUGINS {{{
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    " File Explorer
+    Plug 'nvim-tree/nvim-tree.lua'
+    Plug 'nvim-tree/nvim-web-devicons'
+    " Autocomplete
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+    " etc
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+    Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     " File Explorer
@@ -618,6 +626,10 @@ endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
+if has('nvim')
+    lua require('init')
+endif
+
 " youcompleteme
 if IsInstalled('youcompleteme')
     let g:ycm_confirm_extra_conf = 0
@@ -832,10 +844,6 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsDefaultFolderOpenSymbol = ''
 let g:DevIconsEnableNERDTreeRedraw = 1
-
-if has('nvim')
-    lua require('init')
-endif
 " }}}
 " ============================================================================
 " OUTRO {{{
