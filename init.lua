@@ -16,14 +16,38 @@ local keyset = vim.keymap.set
 
 
 -- CoC
-keyset("n", "J", "<Plug>(coc-diagnostic-next)", {silent = true})
-keyset("n", "K", "<Plug>(coc-diagnostic-prev)", {silent = true})
-keyset("n", "gd", "<Plug>(coc-definition)", {silent = true})
-keyset("n", "gr", "<Plug>(coc-references)", {silent = true})
-keyset("n", "ge", "<Plug>(coc-rename)", {silent = true})
-keyset("n", "gl", "<Plug>(coc-codeaction)", {silent = true})
-keyset("n", "<leader>l", "<Plug>(coc-format)", {silent = true})
-keyset("v", "<leader>l", "<Plug>(coc-format-selected)", {silent = true})
+vim.g.coc_config_home = '~/workspace/dotfiles/vim'
+vim.g.coc_global_extensions = {
+    'coc-vimlsp',
+    'coc-clangd',
+    'coc-clang-format-style-options',
+    'coc-cmake',
+    'coc-json',
+    'coc-prettier',
+    'coc-pyright',
+    'coc-snippets',
+    'coc-ultisnips',
+    'coc-lua',
+    'coc-sh',
+    'coc-tsserver',
+    'coc-xml',
+}
+vim.api.nvim_create_augroup("CocGroup", {})
+vim.api.nvim_create_autocmd("CursorHold", {
+    group = "CocGroup",
+    command = "silent call CocActionAsync('highlight')",
+    desc = "Highlight symbol under cursor on CursorHold"
+})
+keyset("n", "J", "<Plug>(coc-diagnostic-next)", { silent = true })
+keyset("n", "K", "<Plug>(coc-diagnostic-prev)", { silent = true })
+keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })
+keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
+keyset("n", "ge", "<Plug>(coc-rename)", { silent = true })
+keyset("n", "gl", "<Plug>(coc-codeaction)", { silent = true })
+keyset("n", "<leader>l", "<Plug>(coc-format)", { silent = true })
+keyset("v", "<leader>l", "<Plug>(coc-format-selected)", { silent = true })
+keyset("n", "?", ":CocList -I symbols<cr>", { silent = true, nowait = true })
+keyset("n", ";", ":call CocAction('doHover')<cr>", { silent = true, nowait = true })
 
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {

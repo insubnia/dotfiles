@@ -254,9 +254,6 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    " CoC key mappings
-    nnoremap ; :call CocAction('doHover')<cr>
-    nnoremap ? :CocList -I symbols<cr>
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
@@ -644,24 +641,6 @@ endif
 
 " coc
 if IsInstalled('coc.nvim')
-    let g:coc_global_extensions = [
-                \'coc-vimlsp',
-                \'coc-clangd',
-                \'coc-cmake',
-                \'coc-json',
-                \'coc-prettier',
-                \'coc-pyright',
-                \'coc-snippets',
-                \'coc-ultisnips',
-                \'coc-lua',
-                \'coc-tsserver',
-                \'coc-xml',
-                \]
-    let g:coc_config_home = '~/workspace/dotfiles/vim'
-
-    " essential
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-
     " coc-outline
     nnoremap <silent><nowait> T :call ToggleOutline()<CR>
     function! ToggleOutline() abort
