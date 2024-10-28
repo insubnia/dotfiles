@@ -641,17 +641,6 @@ endif
 
 " coc
 if IsInstalled('coc.nvim')
-    " coc-outline
-    nnoremap <silent><nowait> T :call ToggleOutline()<CR>
-    function! ToggleOutline() abort
-        let winid = coc#window#find('cocViewId', 'OUTLINE')
-        if winid == -1
-            call CocActionAsync('showOutline', 1)
-        else
-            call coc#window#close(winid)
-        endif
-    endfunction
-
     " coc-config-suggest-floatConfig
     function! s:check_back_space() abort
         let col = col('.') - 1
@@ -784,31 +773,31 @@ let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
 
 " ale
-let g:ale_linters = {
-            \'python': ['flake8'],
-            \}
-let g:ale_fixers = {
-            \'*': ['remove_trailing_lines', 'trim_whitespace'],
-            \'c': ['clang-format'],
-            \'cpp': ['clang-format'],
-            \'python': ['autopep8'],
-            \'xml': ['xmllint'],
-            \'cmake': ['cmakeformat'],
-            \'json': ['jq']
-            \}
-let g:ale_xml_xmllint_options = '--format'
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = ''
+if IsInstalled('ale')
+    let g:ale_linters = {
+                \'python': ['flake8'],
+                \}
+    let g:ale_fixers = {
+                \'*': ['remove_trailing_lines', 'trim_whitespace'],
+                \'c': ['clang-format'],
+                \'cpp': ['clang-format'],
+                \'python': ['autopep8'],
+                \'xml': ['xmllint'],
+                \'cmake': ['cmakeformat'],
+                \'json': ['jq']
+                \}
+    let g:ale_xml_xmllint_options = '--format'
+    let g:ale_sign_error = '✘'
+    let g:ale_sign_warning = ''
+endif
 
 " surround
-if IsInstalled('surround')
-    nmap ys" ysiw"
-    nmap ys' ysiw'
-    nmap ys) ysiw)
-    nmap ys> ysiw>
-    nmap ys] ysiw]
-    nmap ys} ysiw}
-endif
+nmap ys" ysiw"
+nmap ys' ysiw'
+nmap ys) ysiw)
+nmap ys> ysiw>
+nmap ys] ysiw]
+nmap ys} ysiw}
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'

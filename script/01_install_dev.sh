@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Common list
 list=(
     neovim
     git
@@ -47,7 +48,6 @@ list=(
 
 # OS variant
 macos=(
-    the_silver_searcher
     mas
     github
     binutils
@@ -70,7 +70,6 @@ macos=(
     asciiquarium
 )
 linux=(  # https://packages.ubuntu.com/
-    silversearcher-ag
     vim-gtk
     xclip
     net-tools
@@ -82,6 +81,8 @@ linux=(  # https://packages.ubuntu.com/
     samba
     ufw
     beep
+    x11-apps
+    x11-utils
     # C/C++
     gcc-arm-none-eabi
     clang

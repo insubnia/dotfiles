@@ -19,15 +19,14 @@
     "position": "eol"
   },
 
+  // C/C++
   "clangd": {
+    "path": "~/.config/coc/extensions/coc-clangd-data/install/18.1.3/clangd_18.1.3/bin/clangd",
     "enabled": true,
     "formatting.enabled": true
   },
 
-  // https://github.com/fannheyward/coc-pyright
-  "pyright": {
-    "enable": true
-  },
+  // Python
   "python": {
     "formatting": {
       "provider": "autopep8",
@@ -42,7 +41,11 @@
       "autoImportCompletions": false
     }
   },
+  "pyright": {  // https://github.com/fannheyward/coc-pyright
+    "enable": true
+  },
 
+  // etc
   "json": {
     "format.enable": true,
     "format.keepLines": true,
