@@ -1,3 +1,4 @@
+-- INFO: https://neovim.io/doc/user/lua-guide.html or :help lua-guide
 -- ~/.config/nvim/lua/init.lua
 -- %LOCALAPPDATA%/nvim/lua/init.lua
 local vim = vim
@@ -132,5 +133,5 @@ vim.api.nvim_create_autocmd('QuitPre', {
     end,
 })
 
---- nvim-web-devicons
+-- nvim-web-devicons
 require("nvim-web-devicons").setup {}

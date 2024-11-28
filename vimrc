@@ -304,9 +304,7 @@ endif
 " }}}
 " ============================================================================
 " ABBREVIATIONS {{{
-" <C-o> is dummy to invalidate inserting space
-
-" Timestamp
+" Timestamp  NOTE: <C-o> is dummy to invalidate inserting space
 iabbrev xdate <C-r>=strftime("%Y.%m.%d")<cr><C-o>
 
 " Fix typo
@@ -322,6 +320,9 @@ abbrev lamda lambda
 abbrev swtich switch
 abbrev sturct struct
 abbrev puase pause
+
+cabbrev cs colorscheme
+cabbrev at AirlineTheme
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -816,8 +817,8 @@ let g:DevIconsEnableNERDTreeRedraw = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo dracula
-    let g:airline_theme = 'dracula'
+    colo onedark
+    let g:airline_theme = 'onedark'
 elseif g:os == "Linux"
     colo codedark
     let g:airline_theme = 'codedark'
