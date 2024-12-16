@@ -7,9 +7,10 @@
   "editor": {
     "insertSpaces": true,
     "wordWrap": "off",
-    "cursorStyle": "line",
-    "renderFinalNewline": "off"
+    "cursorStyle": "line"
   },
+  "editor.renderFinalNewline": "off",
+  "editor.inlayHints.enabled": "off",
 
   "files": {
     "eol": "\n",
@@ -53,7 +54,8 @@
       { "before": ["d", "w"], "after": ["d", "i", "w"] },
       { "before": ["y", "w"], "after": ["y", "i", "w"] },
       { "before": ["g", "d"], "commands": ["editor.action.revealDefinition"] },
-      { "before": ["g", "r"], "commands": ["editor.action.rename"] },
+      { "before": ["g", "e"], "commands": ["editor.action.rename"] },
+      { "before": ["g", "r"], "commands": ["references-view.findReferences"] },
       { "before": ["Z", "Q"], "commands": [":q"] },
       { "before": ["Z", "Z"], "commands": [":wq"] },
       { "before": ["<C-c>"], "commands": ["workbench.action.closeSidebar", "workbench.action.closePanel"] },

@@ -485,10 +485,10 @@ function! Close()
     endif
 
     if IsInstalled('coc.nvim')
-        call CocAction('hideOutline')
+        " call CocAction('hideOutline')
         CocListCancel
     else
-        try | exe 'TagbarClose' | catch | endtry
+        " try | exe 'TagbarClose' | catch | endtry
     endif
 endfunction
 

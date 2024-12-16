@@ -42,11 +42,12 @@ apps=(
 )
 
 # https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
+# https://www.nerdfonts.com/font-downloads
 fonts=(
-    font-d2coding
     font-jetbrains-mono-nerd-font
     font-dejavu-sans-mono-nerd-font
     font-meslo-lg-nerd-font
+    font-d2coding-nerd-font
 )
 
 # https://github.com/mas-cli/mas

@@ -3,6 +3,7 @@
 :: tool
 choco install -y powertoys
 choco install -y chocolateygui
+choco install -y unison
 choco install -y googlechrome
 choco install -y onedrive
 REM  choco install -y vlc
@@ -24,6 +25,7 @@ choco install -y iperf3
 choco install -y ntop
 choco install -y terminal-icons.powershell
 REM  choco install -y flashplayerplugin
+choco install -y wincompose
 
 :: server-client
 choco install -y openssh
@@ -59,6 +61,9 @@ REM  choco install -y vcxsrv
 set list=^
 jetbrainsmononf ^
 font-nerd-dejavusansmono ^
+cascadia-code-nerd-font ^
+nerd-fonts-ubuntu ^
+nerd-fonts-hack ^
 d2codingfont
 
 for %%v in (%list%) do choco install -y %%v
