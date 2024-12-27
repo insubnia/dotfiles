@@ -10,7 +10,6 @@ cd %USERPROFILE%
 del /f _vimrc .ackrc
 
 mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
 mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"
 ::mklink "%USERPROFILE%/Desktop/ip-shift.bat" "%DOTFILES%/script/windows-ip-shift.bat"
 

@@ -1,5 +1,6 @@
 #!/bin/sh
 export DOTFILES="$HOME/workspace/dotfiles"
+export ONEDRIVE="/Users/sis/Library/CloudStorage/OneDrive-개인/"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -7,37 +8,36 @@ alias cls='clear'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -ahl'
 alias k='k -h'
-alias vi='nvim'
-alias nvim.='nvim .'
 alias python='python3'
 alias pip='pip3'
-alias gdf='git difftool -t vimdiff'
-alias gsp='git stash && git pull && git stash pop'
 alias ff='find . -type f -iname'
-alias tl1='tree -L 1'
-alias tl2='tree -L 2'
-alias tl3='tree -L 3'
-alias tl4='tree -L 4'
+alias tl1='tree -CL 1'
+alias tl2='tree -CL 2'
+alias tl3='tree -CL 3'
+alias tl4='tree -CL 4'
 alias caffe='caffeinate'
-alias makefile='ln -sf $DOTFILES/makefile'
-alias makefile2='cp $DOTFILES/makefile makefile'
-alias makefile3='echo include $DOTFILES/makefile >> makefile'
 alias flake88='ln -sf $DOTFILES/conf/flake8 .flake8'
 # alias dos2unixr='find . -type f -print0 | xargs -0 dos2unix'
 alias dos2unixr='dos2unix $(find . -type f -not -path "*.git/*")'
 alias iperf='iperf3'
 alias ycm='python ~/.vim/plugged/youcompleteme/install.py --clang-completer'
+
+# makefile
+alias mar='make all run'
+alias makefile='ln -sf $DOTFILES/makefile'
+alias makefile2='cp $DOTFILES/makefile makefile'
+alias makefile3='echo include $DOTFILES/makefile >> makefile'
+# git
+alias gdf='git difftool -t vimdiff'
+alias gsp='git stash && git pull && git stash pop'
 alias gdc='git diff --cached'
 alias gfomm='git fetch origin master:master'
 alias gfodd='git fetch origin develop:develop'
 alias gitflow='git flow'
-alias cmakefile='ln -sf $DOTFILES/CMakeLists.txt'
-alias cmakeclean='rm -rf CMakeCache.txt CMakeFiles cmake_install.cmake'
-alias mar='make all run'
-alias goaws='ssh -i $DOTFILES/key.pem ubuntu@aws'
-
 # tmux
 alias tat='tmux attach -t'
+# etc
+alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
 
 
 case "$OSTYPE" in
@@ -60,26 +60,14 @@ if [ -d $WORKSPACE ] && [ $PWD = $HOME ]; then
     cd $WORKSPACE
 fi
 
-export USE_CCACHE=1
-
-# unsetopt BG_NICE
-
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 
-# API Key
-case "$OSTYPE" in
-    darwin*)
-        export ACCESS_KEY='x9yiafsbNQiWpKm8e02rwErPkzFMV4hqxxp6bNBB'
-        export SECRET_KEY='LZknhLopdFic3VbL60SzuPsMe9HYtB7GSJEgGx10'
-        ;;
-    linux*)
-        export ACCESS_KEY='oyoSSj4IagMUWSLIo8wPMpfxpqE79HWxEF3IswOV'
-        export SECRET_KEY='QRNhzgU9gH2wBFI5xVG57YRq4o7pSW5xUnxXVPQr'
-        ;;
-esac
+# unsetopt BG_NICE
 
+export USE_CCACHE=1
+export CLICOLOR=1
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'

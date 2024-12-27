@@ -11,6 +11,7 @@
   // C/C++
   "clangd.path": "/usr/bin/clangd",
   "clangd.enabled": true,
+  "clangd.compilationDatabaseCandidates": ["./build"],
 
   // Python
   "python.formatting.provider": "autopep8",
