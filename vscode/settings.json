@@ -1,6 +1,7 @@
 {
   "workbench.colorTheme": "Slack Theme Aubergine",
   "workbench.iconTheme": "material-icon-theme",
+  "workbench.tree.indent": 12,
 
   "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
 

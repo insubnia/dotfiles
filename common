@@ -1,6 +1,6 @@
 #!/bin/sh
 export DOTFILES="$HOME/workspace/dotfiles"
-export ONEDRIVE="/Users/sis/Library/CloudStorage/OneDrive-개인/"
+export ONEDRIVE="$HOME/Library/CloudStorage/OneDrive-개인/"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -37,6 +37,7 @@ alias gitflow='git flow'
 # tmux
 alias tat='tmux attach -t'
 # etc
+alias cdb='compiledb'
 alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
 
 
@@ -45,11 +46,9 @@ case "$OSTYPE" in
         export PATH=/opt/homebrew/bin:$PATH
         ;;
     linux*)
-        if grep -q -Irin microsoft /proc/version; then
-            # WSL
+        if grep -q -Irin microsoft /proc/version; then  # WSL
             alias open='explorer.exe'
-        else
-            # native
+        else  # Native
             alias open='xdg-open'
         fi
         ;;
