@@ -1,6 +1,5 @@
 #!/bin/sh
 export DOTFILES="$HOME/workspace/dotfiles"
-export ONEDRIVE="$HOME/Library/CloudStorage/OneDrive-개인/"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -43,6 +42,7 @@ alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
 
 case "$OSTYPE" in
     darwin*)
+        export ONEDRIVE="$HOME/Library/CloudStorage/OneDrive-개인/"
         export PATH=/opt/homebrew/bin:$PATH
         ;;
     linux*)

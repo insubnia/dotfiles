@@ -12,21 +12,19 @@ list=(
     pip
     pyright
     flake8
+    autopep8
     pep8
     pep8-naming
-    autopep8
+    python-language-server
+    selenium
     numpy
     scipy
     matplotlib
-    mplfinance
     plotly
     pyqt6
     pyinstaller
     polars
     pandas
-    pandas_ta
-    ta-lib
-    python-language-server
     pynvim
     torch
     compiledb
@@ -35,12 +33,8 @@ list=(
     dill
     colorama
     argparse
-    beautifulsoup4
     requests
     pyjwt
-    selenium
-    pyautogui
-    pipdeptree
 )
 
 for item in ${list[@]}

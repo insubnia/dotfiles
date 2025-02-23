@@ -9,7 +9,6 @@ python -m pip install mplfinance
 python -m pip install pyqt6
 python -m pip install pyinstaller
 python -m pip install pandas
-python -m pip install pandas_ta
 python -m pip install python-language-server
 python -m pip install pynvim
 python -m pip install torch

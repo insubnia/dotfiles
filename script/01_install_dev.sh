@@ -6,6 +6,7 @@ list=(
     git
     git-flow
     tmux
+    zsh
     fish
     tig
     bat
@@ -138,11 +139,5 @@ do
     eval $pm install $v > /dev/null
     echo -e "Done"
 done
-
-# install tpm(tmux plugin manager)
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# install ofm(oh-my-fish)
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 
 echo -e "\nComplete\n"
