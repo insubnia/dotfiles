@@ -4,7 +4,6 @@ apps=(
     code
     gitkraken
     office365webdesktop
-    skype
     emote
 )
 fonts=(

@@ -8,6 +8,8 @@
   "inlayHint.enable": true,
   "inlayHint.position": "eol",
 
+  "semanticTokens.enable": true,
+
   // C/C++
   "clangd.path": "/usr/bin/clangd",
   "clangd.enabled": true,
@@ -23,5 +25,5 @@
 
   // etc
   "json.format.enable": true,
-  "json.format.keepLines": true,
+  "json.format.keepLines": true
 }

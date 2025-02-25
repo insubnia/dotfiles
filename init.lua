@@ -20,6 +20,7 @@ local keyset = vim.keymap.set
 vim.g.coc_config_home = '~/workspace/dotfiles/vim'
 vim.g.coc_global_extensions = {
     'coc-vimlsp',
+    'coc-highlight',
     'coc-clangd',
     'coc-clang-format-style-options',
     'coc-cmake',
@@ -63,7 +64,7 @@ keyset("n", ";", ":call CocAction('doHover')<cr>", { silent = true, nowait = tru
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
-        'vim', 'python', 'c', 'make',
+        'vim', 'python', 'c', 'cpp', 'make',
         'bash', 'lua', 'cmake', 'json', 'rust',
         'comment',
     },
