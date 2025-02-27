@@ -9,15 +9,13 @@ alias ll='ls --color=auto -ahl'
 alias k='k -h'
 alias python='python3'
 alias pip='pip3'
-alias ff='find . -type f -iname'
 alias tl1='tree -CL 1'
 alias tl2='tree -CL 2'
 alias tl3='tree -CL 3'
 alias tl4='tree -CL 4'
 alias caffe='caffeinate'
 alias flake88='ln -sf $DOTFILES/conf/flake8 .flake8'
-# alias dos2unixr='find . -type f -print0 | xargs -0 dos2unix'
-alias dos2unixr='dos2unix $(find . -type f -not -path "*.git/*")'
+alias dos2unixr='dos2unix $(fd -tf -g "*")'
 alias iperf='iperf3'
 alias ycm='python ~/.vim/plugged/youcompleteme/install.py --clang-completer'
 
@@ -35,6 +33,7 @@ alias gfodd='git fetch origin develop:develop'
 alias gitflow='git flow'
 # tmux
 alias tat='tmux attach -t'
+alias tkt='tmux kill-session -t'
 # etc
 alias cdb='compiledb'
 alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
@@ -46,6 +45,7 @@ case "$OSTYPE" in
         export PATH=/opt/homebrew/bin:$PATH
         ;;
     linux*)
+        export PATH=$HOME/.local/bin:$PATH
         if grep -q -Irin microsoft /proc/version; then  # WSL
             alias open='explorer.exe'
         else  # Native

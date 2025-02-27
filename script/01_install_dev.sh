@@ -64,7 +64,6 @@ macos=(
     boost
     # python
     autopep8
-    pyenv
     # for fun
     nyancat
     cmatrix
