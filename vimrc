@@ -166,7 +166,6 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-" nnoremap ? :ts /
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
@@ -178,7 +177,7 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-" nnoremap <C-g>
+nnoremap <C-g> :ShowFilePath<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
@@ -443,6 +442,7 @@ augroup END
 " FUNCTIONS & COMMANDS {{{
 command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 
+command! ShowFilePath echohl Special | echo expand('%:p') | echohl None
 command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
