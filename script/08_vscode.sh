@@ -5,6 +5,7 @@ extension_list=(
     llvm-vs-code-extensions.vscode-clangd
     mitaki28.vscode-clang
     XadillaX.viml
+    DotJoshJohnson.xml
     # Essential
     vscodevim.vim
     ms-vscode-remote.remote-ssh

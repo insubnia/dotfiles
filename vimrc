@@ -120,7 +120,7 @@ set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
 set path+=**    " add subdirectories in working path
-set tags=tags   " echo tagfiles() to check tag files
+" set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.gitignore,.svn
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz

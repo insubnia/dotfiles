@@ -92,6 +92,9 @@ linux=(  # https://packages.ubuntu.com/
     # python
     python3-pip
     python3-autopep8
+    # java
+    default-jre
+    default-jdk
     # for fun
     nyancat
     cmatrix

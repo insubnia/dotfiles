@@ -109,6 +109,9 @@ require("nvim-tree").setup({
         custom = {
             'pyrightconfig.json',
         },
+        exclude = {
+            'build'
+        },
     },
 })
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
