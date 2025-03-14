@@ -62,8 +62,10 @@ macos=(
     lsusb
     # C/C++
     boost
-    # python
+    # Python
     autopep8
+    # JAVA
+    openjdk
     # for fun
     nyancat
     cmatrix
@@ -89,10 +91,10 @@ linux=(  # https://packages.ubuntu.com/
     clangd
     libclang-dev
     libboost-all-dev
-    # python
+    # Python
     python3-pip
     python3-autopep8
-    # java
+    # JAVA
     default-jre
     default-jdk
     # for fun

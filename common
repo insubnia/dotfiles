@@ -17,13 +17,11 @@ alias caffe='caffeinate'
 alias flake88='ln -sf $DOTFILES/conf/flake8 .flake8'
 alias dos2unixr='dos2unix $(fd -tf -g "*")'
 alias iperf='iperf3'
-alias ycm='python ~/.vim/plugged/youcompleteme/install.py --clang-completer'
 
 # makefile
 alias mar='make all run'
 alias makefile='ln -sf $DOTFILES/makefile'
 alias makefile2='cp $DOTFILES/makefile makefile'
-alias makefile3='echo include $DOTFILES/makefile >> makefile'
 # git
 alias gdf='git difftool -t vimdiff'
 alias gsp='git stash && git pull && git stash pop'
@@ -41,8 +39,9 @@ alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
 
 case "$OSTYPE" in
     darwin*)
-        export ONEDRIVE="$HOME/Library/CloudStorage/OneDrive-개인/"
         export PATH=/opt/homebrew/bin:$PATH
+        export JAVA_HOME=/opt/homebrew/opt/openjdk
+        export ONEDRIVE="$HOME/Library/CloudStorage/OneDrive-개인/"
         ;;
     linux*)
         export PATH=$HOME/.local/bin:$PATH
