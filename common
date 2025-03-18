@@ -37,6 +37,7 @@ alias cdb='compiledb'
 alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
 
 
+export RIPGREP_CONFIG_PATH=$DOTFILES/conf/ripgreprc
 case "$OSTYPE" in
     darwin*)
         export PATH=/opt/homebrew/bin:$PATH
