@@ -33,6 +33,7 @@ vim.g.coc_global_extensions = {
     'coc-sh',
     'coc-tsserver',
     'coc-xml',
+    'coc-git',
 }
 vim.api.nvim_create_augroup("CocGroup", {})
 vim.api.nvim_create_autocmd("CursorHold", {

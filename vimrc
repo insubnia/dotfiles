@@ -31,7 +31,7 @@ else
     Plug 'scrooloose/nerdtree'
     Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
     " Autocomplete
-    Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
+    " Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
     " etc
     Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -666,8 +666,11 @@ let g:gitgutter_enabled = (has('gui_win32') ? 0 : 1)
 " airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
-" let g:airline_left_sep='█'
-" let g:airline_right_sep='█'
+"    █   
+let g:airline_left_sep = '█'
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = '█'
+let g:airline_right_alt_sep = ''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
@@ -817,11 +820,12 @@ let g:DevIconsEnableNERDTreeRedraw = 1
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo onedark
-    let g:airline_theme = 'onedark'
+    let g:material_style = 'dark'  " light, dark, palenight, oceanic
+    colo vim-material
+    let g:airline_theme = 'material'
 elseif g:os == "Linux"
-    colo codedark
-    let g:airline_theme = 'codedark'
+    colo everforest
+    let g:airline_theme = 'everforest'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'
