@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Slack Theme Aubergine",
+  "workbench.colorTheme": "GitHub Dark Dimmed",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.tree.indent": 12,
 
@@ -98,6 +98,7 @@
     "openRepositoryInParentFolders": "always"
   },
 
+  "C_Cpp.intelliSenseEngine": "disabled",
   "[c]": {
     "editor.defaultFormatter": "xaver.clang-format"
   },

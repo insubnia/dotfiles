@@ -6,7 +6,7 @@ choco install -y chocolateygui
 choco install -y unison
 choco install -y googlechrome
 choco install -y onedrive
-REM  choco install -y vlc
+::  choco install -y vlc
 choco install -y adobereader
 choco install -y bandizip
 choco install -y vim
@@ -24,16 +24,16 @@ choco install -y wireshark
 choco install -y iperf3
 choco install -y ntop
 choco install -y terminal-icons.powershell
-REM  choco install -y flashplayerplugin
+::  choco install -y flashplayerplugin
 choco install -y wincompose
 
 :: server-client
 choco install -y openssh
 choco install -y telnet
 choco install -y mobaxterm
-choco install -y putty
-REM  choco install -y teraterm
-REM  choco install -y winscp
+:: choco install -y putty
+::  choco install -y teraterm
+::  choco install -y winscp
 
 :: dev
 choco install -y git
@@ -54,8 +54,8 @@ choco install -y wget
 choco install -y dos2unix
 choco install -y visualcpp-build-tools
 choco install -y microsoft-windows-terminal
-choco install -y gcc-arm-embedded
-REM  choco install -y vcxsrv
+:: choco install -y gcc-arm-embedded
+::  choco install -y vcxsrv
 
 :: font
 set list=^

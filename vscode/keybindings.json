@@ -4,7 +4,7 @@
 { "key": "ctrl+f",                "command": "cursorRight",
                                      "when": "editorTextFocus && vim.mode == 'Insert'" },
 { "key": "ctrl+c",                "command": "workbench.action.closeSidebar",
-                                     "when": "sideBarFocus" },
+                                     "when": "!searchViewletFocus && !inputFocus" },
 { "key": "ctrl+n",                "command": "workbench.action.closeSidebar",
                                      "when": "sideBarFocus" },
 { "key": "ctrl+n",                "command": "workbench.view.explorer",
