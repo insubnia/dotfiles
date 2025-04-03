@@ -174,7 +174,7 @@ endif
 ################################################################################
 # rules
 ################################################################################
-PHONY := all build clean run show cdb clang-format test
+PHONY := all build clean run show cdb test
 
 all: build
 
@@ -229,8 +229,9 @@ else
 	@bear -- make -j20 all
 endif
 
+PHONY += clang-format
 clang-format:
-	@$(ECHO) "generating .clang-format"
+	@$(ECHO) "generating .clang-format for C"
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
@@ -250,6 +251,13 @@ clang-format:
 		SortUsingDeclarations             : false,\
 		SpaceBeforeRangeBasedForLoopColon : true,\
 		SpacesBeforeTrailingComments      : 2,\
+	}" -dump-config > .clang-format
+
+PHONY += clang-format-cxx
+clang-format-cxx:
+	@$(ECHO) "generating .clang-format for C++"
+	@clang-format -style="{\
+		BasedOnStyle : Google,\
 	}" -dump-config > .clang-format
 
 test:

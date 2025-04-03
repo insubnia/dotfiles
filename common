@@ -1,4 +1,5 @@
 #!/bin/sh
+export WS="$HOME/workspace"
 export DOTFILES="$HOME/workspace/dotfiles"
 
 alias ..='cd ..'
@@ -54,9 +55,8 @@ case "$OSTYPE" in
         ;;
 esac
 
-WORKSPACE=$HOME/workspace
-if [ -d $WORKSPACE ] && [ $PWD = $HOME ]; then
-    cd $WORKSPACE
+if [ -d $WS ] && [ $PWD = $HOME ]; then
+    cd $WS
 fi
 
 # pyenv

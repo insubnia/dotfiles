@@ -30,6 +30,7 @@
   "search.exclude": {
     "**/*.a2l": true
   },
+  "search.useIgnoreFiles": false,
 
   "vim": {
     "gdefault": true,
