@@ -3,7 +3,9 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.tree.indent": 12,
 
-  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+  "terminal.integrated.shell.windows": "%SystemRoot%\\System32\\cmd.exe",
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "terminal.integrated.fontSize": 13,
 
   "editor": {
     "insertSpaces": true,

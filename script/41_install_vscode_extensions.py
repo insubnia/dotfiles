@@ -6,6 +6,7 @@ import shutil
 extension_list = (
     # Language
     'ms-vscode.cpptools',
+    'ms-vscode.cmake-tools',
     'xaver.clang-format',
     'llvm-vs-code-extensions.vscode-clangd',
     'mitaki28.vscode-clang',

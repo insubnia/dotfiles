@@ -85,6 +85,8 @@ linux=(  # https://packages.ubuntu.com/
     beep
     x11-apps
     x11-utils
+    xrdp
+    dbus-x11
     # C/C++
     gcc-arm-none-eabi
     clang
