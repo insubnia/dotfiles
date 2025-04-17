@@ -16,6 +16,9 @@ extension_list = (
     'vscodevim.vim',
     'ms-vscode-remote.remote-ssh',
     'ms-azuretools.vscode-docker',
+    # Visual
+    'SirTori.indenticator',
+    'oderwat.indent-rainbow',
     # Web
     'ms-vscode.live-server',
     # Theme

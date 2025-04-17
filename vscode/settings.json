@@ -112,5 +112,8 @@
     "editor.formatOnType": true
   },
 
+  "_2": "Plugin settings",
+  "indentRainbow.indicatorStyle": "light",
+
   "security.workspace.trust.untrustedFiles": "open"
 }

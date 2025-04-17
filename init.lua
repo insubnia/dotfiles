@@ -88,6 +88,22 @@ require('nvim-treesitter.configs').setup {
         -- termcolors = {},
     }
 }
+-- nvim-treesitter-context
+require('treesitter-context').setup {
+    enable = true,          -- Enable this plugin (Can be enabled/disabled later via commands)
+    multiwindow = false,    -- Enable multiwindow support.
+    max_lines = 0,          -- How many lines the window should span. Values <= 0 mean no limit.
+    min_window_height = 0,  -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    line_numbers = true,
+    multiline_threshold = 20, -- Maximum number of lines to show for a single context
+    trim_scope = 'outer',   -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    mode = 'cursor',        -- Line used to calculate context. Choices: 'cursor', 'topline'
+    -- Separator between context and content. Should be a single character string, like '-'.
+    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+    separator = nil,
+    zindex = 20,   -- The Z-index of the context window
+    on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+}
 
 -- nvim-tree
 vim.g.loaded_netrw = 1
@@ -114,6 +130,16 @@ require("nvim-tree").setup({
             'build'
         },
     },
+    on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+        api.config.mappings.default_on_attach(bufnr) -- restore default mappings
+
+        local function opts(desc)
+            return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+        vim.keymap.set('n', 'u', api.tree.change_root_to_parent, opts("Up"))
+        vim.keymap.set('n', '?', api.tree.toggle_help, opts("Help"))
+    end,
 })
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
 vim.api.nvim_create_autocmd('QuitPre', {
@@ -140,3 +166,6 @@ vim.api.nvim_create_autocmd('QuitPre', {
 
 -- nvim-web-devicons
 require("nvim-web-devicons").setup {}
+
+-- indent-blankline
+require("ibl").setup {}

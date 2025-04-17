@@ -22,8 +22,11 @@ if has('nvim')
     Plug 'nvim-tree/nvim-web-devicons'
     " Autocomplete
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-    " etc
+    " Useful
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+    Plug 'nvim-treesitter/nvim-treesitter-context'
+    Plug 'lukas-reineke/indent-blankline.nvim'
+    " etc
     Plug 'p00f/nvim-ts-rainbow'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
@@ -33,6 +36,7 @@ else
     " Autocomplete
     " Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
     " etc
+    Plug 'nathanaelkane/vim-indent-guides'
     Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
@@ -46,7 +50,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'romainl/vim-qf'
