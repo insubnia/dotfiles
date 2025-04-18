@@ -88,20 +88,21 @@ require('nvim-treesitter.configs').setup {
         -- termcolors = {},
     }
 }
+
 -- nvim-treesitter-context
 require('treesitter-context').setup {
-    enable = true,          -- Enable this plugin (Can be enabled/disabled later via commands)
-    multiwindow = false,    -- Enable multiwindow support.
-    max_lines = 0,          -- How many lines the window should span. Values <= 0 mean no limit.
-    min_window_height = 0,  -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+    multiwindow = false,      -- Enable multiwindow support.
+    max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
+    min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
     line_numbers = true,
     multiline_threshold = 20, -- Maximum number of lines to show for a single context
-    trim_scope = 'outer',   -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    mode = 'cursor',        -- Line used to calculate context. Choices: 'cursor', 'topline'
+    trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
     -- Separator between context and content. Should be a single character string, like '-'.
     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
     separator = nil,
-    zindex = 20,   -- The Z-index of the context window
+    zindex = 20,     -- The Z-index of the context window
     on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 
@@ -112,7 +113,7 @@ vim.opt.termguicolors = true
 keyset('n', '<C-n>', ':NvimTreeToggle<cr>')
 keyset('n', '<C-w>n', ':NvimTreeFocus<cr>')
 keyset('n', '<C-w><C-n>', ':NvimTreeFocus<cr>')
-require("nvim-tree").setup({
+require('nvim-tree').setup({
     sort_by = "case_sensitive",
     view = {
         width = 30,
@@ -131,7 +132,7 @@ require("nvim-tree").setup({
         },
     },
     on_attach = function(bufnr)
-        local api = require("nvim-tree.api")
+        local api = require('nvim-tree.api')
         api.config.mappings.default_on_attach(bufnr) -- restore default mappings
 
         local function opts(desc)
@@ -164,8 +165,35 @@ vim.api.nvim_create_autocmd('QuitPre', {
     end,
 })
 
+-- indent-blankline
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+local hooks = require('ibl.hooks')
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+vim.g.rainbow_delimiters = { highlight = highlight }
+require('ibl').setup {
+    indent = {},
+    whitespace = {},
+    scope = {
+        highlight = highlight
+    }
+}
+
 -- nvim-web-devicons
 require("nvim-web-devicons").setup {}
-
--- indent-blankline
-require("ibl").setup {}
