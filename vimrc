@@ -26,15 +26,13 @@ if has('nvim')
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'nvim-treesitter/nvim-treesitter-context'
     Plug 'lukas-reineke/indent-blankline.nvim'
-    " etc
-    Plug 'p00f/nvim-ts-rainbow'
+    Plug 'hiphish/rainbow-delimiters.nvim'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     " File Explorer
     Plug 'scrooloose/nerdtree'
     Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
-    " Autocomplete
-    " Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
+    Plug 'ryanoasis/vim-devicons'
     " etc
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'dense-analysis/ale'
@@ -60,7 +58,6 @@ Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-Plug 'ryanoasis/vim-devicons'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -519,8 +516,6 @@ function! GoTo()
 
     if IsInstalled('coc.nvim')
         call CocAction('jumpDefinition')
-    elseif IsInstalled('youcompleteme')
-        YcmCompleter GoTo
     else
         try
             exe "tjump " . expand("<cword>")
@@ -630,18 +625,6 @@ endfunction
 " PLUGIN SETTINGS {{{
 if has('nvim')
     lua require('init')
-endif
-
-" youcompleteme
-if IsInstalled('youcompleteme')
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_disable_for_files_larger_than_kb = 1024
-    let g:ycm_key_list_select_completion = ['<down>']
-    let g:ycm_key_list_previous_completion = ['<up>']
-    let g:ycm_key_list_stop_completion = []
-    let g:ycm_show_diagnostics_ui = 0
 endif
 
 " coc

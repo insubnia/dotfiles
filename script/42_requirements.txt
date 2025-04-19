@@ -1,0 +1,26 @@
+# pip install -r requirements.txt
+pyright
+flake8
+autopep8
+pep8
+pep8-naming
+python-language-server
+selenium
+numpy
+scipy
+matplotlib
+plotly
+pyqt6
+pyinstaller
+polars
+pandas
+pynvim
+torch
+compiledb
+cmake_format
+tqdm
+dill
+colorama
+argparse
+requests
+pyjwt
