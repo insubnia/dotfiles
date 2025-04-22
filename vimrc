@@ -120,13 +120,12 @@ set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
 set path+=**    " add subdirectories in working path
-" set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.gitignore,.svn
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
+set wildignore+=.DS_Store,.vscode,.vs,*.stackdump
 
 if has('nvim') && has('win32') " nvim-qt(Windows)
     let g:python3_host_prog = 'C:/Python312/python'

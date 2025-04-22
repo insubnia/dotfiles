@@ -4,6 +4,10 @@ import sys
 import shutil
 
 extension_list = (
+    # Essential
+    'vscodevim.vim',
+    'ms-vscode-remote.remote-ssh',
+    'ms-azuretools.vscode-docker',
     # Language
     'ms-vscode.cpptools',
     'ms-vscode.cmake-tools',
@@ -12,10 +16,6 @@ extension_list = (
     'mitaki28.vscode-clang',
     'XadillaX.viml',
     'DotJoshJohnson.xml',
-    # Essential
-    'vscodevim.vim',
-    'ms-vscode-remote.remote-ssh',
-    'ms-azuretools.vscode-docker',
     # Visual
     'SirTori.indenticator',
     'oderwat.indent-rainbow',
@@ -29,7 +29,14 @@ extension_list = (
     'GitHub.github-vscode-theme',
     'felipe-mendes.slack-theme',
     'mariorodeghiero.vue-theme',
+    # Work
+    'VectorGroup.capl',
+    'lauterbach.practice',
+    'vrtlabs.vscode-lsl',
+    'lharri73.dbc',
     # etc
+    'mechatroner.rainbow-csv',
+    'janisdd.vscode-edit-csv',
     'PKief.material-icon-theme',
 )
 

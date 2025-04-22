@@ -7,7 +7,7 @@ pushd .
 
 :: ~
 cd %USERPROFILE%
-del /f _vimrc .ackrc
+del /f _vimrc
 
 mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
 mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"

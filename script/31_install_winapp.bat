@@ -18,6 +18,7 @@ choco install -y sourcetree
 choco install -y tortoisegit
 choco install -y caffeine
 choco install -y everything
+choco install -y xml-notepad
 choco install -y foxe
 choco install -y winpcap
 choco install -y wireshark
@@ -27,9 +28,10 @@ choco install -y terminal-icons.powershell
 ::  choco install -y flashplayerplugin
 choco install -y wincompose
 
-:: server-client
+:: SSH client
 choco install -y openssh
 choco install -y telnet
+choco install -y termius
 choco install -y mobaxterm
 :: choco install -y putty
 ::  choco install -y teraterm
@@ -37,7 +39,7 @@ choco install -y mobaxterm
 
 :: dev
 choco install -y git
-choco install -y ag
+choco install -y ripgrep
 choco install -y fd
 choco install -y fzf
 choco install -y llvm
@@ -55,7 +57,7 @@ choco install -y dos2unix
 choco install -y visualcpp-build-tools
 choco install -y microsoft-windows-terminal
 :: choco install -y gcc-arm-embedded
-::  choco install -y vcxsrv
+:: choco install -y vcxsrv
 
 :: font
 set list=^
