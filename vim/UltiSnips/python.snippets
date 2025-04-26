@@ -1,5 +1,5 @@
 snippet cc "(snippet) comment" b
-""" $0
+"""$0
 """
 endsnippet
 
@@ -8,13 +8,23 @@ print(f"$0")
 endsnippet
 
 snippet "class " "(snippet) class" brA
-class ${1:¿}():
+class ${1:   }():
 	def __init__(self):
 		...
 endsnippet
 
 snippet "def " "(snippet) def" brA
-def ${1:¿}($2):
+def ${1:   }($2):
+endsnippet
+
+
+snippet hmc "(snippet) HYUNDAI MOTOR COMPANY" b
+""" `!v expand('%:t')` -
+
+	Copyright (c) `!v strftime("%Y")` HYUNDAI MOTOR COMPANY. ALL RIGHTS RESERVED.
+	Author: Insub Song (insub@hyundai.com)
+"""
+$0
 endsnippet
 
 
@@ -24,7 +34,7 @@ snippet skai "(snippet) SKAIChips" b
 $0
 endsnippet
 
- 
+
 snippet mando "(snippet) MANDO" b
 # Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.
 # Author: Insub Song (insub.song@halla.com)

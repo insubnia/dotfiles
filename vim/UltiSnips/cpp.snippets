@@ -5,33 +5,33 @@ snippet cc "(snippet) comment" b
 endsnippet
 
 snippet "class\s*" "(snippet) class NAME { ... }" br
-class ${1:❓} {
+class ${1:   } {
 	$0
 };
 endsnippet
 
 snippet "struct\s*" "(snippet) struct NAME { ... }" br
-struct ${1:❓} {
+struct ${1:   } {
 	$0
 };
 endsnippet
 
 snippet "union\s*" "(snippet) union NAME { ... }" br
-union ${1:❓} {
+union ${1:   } {
 	$0
 };
 endsnippet
 
 snippet "enum\s*" "(snippet) enum { ... }" br
 enum {
-	${1:❓}
+	${1:   }
 };
 endsnippet
 
 snippet "typedef (struct|union|enum) " "(snippet) typedef (struct|union|enum) { ... } TYPE" brA
 typedef `!p snip.rv = match.group(1)` {
 	$0
-} ${1:❓};
+} ${1:   };
 endsnippet
 
 
@@ -54,12 +54,17 @@ $0
 endsnippet
 
 
-snippet skai "(snippet) SKAIChips" b
+snippet cout "(snippet) cout + endl" b
+cout << "$0" << endl;
+endsnippet
+
+
+snippet hmc "(snippet) HYUNDAI MOTOR COMPANY" b
 /**
  * `!v expand('%:t')` -
  *
- * Copyright (c) `!v strftime("%Y")` SKAIChips Co., Ltd. ALL RIGHTS RESERVED.
- * Author: Insub Song (sis@skaichips.co.kr)
+ * Copyright (c) `!v strftime("%Y")` HYUNDAI MOTOR COMPANY. ALL RIGHTS RESERVED.
+ * Author: Insub Song (insub@hyundai.com)
  *
  */
 $0

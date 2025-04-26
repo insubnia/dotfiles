@@ -1,12 +1,18 @@
 #!/opt/homebrew/bin/python3
 import re
 import os
+import sys
 import glob
 from colorama import Fore
 
 # ln -sf ~/workspace/dotfiles/script/19_folx.py ~/workspace/folx/main.py
 
-dirs = glob.glob(f'{os.path.dirname(__file__)}/*' + os.path.sep)
+if len(sys.argv) > 1:
+    target_dir = sys.argv[1]
+else:
+    target_dir = f'{os.path.dirname(__file__)}'
+
+dirs = glob.glob(f'{target_dir}/*' + os.path.sep)
 for d in dirs:
     print(f"{Fore.CYAN}[{d}]{Fore.RESET}")
     paths = glob.glob(f'{d}/*.mp4')
@@ -24,6 +30,7 @@ for d in dirs:
         os.rename(path, new_path)
 
     os.system(f"rm -rf {d}/*.txt")
+    os.system(f"rm -rf {d}/*.url")
 
 
 if __name__ == "__main__":

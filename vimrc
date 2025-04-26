@@ -22,20 +22,23 @@ if has('nvim')
     Plug 'nvim-tree/nvim-web-devicons'
     " Autocomplete
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-    " etc
+    " Useful
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-    Plug 'p00f/nvim-ts-rainbow'
+    Plug 'nvim-treesitter/nvim-treesitter-context'
+    Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'hiphish/rainbow-delimiters.nvim'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     " File Explorer
     Plug 'scrooloose/nerdtree'
     Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
-    " Autocomplete
-    Plug 'valloric/youcompleteme', has('unix') ? {} : { 'on': [] }
+    Plug 'ryanoasis/vim-devicons'
     " etc
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
 endif
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
@@ -45,20 +48,16 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
-Plug 'mileszs/ack.vim'
 Plug 'romainl/vim-qf'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'dense-analysis/ale'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-Plug 'ryanoasis/vim-devicons'
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim'
@@ -121,13 +120,12 @@ set clipboard^=unnamed,unnamedplus
 set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
 set path+=**    " add subdirectories in working path
-set tags=tags   " echo tagfiles() to check tag files
 set wildignore+=.git,.gitmodules,.gitignore,.svn
 set wildignore+=*.doc*,*.xls*,*.ppt*
 set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
-set wildignore+=tags,.DS_Store,.vscode,.vs,*.stackdump
+set wildignore+=.DS_Store,.vscode,.vs,*.stackdump
 
 if has('nvim') && has('win32') " nvim-qt(Windows)
     let g:python3_host_prog = 'C:/Python312/python'
@@ -167,7 +165,6 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-" nnoremap ? :ts /
 nnoremap + >
 nnoremap _ <
 nnoremap 0 <C-i>zz
@@ -179,7 +176,7 @@ nnoremap dw diw
 nnoremap yw yiw
 nnoremap ZX :xa<cr>
 nnoremap <C-c> :Close<cr>
-" nnoremap <C-g>
+nnoremap <C-g> :ShowFilePath<cr>
 nnoremap <C-h> :GitGutterStageHunk<cr>
 nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap <C-o> <C-o>zz
@@ -189,6 +186,8 @@ nnoremap <C-p> :Files<cr>
 nnoremap <C-q> :copen<cr>n
 nnoremap <C-]> :GoTo<cr>
 nnoremap <C-w>t <C-w>T
+nnoremap <C-w>- :sp<cr>
+nnoremap <C-w>/ :vs<cr>
 nnoremap <C-w>[ :vs\|GoTo<cr><C-w>T
 nnoremap <C-w>] :vs\|GoTo<cr>
 nnoremap <tab> gt
@@ -201,8 +200,7 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
-nnoremap <leader>f :Ag<cr>
-" nnoremap <leader>f :Ack!<space>
+nnoremap <leader>f :Rg<cr>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
@@ -217,12 +215,6 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap t :Tab /
 vnoremap vw viw
-vnoremap "" s""<esc>P
-vnoremap '' s''<esc>P
-vnoremap () s()<esc>P
-vnoremap <> s<><esc>P
-vnoremap [] s[]<esc>P
-vnoremap {} s{}<esc>P
 vnoremap <leader>/ :Tab /\/\/<cr>
 vnoremap <leader>= :Tab /=<cr>
 vnoremap <leader>, :call MyFormat()<cr>gv :Tab /,\zs/l0r1<cr>
@@ -253,7 +245,6 @@ nmap [t :tabmove -<cr>
 nmap <C-j> <plug>(GitGutterNextHunk)<bar>zz
 nmap <C-k> <plug>(GitGutterPrevHunk)<bar>zz
 nmap <C-q> <plug>(qf_qf_toggle)
-nmap <leader>l <plug>(ale_fix)
 nmap <leader>j <Plug>(qf_qf_next)zz
 nmap <leader>k <Plug>(qf_qf_previous)zz
 nmap <C-w><C-[> <C-w>[
@@ -261,24 +252,17 @@ nmap <C-w><C-]> <C-w>]
 imap <S-tab> <C-d>
 
 if has('nvim')
-    " CoC key mappings
-    nnoremap ; :call CocAction('doHover')<cr>
-    nnoremap ? :CocList -I symbols<cr>
-    nmap J <plug>(coc-diagnostic-next)
-    nmap K <plug>(coc-diagnostic-prev)
-    nmap ge <plug>(coc-references)
-    nmap gd <plug>(coc-definition)
-    nmap gl <plug>(coc-codeaction)
-    nmap gr <plug>(coc-rename)
-    nmap <leader>l <plug>(coc-format)
-    vmap <leader>l <plug>(coc-format-selected)
-
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
+
+    if g:os == 'Darwin'
+        nmap <silent> gx :!open <cWORD><cr>
+    endif
 else
     nmap J <plug>(ale_next_wrap)zz
     nmap K <plug>(ale_previous_wrap)zz
+    nmap <leader>l <plug>(ale_fix)
     vnoremap <leader>l :Autoformat<cr>
 endif
 
@@ -318,9 +302,7 @@ endif
 " }}}
 " ============================================================================
 " ABBREVIATIONS {{{
-" <C-o> is dummy to invalidate inserting space
-
-" Timestamp
+" Timestamp  NOTE: <C-o> is dummy to invalidate inserting space
 iabbrev xdate <C-r>=strftime("%Y.%m.%d")<cr><C-o>
 
 " Fix typo
@@ -336,6 +318,9 @@ abbrev lamda lambda
 abbrev swtich switch
 abbrev sturct struct
 abbrev puase pause
+
+cabbrev cs colorscheme
+cabbrev at AirlineTheme
 " }}}
 " ============================================================================
 " AUTOCMD {{{
@@ -352,18 +337,17 @@ autocmd BufReadPost *
 autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
 autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType python setlocal tabstop=4
-autocmd FileType xml,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim
-autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\):')
-autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\):')
-autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\):')
-autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\):')
+" autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\):')
+" autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\):')
+" autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\):')
+" autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\):')
 
 function! OperatorHL()
     if has('nvim')
-        :
     else
         syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
         exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
@@ -371,6 +355,8 @@ function! OperatorHL()
 endfunction
 autocmd ColorScheme c,cpp,python call OperatorHL()
 autocmd Syntax c,cpp,python call OperatorHL()
+
+au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
 
 augroup XML
     autocmd!
@@ -439,9 +425,10 @@ endfunction
 
 function! NewPy()
     if g:os != 'Windows'
-        exe "norm! i#!".system("which python3")
+        "exe "norm! i#!".system("which python3")
+        exe "norm! i#!/usr/bin/python3\n"
     endif
-    exe "norm! i\n\nif __name__ == \"__main__\":\npass\ekkk"
+    exe "norm! i\n\nif __name__ == \'__main__\':\n...\ekkk"
 endfunction
 
 augroup NewFile
@@ -455,12 +442,14 @@ augroup END
 " FUNCTIONS & COMMANDS {{{
 command! -nargs=1 Silent execute 'silent !' . <q-args> | execute 'redraw!'
 
+command! ShowFilePath echohl Special | echo expand('%:p') | echohl None
 command! Font set guifont=*
 command! Clear noh | cexpr []
 command! JumpBack try | pop | catch | exe "norm " | endtry
 command! Diff exe "windo " . (&diff ? "diffoff" : "diffthis")
 command! SyntaxToggle exe "syn " . (exists("g:syntax_on") ? "off" : "on")
 
+command! CWD cd %:p:h
 command! TS set expandtab | %retab
 command! ST set noexpandtab | %retab!
 command! RO set ro
@@ -478,14 +467,14 @@ function! Trim()
     if &filetype != 'make'
         TS
     endif
-    %s/\s\+$//e | %s/
-$//e
+    %s/\s\+$//e | %s/\r$//e
 endfunction
 
 command! Close call Close()
 function! Close()
     cclose
     pclose
+    lclose
     helpclose
 
     if IsInstalled('nvim-tree')
@@ -496,9 +485,10 @@ function! Close()
     endif
 
     if IsInstalled('coc.nvim')
-        call CocAction('hideOutline')
+        " call CocAction('hideOutline')
+        CocListCancel
     else
-        try | exe 'TagbarClose' | catch | endtry
+        " try | exe 'TagbarClose' | catch | endtry
     endif
 endfunction
 
@@ -518,25 +508,20 @@ endfunction
 
 command! GoTo call GoTo()
 function! GoTo()
-    " TODO: optimize jump command depending on filetype
     if index(['vim', 'help'], &filetype) >= 0
         exe "tjump " . expand("<cword>")
         return
     endif
 
-    try
-        exe "tjump " . expand("<cword>")
-    catch /E426:\|E433:/
-        if IsInstalled('coc.nvim')
-            call CocAction('jumpDefinition')
-        else
-            try
-                YcmCompleter GoTo
-            catch /E492:/
-                echohl WarningMsg | echo "No youcompleteme" | echohl None
-            endtry
-        endif
-    endtry
+    if IsInstalled('coc.nvim')
+        call CocAction('jumpDefinition')
+    else
+        try
+            exe "tjump " . expand("<cword>")
+        catch /E426:\|E433:/
+            echohl ErrorMsg | echo "Error" | echohl None
+        endtry
+    endif
 endfunction
 
 command! Build call Build()
@@ -637,49 +622,12 @@ endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
-" youcompleteme
-if IsInstalled('youcompleteme')
-    let g:ycm_confirm_extra_conf = 0
-    let g:ycm_global_ycm_extra_conf = '~/workspace/dotfiles/vim/ycm_extra_conf.py'
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_disable_for_files_larger_than_kb = 1024
-    let g:ycm_key_list_select_completion = ['<down>']
-    let g:ycm_key_list_previous_completion = ['<up>']
-    let g:ycm_key_list_stop_completion = []
-    let g:ycm_show_diagnostics_ui = 0
+if has('nvim')
+    lua require('init')
 endif
 
 " coc
 if IsInstalled('coc.nvim')
-    let g:coc_global_extensions = [
-                \'coc-vimlsp',
-                \'coc-clangd',
-                \'coc-cmake',
-                \'coc-json',
-                \'coc-prettier',
-                \'coc-pyright',
-                \'coc-snippets',
-                \'coc-ultisnips',
-                \'coc-lua',
-                \'coc-tsserver',
-                \'coc-xml',
-                \]
-    let g:coc_config_home = '~/workspace/dotfiles/vim'
-
-    " essential
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-
-    " coc-outline
-    nnoremap <silent><nowait> T :call ToggleOutline()<CR>
-    function! ToggleOutline() abort
-        let winid = coc#window#find('cocViewId', 'OUTLINE')
-        if winid == -1
-            call CocActionAsync('showOutline', 1)
-        else
-            call coc#window#close(winid)
-        endif
-    endfunction
-
     " coc-config-suggest-floatConfig
     function! s:check_back_space() abort
         let col = col('.') - 1
@@ -704,6 +652,11 @@ let g:gitgutter_enabled = (has('gui_win32') ? 0 : 1)
 " airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
+"    █   
+let g:airline_left_sep = '█'
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = '█'
+let g:airline_right_alt_sep = ''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
@@ -810,31 +763,31 @@ let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
 
 " ale
-let g:ale_linters = {
-            \'python': ['flake8'],
-            \}
-let g:ale_fixers = {
-            \'*': ['remove_trailing_lines', 'trim_whitespace'],
-            \'c': ['clang-format'],
-            \'cpp': ['clang-format'],
-            \'python': ['autopep8'],
-            \'xml': ['xmllint'],
-            \'cmake': ['cmakeformat'],
-            \'json': ['jq']
-            \}
-let g:ale_xml_xmllint_options = '--format'
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = ''
+if IsInstalled('ale')
+    let g:ale_linters = {
+                \'python': ['flake8'],
+                \}
+    let g:ale_fixers = {
+                \'*': ['remove_trailing_lines', 'trim_whitespace'],
+                \'c': ['clang-format'],
+                \'cpp': ['clang-format'],
+                \'python': ['autopep8'],
+                \'xml': ['xmllint'],
+                \'cmake': ['cmakeformat'],
+                \'json': ['jq']
+                \}
+    let g:ale_xml_xmllint_options = '--format'
+    let g:ale_sign_error = '✘'
+    let g:ale_sign_warning = ''
+endif
 
 " surround
-if IsInstalled('surround')
-    nmap ys" ysiw"
-    nmap ys' ysiw'
-    nmap ys) ysiw)
-    nmap ys> ysiw>
-    nmap ys] ysiw]
-    nmap ys} ysiw}
-endif
+nmap ys" ysiw"
+nmap ys' ysiw'
+nmap ys) ysiw)
+nmap ys> ysiw>
+nmap ys] ysiw]
+nmap ys} ysiw}
 
 " peekaboo
 let g:peekaboo_window = 'vert botright 40new'
@@ -849,19 +802,16 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsDefaultFolderOpenSymbol = ''
 let g:DevIconsEnableNERDTreeRedraw = 1
-
-if has('nvim')
-    lua require('init')
-endif
 " }}}
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    colo dracula
-    let g:airline_theme = 'dracula'
+    let g:material_style = 'dark'  " light, dark, palenight, oceanic
+    colo vim-material
+    let g:airline_theme = 'material'
 elseif g:os == "Linux"
-    colo codedark
-    let g:airline_theme = 'codedark'
+    colo everforest
+    let g:airline_theme = 'everforest'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'

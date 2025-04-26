@@ -1,14 +1,14 @@
-// Place your key bindings in this file to override the defaults
 [
 { "key": "ctrl+b",                "command": "cursorLeft",
                                      "when": "editorTextFocus && vim.mode == 'Insert'" },
 { "key": "ctrl+f",                "command": "cursorRight",
                                      "when": "editorTextFocus && vim.mode == 'Insert'" },
-
 { "key": "ctrl+c",                "command": "workbench.action.closeSidebar",
-                                     "when": "sideBarFocus" },
+                                     "when": "!searchViewletFocus && !inputFocus" },
 { "key": "ctrl+n",                "command": "workbench.action.closeSidebar",
                                      "when": "sideBarFocus" },
 { "key": "ctrl+n",                "command": "workbench.view.explorer",
                                      "when": "editorTextFocus && vim.mode == 'Normal'" },
+{ "key": "ctrl+/",                "command": "editor.action.commentLine",
+                                     "when": "editorTextFocus && !editorReadonly" }
 ]

@@ -17,10 +17,10 @@ else
 endif
 
 ################################################################################
-# toolchain
+# binaries
 ################################################################################
 ifeq ($(OS),Windows_NT)
-	TOOLCHAIN_ROOT := G:/ProgramData/chocolatey/bin/
+	TOOLCHAIN_ROOT := "G:/ProgramData/chocolatey/bin/"
 endif
 # CROSS   := $(TOOLCHAIN_ROOT)arm-none-eabi-
 # CROSS   := $(TOOLCHAIN_ROOT)i686-w64-mingw32-
@@ -31,6 +31,7 @@ LD       := $(CROSS)ld
 SIZE     := $(CROSS)size
 OBJCOPY  := $(CROSS)objcopy
 OBJDUMP  := $(CROSS)objdump
+CP       := cp -r
 RM       := rm -rf
 MKDIR    := mkdir -p
 ECHO     := echo
@@ -40,7 +41,7 @@ TAR      := tar -cf
 COMPRESS := gzip -9f
 
 ifeq ($(OS),Windows_NT)
-	GIT_BIN_DIR := C:/Program Files/Git/usr/bin/
+	GIT_BIN_DIR := "C:/Program Files/Git/usr/bin/"
 	RM     := $(GIT_BIN_DIR)$(RM)
 	MKDIR  := $(GIT_BIN_DIR)$(MKDIR)
 	ECHO   := $(GIT_BIN_DIR)$(ECHO) -e
@@ -173,7 +174,7 @@ endif
 ################################################################################
 # rules
 ################################################################################
-PHONY := all build clean run show cdb clang-format test
+PHONY := all build clean run show cdb test
 
 all: build
 
@@ -228,8 +229,9 @@ else
 	@bear -- make -j20 all
 endif
 
+PHONY += clang-format
 clang-format:
-	@$(ECHO) "generating .clang-format"
+	@$(ECHO) "generating .clang-format for C"
 	@clang-format -style="{\
 		BasedOnStyle                      : WebKit,\
 		AlignAfterOpenBracket             : Align,\
@@ -251,11 +253,19 @@ clang-format:
 		SpacesBeforeTrailingComments      : 2,\
 	}" -dump-config > .clang-format
 
+PHONY += clang-format-cxx
+clang-format-cxx:
+	@$(ECHO) "generating .clang-format for C++"
+	@clang-format -style="{\
+		BasedOnStyle : Google,\
+	}" -dump-config > .clang-format
+
 test:
 	@$(ECHO) $(CCACHE)
 	@$(ECHO) $(OUTDIRS)
 	@$(ECHO) "$(CC_VERSION)"
 	@$(ECHO) $(TEST)
+	@$(ECHO) $(UNAME)
 
 
 asm: $(ASMS)

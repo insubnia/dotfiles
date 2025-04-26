@@ -3,39 +3,43 @@
 :: tool
 choco install -y powertoys
 choco install -y chocolateygui
+choco install -y unison
 choco install -y googlechrome
 choco install -y onedrive
-REM  choco install -y vlc
+::  choco install -y vlc
 choco install -y adobereader
 choco install -y bandizip
 choco install -y vim
 choco install -y neovim
 choco install -y vscode
-choco install -y smartgit
+:: choco install -y smartgit
 choco install -y git-fork
 choco install -y sourcetree
 choco install -y tortoisegit
 choco install -y caffeine
 choco install -y everything
+choco install -y xml-notepad
 choco install -y foxe
 choco install -y winpcap
 choco install -y wireshark
 choco install -y iperf3
 choco install -y ntop
 choco install -y terminal-icons.powershell
-REM  choco install -y flashplayerplugin
+::  choco install -y flashplayerplugin
+choco install -y wincompose
 
-:: server-client
+:: SSH client
 choco install -y openssh
 choco install -y telnet
+choco install -y termius
 choco install -y mobaxterm
-choco install -y putty
-REM  choco install -y teraterm
-REM  choco install -y winscp
+:: choco install -y putty
+::  choco install -y teraterm
+::  choco install -y winscp
 
 :: dev
 choco install -y git
-choco install -y ag
+choco install -y ripgrep
 choco install -y fd
 choco install -y fzf
 choco install -y llvm
@@ -52,13 +56,16 @@ choco install -y wget
 choco install -y dos2unix
 choco install -y visualcpp-build-tools
 choco install -y microsoft-windows-terminal
-choco install -y gcc-arm-embedded
-REM  choco install -y vcxsrv
+:: choco install -y gcc-arm-embedded
+:: choco install -y vcxsrv
 
 :: font
 set list=^
 jetbrainsmononf ^
 font-nerd-dejavusansmono ^
+cascadia-code-nerd-font ^
+nerd-fonts-ubuntu ^
+nerd-fonts-hack ^
 d2codingfont
 
 for %%v in (%list%) do choco install -y %%v

@@ -1,35 +1,32 @@
 {
+  "list.normalMappings": { "<C-c>": "do:exit" },
+  "list.insertMappings": { "<C-c>": "do:exit" },
+
+  "diagnostic.enable": true,
+  "diagnostic.displayByAle": false,
+
   "inlayHint.enable": true,
+  "inlayHint.position": "eol",
 
-  "list": {
-    "normalMappings": {
-      "<C-c>": "do:exit"
-    },
-    "insertMappings": {
-      "<C-c>": "do:exit"
-    }
-  },
+  "semanticTokens.enable": true,
 
-  "languageserver": {},
-  "diagnostic": {
-    "enable": true,
-    "displayByAle": false
-  },
-  "python": {
-    "pyright.enable": true,
-    "formatting": {
-      "provider": "autopep8",
-      "autopep8Path": "/opt/homebrew/bin/autopep8"
-    },
-    "linting": {
-      "flake8Enabled": true,
-      "pylintEnalbed": false
-    },
-    "analysis": {
-      "autoImportCompletions": false
-    }
-  },
-  "xml": {
-    "java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home" // "echo $JAVA_HOME" and get this
-  }
+  // C/C++
+  "clangd.path": "/usr/bin/clangd",
+  "clangd.enabled": true,
+  "clangd.compilationDatabaseCandidates": ["./build"],
+  "clangd.arguments": [
+    "--std=c++20"
+  ],
+
+  // Python
+  "python.formatting.provider": "autopep8",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.analysis.autoImportCompletions": false,
+  "pyright.enable": true, // https://github.com/fannheyward/coc-pyright
+
+  // etc
+  "json.format.enable": true,
+  "json.format.keepLines": true
 }

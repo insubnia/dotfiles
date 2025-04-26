@@ -4,12 +4,11 @@ apps=(
     code
     gitkraken
     office365webdesktop
-    skype
     emote
 )
 fonts=(
-    fonts-naver-d2coding
     fonts-jetbrains-mono
+    fonts-naver-d2coding
     fonts-nanum
 )
 

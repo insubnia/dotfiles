@@ -1,3 +1,5 @@
+:: mklink /d "%USERPROFILE%/workspace" "D:/workspace"
+
 @echo off
 set DOTFILES=%USERPROFILE%/workspace/dotfiles
 
@@ -5,10 +7,9 @@ pushd .
 
 :: ~
 cd %USERPROFILE%
-del /f _vimrc .ackrc
+del /f _vimrc
 
 mklink "%USERPROFILE%/_vimrc" "%DOTFILES%/vimrc"
-mklink "%USERPROFILE%/.ackrc" "%DOTFILES%/conf/ackrc"
 mklink "%USERPROFILE%/.gitignore" "%DOTFILES%/conf/gitignore"
 ::mklink "%USERPROFILE%/Desktop/ip-shift.bat" "%DOTFILES%/script/windows-ip-shift.bat"
 

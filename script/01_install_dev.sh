@@ -1,16 +1,24 @@
 #!/bin/bash
 
+# Common list
 list=(
     neovim
     git
     git-flow
+    tmux
+    zsh
+    fish
     tig
     bat
-    tmux
     wget
     curl
     tree
+    dos2unix
+    tldr
+    # search
     fzf
+    ripgrep
+    # C/C++
     gcc
     llvm
     clang-format
@@ -20,26 +28,27 @@ list=(
     bear
     cmake
     scons
+    # Python
     python3
+    # utilities
     autojump
+    caffeine
+    neofetch
+    # etc
+    nodejs
+    npm
     p7zip
     rar
-    nodejs
     jq
-    npm
-    dos2unix
     imagemagick
     libxml2
     iperf3
     htop
     tcpdump
-    # meld
-    caffeine
 )
 
 # OS variant
 macos=(
-    the_silver_searcher
     mas
     github
     binutils
@@ -53,16 +62,16 @@ macos=(
     lsusb
     # C/C++
     boost
-    # python
+    # Python
     autopep8
-    pyenv
+    # JAVA
+    openjdk
     # for fun
     nyancat
     cmatrix
     asciiquarium
 )
 linux=(  # https://packages.ubuntu.com/
-    silversearcher-ag
     vim-gtk
     xclip
     net-tools
@@ -74,15 +83,22 @@ linux=(  # https://packages.ubuntu.com/
     samba
     ufw
     beep
+    x11-apps
+    x11-utils
+    xrdp
+    dbus-x11
     # C/C++
     gcc-arm-none-eabi
     clang
     clangd
     libclang-dev
     libboost-all-dev
-    # python
+    # Python
     python3-pip
     python3-autopep8
+    # JAVA
+    default-jre
+    default-jdk
     # for fun
     nyancat
     cmatrix
@@ -129,8 +145,5 @@ do
     eval $pm install $v > /dev/null
     echo -e "Done"
 done
-
-# install tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo -e "\nComplete\n"
