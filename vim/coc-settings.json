@@ -14,9 +14,7 @@
   "clangd.path": "/usr/bin/clangd",
   "clangd.enabled": true,
   "clangd.compilationDatabaseCandidates": ["./build"],
-  "clangd.arguments": [
-    "--std=c++20"
-  ],
+  "clangd.arguments": ["--log=verbose"],
 
   // Python
   "python.formatting.provider": "autopep8",
@@ -27,6 +25,7 @@
   "pyright.enable": true, // https://github.com/fannheyward/coc-pyright
 
   // etc
+  "prettier.disableLanguages": ["vim", "c", "cpp", "python"],
   "json.format.enable": true,
   "json.format.keepLines": true
 }

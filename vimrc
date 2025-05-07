@@ -661,8 +661,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
+" let g:airline#extensions#coc#enabled = 0
 function! AirlineInit()
-    let g:airline_section_c .= '»  '
+    " let g:airline_section_c .= '»  '
+    let g:airline_section_c .= ' '
     if g:os == 'Darwin'
         let g:airline_section_c .= '🚀 %#__accent_bold#%{$USER}'
     elseif g:os == 'Linux'
@@ -810,6 +812,7 @@ if g:os == "Darwin"
     colo vim-material
     let g:airline_theme = 'material'
 elseif g:os == "Linux"
+    let g:everforest_background = "soft"  " soft, medium, hard
     colo everforest
     let g:airline_theme = 'everforest'
 elseif g:os == "WSL"
