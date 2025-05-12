@@ -111,8 +111,8 @@ set splitright splitbelow
 set hlsearch incsearch "nowrapscan
 set ignorecase smartcase
 set autoindent smartindent cindent
-set smarttab expandtab
-set tabstop=4 softtabstop=4 shiftwidth=4
+set smarttab
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 set timeoutlen=500 ttimeoutlen=0
 set diffopt+=vertical
 set wildmenu completeopt=menuone,noselect
@@ -336,8 +336,12 @@ autocmd BufReadPost *
 " after ftplugin
 autocmd FileType * setlocal formatoptions-=o | setlocal formatoptions-=r
 autocmd FileType c,cpp setlocal cinoptions=:0,g0
-autocmd FileType python setlocal tabstop=4
-autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
+autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType cpp setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+" autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " :help highlight-groups
 " :source $VIMRUNTIME/syntax/hitest.vim

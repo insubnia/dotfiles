@@ -1,13 +1,14 @@
 #!/bin/bash
 
-DOTFILES=~/workspace/dotfiles
+DOTFILES=$HOME/workspace/dotfiles
 CONF=$DOTFILES/conf
 VSCODE=$DOTFILES/vscode
 
-ln -sf $CONF/tmux.conf ~/.tmux.conf
+ln -sf $CONF/tmux.conf $HOME/.tmux.conf
+ln -sf $CONF/ripgreprc $HOME/.ripgreprc
 
-mkdir -p ~/.config/fd
-ln -sf $CONF/fdignore ~/.config/fd/ignore
+mkdir -p $HOME/.config/fd
+ln -sf $CONF/fdignore $HOME/.config/fd/ignore
 
 # python
 # ln -sf $CONF/pyrightconfig.json ~/.pyrightconfig.json
