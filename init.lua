@@ -40,16 +40,18 @@ vim.api.nvim_create_autocmd("CursorHold", {
     command = "silent call CocActionAsync('highlight')",
     desc = "Highlight symbol under cursor on CursorHold"
 })
-function ToggleOutline()
-    local res = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
-    if res == -1 then
+function ToggleOutline()  -- FIXME: not work as expected
+    local winid = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
+    if winid == -1 then
         vim.fn["CocActionAsync"]("showOutline", 1)
     else
-        vim.fn["CocActionAsync"]("hideOutline", 1)
+        -- vim.fn["CocActionAsync"]("hideOutline", 1)
+        vim.fn["coc#window#close"](winid)
     end
 end
 
-keyset("n", "T", ":lua ToggleOutline()<CR>", { silent = true, nowait = true })
+keyset("n", "T", ":call CocAction('showOutline')<cr>", { silent = true, nowait = true })
+-- keyset("n", "T", ":lua ShowOutline()<CR>", { silent = true, nowait = true })
 keyset("n", "J", "<Plug>(coc-diagnostic-next)", { silent = true })
 keyset("n", "K", "<Plug>(coc-diagnostic-prev)", { silent = true })
 keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })

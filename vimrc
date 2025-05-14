@@ -37,6 +37,7 @@ else
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 endif
 " Plug 'github/copilot.vim'
 Plug 'tpope/vim-fugitive'
@@ -51,7 +52,6 @@ Plug 'sirver/ultisnips'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'romainl/vim-qf'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
@@ -151,6 +151,7 @@ if &term =~ 'xterm'
     let &t_EI="\e[0 q"
 endif
 
+let c_gnu = 1
 let c_syntax_for_h = 1
 " }}}
 " ============================================================================
@@ -644,6 +645,8 @@ if IsInstalled('coc.nvim')
     inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
     inoremap <silent><expr> <c-space> coc#refresh()
     inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
+    autocmd BufEnter * if (winnr("$") == 1 && &filetype ==# 'coctree') | q | endif
 endif
 
 " gitgutter
