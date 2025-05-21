@@ -1,0 +1,83 @@
+{
+  "Comment Block": {
+    "prefix": "cc",
+    "body": [
+      "/**",
+      " * $0",
+      " */"
+    ],
+    "description": "(snippet) comment"
+  },
+  "cout << ... << endl": {
+    "prefix": "cout",
+    "body": [
+      "std::cout << $0 << std::endl;"
+    ],
+    "description": "(snippet) cout + endl"
+  },
+  "C++ Class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:MyClass} {",
+      "    $0",
+      "};"
+    ],
+    "description": "(snippet) class NAME { ... }"
+  },
+  "C++ Struct": {
+    "prefix": "struct",
+    "body": [
+      "struct ${1:MyStruct} {",
+      "    $0",
+      "};"
+    ],
+    "description": "(snippet) struct NAME { ... }"
+  },
+  "C++ Union": {
+    "prefix": "union",
+    "body": [
+      "union ${1:MyUnion} {",
+      "    $0",
+      "};"
+    ],
+    "description": "(snippet) union NAME { ... }"
+  },
+  "C++ Enum": {
+    "prefix": "enum",
+    "body": [
+      "enum {",
+      "    ${1:VALUE}",
+      "};"
+    ],
+    "description": "(snippet) enum { ... }"
+  },
+  "Extern C Block": {
+    "prefix": "cext",
+    "body": [
+      "#ifdef __cplusplus",
+      "extern \"C\" {",
+      "#endif",
+      "",
+      "$0",
+      "",
+      "#ifdef __cplusplus",
+      "}",
+      "#endif"
+    ],
+    "description": "(snippet) extern C"
+  },
+  "HYUNDAI MOTOR COMPANY Header": {
+    "prefix": "hmc",
+    "body": [
+      "/**",
+      " * ${TM_FILENAME} -",
+      " *",
+      " * Copyright (c) ${CURRENT_YEAR} HYUNDAI MOTOR COMPANY. ALL RIGHTS RESERVED.",
+      " * Author: Insub Song (insub@hyundai.com)",
+      " *",
+      " */",
+      "$0"
+    ],
+    "description": "(snippet) HYUNDAI MOTOR COMPANY"
+  }
+}

@@ -28,3 +28,4 @@ esac
 mkdir -p $VSCODE_USER
 ln -sf $VSCODE/settings.json $VSCODE_USER/settings.json
 ln -sf $VSCODE/keybindings.json $VSCODE_USER/keybindings.json
+rm -rf $VSCODE_USER/snippets && ln -sf $DOTFILES/vim/snippets $VSCODE_USER/snippets

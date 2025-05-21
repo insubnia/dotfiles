@@ -1,0 +1,110 @@
+{
+    "(snippet) comment": {
+        "prefix": "cc",
+        "body": [
+            "/**",
+            " * $0",
+            " */"
+        ],
+        "description": "(snippet) comment"
+    },
+    "struct\\s*": {
+        "prefix": "\"struct\\s*\"",
+        "body": [
+            "struct ${1:   } {",
+            "\t$0",
+            "};"
+        ],
+        "description": "struct\\s*"
+    },
+    "union\\s*": {
+        "prefix": "\"union\\s*\"",
+        "body": [
+            "union ${1:   } {",
+            "\t$0",
+            "};"
+        ],
+        "description": "union\\s*"
+    },
+    "enum\\s*": {
+        "prefix": "\"enum\\s*\"",
+        "body": [
+            "enum {",
+            "\t${1:   }",
+            "};"
+        ],
+        "description": "enum\\s*"
+    },
+    "typedef (struct|union|enum) ": {
+        "prefix": "\"typedef",
+        "body": [
+            "typedef `!p snip.rv = match.group(1)` {",
+            "\t$0",
+            "} ${1:   };"
+        ],
+        "description": "typedef (struct|union|enum) "
+    },
+    "#if (\\w+)([ !=]*)": {
+        "prefix": "\"#if",
+        "body": [
+            "#if `!p snip.rv = match.group(1)``!p snip.rv = match.group(2)`$0",
+            "#endif /* `!p snip.rv = match.group(1)` */"
+        ],
+        "description": "#if (\\w+)([ !=]*)"
+    },
+    "(snippet) extern C": {
+        "prefix": "cext",
+        "body": [
+            "#ifdef __cplusplus",
+            "extern \"C\" {",
+            "#endif",
+            "",
+            "$0",
+            "",
+            "#ifdef __cplusplus",
+            "}",
+            "#endif"
+        ],
+        "description": "(snippet) extern C"
+    },
+    "(snippet) MANDO": {
+        "prefix": "mando",
+        "body": [
+            "/**",
+            " * Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.",
+            " *",
+            " * Author: Insub Song (insub.song@halla.com)",
+            " *",
+            " */",
+            "${2}"
+        ],
+        "description": "(snippet) MANDO"
+    },
+    "(snippet) HYUNDAI MOTOR COMPANY": {
+        "prefix": "hmc",
+        "body": [
+            "/**",
+            " * `!v expand('%:t')` -",
+            " *",
+            " * Copyright (c) `!v strftime(\"%Y\")` HYUNDAI MOTOR COMPANY. ALL RIGHTS RESERVED.",
+            " * Author: Insub Song (insub@hyundai.com)",
+            " *",
+            " */",
+            "$0"
+        ],
+        "description": "(snippet) HYUNDAI MOTOR COMPANY"
+    },
+    "(snippet) MIN/MAX macro": {
+        "prefix": "minmax",
+        "body": [
+            "#ifndef MIN",
+            "#define MIN(a, b) (((a)<(b))?(a):(b))",
+            "#endif /* MIN */",
+            "#ifndef MAX",
+            "#define MAX(a, b) (((a)>(b))?(a):(b))",
+            "#endif /* MAX */",
+            "$0"
+        ],
+        "description": "(snippet) MIN/MAX macro"
+    }
+}

@@ -34,6 +34,7 @@ else
     Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
     Plug 'ryanoasis/vim-devicons'
     " etc
+    Plug 'sirver/ultisnips'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'dense-analysis/ale'
     Plug 'chiel92/vim-autoformat', { 'on': 'Autoformat' }
@@ -48,7 +49,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'sirver/ultisnips'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'romainl/vim-qf'
@@ -490,7 +490,6 @@ function! Close()
     endif
 
     if IsInstalled('coc.nvim')
-        " call CocAction('hideOutline')
         CocListCancel
     else
         " try | exe 'TagbarClose' | catch | endtry
@@ -745,11 +744,13 @@ if IsInstalled('auto-pairs')
 endif
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger = "<C-s>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
-let g:UltiSnipsEditSplit = "vertical"
-let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
+if IsInstalled('ultisnips')
+    let g:UltiSnipsExpandTrigger = "<C-s>"
+    let g:UltiSnipsJumpForwardTrigger = "<tab>"
+    let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
+    let g:UltiSnipsEditSplit = "vertical"
+    let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
+endif
 
 " indent-guides
 let g:indent_guides_enable_on_vim_startup = 1

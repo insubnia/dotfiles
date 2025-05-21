@@ -1,0 +1,54 @@
+{
+    "comment": {
+        "prefix": "cc",
+        "body": [
+            "\"\"\"$0",
+            "\"\"\""
+        ],
+        "description": "(snippet) comment"
+    },
+    "formatted print": {
+        "prefix": "printf",
+        "body": [
+            "print(f\"$0\")"
+        ],
+        "description": "(snippet) formatted print"
+    },
+    "class ": {
+        "prefix": "\"class",
+        "body": [
+            "class ${1:   }():",
+            "\tdef __init__(self):",
+            "\t\t..."
+        ],
+        "description": "class "
+    },
+    "def": {
+        "prefix": "\"def",
+        "body": [
+            "def ${1:   }($2):"
+        ],
+        "description": "def "
+    },
+    "(snippet) HYUNDAI MOTOR COMPANY": {
+        "prefix": "hmc",
+        "body": [
+            "\"\"\" `!v expand('%:t')` -",
+            "",
+            "\tCopyright (c) `!v strftime(\"%Y\")` HYUNDAI MOTOR COMPANY. ALL RIGHTS RESERVED.",
+            "\tAuthor: Insub Song (insub@hyundai.com)",
+            "\"\"\"",
+            "$0"
+        ],
+        "description": "(snippet) HYUNDAI MOTOR COMPANY"
+    },
+    "(snippet) MANDO": {
+        "prefix": "mando",
+        "body": [
+            "# Copyright (c) ${1:--- YEAR ---} Mando Corp. All rights reserved.",
+            "# Author: Insub Song (insub.song@halla.com)",
+            "${2}"
+        ],
+        "description": "(snippet) MANDO"
+    }
+}

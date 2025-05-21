@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
     command = "silent call CocActionAsync('highlight')",
     desc = "Highlight symbol under cursor on CursorHold"
 })
-function ToggleOutline()  -- FIXME: not work as expected
+function ToggleOutline() -- FIXME: not work as expected
     local winid = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
     if winid == -1 then
         vim.fn["CocActionAsync"]("showOutline", 1)
@@ -51,7 +51,7 @@ function ToggleOutline()  -- FIXME: not work as expected
 end
 
 keyset("n", "T", ":call CocAction('showOutline')<cr>", { silent = true, nowait = true })
--- keyset("n", "T", ":lua ShowOutline()<CR>", { silent = true, nowait = true })
+-- keyset("n", "T", ":lua ToggleOutline()<CR>", { silent = true, nowait = true })
 keyset("n", "J", "<Plug>(coc-diagnostic-next)", { silent = true })
 keyset("n", "K", "<Plug>(coc-diagnostic-prev)", { silent = true })
 keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })
@@ -62,6 +62,7 @@ keyset("n", "<leader>l", "<Plug>(coc-format)", { silent = true })
 keyset("v", "<leader>l", "<Plug>(coc-format-selected)", { silent = true })
 keyset("n", "?", ":CocList -I symbols<cr>", { silent = true, nowait = true })
 keyset("n", ";", ":call CocAction('doHover')<cr>", { silent = true, nowait = true })
+keyset("i", "<C-s>", "<Plug>(coc-snippets-expand)", { silent = true })
 
 -- nvim-treesitter
 require('nvim-treesitter.configs').setup {

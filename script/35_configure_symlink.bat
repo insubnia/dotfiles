@@ -34,5 +34,7 @@ del /f settings.json keybindings.json
 
 mklink "%VSCODE_DIR%/settings.json" "%DOTFILES%/vscode/settings.json"
 mklink "%VSCODE_DIR%/keybindings.json" "%DOTFILES%/vscode/keybindings.json"
+del /f "%VSCODE_DIR%/snippets"
+mklink /d "%VSCODE_DIR%/snippets" "%DOTFILES%/vim/snippets"
 
 popd
