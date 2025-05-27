@@ -201,7 +201,7 @@ nnoremap <bs> :noh<cr>
 nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
 nnoremap <leader>e :call Trim()<cr>
-nnoremap <leader>f :Rg<cr>
+nnoremap <leader>f :RG<cr>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
 nnoremap <leader>r :Run<cr>
@@ -757,13 +757,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
 
-" ack
-let g:ackprg = "ag --vimgrep"
-" let g:ack_default_options = " -HS --nocolor --nogroup --column"
-let g:ack_apply_qmappings = 0
-let g:ack_qhandler = 'botright cwindow'
-let g:ackhighlight = 1
-
 " qf
 let g:qf_auto_resize = 0
 let g:qf_mapping_ack_style = 1
@@ -803,15 +796,17 @@ nmap ys} ysiw}
 let g:peekaboo_window = 'vert botright 40new'
 
 " devicon
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ' '
-let g:WebDevIconsNerdTreeAfterGlyphPadding = (has("gui_running") ? '' : ' ')
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-let g:DevIconsDefaultFolderOpenSymbol = ''
-let g:DevIconsEnableNERDTreeRedraw = 1
+if IsInstalled('ryanoasis/vim-devicons')
+    let g:webdevicons_enable = 1
+    let g:webdevicons_enable_nerdtree = 1
+    let g:WebDevIconsNerdTreeBeforeGlyphPadding = ' '
+    let g:WebDevIconsNerdTreeAfterGlyphPadding = (has("gui_running") ? '' : ' ')
+    let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+    let g:DevIconsEnableFoldersOpenClose = 1
+    let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+    let g:DevIconsDefaultFolderOpenSymbol = ''
+    let g:DevIconsEnableNERDTreeRedraw = 1
+endif
 " }}}
 " ============================================================================
 " OUTRO {{{
