@@ -10,7 +10,7 @@
 
   "semanticTokens.enable": true,
 
-  "snippets.textmateSnippetsRoots": ["/Users/sis/workspace/dotfiles/vim/snippets"],
+  "snippets.textmateSnippetsRoots": ["~/workspace/dotfiles/vim/snippets"],
 
   // C/C++
   "clangd.path": "/usr/bin/clangd",

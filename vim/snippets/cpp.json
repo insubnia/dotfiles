@@ -15,42 +15,6 @@
     ],
     "description": "(snippet) cout + endl"
   },
-  "C++ Class": {
-    "prefix": "class",
-    "body": [
-      "class ${1:MyClass} {",
-      "    $0",
-      "};"
-    ],
-    "description": "(snippet) class NAME { ... }"
-  },
-  "C++ Struct": {
-    "prefix": "struct",
-    "body": [
-      "struct ${1:MyStruct} {",
-      "    $0",
-      "};"
-    ],
-    "description": "(snippet) struct NAME { ... }"
-  },
-  "C++ Union": {
-    "prefix": "union",
-    "body": [
-      "union ${1:MyUnion} {",
-      "    $0",
-      "};"
-    ],
-    "description": "(snippet) union NAME { ... }"
-  },
-  "C++ Enum": {
-    "prefix": "enum",
-    "body": [
-      "enum {",
-      "    ${1:VALUE}",
-      "};"
-    ],
-    "description": "(snippet) enum { ... }"
-  },
   "Extern C Block": {
     "prefix": "cext",
     "body": [

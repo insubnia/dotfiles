@@ -117,7 +117,7 @@ set timeoutlen=500 ttimeoutlen=0
 set diffopt+=vertical
 set wildmenu completeopt=menuone,noselect
 set clipboard^=unnamed,unnamedplus
-set nopaste pastetoggle=<F19>
+" set nopaste pastetoggle=<F19>
 set lazyredraw termguicolors
 set path+=**    " add subdirectories in working path
 set wildignore+=.git,.gitmodules,.gitignore,.svn

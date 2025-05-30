@@ -8,33 +8,6 @@
         ],
         "description": "(snippet) comment"
     },
-    "struct\\s*": {
-        "prefix": "\"struct\\s*\"",
-        "body": [
-            "struct ${1:   } {",
-            "\t$0",
-            "};"
-        ],
-        "description": "struct\\s*"
-    },
-    "union\\s*": {
-        "prefix": "\"union\\s*\"",
-        "body": [
-            "union ${1:   } {",
-            "\t$0",
-            "};"
-        ],
-        "description": "union\\s*"
-    },
-    "enum\\s*": {
-        "prefix": "\"enum\\s*\"",
-        "body": [
-            "enum {",
-            "\t${1:   }",
-            "};"
-        ],
-        "description": "enum\\s*"
-    },
     "typedef (struct|union|enum) ": {
         "prefix": "\"typedef",
         "body": [
