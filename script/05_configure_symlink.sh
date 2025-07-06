@@ -10,11 +10,6 @@ ln -sf $CONF/ripgreprc $HOME/.ripgreprc
 mkdir -p $HOME/.config/fd
 ln -sf $CONF/fdignore $HOME/.config/fd/ignore
 
-# python
-# ln -sf $CONF/pyrightconfig.json ~/.pyrightconfig.json
-# mkdir -p ~/.config/pyright
-# ln -sf $CONF/pyrightconfig.json ~/.config/pyright/config.json
-
 # vscode
 case "$OSTYPE" in
     darwin*)

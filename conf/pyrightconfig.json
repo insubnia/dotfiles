@@ -1,6 +1,18 @@
 {
   "typeCheckingMode": "basic",
 
+  "exclude": [
+  ],
+
+  "reportArgumentType": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportCallIssue": "none",
+  "reportGeneralTypeIssues": "none",
+  "reportOperatorIssue": "none",
+  "reportOptionalIterable": "none",
+  "reportOptionalMemberAccess": "none",
+  "reportOptionalSubscript": "none",
+
   "__URL": " https://github.com/microsoft/pyright/blob/main/docs/configuration.md ",
   "__typeCheckingMode": ["off", "basic", "standard", "strict"],
   "__stringValues": ["none", "warning", "information", "error"]

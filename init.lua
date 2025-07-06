@@ -202,7 +202,8 @@ require('ibl').setup {
     indent = {},
     whitespace = {},
     scope = {
-        highlight = highlight
+        enabled = true,
+        highlight = highlight,
     }
 }
 

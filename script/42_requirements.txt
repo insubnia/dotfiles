@@ -2,7 +2,7 @@
 pyright
 flake8
 autopep8
-pep8
+pycodestyle
 pep8-naming
 python-language-server
 selenium

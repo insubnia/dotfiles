@@ -366,7 +366,7 @@ au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
 augroup XML
     autocmd!
     autocmd FileType xml setlocal fdm=indent
-    autocmd FileType xml setlocal fdl=2
+    autocmd FileType xml if line('$') > 200 | setl fdl=5 | else | setl fdl=99 | endif
     autocmd FileType xml nnoremap <Right> :set foldlevel+=1<cr>:echo "Fold Level:" &foldlevel<cr>
     autocmd FileType xml nnoremap <Left> :set foldlevel-=1<cr>:echo "Fold Level:" &foldlevel<cr>
 augroup END
