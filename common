@@ -35,6 +35,7 @@ alias gitflow='git flow'
 # tmux
 alias tat='tmux attach -t'
 alias tkt='tmux kill-session -t'
+alias tmuxx='tmux -f $DOTFILES/conf/tmux.conf'
 # etc
 alias cdb='compiledb'
 alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
