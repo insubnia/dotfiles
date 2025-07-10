@@ -1,6 +1,8 @@
 #!/bin/bash
+if [ -z "$DOTFILES" ]; then
+    DOTFILES="$(dirname $(dirname $(realpath "$0")))"
+fi
 
-DOTFILES=$HOME/workspace/dotfiles
 CONF=$DOTFILES/conf
 VSCODE=$DOTFILES/vscode
 

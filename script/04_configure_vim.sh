@@ -1,6 +1,7 @@
 #!/bin/bash
-
-DOTFILES=~/workspace/dotfiles
+if [ -z "$DOTFILES" ]; then
+    DOTFILES="$(dirname $(dirname $(realpath "$0")))"
+fi
 
 # vim
 VIM=~/.vim
