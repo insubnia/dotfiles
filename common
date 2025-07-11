@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ -z "$WORKSPACE" ]; then
-    export WORKSPACE="$HOME/workspace"
+    export WORKSPACE="$(dirname $(dirname $(realpath "$0")))"
 fi
 export DOTFILES="$WORKSPACE/dotfiles"
 

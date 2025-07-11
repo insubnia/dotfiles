@@ -811,13 +811,13 @@ endif
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    let g:material_style = 'dark'  " light, dark, palenight, oceanic
-    colo vim-material
-    let g:airline_theme = 'material'
-elseif g:os == "Linux"
     let g:everforest_background = "soft"  " soft, medium, hard
     colo everforest
     let g:airline_theme = 'everforest'
+elseif g:os == "Linux"
+    let g:material_style = 'dark'  " light, dark, palenight, oceanic
+    colo vim-material
+    let g:airline_theme = 'material'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'
