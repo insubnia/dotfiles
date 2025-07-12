@@ -2,19 +2,27 @@
 
 # Mac
 .DS_Store
-
 # Windows
 Thumbs.db
 *.lnk
-
 # MS Office
 *.doc*
 *.xls*
 *.ppt*
+# compression extension
+*.zip
+*.rar
+*.gz
+*.tar
+*.tgz
 
-# Ignore files build by Visual Studio
+# vim
+.vim/
+
+# Visual Studio & Code
+.vs/
+.vscode/
 *.obj
-# *.exe
 *.pdb
 *.user
 *.aps
@@ -32,14 +40,21 @@ Thumbs.db
 *.log
 *.sbr
 
-# vs family
-.vs/
-.vscode/
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.flake8
 
-# vim
-.vim/
+# Vector
+*.blf
+*.cbf
+*.stcfg
 
-# custom
+# drawio
+*.bkp
+
+# Personal
 *.swp
 *.d
 *.o
@@ -55,24 +70,3 @@ Thumbs.db
 *.log
 .clang-format
 compile_commands.json
-
-# compression extension
-*.zip
-*.rar
-*.gz
-*.tar
-*.tgz
-
-# python
-__pycache__/
-*.pyc
-*.pyo
-*.flake8
-
-# Vector
-*.blf
-*.cbf
-*.stcfg
-
-# drawio
-*.bkp
