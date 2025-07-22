@@ -17,7 +17,7 @@ local keyset = vim.keymap.set
 
 
 -- CoC
-vim.g.coc_config_home = '~/workspace/dotfiles/vim'
+vim.g.coc_config_home = '$DOTFILES/vim'
 vim.g.coc_global_extensions = {
     'coc-vimlsp',
     'coc-highlight',

@@ -749,7 +749,7 @@ if IsInstalled('ultisnips')
     let g:UltiSnipsJumpForwardTrigger = "<tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<S-tab>"
     let g:UltiSnipsEditSplit = "vertical"
-    let g:UltiSnipsSnippetDirectories = ['~/workspace/dotfiles/vim/UltiSnips']
+    let g:UltiSnipsSnippetDirectories = ['$DOTFILES/vim/UltiSnips']
 endif
 
 " indent-guides

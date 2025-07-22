@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MY=~/workspace/dotfiles/wireshark
+MY=$DOTFILES/wireshark
 WIRESHARK=~/.config/wireshark
 
 ln -sf $MY/hosts $WIRESHARK/hosts

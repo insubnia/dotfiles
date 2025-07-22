@@ -31,11 +31,10 @@ apps=(
     monitorcontrol
 
     # embedded
-    gcc-arm-embedded
+    # gcc-arm-embedded
     # coolterm
 
     # etc
-    cron
     drawio
     mounty
     wireshark
@@ -44,10 +43,18 @@ apps=(
 # https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
 # https://www.nerdfonts.com/font-downloads
 fonts=(
+    # nerd fonts
     font-jetbrains-mono-nerd-font
     font-dejavu-sans-mono-nerd-font
+    font-sauce-code-pro-nerd-font  # nerd font version of source code pro
+    font-fira-mono-nerd-font
+    font-ubuntu-mono-nerd-font
+    font-cascadia-code-nf
+    font-fira-code-nerd-font
     font-meslo-lg-nerd-font
     font-d2coding-nerd-font
+    # normal fonts
+    font-source-code-pro
 )
 
 # https://github.com/mas-cli/mas
