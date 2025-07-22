@@ -15,7 +15,7 @@
   // C/C++
   "clangd.path": "/usr/bin/clangd",
   "clangd.enabled": true,
-  "clangd.compilationDatabaseCandidates": ["./build"],
+  "clangd.compilationDatabaseCandidates": ["./build", "./build-qnx"],
   "clangd.arguments": ["--log=verbose"],
 
   // Python
