@@ -40,3 +40,12 @@ else
     echo $OSTYPE
     zinit snippet OMZ::themes/agnoster.zsh-theme
 fi
+
+# NOTE: insert below lines into ~/.p10k.zsh in order to indicate background job
+# typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+#   ...
+#   background_jobs
+#   prompt_char
+# )
+# typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VISUAL_IDENTIFIER_EXPANSION='🎃'
+# typeset -g POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=grey

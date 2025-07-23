@@ -127,8 +127,15 @@ set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.DS_Store,.vscode,.vs,*.stackdump
 
-if has('nvim') && has('win32') " nvim-qt(Windows)
-    let g:python3_host_prog = 'C:/Python312/python'
+if has('nvim')  " provider settings
+    let g:loaded_node_provider = 0
+    let g:loaded_perl_provider = 0
+    let g:loaded_ruby_provider = 0
+    if index(['Darwin', 'Linux'], g:os) >= 0
+        let g:python3_host_prog = substitute(system('which python3'), '\n\+$', '', '')
+    elseif g:os == 'Windows'
+        let g:python3_host_prog = 'C:/Python312/python'
+    endif
 endif
 
 if has('gui_win32') " GUI settings on Windows
