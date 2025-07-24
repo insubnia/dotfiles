@@ -257,7 +257,9 @@ PHONY += clang-format-cxx
 clang-format-cxx:
 	@$(ECHO) "generating .clang-format for C++"
 	@clang-format -style="{\
-		BasedOnStyle : Google,\
+		BasedOnStyle     : Google,\
+		ColumnLimit      : 120,\
+		IndentCaseLabels : false,\
 	}" -dump-config > .clang-format
 
 test:
