@@ -19,14 +19,17 @@ if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
     " File Explorer
     Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-tree/nvim-web-devicons'
+      Plug 'nvim-tree/nvim-web-devicons'
     " Autocomplete
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     " Useful
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-    Plug 'nvim-treesitter/nvim-treesitter-context'
+      Plug 'nvim-treesitter/nvim-treesitter-context'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'hiphish/rainbow-delimiters.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+    Plug 'folke/todo-comments.nvim'
+      Plug 'nvim-lua/plenary.nvim'
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     " File Explorer
@@ -46,8 +49,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'jiangmiao/auto-pairs'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
@@ -350,13 +353,6 @@ autocmd FileType cpp setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-" :help highlight-groups
-" :source $VIMRUNTIME/syntax/hitest.vim
-" autocmd Syntax * call matchadd('IncSearch', '\W\zs\(TODO\|FIXME\|XXX\|HACK\):')
-" autocmd Syntax * call matchadd('Wildmenu', '\W\zs\(NOTE\|INFO\|REFERENCE\|HELP\):')
-" autocmd Syntax * call matchadd('DiffAdd', '\W\zs\(IDEA\|OPTIMIZE\):')
-" autocmd Syntax * call matchadd('DiffDelete', '\W\zs\(BUG\|ERROR\|FATAL\):')
 
 function! OperatorHL()
     if has('nvim')

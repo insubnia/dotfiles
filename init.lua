@@ -5,15 +5,22 @@ local vim = vim
 local keyset = vim.keymap.set
 
 --[[ PLUGINS ]]
--- NOTE: https://github.com/junegunn/vim-plug
--- local Plug = vim.fn['plug#']
--- vim.call('plug#begin')
--- Plug('nvim-tree/nvim-tree.lua')
--- Plug('nvim-tree/nvim-web-devicons')
--- Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
--- Plug('nvim-treesitter/nvim-treesitter', { ['do'] = 'TSUpdate' })
--- Plug('p00f/nvim-ts-rainbow')
--- vim.call('plug#end')
+-- lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
+end
+vim.opt.rtp:prepend(lazypath)
 
 
 -- CoC
@@ -210,3 +217,13 @@ require('ibl').setup {
 
 -- nvim-web-devicons
 require("nvim-web-devicons").setup {}
+
+-- todo-comments
+require("todo-comments").setup {
+    signs = false,
+    highlight = {
+        before = "",
+        keyword = "wide",
+        after = "fg",
+    }
+}
