@@ -4,6 +4,9 @@
 local vim = vim
 local keyset = vim.keymap.set
 
+--[[ SETTINGS ]]
+
+
 --[[ PLUGINS ]]
 -- lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -20,7 +23,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         os.exit(1)
     end
 end
+local rtp_before_lazy = vim.opt.rtp:get()  -- NOTE: workaround for using lazy and vim-plug together
 vim.opt.rtp:prepend(lazypath)
+require("lazy").setup {}
+vim.opt.rtp:append(rtp_before_lazy)
 
 
 -- CoC

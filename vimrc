@@ -97,6 +97,10 @@ Plug 'tssm/fairyfloss.vim'
 " Others
 Plug 'chriskempson/base16-vim'
 call plug#end()
+
+" NOTE: workaround for using lazy and vim-plug together
+if v:vim_did_enter | finish | endif
+autocmd VimEnter * source $DOTFILES/vimrc
 " }}}
 " ============================================================================
 " BASIC SETTINGS {{{
