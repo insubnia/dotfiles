@@ -23,9 +23,23 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         os.exit(1)
     end
 end
-local rtp_before_lazy = vim.opt.rtp:get()  -- NOTE: workaround for using lazy and vim-plug together
+local rtp_before_lazy = vim.opt.rtp:get() -- NOTE: workaround for using lazy and vim-plug together
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup {}
+require("lazy").setup {
+    { 'neoclide/coc.nvim', branch = 'release' },
+    { 'nvim-tree/nvim-tree.lua', lazy = false, dependencies = { 'nvim-tree/nvim-web-devicons' } },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        branch = 'master', lazy = false, build = ":TSUpdate",
+        dependencies = {  -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Extra-modules-and-plugins
+            'nvim-treesitter/nvim-treesitter-context',
+        }
+    },
+    { 'lukas-reineke/indent-blankline.nvim', main='ibl', opts={} },
+    { 'hiphish/rainbow-delimiters.nvim' },
+    { 'nvim-telescope/telescope.nvim', tag = '0.1.8', dependencies = { 'nvim-lua/plenary.nvim' } },
+    { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+}
 vim.opt.rtp:append(rtp_before_lazy)
 
 
