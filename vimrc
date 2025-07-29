@@ -86,8 +86,10 @@ Plug 'chriskempson/base16-vim'
 call plug#end()
 
 " NOTE: workaround for using lazy and vim-plug together
-if v:vim_did_enter | finish | endif
-autocmd VimEnter * source $DOTFILES/vimrc
+if has('nvim')
+    if v:vim_did_enter | finish | endif
+    autocmd VimEnter * source $DOTFILES/vimrc
+endif
 " }}}
 " ============================================================================
 " BASIC SETTINGS {{{
@@ -120,17 +122,6 @@ set wildignore+=*.png,*.jpg,*.zip,*.tar,*.gz
 set wildignore+=*.exe,*.elf,*.bin,*.hex,*.o,*.d,*.so,*.a,*.dll,*.lib,*.dylib
 set wildignore+=*.pyc,*.pyo,__pycache__
 set wildignore+=.DS_Store,.vscode,.vs,*.stackdump
-
-if has('nvim')  " provider settings
-    let g:loaded_node_provider = 0
-    let g:loaded_perl_provider = 0
-    let g:loaded_ruby_provider = 0
-    if index(['Darwin', 'Linux'], g:os) >= 0
-        let g:python3_host_prog = substitute(system('which python3'), '\n\+$', '', '')
-    elseif g:os == 'Windows'
-        let g:python3_host_prog = 'C:/Python312/python'
-    endif
-endif
 
 if has('gui_win32') " GUI settings on Windows
     set omnifunc=syntaxcomplete#Complete
@@ -257,15 +248,9 @@ if has('nvim')
     " Terminal keymappings
     nnoremap <leader>t :topleft vs<bar>term<cr>:set nonumber<cr>i
     tnoremap <expr> <esc> (&filetype == "fzf") ? "<esc>" : "<c-\><c-n>"
-
     if g:os == 'Darwin'
         nmap <silent> gx :!open <cWORD><cr>
     endif
-else
-    nmap J <plug>(ale_next_wrap)zz
-    nmap K <plug>(ale_previous_wrap)zz
-    nmap <leader>l <plug>(ale_fix)
-    vnoremap <leader>l :Autoformat<cr>
 endif
 
 " Keymap emulation
@@ -342,18 +327,8 @@ autocmd FileType c,cpp setlocal cinoptions=:0,g0
 autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-" autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 autocmd FileType xml,json,jsonc setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-function! OperatorHL()
-    if has('nvim')
-    else
-        syn match OperatorChars /[+\-*%=~&|^!?.,:;\<>(){}[\]]\|\/[/*]\@!/
-        exe "hi OperatorChars guifg=" . (&bg=="dark" ? "cyan" : "red")
-    endif
-endfunction
-autocmd ColorScheme c,cpp,python call OperatorHL()
-autocmd Syntax c,cpp,python call OperatorHL()
 
 au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
 
@@ -475,18 +450,11 @@ function! Close()
     pclose
     lclose
     helpclose
-
-    if IsInstalled('nvim-tree')
-        NvimTreeClose
-    else
-        NERDTreeClose
-        if &filetype ==# 'nerdtree' && winnr("$") == 1 | q | endif
+    if IsInstalled('nvim-tree') | NvimTreeClose
     endif
-
-    if IsInstalled('coc.nvim')
-        CocListCancel
-    else
-        " try | exe 'TagbarClose' | catch | endtry
+    if IsInstalled('nerdtree') | NERDTreeClose
+    endif
+    if IsInstalled('coc.nvim') | CocListCancel
     endif
 endfunction
 
@@ -519,13 +487,6 @@ function! GoTo()
         catch /E426:\|E433:/
             echohl ErrorMsg | echo "Error" | echohl None
         endtry
-    endif
-endfunction
-
-command! Build call Build()
-function! Build()
-    if index(['c', 'cpp', 'make'], &filetype) >= 0
-        exe has('nvim') ? '!make all' : 'make all'
     endif
 endfunction
 
@@ -620,28 +581,6 @@ endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
-if has('nvim')
-    lua require('init')
-endif
-
-" coc
-if IsInstalled('coc.nvim')
-    " coc-config-suggest-floatConfig
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-    inoremap <silent><expr> <TAB>
-                \ coc#pum#visible() ? coc#pum#next(1):
-                \ <SID>check_back_space() ? "\<Tab>" :
-                \ coc#refresh()
-    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-    inoremap <silent><expr> <c-space> coc#refresh()
-    inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-
-    autocmd BufEnter * if (winnr("$") == 1 && &filetype ==# 'coctree') | q | endif
-endif
-
 " gitgutter
 set updatetime=100
 set signcolumn=yes
@@ -778,6 +717,15 @@ if IsInstalled('ale')
     let g:ale_xml_xmllint_options = '--format'
     let g:ale_sign_error = '✘'
     let g:ale_sign_warning = ''
+
+    nmap J <plug>(ale_next_wrap)zz
+    nmap K <plug>(ale_previous_wrap)zz
+    nmap <leader>l <plug>(ale_fix)
+endif
+
+" autoformat
+if IsInstalled('autoformat')
+    vnoremap <leader>l :Autoformat<cr>
 endif
 
 " surround
@@ -806,6 +754,10 @@ endif
 " }}}
 " ============================================================================
 " OUTRO {{{
+if has('nvim')
+    lua require('init')
+endif
+
 if g:os == "Darwin"
     let g:everforest_background = "soft"  " soft, medium, hard
     colo everforest
