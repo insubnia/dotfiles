@@ -17,6 +17,7 @@ endif
 " PLUGINS {{{
 if has('nvim')
     call plug#begin((has('win32') ? '~/AppData/Local/nvim' : '~/.config/nvim') . '/plugged')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}  " NOTE: CoC is vim script based plugin
 else
     call plug#begin((has('win32') ? '~/vimfiles' : '~/.vim') . '/plugged')
     " File Explorer
@@ -581,6 +582,54 @@ endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
+" coc
+let g:coc_config_home="$DOTFILES/vim"
+let g:coc_global_extensions=[
+            \"coc-vimlsp",
+            \"coc-highlight",
+            \"coc-clangd",
+            \"coc-clang-format-style-options",
+            \"coc-cmake",
+            \"coc-json",
+            \"coc-prettier",
+            \"coc-pyright",
+            \"coc-snippets",
+            \"coc-ultisnips",
+            \"coc-lua",
+            \"coc-sh",
+            \"coc-tsserver",
+            \"coc-xml",
+            \]
+if IsInstalled('coc.nvim')
+    function! CheckBackspace() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+    inoremap <silent><expr> <TAB>
+          \ coc#pum#visible() ? coc#pum#next(1) :
+          \ CheckBackspace() ? "\<Tab>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+    inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+    inoremap <silent><expr> <c-space> coc#refresh()
+    nmap <silent><nowait> J <Plug>(coc-diagnostic-prev)
+    nmap <silent><nowait> K <Plug>(coc-diagnostic-next)
+    nmap <silent><nowait> T :call CocAction('showOutline')<CR>
+    nmap <silent><nowait> gd <Plug>(coc-definition)
+    nmap <silent><nowait> gr <Plug>(coc-references)
+    nmap ge <Plug>(coc-rename)
+    nmap <silent> gl <Plug>(coc-codeaction)
+    nmap <leader>l <Plug>(coc-format)
+    xmap <leader>l <Plug>(coc-format-selected)
+    nmap <silent><nowait> ? ::CocList -I symbols<CR>
+    nmap <silent><nowait> ; :call CocAction('doHover')<CR>
+    inoremap <silent> <C-s> <Plug>(coc-snippets-expand)
+
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+    autocmd BufEnter * if (winnr("$") == 1 && &filetype ==# 'coctree') | q | endif
+endif
+
 " gitgutter
 set updatetime=100
 set signcolumn=yes

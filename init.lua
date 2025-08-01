@@ -4,6 +4,10 @@
 local vim = vim
 local keyset = vim.keymap.set
 
+local function is_installed(name)
+  return pcall(require, name)
+end
+
 --[[ SETTINGS ]]
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -39,7 +43,6 @@ end
 local rtp_before_lazy = vim.opt.rtp:get() -- NOTE: workaround for using lazy and vim-plug together
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
-  { "neoclide/coc.nvim", branch = "release" },
   { "neovim/nvim-lspconfig" },
   { "nvim-tree/nvim-tree.lua", lazy = false, dependencies = { "nvim-tree/nvim-web-devicons" } },
   {
@@ -57,70 +60,6 @@ require("lazy").setup({
   { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 })
 vim.opt.rtp:append(rtp_before_lazy)
-
--- CoC
-vim.g.coc_config_home = "$DOTFILES/vim"
-vim.g.coc_global_extensions = {
-  "coc-vimlsp",
-  "coc-highlight",
-  "coc-clangd",
-  "coc-clang-format-style-options",
-  "coc-cmake",
-  "coc-json",
-  "coc-prettier",
-  "coc-pyright",
-  "coc-snippets",
-  "coc-ultisnips",
-  "coc-lua",
-  "coc-sh",
-  "coc-tsserver",
-  "coc-xml",
-}
-vim.api.nvim_create_augroup("CocGroup", {})
-vim.api.nvim_create_autocmd("CursorHold", {
-  group = "CocGroup",
-  command = "silent call CocActionAsync('highlight')",
-  desc = "Highlight symbol under cursor on CursorHold",
-})
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*",
-  callback = function()
-    if vim.fn.winnr("$") == 1 and vim.bo.filetype == "coctree" then
-      vim.cmd("q")
-    end
-  end,
-})
-function ToggleOutline() -- FIXME: not work as expected
-  local winid = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
-  if winid == -1 then
-    vim.fn["CocActionAsync"]("showOutline", 1)
-  else
-    -- vim.fn["CocActionAsync"]("hideOutline", 1)
-    vim.fn["coc#window#close"](winid)
-  end
-end
-function _G.check_back_space()
-  local col = vim.fn.col(".") - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-end
-local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
-keyset("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-keyset("i", "<C-SPACE>", "coc#refresh()", { silent = true, expr = true })
-keyset("n", "T", ":call CocAction('showOutline')<cr>", { silent = true, nowait = true })
--- keyset("n", "T", ":lua ToggleOutline()<CR>", { silent = true, nowait = true })
-keyset("n", "J", "<Plug>(coc-diagnostic-next)", { silent = true })
-keyset("n", "K", "<Plug>(coc-diagnostic-prev)", { silent = true })
-keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })
-keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
-keyset("n", "ge", "<Plug>(coc-rename)", { silent = true })
-keyset("n", "gl", "<Plug>(coc-codeaction)", { silent = true })
-keyset("n", "<leader>l", "<Plug>(coc-format)", { silent = true })
-keyset("v", "<leader>l", "<Plug>(coc-format-selected)", { silent = true })
-keyset("n", "?", ":CocList -I symbols<cr>", { silent = true, nowait = true })
-keyset("n", ";", ":call CocAction('doHover')<cr>", { silent = true, nowait = true })
-keyset("i", "<C-s>", "<Plug>(coc-snippets-expand)", { silent = true })
 
 -- nvim-treesitter
 require("nvim-treesitter.configs").setup({
