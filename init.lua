@@ -54,6 +54,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter-context",
     },
   },
+  { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   { "hiphish/rainbow-delimiters.nvim" },
   { "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = { "nvim-lua/plenary.nvim" } },
@@ -170,6 +171,19 @@ vim.api.nvim_create_autocmd("QuitPre", {
       end
     end
   end,
+})
+
+-- nvim-autopairs
+local Rule = require('nvim-autopairs.rule')
+local npairs = require('nvim-autopairs')
+npairs.add_rules({
+  Rule("/*", "*/", { "c", "cpp" }),
+  Rule('f"', '"', "python"):with_move(function(opts)
+    return opts.char == '"'
+  end),
+  Rule("f'", "'", "python"):with_move(function(opts)
+    return opts.char == "'"
+  end)
 })
 
 -- rainbow-delimiters

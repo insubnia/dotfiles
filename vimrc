@@ -25,6 +25,7 @@ else
     Plug 'xuyuanp/nerdtree-git-plugin', has('unix') ? {} : { 'on': [] }
     Plug 'ryanoasis/vim-devicons'
     " etc
+    Plug 'jiangmiao/auto-pairs'
     Plug 'sirver/ultisnips'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'dense-analysis/ale'
@@ -39,7 +40,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf.vim'
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'jiangmiao/auto-pairs'
 Plug 'blueyed/vim-diminactive'
 Plug 'godlygeek/tabular'
 Plug 'romainl/vim-qf'
@@ -718,13 +718,11 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call timer_start(10, 
 if IsInstalled('auto-pairs')
     let g:AutoPairsFlyMode = 0
     let g:AutoPairsShortcutFastWrap = '<C-]>'
-    if exists('g:AutoPairs')
-        autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
-        autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
-        autocmd FileType python
-                    \ let g:AutoPairs["f'"] = "'" |
-                    \ let g:AutoPairs['"""'] = ''
-    endif
+    autocmd FileType vim if has_key(g:AutoPairs, '"') | unlet g:AutoPairs['"'] | endif
+    autocmd FileType c,cpp let g:AutoPairs['/*'] = '*/'
+    autocmd FileType python
+                \ let g:AutoPairs["f'"] = "'" |
+                \ let g:AutoPairs['"""'] = ''
 endif
 
 " UltiSnips
