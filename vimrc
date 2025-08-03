@@ -582,6 +582,10 @@ endfunction
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS {{{
+if has('nvim')
+    lua require('init')
+endif
+
 " coc
 let g:coc_config_home="$DOTFILES/vim"
 let g:coc_global_extensions=[
@@ -613,8 +617,8 @@ if IsInstalled('coc.nvim')
     inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
     inoremap <silent><expr> <c-space> coc#refresh()
-    nmap <silent><nowait> J <Plug>(coc-diagnostic-prev)
-    nmap <silent><nowait> K <Plug>(coc-diagnostic-next)
+    nmap <silent><nowait> J <Plug>(coc-diagnostic-next)
+    nmap <silent><nowait> K <Plug>(coc-diagnostic-prev)
     nmap <silent><nowait> T :call CocAction('showOutline')<CR>
     nmap <silent><nowait> gd <Plug>(coc-definition)
     nmap <silent><nowait> gr <Plug>(coc-references)
@@ -801,10 +805,6 @@ endif
 " }}}
 " ============================================================================
 " OUTRO {{{
-if has('nvim')
-    lua require('init')
-endif
-
 if g:os == "Darwin"
     let g:everforest_background = "soft"  " soft, medium, hard
     colo everforest

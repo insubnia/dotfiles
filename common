@@ -39,6 +39,7 @@ alias tmuxx='tmux -f $DOTFILES/conf/tmux.conf'
 # etc
 alias cdb='compiledb'
 alias goaws='ssh -i $ONEDRIVE/key.pem ubuntu@aws'
+alias editorconfig='ln -sf $DOTFILES/conf/editorconfig .editorconfig'
 
 
 export RIPGREP_CONFIG_PATH=$DOTFILES/conf/ripgreprc

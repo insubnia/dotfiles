@@ -26,6 +26,9 @@
   "python.analysis.autoImportCompletions": false,
   "pyright.enable": true, // https://github.com/fannheyward/coc-pyright
 
+  // Lua
+  "Lua.format.enable": true,
+
   // etc
   "prettier.disableLanguages": ["vim", "c", "cpp", "python"],
   "json.format.enable": true,
