@@ -28,6 +28,10 @@
 
   // Lua
   "Lua.format.enable": true,
+  "Lua.format.defaultConfig": {
+    "function_parentheses": "None",
+    "align_array_table": "false"
+  },
 
   // etc
   "prettier.disableLanguages": ["vim", "c", "cpp", "python"],
