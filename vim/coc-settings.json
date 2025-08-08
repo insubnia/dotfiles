@@ -12,6 +12,9 @@
 
   "snippets.textmateSnippetsRoots": ["$DOTFILES/vim/snippets"],
 
+  "languageserver": {
+  },
+
   // C/C++
   "clangd.path": "/usr/bin/clangd",
   "clangd.enabled": true,
@@ -34,7 +37,7 @@
   },
 
   // etc
-  "prettier.disableLanguages": ["vim", "c", "cpp", "python"],
+  "prettier.disableLanguages": ["vim", "c", "cpp", "python", "lua"],
   "json.format.enable": true,
   "json.format.keepLines": true
 }

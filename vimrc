@@ -51,7 +51,8 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 " ---------- colorschemes ----------
 " Best
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'hzchirs/vim-material' " material_style = (light, dark, palenight, oceanic)
 Plug 'ayu-theme/ayu-vim' " ayucolor = (light, dark, mirage)
 Plug 'ajmwagar/vim-deus'

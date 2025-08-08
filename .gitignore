@@ -1,5 +1,6 @@
 **/build/
 .clang-format
+.editorconfig
 .vscode
 compile_commands.json
 key.pem
