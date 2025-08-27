@@ -144,9 +144,6 @@ if &term =~ 'xterm'
     let &t_SR="\e[3 q"
     let &t_EI="\e[0 q"
 endif
-
-let c_gnu = 1
-let c_syntax_for_h = 1
 " }}}
 " ============================================================================
 " KEY MAPPINGS {{{
@@ -194,7 +191,7 @@ nnoremap <M-Left> <C-o>zz
 nnoremap <bs> :noh<cr>
 nnoremap <leader>c :Colors<cr>
 nnoremap <leader>d :Diff<cr>
-nnoremap <leader>e :call Trim()<cr>
+nnoremap <leader>e :Trim<cr>
 nnoremap <leader>f :RG<cr>
 nnoremap <leader>m :marks<cr>
 " nnoremap <leader>q
@@ -204,7 +201,7 @@ nnoremap <leader>w :IgnoreSpaceChange<cr>
 nnoremap <leader><space> :wa<cr>
 " nnoremap <leader>E
 " nnoremap <leader>F
-" nnoremap <leader>R
+nnoremap <leader>R :Restart<cr>
 nnoremap <leader><cr> o<esc>
 vnoremap < <gv
 vnoremap > >gv
@@ -433,12 +430,7 @@ command! RW set noro
 
 command! Unstage silent !git reset --mixed HEAD -- %
 
-command! Preproc Silent gcc -E % | less
-
-function! MyHandler(id)
-endfunction
-" call timer_start(100, 'MyHandler', {'repeat': -1})
-
+command! Trim call Trim()
 function! Trim()
     if &filetype != 'make'
         TS
@@ -457,6 +449,12 @@ function! Close()
     if IsInstalled('nerdtree') | NERDTreeClose
     endif
     if IsInstalled('coc.nvim') | CocListCancel
+    endif
+endfunction
+
+command! Restart call Restart()
+function! Restart()
+    if IsInstalled('coc.nvim') | CocRestart
     endif
 endfunction
 
@@ -719,6 +717,17 @@ autocmd FileType python
 " fzf
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | call timer_start(10, {->execute('FZF')}) | endif
 
+" qf
+let g:qf_auto_resize = 0
+let g:qf_mapping_ack_style = 1
+
+" tagbar
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
+
+" peekaboo
+let g:peekaboo_window = 'vert botright 40new'
+
 " AutoPairs
 if IsInstalled('auto-pairs')
     let g:AutoPairsFlyMode = 0
@@ -740,17 +749,11 @@ if IsInstalled('ultisnips')
 endif
 
 " indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
-
-" qf
-let g:qf_auto_resize = 0
-let g:qf_mapping_ack_style = 1
-
-" tagbar
-let g:tagbar_autofocus = 1
-let g:tagbar_sort = 0
+if IsInstalled('vim-indent-guides')
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_exclude_filetypes =  ['help', 'nerdtree', 'tagbar', 'text']
+endif
 
 " ale
 if IsInstalled('ale')
@@ -780,17 +783,6 @@ if IsInstalled('autoformat')
     vnoremap <leader>l :Autoformat<cr>
 endif
 
-" surround
-nmap ys" ysiw"
-nmap ys' ysiw'
-nmap ys) ysiw)
-nmap ys> ysiw>
-nmap ys] ysiw]
-nmap ys} ysiw}
-
-" peekaboo
-let g:peekaboo_window = 'vert botright 40new'
-
 " devicon
 if IsInstalled('ryanoasis/vim-devicons')
     let g:webdevicons_enable = 1
@@ -807,13 +799,11 @@ endif
 " ============================================================================
 " OUTRO {{{
 if g:os == "Darwin"
-    let g:everforest_background = "soft"  " soft, medium, hard
-    colo everforest
-    let g:airline_theme = 'everforest'
+    colo catppuccin
+    let g:airline_theme = 'catppuccin'
 elseif g:os == "Linux"
-    let g:material_style = 'dark'  " light, dark, palenight, oceanic
-    colo vim-material
-    let g:airline_theme = 'material'
+    colo jay
+    let g:airline_theme = 'jay'
 elseif g:os == "WSL"
     colo badwolf
     let g:airline_theme = 'badwolf'
