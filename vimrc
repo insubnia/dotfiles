@@ -401,7 +401,7 @@ function! NewPy()
         "exe "norm! i#!".system("which python3")
         exe "norm! i#!/usr/bin/python3\n"
     endif
-    exe "norm! i\n\nif __name__ == \'__main__\':\n...\ekkk"
+    exe "norm! i\n\nif __name__ == \'__main__\':\n\t...\ekkk"
 endfunction
 
 augroup NewFile
