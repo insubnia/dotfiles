@@ -1,18 +1,10 @@
 #!/bin/zsh
-
-# zstyle
-## case-insensitive (uppercase from lowercase) completion
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-## case-insensitive (all) completion
-#zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-## case-insensitive,partial-word and then substring completion
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
+zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 zinit snippet OMZ::plugins/git/git.plugin.zsh
@@ -40,6 +32,17 @@ else
     echo $OSTYPE
     zinit snippet OMZ::themes/agnoster.zsh-theme
 fi
+
+autoload -Uz compinit
+compinit
+
+# zstyle
+## case-insensitive (uppercase from lowercase) completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+## case-insensitive (all) completion
+#zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+## case-insensitive,partial-word and then substring completion
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # NOTE: insert below lines into ~/.p10k.zsh in order to indicate background job
 # typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
