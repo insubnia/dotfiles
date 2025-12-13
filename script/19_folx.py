@@ -1,8 +1,8 @@
 #!/opt/homebrew/bin/python3
-import re
-import os
-import sys
 import glob
+import os
+import re
+import sys
 from colorama import Fore
 
 # ln -sf ~/workspace/dotfiles/script/19_folx.py ~/workspace/folx/main.py
@@ -18,7 +18,7 @@ for d in dirs:
     paths = glob.glob(f'{d}/*.mp4')
     paths = list(reversed(sorted(paths, key=lambda x: os.stat(x).st_size)))
 
-    for path in paths:
+    for path in paths:  # for searched mp4
         old = os.path.basename(path)
         if any(ord(v) > 127 for v in old):
             continue
@@ -28,6 +28,9 @@ for d in dirs:
 
         new_path = f"{d}{new}"
         os.rename(path, new_path)
+        if 0:
+            new_path_underscore = new_path.replace('.mp4', '_.mp4')
+            os.system(f"ffmpeg -i {new_path} -c copy {new_path_underscore}")
 
     os.system(f"rm -rf {d}/*.txt")
     os.system(f"rm -rf {d}/*.url")
