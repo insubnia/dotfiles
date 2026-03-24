@@ -48,7 +48,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-peekaboo'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 " ---------- colorschemes ----------
 " Best
 Plug 'dracula/vim', { 'as': 'dracula' }

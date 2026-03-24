@@ -2,10 +2,40 @@
 import glob
 import os
 import re
+import subprocess
 import sys
 from colorama import Fore
 
 # ln -sf ~/workspace/dotfiles/script/19_folx.py ~/workspace/folx/main.py
+
+
+def validate_mp4(mp4_path: str):
+    proc = subprocess.run(
+            ['MP4Box', '-info', mp4_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+            )
+    output = (proc.stdout + proc.stderr).lower()
+
+    error_keywords = [
+            "moov"
+            # "error",
+            # "invalid",
+            # "broken",
+            # "corrupt",
+            # "bad",
+            # "missing moov"
+            ]
+
+    if proc.returncode != 0:
+        return False
+    elif any(k in output for k in error_keywords):
+        # print(f"{Fore.RED}{mp4_path}{Fore.RESET}")
+        # print(output)
+        return False
+    return True
+
 
 if len(sys.argv) > 1:
     target_dir = sys.argv[1]
@@ -28,7 +58,7 @@ for d in dirs:
 
         new_path = f"{d}{new}"
         os.rename(path, new_path)
-        if 0:
+        if (not validate_mp4(new_path)) and True:
             new_path_underscore = new_path.replace('.mp4', '_.mp4')
             os.system(f"ffmpeg -i {new_path} -c copy {new_path_underscore}")
 

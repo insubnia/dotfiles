@@ -55,6 +55,15 @@ require("lazy").setup({
   { "hiphish/rainbow-delimiters.nvim" },
   { "nvim-telescope/telescope.nvim", tag = "0.1.8", dependencies = { "nvim-lua/plenary.nvim" } },
   { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npx --yes yarn install",
+    init = function ()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
 })
 vim.opt.rtp:append(rtp_before_lazy)
 

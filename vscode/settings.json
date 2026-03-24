@@ -3,7 +3,7 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.tree.indent": 12,
 
-  "terminal.integrated.shell.windows": "%SystemRoot%\\System32\\cmd.exe",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 13,
 
@@ -34,6 +34,8 @@
   },
   "search.useIgnoreFiles": false,
 
+  "zenMode.fullScreen": false,
+
   "vim": {
     "gdefault": true,
     "useSystemClipboard": true,
@@ -44,7 +46,7 @@
     "handleKeys": {
     },
 
-    "_1": "https://demun.github.io/vscode-tutorial/shortcuts/",
+    "__1": "https://demun.github.io/vscode-tutorial/shortcuts/",
     "normalModeKeyBindingsNonRecursive": [
       { "before": [";"], "commands": ["editor.action.showHover"] },
       { "before": ["?"], "commands": ["workbench.action.showAllSymbols"] },
@@ -112,7 +114,7 @@
     "editor.formatOnType": true
   },
 
-  "_2": "Plugin settings",
+  "__2": "Plugin settings",
   "indentRainbow.indicatorStyle": "light",
 
   "security.workspace.trust.untrustedFiles": "open"
